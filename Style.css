@@ -1,3 +1,29 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+    flex-direction: row;
+}
+
+.container_left {  
+    width: 20%;
+    background-color: #707070;
+    padding: 1rem;
+}
+
+.container_right {  
+    width: 100%;
+    background-color: #886a4a;
+    padding: 1rem;
+    border-left-style: solid;
+    border-left-color: black;
+    border-left-width: 2px;
+}
+
 .galery{
     display: flex;
     height: 20rem;
