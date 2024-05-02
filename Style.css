@@ -5,19 +5,30 @@ body {
 
 .container {
     display: flex;
-    height: 100vh;
+    height: fit-content;
     flex-direction: row;
 }
 
-.container_left {  
+.container-left {  
     width: 20%;
-    background-color: #707070;
+    background-color: #bdac96;
     padding: 1rem;
 }
 
-.container_right {  
+.menu-item {
+    display: block;
+    margin-bottom: 1.5rem;
+    background-color: #8d765b;
+    border: 1px solid;
+    text-align: center;
+    color: black;
+}
+
+
+.container-right {  
     width: 100%;
-    background-color: #886a4a;
+    /*height: fit-content;*/
+    background-color: #e0d5bf;
     padding: 1rem;
     border-left-style: solid;
     border-left-color: black;
@@ -41,4 +52,26 @@ body {
 
 .galery > div:hover {
     flex: 6;
+}
+
+.box-titulo {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 12%;
+    height: 12%;
+}
+
+.titulo {
+    margin: 2rem;
+}
+
+.box-titulo2 {
+    text-align: center;
+}
+
+.titulo2 {
+    padding: 2rem;
 }
