@@ -11,24 +11,25 @@ body {
 
 .container-left {  
     width: 20%;
-    background-color: #bdac96;
+    background-color: #EDDBCD;
     padding: 1rem;
 }
 
 .menu-item {
     display: block;
-    margin-bottom: 1.5rem;
-    background-color: #8d765b;
-    border: 1px solid;
-    text-align: center;
-    color: black;
+    margin-bottom: 1rem;
+    background-color: transparent;
+    border: 0px;
+    text-align: left;
+    color: #954E48;
+    text-decoration: underline;
 }
 
 
 .container-right {  
     width: 100%;
     /*height: fit-content;*/
-    background-color: #e0d5bf;
+    background-color: #b19980;
     padding: 1rem;
     border-left-style: solid;
     border-left-color: black;
@@ -57,15 +58,19 @@ body {
 .box-titulo {
     display: flex;
     align-items: center;
+    justify-content: center;
+    background-color: #DFC7AF;
 }
 
 .logo {
     width: 12%;
     height: 12%;
+    border-radius: 50%;
 }
 
 .titulo {
     margin: 2rem;
+    color: black;
 }
 
 .box-titulo2 {
@@ -74,4 +79,9 @@ body {
 
 .titulo2 {
     padding: 2rem;
+}
+
+.titulo-menu {
+    margin: 0rem;
+    color: black;
 }
