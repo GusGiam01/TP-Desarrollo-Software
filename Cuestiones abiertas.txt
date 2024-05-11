@@ -1,0 +1,10 @@
+Cuestiones abiertas: 
+- ¿Todos los artículos se pueden alquilar?
+- Si se alquila un producto, ¿hay un seguro en caso de daños?
+- Si es que hay seguro, ¿es por artículo o es el mismo para todos? ¿Varía dependiendo de la cantidad de días de alquiler?
+- Conrespecto a la cantidad de días del alquiler, ¿es igual para todos los artículos? ¿Hay un límite (mínimo o máximo) de días o es a elección del cliente?
+- Una vez realizada la reserva, ¿cuántos días deben pasar de la fecha de retiro para que se cancele la reserva? 
+
+
+Consultas mias:
+- ¿Hay alguna forma de cuando subo los archivos al gitHub se commitee en la branch Feature, en vez de que se mergeen con Main siempre?
