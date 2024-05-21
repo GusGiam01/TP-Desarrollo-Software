@@ -1,7 +1,91 @@
+@font-face {
+    font-family: "SanMartin";
+    src: url("assets/font/FTY\ SKORZHEN\ NCV.otf") 
+}
+
 body {
     margin: 0;
     padding: 0;
+    background-color: #DFC6AF;
 }
+
+/*Header*/
+.header {
+    background-color: #8F342F; 
+    display: grid;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    grid-template-columns: 0.2fr 1fr 1fr 0.5fr;
+    grid-template-rows: 1fr;
+}
+
+.nav-header{
+    display: flex;
+    justify-content: space-between;
+    margin-right: 25%;
+    margin-left: 25%;
+    grid-column: 4;
+    grid-row: 1;
+}
+
+.div-menu{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.div-logo{
+    align-items: center;
+    justify-self: center;
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.a-logo{
+    font-family: "SanMartin";
+    color: white;
+    -webkit-text-stroke: 1.5px;
+    -webkit-text-stroke-color: black;
+    font-size: 40px;
+}
+
+.img-vinculos {
+    width: 60px;
+    height: 60px;
+}
+
+.menu-link:hover{
+    color: white;
+
+}
+
+.menu-desplegable{
+    background-color: #DFC6AF;
+    position: absolute;
+    display: none;
+    list-style: none;
+    width: 200px;
+
+}
+
+.menu-link a:hover .menu-desplegable{
+    display: flex;
+}
+
+/*Index*/
+.item-pasos {
+    -webkit-text-stroke: 1px;
+    -webkit-text-stroke-color: black;
+    color: white;
+    text-align: left;
+
+}
+
+
+/*Otros*/
 
 .container {
     display: flex;
@@ -29,7 +113,7 @@ body {
 .container-right {  
     width: 100%;
     /*height: fit-content;*/
-    background-color: #b19980;
+    background-color: #DFC6AF;
     padding: 1rem;
     border-left-style: solid;
     border-left-color: black;
@@ -40,6 +124,7 @@ body {
     display: flex;
     height: 20rem;
     gap: 1rem;
+    text-align: left;
 }
 
 .galery > div {
@@ -50,7 +135,7 @@ body {
     background-size: auto 100%;
     /*transition: all .8s cubic-bezier(.25, .4, .45, 1);*/
 
-    text-align: center;
+    text-align: justify;
     font-size: 900%;
 }
 /*
@@ -65,11 +150,7 @@ body {
     background-color: #DFC7AF;
 }
 
-.logo {
-    width: 12%;
-    height: 12%;
-    border-radius: 50%;
-}
+
 
 .titulo {
     margin: 2rem;
