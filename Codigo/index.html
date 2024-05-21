@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>El San Martín</title>
     <link rel="stylesheet" href="Style.css?v=7">
+    <link rel="shortcut icon" href="assets/Imagenes/lagarto.png">
 </head>
 <body>
     <header class="header">
@@ -63,27 +64,71 @@
         </ul>
     </header>
 
-   <div class="container">  
-        
-        <div class="container-right">
-            
-            <div class="box-titulo">
+    <div class="div_slider_vid">
+        <section class="slider">
+            <div class="slider_container container">
+                <img src="assets/svg/leftarrow.svg" class="slider_arrow" id="before">
                 
-
-
+                <section class="slider_body slider_body-show" data-id="1">
+                    <div class="slider_text">
+                        <h3 class="subtitle"> PASO 1</h3>
+                        <p class="slider_review">
+                            Llena el vaso de hielo, hay que tomarlo bien frio.
+                        </p>
+                    </div>
+                    <figure class="slider_picture">
+                        <img src="assets/Imagenes/img 1.jpg" alt="" class="slider_img">
+                    </figure>
+                </section>
+    
+                <section class="slider_body" data-id="2">
+                    <div class="slider_text">
+                        <h3 class="subtitle"> PASO 2</h3>
+                        <p class="slider_review">
+                            Ponele una buena cantidad de San Martin.
+                        </p>
+                    </div>
+                    <figure class="slider_picture">
+                        <img src="assets/Imagenes/img 2.jpg" alt="" class="slider_img">
+                    </figure>
+                </section>
+    
+                <section class="slider_body" data-id="3">
+                    <div class="slider_text">
+                        <h3 class="subtitle"> PASO 3</h3>
+                        <p class="slider_review">
+                            Agregale un sifonazo de soda.
+                        </p>
+                    </div>
+                    <figure class="slider_picture">
+                        <img src="assets/Imagenes/img 3.jpg" alt="" class="slider_img">
+                    </figure>
+                </section>
+    
+                <section class="slider_body" data-id="4">
+                    <div class="slider_text">
+                        <h3 class="subtitle"> PASO 4</h3>
+                        <p class="slider_review">
+                            A disfrutar.
+                        </p>
+                    </div>
+                    <figure class="slider_picture">
+                        <img src="assets/Imagenes/img 4.jpg" alt="" class="slider_img">
+                    </figure>
+                </section>
+                
+                <img src="assets/svg/rightarrow.svg" class="slider_arrow" id="next">
+                
             </div>
     
-            <div class="box-titulo2">
-                <h2 class="titulo2">Pasos para preparar un buen San Martín</h2>
-            </div>
-        
-            <div class="galery">
-                <div class="item-pasos" style="background-image: url('assets/Imagenes/img 1.jpg');">1</div>
-                <div class="item-pasos" style="background-image: url('assets/Imagenes/img 2.jpg');">2</div>
-                <div class="item-pasos" style="background-image: url('assets/Imagenes/img 3.jpg');">3</div>
-                <div class="item-pasos" style="background-image: url('assets/Imagenes/img 4.jpg');">4</div>
-            </div>
+        </section>
+        <div class="div_video">
+            <video class="index_video" autoplay="autoplay" loop="loop" muted defaultMuted playsinline  oncontextmenu="return false;"  preload="auto"  id="miVideo">
+                <source  src="assets/Imagenes/vid.mp4" type="video/mp4">
+            </video>
         </div>
     </div>
+
+    <script src="js/slider.js"> </script>
 </body>
 </html>

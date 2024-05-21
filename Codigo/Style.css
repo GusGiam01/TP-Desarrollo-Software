@@ -28,6 +28,7 @@ body {
 
 .menu-header{
     list-style: none;
+
 }
 
 /*MENU*/
@@ -174,57 +175,135 @@ body {
 
 }
 
+.galery{
+    display: grid;
+    height: 30rem;
+    gap: 1rem;
+    text-align: left;
+    grid-template-columns: 0.5fr 0.5fr 0.5fr 0.5fr;
+}
 
-/*Otros*/
+.paso1{
+    background-image: url(assets/Imagenes/img\ 1.jpg);
+    grid-column: 1;
+    grid-row: 1;
+}
 
+.div_slider_vid{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: max-content;
+}
+
+
+.container{
+    width: 90%;
+    min-height: 100vh;
+    max-width: 1200px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.div_video{
+    grid-column: 2;
+    grid-row: 1;
+}
+.index_video{
+    height: 100vh;
+    padding: 40px 0;
+}
+
+.slider{
+    grid-column: 1;
+    grid-row: 1;
+    padding: 40px 0;
+}
+
+.slider_container{
+    background-color: #c0956d;
+    display: grid;
+    grid-template-columns: 50px 1fr 50px;
+    align-items: center;
+    gap: 1em;
+}
+
+.slider_body{
+    grid-column: 2/3;
+    grid-row: 1/2;
+    opacity: 0;
+    pointer-events: none;
+    display: grid;
+    grid-template-columns: 1fr max-content;
+    align-items: center;
+    transition: opacity 1.5s;
+}
+
+.slider_body-show{
+    opacity: 1;
+    pointer-events: unset;
+}
+
+.slider_img{
+    width: 300px;
+    height: 460px;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+}
+
+.slider_text{
+    max-width: 600px;
+}
+
+.subtitle{
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    font-family: "SanMartin";
+}
+
+.slider_review{
+    font-weight: 300pc;
+    font-size: 20px;
+    line-height: 1.7;
+    font-family: "SanMartin";
+}
+
+.slider_arrow{
+    cursor: pointer;
+    width: 90%;
+
+}
+
+.slider_arrow:nth-of-type(2){
+    justify-self: end;
+}
+
+
+
+/*OTROS*/
+/*
 .container {
     display: flex;
     height: fit-content;
     flex-direction: row;
 }
+*/
 
-.container-left {  
-    width: 20%;
-    background-color: #EDDBCD;
-    padding: 1rem;
-}
-
-.menu-item {
-    display: block;
-    margin-bottom: 1rem;
-    background-color: transparent;
-    border: 0px;
-    text-align: left;
-    color: #954E48;
-    text-decoration: underline;
-}
-
-
+/*
 .container-right {  
     width: 100%;
-    /*height: fit-content;*/
     background-color: #DFC6AF;
     padding: 1rem;
-    /*border-left-style: solid;
+    border-left-style: solid;
     border-left-color: black;
-    border-left-width: 1px;*/
-}
+    border-left-width: 1px;}*/
 
-.galery{
-    display: flex;
-    height: 20rem;
-    gap: 1rem;
-    text-align: left;
-}
 
 .galery > div {
     flex: 2.6;
-    border-radius: 15rem;
     background-position: left;
     background-repeat: no-repeat;
     background-size: auto 100%;
-    /*transition: all .8s cubic-bezier(.25, .4, .45, 1);*/
-
     text-align: justify;
     font-size: 900%;
 }
