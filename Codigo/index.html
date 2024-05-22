@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,10 +8,11 @@
     <link rel="stylesheet" href="css/Style.css">
     <link rel="shortcut icon" href="assets/Imagenes/lagarto.png">
 </head>
+
 <body>
     <header class="header">
-        <ul class="menu-header menu-grid">
-            <li class="li-menu menu-link">
+        <ul class="header_ul-menu header_ul-grid">
+            <li class="li_menu menu-link">
                 <nav class="nav">
                     <div class="nav_container">
                         <a href="#menu" class="nav_menu">
@@ -43,13 +45,15 @@
                                 <div class="dropdown_content">
                                     <ul class="dropdown_sub">
                                         <li class="dropdown_list_sub">
-                                            <a href="https://l.instagram.com/?u=http%3A%2F%2Fwa.link%2Ftmalxw&e=AT1gYHHJUpgZd4X8BJ82yOQSrG3J30Bm9Gzmwn72czhj-ecSo7wRY1FEBSP8oYz4yVqaTR2vTqJBwpUE_iERCXBCDyHGvJAfYpCX1wAkJCDbOlaCbXI68A" class="dropdown_anchor" id="whatsapp">
+                                            <a href="https://l.instagram.com/?u=http%3A%2F%2Fwa.link%2Ftmalxw&e=AT1gYHHJUpgZd4X8BJ82yOQSrG3J30Bm9Gzmwn72czhj-ecSo7wRY1FEBSP8oYz4yVqaTR2vTqJBwpUE_iERCXBCDyHGvJAfYpCX1wAkJCDbOlaCbXI68A"
+                                                class="dropdown_anchor" id="whatsapp">
                                                 <img src="assets/svg/whatsapp.svg" class="dropdown_icon">
                                                 <span>Whastapp</span>
                                             </a>
                                         </li>
                                         <li class="dropdown_list_sub">
-                                            <a href="https://www.instagram.com/elsanmartinok/?hl=en" class="dropdown_anchor" id="instagram">
+                                            <a href="https://www.instagram.com/elsanmartinok/?hl=en"
+                                                class="dropdown_anchor" id="instagram">
                                                 <img src="assets/svg/instagram.svg" class="dropdown_icon">
                                                 <span>Instagram</span>
                                             </a>
@@ -67,17 +71,19 @@
                     </div>
                 </nav>
             </li>
-            <li class="li-titulo"><div>
-                <a class="a-logo">SAN MARTIN</a>
-            </div></li>
-            <li class="li-ingresar-carrito">
-                <a href="pages/ingresar.html" class="a-ingresar-carrito">
-                    <img class="img-ingresar-carrito" src="assets/svg/account.svg" alt="ingresar">
-                    <span class="span-ingresar-carrito">Ingresar</span>
+            <li class="li_titulo">
+                <div>
+                    <a class="a_logo" href="index.html">SAN MARTIN</a>
+                </div>
+            </li>
+            <li class="ingresar_carrito-li">
+                <a href="pages/ingresar.html" class="ingresar_carrito-a">
+                    <img class="ingresar_carrito-img" src="assets/svg/account.svg" alt="ingresar">
+                    <span class="ingresar_carrito-span">Ingresar</span>
                 </a>
-                <a href="pages/carrito.html" class="a-ingresar-carrito">
-                    <img class="img-ingresar-carrito" src="assets/svg/trolley.svg" alt="carrito">
-                    <span class="span-ingresar-carrito">Carrito</span>
+                <a href="pages/carrito.html" class="ingresar_carrito-a">
+                    <img class="ingresar_carrito-img" src="assets/svg/trolley.svg" alt="carrito">
+                    <span class="ingresar_carrito-span">Carrito</span>
                 </a>
             </li>
         </ul>
@@ -87,7 +93,7 @@
         <section class="slider">
             <div class="slider_container container">
                 <img src="assets/svg/leftarrow.svg" class="slider_arrow" id="before">
-                
+
                 <section class="slider_body slider_body-show" data-id="1">
                     <div class="slider_text">
                         <h3 class="subtitle"> PASO 1</h3>
@@ -99,7 +105,7 @@
                         <img src="assets/Imagenes/img 1.jpg" alt="" class="slider_img">
                     </figure>
                 </section>
-    
+
                 <section class="slider_body" data-id="2">
                     <div class="slider_text">
                         <h3 class="subtitle"> PASO 2</h3>
@@ -111,7 +117,7 @@
                         <img src="assets/Imagenes/img 2.jpg" alt="" class="slider_img">
                     </figure>
                 </section>
-    
+
                 <section class="slider_body" data-id="3">
                     <div class="slider_text">
                         <h3 class="subtitle"> PASO 3</h3>
@@ -123,7 +129,7 @@
                         <img src="assets/Imagenes/img 3.jpg" alt="" class="slider_img">
                     </figure>
                 </section>
-    
+
                 <section class="slider_body" data-id="4">
                     <div class="slider_text">
                         <h3 class="subtitle"> PASO 4</h3>
@@ -135,19 +141,21 @@
                         <img src="assets/Imagenes/img 4.jpg" alt="" class="slider_img">
                     </figure>
                 </section>
-                
+
                 <img src="assets/svg/rightarrow.svg" class="slider_arrow" id="next">
-                
+
             </div>
-    
+
         </section>
         <div class="div_video">
-            <video class="index_video" autoplay="autoplay" loop="loop" muted defaultMuted playsinline  oncontextmenu="return false;"  preload="auto"  id="miVideo">
-                <source  src="assets/Imagenes/vid.mp4" type="video/mp4">
+            <video class="index_video" autoplay="autoplay" loop="loop" muted defaultMuted playsinline
+                oncontextmenu="return false;" preload="auto" id="miVideo">
+                <source src="assets/Imagenes/video-recortado.mp4" type="video/mp4">
             </video>
         </div>
     </div>
 
     <script src="js/slider.js"> </script>
 </body>
+
 </html>
