@@ -6,7 +6,7 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #DFC6AF;
+    background-color: #dfc6af;
 }
 
 /*HEADER*/
@@ -17,7 +17,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.menu-grid{
+.header_ul-grid{
     justify-content: space-between;
     align-items: center;
     display: grid;
@@ -26,13 +26,14 @@ body {
     padding: 0;
 }
 
-.menu-header{
+.header_ul-menu{
     list-style: none;
 
 }
 
+/*..............................................................*/
 /*MENU*/
-.li-menu{
+.li_menu{
     display: flex;
     text-align: center;
     justify-content: left;
@@ -175,23 +176,25 @@ body {
     background-color: rgba(20, 138, 14, 0.307);
 }
 
+/*..............................................................*/
 /*TITULO*/
-.li-titulo{
+.li_titulo{
     justify-self: center;
     grid-column: 2;
     grid-row: 1;
 }
 
-.a-logo{
+.a_logo{
     font-family: "SanMartin";
     color: white;
     -webkit-text-stroke: 1.5px;
     -webkit-text-stroke-color: black;
     font-size: 40px;
+    text-decoration: none;
 }
-
+/*..............................................................*/
 /*ICONOS INGRESAR Y CARRITO*/
-.li-ingresar-carrito{
+.ingresar_carrito-li{
     display: flex;
     justify-content: space-between;
     margin-right: 15%;
@@ -201,71 +204,53 @@ body {
     align-items: end;
 }
 
-.a-ingresar-carrito {
+.ingresar_carrito-a{
     display: grid;
     grid-template-rows: 1.5fr 0.5fr;
     justify-items: center;
     text-decoration: none;
 }
 
-.img-ingresar-carrito {
+.ingresar_carrito-img{
     width: 30px;
     height: 30px;
     grid-row: 1;
 }
 
-.span-ingresar-carrito{
-    color: white;
+.ingresar_carrito-span{
+    color: #dfc6af;
     grid-row: 2;
+    font-weight: bold;
 }
 
 /*--------------------------------------------------------------------------------------------------------------------------------------------*/
 
 /*PAGINA-INDEX*/
-.item-pasos {
-    -webkit-text-stroke: 1px;
-    -webkit-text-stroke-color: black;
-    color: white;
-    text-align: left;
-
-}
-
-.galery{
-    display: grid;
-    height: 30rem;
-    gap: 1rem;
-    text-align: left;
-    grid-template-columns: 0.5fr 0.5fr 0.5fr 0.5fr;
-}
-
-.paso1{
-    background-image: url(assets/Imagenes/img\ 1.jpg);
-    grid-column: 1;
-    grid-row: 1;
-}
-
+/*Espacio slider-video*/
 .div_slider_vid{
     display: grid;
     grid-template-columns: 2fr 1fr;
     grid-template-rows: max-content;
 }
 
+/*Video*/
+.div_video{
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: center;
+}
+.index_video{
+    height: 100vh;
+    padding: 40px 0;
+}
 
+/*Slider*/
 .container{
     width: 90%;
     min-height: 100vh;
     max-width: 1200px;
     margin: 0 auto;
     overflow: hidden;
-}
-
-.div_video{
-    grid-column: 2;
-    grid-row: 1;
-}
-.index_video{
-    height: 100vh;
-    padding: 40px 0;
 }
 
 .slider{
@@ -331,65 +316,4 @@ body {
 
 .slider_arrow:nth-of-type(2){
     justify-self: end;
-}
-
-
-
-/*OTROS*/
-/*
-.container {
-    display: flex;
-    height: fit-content;
-    flex-direction: row;
-}
-*/
-
-/*
-.container-right {  
-    width: 100%;
-    background-color: #DFC6AF;
-    padding: 1rem;
-    border-left-style: solid;
-    border-left-color: black;
-    border-left-width: 1px;}*/
-
-
-.galery > div {
-    flex: 2.6;
-    background-position: left;
-    background-repeat: no-repeat;
-    background-size: auto 100%;
-    text-align: justify;
-    font-size: 900%;
-}
-/*
-.galery > div:hover {
-    flex: 6;
-}
-*/
-.box-titulo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #DFC7AF;
-}
-
-
-
-.titulo {
-    margin: 2rem;
-    color: black;
-}
-
-.box-titulo2 {
-    text-align: justify;
-}
-
-.titulo2 {
-    padding: 2rem;
-}
-
-.titulo-menu {
-    margin: 0rem;
-    color: black;
 }
