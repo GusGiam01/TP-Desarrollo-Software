@@ -1,0 +1,49 @@
+### Obtener todos los usuarios
+GET http://localhost:3000/api/usuarios
+
+### Obtener uno en particular
+GET http://localhost:3000/api/usuarios/1e2f651f-f4a4-4de1-9bf1-142a38839a9f
+
+### Crear un nuevo usuario
+POST http://localhost:3000/api/usuarios
+Content-Type: application/json
+
+{
+    "name":"Gustavo", 
+    "surname":"Giampietro", 
+    "user":"GusGiam",
+    "password":"12345",
+    "type":"Cliente",
+    "mail":"gusgiam@gmail.com",
+    "cellphone":3364987633,
+    "age":22
+}
+
+### Modificar un nuevo usuario (PUT - recuro completo e idempotente)
+PUT http://localhost:3000/api/usuarios/1e2f651f-f4a4-4de1-9bf1-142a38839a9f
+Content-Type: application/json
+
+{
+    "name":"Gabriel", 
+    "surname":"Dequelli", 
+    "user":"GDequelli",
+    "password":"123452354",
+    "type":"Cliente",
+    "mail":"dequelliG@gmail.com",
+    "cellphone":3364456871,
+    "age":25
+}
+
+### Modificar un nuevo usuario (PATCH - recurso parcial)
+PATCH http://localhost:3000/api/usuarios/1e2f651f-f4a4-4de1-9bf1-142a38839a9f
+Content-Type: application/json
+
+{
+    "name":"Marcos", 
+    "surname":"Galperin", 
+    "cellphone":3364651748,
+    "age":40
+}
+
+### Borrar un elemento
+DELETE http://localhost:3000/api/usuarios/1e2f651f-f4a4-4de1-9bf1-142a38839a9f
