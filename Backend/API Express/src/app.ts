@@ -61,7 +61,7 @@ app.get('/api/usuarios', (req, res)=>{
 app.get('/api/usuarios/:id', (req, res)=>{
     const usuario = usuarios.find((usuario)=>usuario.id===req.params.id)
     if(!usuario){
-        res.status(404).send({message:'User not found.'})
+        return res.status(404).send({message:'User not found.'})
     }
     res.json(usuario)
 })
@@ -83,39 +83,45 @@ app.post('/api/usuarios', sanitizeUsuarioInput, (req, res) => {
     )
 
     usuarios.push(usuario)
-    res.status(201).send({message: 'User created', data: usuario})
+    return res.status(201).send({message: 'User created', data: usuario})
 })
 
 app.put('/api/usuarios/:id', sanitizeUsuarioInput, (req, res) =>{
     const usuarioId = usuarios.findIndex((usuario) => usuario.id === req.params.id)
 
     if(usuarioId === -1){
-        res.status(404).send({message:'User not found.'})
+        return res.status(404).send({message:'User not found.'})
     }
     usuarios[usuarioId]= {...usuarios[usuarioId], ...req.body.sanitizedUsuarioInput}
 
-    res.status(200).send({message: 'User updated.', data: usuarios[usuarioId]})
+    return res.status(200).send({message: 'User updated.', data: usuarios[usuarioId]})
 })
 
 app.patch('/api/usuarios/:id', sanitizeUsuarioInput, (req, res) =>{
     const usuarioId = usuarios.findIndex((usuario) => usuario.id === req.params.id)
 
     if(usuarioId === -1){
-        res.status(404).send({message:'User not found.'})
+        return res.status(404).send({message:'User not found.'})
     }
     usuarios[usuarioId]= {...usuarios[usuarioId], ...req.body.sanitizedUsuarioInput}
+    //Object.assign(usuarios[usuarioId]= {usuarios[usuarioId], req.body.sanitizedUsuarioInput)      //Otra forma de realizarlo
 
-    res.status(200).send({message: 'User updated.', data: usuarios[usuarioId]})
+    return res.status(200).send({message: 'User updated.', data: usuarios[usuarioId]})
 })
 
 app.delete('/api/usuarios/:id', (req, res)=>{
     const usuarioId = usuarios.findIndex((usuario) => usuario.id === req.params.id)
 
     if(usuarioId ===-1){
-        res.status(404).send({message:'User not found.'})
+        return res.status(404).send({message:'User not found.'})
+    }else{
+        usuarios.splice(usuarioId, 1)
+        return res.status(200).send({message:'User deleted succesfully.'})
     }
-    usuarios.splice(usuarioId, 1)
-    res.status(200).send({message:'User deleted succesfully.'})
+})
+
+app.use((_, res) =>{
+    return res.status(404).send({message: "Resource not found."})
 })
 
 app.listen(3000, () => {
