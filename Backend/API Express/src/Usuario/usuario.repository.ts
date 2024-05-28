@@ -42,10 +42,10 @@ export class UsuarioRepository implements Repository<Usuario>{
     public delete(item: {id: string;}): Usuario | undefined{
         const usuarioId = usuarios.findIndex((usuario) => usuario.id === item.id)
 
-    if(usuarioId !== -1){
-        const deletedUsuarios = usuarios[usuarioId] 
-        usuarios.splice(usuarioId, 1)
-        return deletedUsuarios
-    }
+        if(usuarioId !== -1){
+            const deletedUsuarios = usuarios[usuarioId] 
+            usuarios.splice(usuarioId, 1)
+            return deletedUsuarios
+        }
     }
 }
