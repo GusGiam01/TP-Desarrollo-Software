@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El San Martín-Ingresar</title>
+    <title>El San Martín-Tienda</title>
     <link rel="stylesheet" href="../css/Style.css">
     <link rel="shortcut icon" href="../assets/Imagenes/lagarto.png">
 </head>
@@ -26,10 +26,17 @@
                                     <span class="dropdown_span">Home</span>
                                 </a>
                             </li>
+                           
                             <li class="dropdown_list">
-                                <a class="dropdown_link" href="#">
+                                <a class="dropdown_link" href="productos.html">
                                     <img src="../assets/svg/bottle.svg" class="dropdown_icon">
                                     <span class="dropdown_span">Productos</span>
+                                </a>
+                            </li>
+                            <li class="dropdown_list">
+                                <a class="dropdown_link" href="location.html">
+                                    <img src="../assets/svg/location.svg" class="dropdown_icon">
+                                    <span class="dropdown_span">¿Dónde Encontrarnos?</span>
                                 </a>
                             </li>
                             <li class="dropdown_list">
@@ -57,12 +64,7 @@
                                     </ul>
                                 </div>
                             </li>
-                            <li class="dropdown_list">
-                                <a class="dropdown_link" href="#">
-                                    <img src="../assets/svg/location.svg" class="dropdown_icon">
-                                    <span class="dropdown_span">¿Dónde Encontrarnos?</span>
-                                </a>
-                            </li>
+                            
                         </ul>
                     </div>
                 </nav>
@@ -71,7 +73,7 @@
                 <a class="a-logo">SAN MARTIN</a>
             </div></li>
             <li class="li-ingresar-carrito">
-                <a href="" class="a-ingresar-carrito">
+                <a href="ingresar.html" class="a-ingresar-carrito">
                     <img class="img-ingresar-carrito" src="../assets/svg/account.svg" alt="ingresar">
                     <span class="span-ingresar-carrito">Ingresar</span>
                 </a>
@@ -82,3 +84,67 @@
             </li>
         </ul>
     </header>
+
+<div class="principal">
+    <aside class="filter-menu">
+        <form id="filterForm">
+            <h2>Filtrar por:</h2>
+
+            <h3>Marca</h3>
+            <div class="filter-group">
+                <label><input type="checkbox" name="feature" value="caracteristica1"> El San Martín</label>
+                <label><input type="checkbox" name="feature" value="caracteristica2"> Martini</label>
+            </div>
+
+            <h3>Bebida</h3>
+            <div class="filter-group">
+                <label><input type="checkbox" name="feature" value="caracteristica1"> Vermut</label>
+                <label><input type="checkbox" name="feature" value="caracteristica2"> Whisky</label>
+            </div>
+
+            <button type="submit">Aplicar Filtros</button>
+        </form>
+    </aside>
+
+    <div class="contenedor-productos">
+
+        <div class="producto">
+            <img src="../assets/Imagenes/img 5.png" alt="">
+            <h3>Nombre del Producto 1</h3>
+            <p>Descripción del Producto 1.</p>
+            <button>Ver Detalles</button>
+        </div>
+        <div class="producto">
+            <img src="ruta/a/la/imagen-del-producto.jpg" alt="Producto 2">
+            <h3>Nombre del Producto 1</h3>
+            <p>Descripción del Producto 1.</p>
+            <button>Ver Detalles</button>
+        </div>
+        <div class="producto">
+            <img src="ruta/a/la/imagen-del-producto.jpg" alt="Producto 3">
+            <h3>Nombre del Producto 1</h3>
+            <p>Descripción del Producto 1.</p>
+            <button>Ver Detalles</button>
+        </div>
+        <div class="producto">
+            <img src="ruta/a/la/imagen-del-producto.jpg" alt="Producto 4">
+            <h3>Nombre del Producto 1</h3>
+            <p>Descripción del Producto 1.</p>
+            <button>Ver Detalles</button>
+        </div>
+        <div class="producto">
+            <img src="ruta/a/la/imagen-del-producto.jpg" alt="Producto 5">
+            <h3>Nombre del Producto 1</h3>
+            <p>Descripción del Producto 1.</p>
+            <button>Ver Detalles</button>
+        </div>
+        <div class="producto">
+            <img src="ruta/a/la/imagen-del-producto.jpg" alt="Producto 6">
+            <h3>Nombre del Producto 1</h3>
+            <p>Descripción del Producto 1.</p>
+            <button>Ver Detalles</button>
+        </div>
+    </div>
+</div>
+
+<button class="btn-pagar">Ir a Pagar</button>
