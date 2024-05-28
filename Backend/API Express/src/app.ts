@@ -1,8 +1,8 @@
 import express, { NextFunction, Request, Response } from 'express'
-import {Usuario} from './usuarios.js'
+import {Usuario} from './Usuario/usuarios.entity.js'
+import { UsuarioRepository } from './Usuario/usuario.repository.js'
 
 const app = express()
-
 app.use(express.json())     //middleware que completa el req.body
 
 //GET obtiene informacion sobre recursos desde el servidor
@@ -15,6 +15,8 @@ app.use(express.json())     //middleware que completa el req.body
 //post /api/v1/usuarios/ -> crear nuevos usuarios
 //delete /api/v1/usuarios/:id -> borrar usuario con id = :id (se debe indicar el recurso del objeto a borrar)
 //put o patch /api/v1/usuarios/ -> modificar usuario con id = :id
+
+const repository = new UsuarioRepository()
 
 const usuarios/*: Usuario[] */= [        //lo comentado se infiere
     new Usuario(
@@ -55,11 +57,11 @@ function sanitizeUsuarioInput(req: Request, res: Response, next: NextFunction){
 }
 
 app.get('/api/usuarios', (req, res)=>{
-    res.json(usuarios)
+    res.json({data: repository.findAll() })
 })
 
 app.get('/api/usuarios/:id', (req, res)=>{
-    const usuario = usuarios.find((usuario)=>usuario.id===req.params.id)
+    const usuario = repository.findOne({id: req.params.id})
     if(!usuario){
         return res.status(404).send({message:'User not found.'})
     }
@@ -70,7 +72,7 @@ app.post('/api/usuarios', sanitizeUsuarioInput, (req, res) => {
     //la info estará en la req.body, pero a veces no se obtiene toda la info, esto se soluciona con middlewares que formen el req.body
     const input = req.body.sanitizedUsuarioInput
 
-    const usuario = new Usuario(
+    const usuarioInput = new Usuario(
         input.name, 
         input.surname, 
         input.user, 
@@ -82,46 +84,43 @@ app.post('/api/usuarios', sanitizeUsuarioInput, (req, res) => {
         //input.id
     )
 
-    usuarios.push(usuario)
+    const usuario = repository.add(usuarioInput)
     return res.status(201).send({message: 'User created', data: usuario})
 })
 
 app.put('/api/usuarios/:id', sanitizeUsuarioInput, (req, res) =>{
-    const usuarioId = usuarios.findIndex((usuario) => usuario.id === req.params.id)
+    req.body.sanitizedUsuarioInput.id = req.params.id
+    const usuario = repository.update(req.body.sanitizedUsuarioInput)
 
-    if(usuarioId === -1){
+    if(!usuario){
         return res.status(404).send({message:'User not found.'})
     }
-    usuarios[usuarioId]= {...usuarios[usuarioId], ...req.body.sanitizedUsuarioInput}
-
-    return res.status(200).send({message: 'User updated.', data: usuarios[usuarioId]})
+    return res.status(200).send({message: 'User updated.', data: usuario})
 })
 
 app.patch('/api/usuarios/:id', sanitizeUsuarioInput, (req, res) =>{
-    const usuarioId = usuarios.findIndex((usuario) => usuario.id === req.params.id)
+    req.body.sanitizedUsuarioInput.id = req.params.id
+    const usuario = repository.update(req.body.sanitizedUsuarioInput)
 
-    if(usuarioId === -1){
+    if(!usuario){
         return res.status(404).send({message:'User not found.'})
     }
-    usuarios[usuarioId]= {...usuarios[usuarioId], ...req.body.sanitizedUsuarioInput}
-    //Object.assign(usuarios[usuarioId]= {usuarios[usuarioId], req.body.sanitizedUsuarioInput)      //Otra forma de realizarlo
-
-    return res.status(200).send({message: 'User updated.', data: usuarios[usuarioId]})
+    return res.status(200).send({message: 'User updated.', data: usuario})
 })
 
 app.delete('/api/usuarios/:id', (req, res)=>{
-    const usuarioId = usuarios.findIndex((usuario) => usuario.id === req.params.id)
-
-    if(usuarioId ===-1){
+    const id = req.params.id
+    const usuario = repository.delete({id})
+    
+    if(!usuario){
         return res.status(404).send({message:'User not found.'})
     }else{
-        usuarios.splice(usuarioId, 1)
         return res.status(200).send({message:'User deleted succesfully.'})
     }
 })
 
 app.use((_, res) =>{
-    return res.status(404).send({message: "Resource not found."})
+    return res.status(404).send({message: 'Resource not found.'})
 })
 
 app.listen(3000, () => {
