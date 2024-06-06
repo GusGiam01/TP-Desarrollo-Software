@@ -14,6 +14,7 @@ body {
     background-color: #8F342F; 
     display: block;
     padding: 10px;
+    margin-bottom: 0;
     font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -455,7 +456,6 @@ button[type="submit"]:hover {
     flex-direction: row;
     align-items: flex-start; /* Alinea los elementos en la parte superior */
     gap: 10px; /* Espacio entre el menú de filtros y el contenedor de productos */
-    padding: 20px;
 }
 
 /* Estilos para el contenedor de productos */
@@ -465,8 +465,8 @@ button[type="submit"]:hover {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Crea columnas automáticas que se ajustan al contenido */
     grid-gap: 10px; /* Espacio entre los productos */
     justify-content: flex-start;
-    margin: auto; /* Centra el contenedor horizontalmente */
-    max-width: 1000px; /* Ajusta el ancho máximo del contenedor */
+    margin: 0 auto; /* Centra el contenedor horizontalmente */
+    max-width: 1500px; /* Ajusta el ancho máximo del contenedor */
     
 }
 
@@ -479,15 +479,7 @@ button[type="submit"]:hover {
     border-radius: 15px;
 }
 
-.producto img {
-    display: block;
-    margin: 0 auto;
-    max-width: 100%;
-    width: 130px; /* Ancho fijo */
-    height: auto; /* Mantiene la proporción de la imagen */
-    border-radius: 15px;
 
-}
 
  /* Estilos para el botón "Pagar" en la parte inferior derecha de la página */
  .btn-pagar {
@@ -507,3 +499,107 @@ button[type="submit"]:hover {
     background-color: #218838; /* Color de fondo del botón al pasar el ratón */
 }
 
+/* FlipCards*/
+:root{
+    --primary: #c0956d;
+    --secondary: #c0956d;
+    --dark:#212121;
+    --light: #f3f3f3;
+}
+
+
+
+body{
+    font-family: montserrat,sans-serif;
+    width: 100%;
+    min-height: 100vh;
+    
+}
+
+.card{
+    margin: 10px auto 0;
+    width: 300px;
+    height: 500px;
+
+}
+
+.card__inner{
+    width: 100%;
+    height: 100%;
+    transition: transform 1s;
+    transform-style: preserve-3d;
+    cursor:pointer;
+    position: relative;
+}
+
+.card__inner.is-flipped{
+    transform: rotateY(180deg);
+}
+
+.card__face{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    overflow: hidden;
+    border-radius: 16px;
+    box-shadow: 0px 3px 18px 3px rgba(0, 0, 0, 0.2);
+}
+.card__face--front{
+    background-image: linear-gradient(to bottom right, var(--primary), var(--secondary));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card__face--front h2{
+    color:#FFF;
+    font-size: 32px;
+    text-align: center;    
+
+}
+
+.card__face--back h2{
+    color:#000000;
+    font-size: 24px;
+    text-align: center;  
+
+}
+
+.card__face--back{
+    background-color: var(--light);
+    transform: rotateY(180deg);
+} 
+
+.card__content{
+    width:100%;
+    height: 100%;
+}
+
+.card__header{
+    position: relative;
+    padding: 10px 10px 10px;
+}
+
+.card__header:after{
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    border-radius: 0 0 50% 0;
+    background-image: linear-gradient(to bottom left,var(--primary) 10%, var(--secondary) 115%);
+}
+
+.producto{
+    display: block;
+    width: 130px;
+    height: 320px;
+    margin: 0 auto ;
+    border-radius: 0%;
+    object-fit: cover;
+}
