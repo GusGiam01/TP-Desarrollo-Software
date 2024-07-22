@@ -1,8 +1,8 @@
 <section class="slider">
     <div class="slider_container container">
-        <img src="svg/leftarrow.svg" class="slider_arrow" id="before">
+        <img src="svg/leftarrow.svg" class="slider_arrow" id="before" (click)="changePosition(-1)">
 
-        <section class="slider_body slider_body-show" data-id="1">
+        <section class="slider_body" data-id="1" [class.slider_body-show] = "showSlider1 === true">
             <div class="slider_text">
                 <h3 class="subtitle"> PASO 1</h3>
                 <p class="slider_review">
@@ -14,7 +14,7 @@
             </figure>
         </section>
 
-        <section class="slider_body" data-id="2">
+        <section class="slider_body" data-id="2" [class.slider_body-show] = "showSlider2 === true">
             <div class="slider_text">
                 <h3 class="subtitle"> PASO 2</h3>
                 <p class="slider_review">
@@ -26,7 +26,7 @@
             </figure>
         </section>
 
-        <section class="slider_body" data-id="3">
+        <section class="slider_body" data-id="3" [class.slider_body-show] = "showSlider3 === true">
             <div class="slider_text">
                 <h3 class="subtitle"> PASO 3</h3>
                 <p class="slider_review">
@@ -38,7 +38,7 @@
             </figure>
         </section>
 
-        <section class="slider_body" data-id="4">
+        <section class="slider_body" data-id="4" [class.slider_body-show] = "showSlider4 === true">
             <div class="slider_text">
                 <h3 class="subtitle"> PASO 4</h3>
                 <p class="slider_review">
@@ -46,12 +46,11 @@
                 </p>
             </div>
             <figure class="slider_picture">
-                <img src="img/img 4.jpg" alt="" class="slider_img">
+                <img src="img/img 4.jpg" alt="" class="slider_img" >
             </figure>
         </section>
 
-        <img src="svg/rightarrow.svg" class="slider_arrow" id="next">
+        <img src="svg/rightarrow.svg" class="slider_arrow" id="next" (click)="changePosition(1)">
 
     </div>
-
 </section>

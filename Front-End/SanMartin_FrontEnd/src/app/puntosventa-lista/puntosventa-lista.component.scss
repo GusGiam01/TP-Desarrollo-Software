@@ -1,0 +1,33 @@
+@font-face {
+    font-family: "SecondarySMfont";
+    src: url("../../../public/font/puntosVenta/SaaSeriesCDOT.ttf")
+}
+
+.ul-puntos{
+    font-family: 'SecondarySMfont';
+    font-size: 20px;
+    text-align: center;
+    list-style: none;
+    text-decoration: none;
+    color: black;
+    padding-left: 0%;
+}
+
+.li-titulo{
+    color: #8F342F; 
+    font-size: 25px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+a {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0px;
+    text-decoration: none;
+    color: black;
+}
+
+p{
+    margin-top: 0px;
+}

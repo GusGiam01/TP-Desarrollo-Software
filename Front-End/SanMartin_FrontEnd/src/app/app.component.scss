@@ -1,3 +1,7 @@
+.main{
+    margin-top: 160px;
+}
+
 .div_slider_vid{
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -14,4 +18,216 @@
     grid-column: 2;
     grid-row: 1;
     justify-self: center;
+}
+
+// header temporal
+
+.header {
+    background-color: #8F342F; 
+    display: block;
+    padding: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.header_ul-grid{
+    justify-content: space-between;
+    align-items: center;
+    display: grid;
+    grid-template-columns: 0.2fr 1fr 1fr 0.5fr;
+    grid-template-rows: 1fr;
+    padding: 0;
+}
+
+.header_ul-menu{
+    list-style: none;
+}
+
+/*..............................................................*/
+/*MENU*/
+.li_menu{
+    display: flex;
+    text-align: center;
+    justify-content: left;
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.nav{
+    --img1: scale(1);
+    --img2: scale(0);
+}
+
+.nav:has(.dropdown:target){
+    --img1: scale(0);
+    --img2: scale(1);
+
+    --clip: inset(0 0 0 0);
+
+}
+
+.nav_container{
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: max-content;
+    grid-template-areas: "img";
+    grid-template-rows: 1;
+    justify-content: space-between;
+    align-items: center;
+
+    overflow: hidden;
+}
+
+.nav_menu{
+    grid-area: img;
+    position: relative;
+    z-index: 10;
+    transform: var(--img1);
+}
+
+.nav_menu-second{
+    transform: var(--img2);
+}
+
+.nav_icon {
+    display: block;
+    width: 30px;
+    display: block;
+}
+
+.dropdown{
+    position: absolute;
+    background-color: #EDDBCD;
+    width: 16%;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    padding: 1em;
+
+    display: grid;
+    align-content: center;
+    gap: 1rem;
+
+    clip-path: var(--clip, inset(0 100% 100% 0));
+    transition: 0.5s;
+}
+
+.dropdown_list{
+    list-style: none;
+}
+
+.dropdown_link:hover {
+    background-color: #998d84;
+}
+
+.dropdown_link{
+    text-decoration: none;
+    color: black;
+    padding: 1em 0.7em;
+    display: flex;
+    text-align: center;
+    gap: .6rem;
+    text-align: center;
+    background-color: var(--bg, transparent);
+    position: relative;
+}
+
+.dropdown_list:has( :checked){
+    --rows: 1fr;
+    --rotate: rotate(180deg);
+}
+
+.dropdown_icon{
+    width: 25px;
+}
+
+.dropdown_check{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.dropdown_arrow{
+    transform: var(--rotate, 0);
+    transition: .2s transform;
+    width: 25px;
+}
+
+.dropdown_content{
+    display: grid;
+    grid-template-rows: var(--rows, 0fr);
+    transition: .3s grid-template-rows;
+}
+
+.dropdown_sub{
+    overflow: hidden;
+}
+
+.dropdown_list_sub{
+    width: 85%;
+    list-style: none;
+    margin-left: auto 0;
+}
+
+.dropdown_anchor{
+    padding: 1em 0;
+    display: block;
+    color: black;
+    text-decoration: none;
+}
+
+#instagram:hover {
+    background-color: rgba(108, 43, 108, 0.307);
+}
+
+#whatsapp:hover {
+    background-color: rgba(20, 138, 14, 0.307);
+}
+
+/*..............................................................*/
+/*TITULO*/
+.li_titulo{
+    justify-self: center;
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.a_logo{
+    font-family: "SanMartin";
+    color: white;
+    -webkit-text-stroke: 1.5px;
+    -webkit-text-stroke-color: black;
+    font-size: 40px;
+    text-decoration: none;
+}
+/*..............................................................*/
+/*ICONOS INGRESAR Y CARRITO*/
+.ingresar_carrito-li{
+    display: flex;
+    justify-content: space-between;
+    margin-right: 15%;
+    margin-left: 15%;
+    grid-column: 4;
+    grid-row: 1;
+    align-items: end;
+}
+
+.ingresar_carrito-a{
+    display: grid;
+    grid-template-rows: 1.5fr 0.5fr;
+    justify-items: center;
+    text-decoration: none;
+}
+
+.ingresar_carrito-img{
+    width: 30px;
+    height: 30px;
+    grid-row: 1;
+}
+
+.ingresar_carrito-span{
+    color: #000000;
+    grid-row: 2;
+    font-weight: bold;
 }

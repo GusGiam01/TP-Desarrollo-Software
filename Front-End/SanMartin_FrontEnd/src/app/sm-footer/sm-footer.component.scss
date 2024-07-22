@@ -1,0 +1,96 @@
+@font-face {
+    font-family: "SecondarySMfont";
+    src: url("../../../public/font/puntosVenta/SaaSeriesCDOT.ttf")
+}
+
+.footer{
+    background-color: #EDDBCD;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    font-family: 'SecondarySMfont';
+    width: 100%;
+}
+
+.div-footer{
+    margin-left: 0.5rem;
+}
+
+.span-h5 {
+    text-align: left;
+    margin-right: .5rem;
+    font-size: 1.2rem;
+    font-style: normal;
+    font-weight: bold;
+    text-transform: none;
+    color: #000;
+}
+.span-h5::after{
+    content: "";
+    display: block;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    border-bottom: solid 3px #8F342F;;
+    margin-right: 30px;
+}
+
+.h5-footer{
+    display: block;
+    font-size: 0.83em;
+    font-weight: bold;
+    unicode-bidi: isolate;
+    margin-bottom: 0rem;
+}
+
+.ul-footer{
+    margin-top: 0px;
+    list-style: none;
+    padding-left: 0%;
+}
+
+.img-footer{
+    height: 0.75rem;
+    padding-right: 0.25rem;
+}
+
+.a-footer{
+    text-decoration: none;
+    color:#000;
+    font-size: 1rem;
+}
+
+.a-footer:hover{
+    color: rgb(80, 79, 79);
+}
+
+.hr-footer{
+    margin-right: 40px;
+    border: .5px solid black;
+}
+
+.arrow{
+    rotate: 270deg;
+    height: 1rem;
+    vertical-align: middle;
+}
+
+li:has(.a-footer:hover) .arrow{
+    translate: 0.3rem 0rem;
+    transition: translate .5s;
+}
+
+.warning{
+    background-color: #8F342F;
+    font-family: 'SecondarySMfont';
+    height: 2.5rem;
+    justify-content: center;
+    text-align: center;
+}
+
+.warning-span{
+    color: white;
+    padding-top: 0.75rem;
+    margin-top: 0;
+    margin-bottom: 0;
+    vertical-align: middle;
+}

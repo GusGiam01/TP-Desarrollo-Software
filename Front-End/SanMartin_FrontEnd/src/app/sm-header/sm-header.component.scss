@@ -1,15 +1,23 @@
+.div-control{
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
 .header {
     background-color: #8F342F; 
     display: block;
     padding: 10px;
     font-family: Arial, Helvetica, sans-serif;
+    z-index: 3;
+    position: relative;
 }
 
 .header_ul-grid{
     justify-content: space-between;
     align-items: center;
     display: grid;
-    grid-template-columns: 0.2fr 1fr 1fr 0.5fr;
+    grid-template-columns: 0.5fr 0.5fr 1fr 0.5fr 0.5fr;
     grid-template-rows: 1fr;
     padding: 0;
 }
@@ -19,8 +27,8 @@
 }
 
 /*..............................................................*/
-/*MENU*/
-.li_menu{
+/*MENU HAMBURGUESA*/
+/*.li_menu{
     display: flex;
     text-align: center;
     justify-content: left;
@@ -161,34 +169,51 @@
 
 #whatsapp:hover {
     background-color: rgba(20, 138, 14, 0.307);
-}
+}*/
 
 /*..............................................................*/
 /*TITULO*/
 .li_titulo{
     justify-self: center;
-    grid-column: 2;
+    grid-column: 3;
     grid-row: 1;
 }
 
 .a_logo{
     font-family: "SanMartin";
-    color: white;
+    color: transparent;
     -webkit-text-stroke: 1.5px;
     -webkit-text-stroke-color: black;
-    font-size: 40px;
+    font-size: 3rem;
     text-decoration: none;
+    background-clip: text;
+    background-image: url(../../../public/img/fondo-sanMartin.png);
+    background-size: cover;
 }
 /*..............................................................*/
 /*ICONOS INGRESAR Y CARRITO*/
-.ingresar_carrito-li{
+.carrito-li{
+    display: flex;
+    justify-content: space-between;
+    margin-right: 15%;
+    margin-left: 15%;
+    grid-column: 5;
+    grid-row: 1;
+    align-items: end;
+    padding-left: 15%;
+    padding-right: 15%;
+}
+
+.ingresar-li{
     display: flex;
     justify-content: space-between;
     margin-right: 15%;
     margin-left: 15%;
     grid-column: 4;
     grid-row: 1;
-    align-items: end;
+    align-self: center;
+    padding-left: 15%;
+    padding-right: 15%;
 }
 
 .ingresar_carrito-a{
@@ -198,14 +223,108 @@
     text-decoration: none;
 }
 
-.ingresar_carrito-img{
+.carrito-img{
     width: 30px;
     height: 30px;
-    grid-row: 1;
+    padding-left: 4.3px;
+    padding-right: 5.7px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+}
+
+.ingresar-img{
+    width: 30px;
+    height: 30px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .ingresar_carrito-span{
     color: #000000;
     grid-row: 2;
-    font-weight: bold;
+    font-size: larger;
+    color: #EDDBCD; 
+    font-family: 'SecondarySMfont';
+    font-style: normal;
 }
+
+.dot{
+    height: 40px;
+    width: 40px;
+    background-color: #EDDBCD;
+    border-radius: 50%;
+    display: inline-block;
+    -webkit-text-stroke: 5px;
+    -webkit-text-stroke-color: #000000;
+    border: 2px solid black;
+}
+
+//pruebas
+
+.li-span-prueba{
+    color: #EDDBCD;
+    font-size: 20px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.ingresar_carrito-a-prueba{
+    display: block;
+    justify-items: center;
+    text-decoration: none;
+    text-align: center;
+    font-family: 'SecondarySMfont';
+}
+
+
+//Prubea header estilo bombay
+
+.div-bottom-prueba{
+    background-color: #aa524d;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    transition: all 0.1s;
+    top: 0px;
+    position: relative;
+    z-index: 1;
+}
+
+.compressed_menu{
+    margin-right: 150px;
+    margin-left: 150px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.ul-prueba{
+    list-style: none;
+    list-style-position: inside;
+    justify-content: space-around;
+    display: flex;
+    grid-template-rows: 1fr;
+    margin-top: 0%;
+    margin-bottom: 0%;
+}
+
+.li-bottom_menu{
+    display: flex;
+    grid-row: 1;
+    font-family: 'SecondarySMfont';
+    line-height: 1.5625;
+}
+
+.li-bottom_menu:hover > .a_li-bottom_menu{
+    text-decoration: underline;
+    color: #EDDBCD;
+}
+
+.a_li-bottom_menu{
+    font-style: normal;
+    color: #000000;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
