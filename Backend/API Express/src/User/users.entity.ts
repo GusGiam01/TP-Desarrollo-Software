@@ -1,7 +1,6 @@
 import { ObjectId } from 'mongodb';
-import crypto from 'node:crypto'
 
-export class Usuario{
+export class User{
     constructor(
         public name:string, 
         public surname:string, 
@@ -11,8 +10,7 @@ export class Usuario{
         public mail:string,
         public cellphone:number,
         public age:number,
-        //public id = crypto.randomUUID(),
-        public _id ?: ObjectId                  //Se la deja como opcional.
+        public _id ?: ObjectId
     ){
 
     }

@@ -1,10 +1,10 @@
 import express from 'express'
-import { usuarioRouter } from './Usuario/usuario.routes.js'
+import { userRouter } from './User/user.routes.js'
 
 const app = express()
 app.use(express.json())     //middleware que completa el req.body
 
-app.use('/api/usuarios', usuarioRouter)
+app.use('/api/users', userRouter)
 
 app.use((_, res) =>{
     return res.status(404).send({message: 'Resource not found.'})

@@ -1,0 +1,49 @@
+### Obtener todos los usuarios
+GET http://localhost:3000/api/products
+
+### Obtener uno en particular
+GET http://localhost:3000/api/products/66c3c0d5e8ac1812bfedcacb
+
+### Crear un nuevo usuario
+POST http://localhost:3000/api/products
+Content-Type: application/json
+
+{
+    "code":"SM2900", 
+    "priceUni":2300, 
+    "name":"San Martin",
+    "stock":7,
+    "type":"Vermuoth",
+    "state":"Disponible",
+    "discount":15,
+    "brand":"San Martin"
+}
+
+### Modificar un nuevo usuario (PUT - recuro completo e idempotente)
+PUT http://localhost:3000/api/products/66c3c0d5e8ac1812bfedcacb
+Content-Type: application/json
+
+{
+    "code":"P2900", 
+    "priceUni":500, 
+    "name":"Pimienta",
+    "stock":9,
+    "type":"Botanico",
+    "state":"Encargado",
+    "discount":0,
+    "brand":" "
+}
+
+### Modificar un nuevo usuario (PATCH - recurso parcial)
+PATCH http://localhost:3000/api/products/66c3c0d5e8ac1812bfedcacb
+Content-Type: application/json
+
+{
+    "name":"Fernet", 
+    "priceUni":1000, 
+    "discount":0,
+    "brand":"Branca"
+}
+
+### Borrar un elemento
+DELETE http://localhost:3000/api/products/66c3c0d5e8ac1812bfedcacb

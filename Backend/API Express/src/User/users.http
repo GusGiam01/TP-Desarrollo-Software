@@ -1,11 +1,11 @@
 ### Obtener todos los usuarios
-GET http://localhost:3000/api/usuarios
+GET http://localhost:3000/api/users
 
 ### Obtener uno en particular
-GET http://localhost:3000/api/usuarios/66c3c0d5e8ac1812bfedcacb
+GET http://localhost:3000/api/users/66c3c0f3e8ac1812bfedcacc
 
 ### Crear un nuevo usuario
-POST http://localhost:3000/api/usuarios
+POST http://localhost:3000/api/users
 Content-Type: application/json
 
 {
@@ -20,7 +20,7 @@ Content-Type: application/json
 }
 
 ### Modificar un nuevo usuario (PUT - recuro completo e idempotente)
-PUT http://localhost:3000/api/usuarios/66c3c0d5e8ac1812bfedcacb
+PUT http://localhost:3000/api/users/66c3c0f3e8ac1812bfedcacc
 Content-Type: application/json
 
 {
@@ -35,7 +35,7 @@ Content-Type: application/json
 }
 
 ### Modificar un nuevo usuario (PATCH - recurso parcial)
-PATCH http://localhost:3000/api/usuarios/66c3c0d5e8ac1812bfedcacb
+PATCH http://localhost:3000/api/users/66c3c0f3e8ac1812bfedcacc
 Content-Type: application/json
 
 {
@@ -46,4 +46,4 @@ Content-Type: application/json
 }
 
 ### Borrar un elemento
-DELETE http://localhost:3000/api/usuarios/66c3c0d5e8ac1812bfedcacb
+DELETE http://localhost:3000/api/users/66c3c0f3e8ac1812bfedcacc
