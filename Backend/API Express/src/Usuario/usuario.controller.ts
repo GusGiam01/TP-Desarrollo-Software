@@ -28,19 +28,19 @@ function sanitizeUsuarioInput(req: Request, res: Response, next: NextFunction){
     next()
 }
 
-function findAll(req:Request, res:Response) {
-    res.json({ data: repository.findAll() })
+async function findAll(req:Request, res:Response) {
+    res.json({ data: await repository.findAll() })
 }
 
-function findOne(req:Request, res:Response) {
-    const usuario = repository.findOne({id: req.params.id})
+async function findOne(req:Request, res:Response) {
+    const usuario = await repository.findOne({id: req.params.id})
     if(!usuario){
         return res.status(404).send({message:'User not found.'})
     }
     res.json(usuario)
 }
 
-function add(req:Request, res:Response) {
+async function add(req:Request, res:Response) {
     //la info estará en la req.body, pero a veces no se obtiene toda la info, esto se soluciona con middlewares que formen el req.body
     const input = req.body.sanitizedUsuarioInput
 
@@ -56,13 +56,12 @@ function add(req:Request, res:Response) {
         //input.id
     )
 
-    const usuario = repository.add(usuarioInput)
+    const usuario = await repository.add(usuarioInput)
     return res.status(201).send({message: 'User created', data: usuario})
 }
 
-function update(req:Request, res:Response) {
-    req.body.sanitizedUsuarioInput.id = req.params.id
-    const usuario = repository.update(req.body.sanitizedUsuarioInput)
+async function update(req:Request, res:Response) {
+    const usuario = await repository.update(req.params.id, req.body.sanitizedUsuarioInput)
 
     if(!usuario){
         return res.status(404).send({message:'User not found.'})
@@ -70,9 +69,9 @@ function update(req:Request, res:Response) {
     return res.status(200).send({message: 'User updated.', data: usuario})
 }
 
-function remove(req:Request, res:Response) {
+async function remove(req:Request, res:Response) {
     const id = req.params.id
-    const usuario = repository.delete({id})
+    const usuario = await repository.delete({id})
     
     if(!usuario){
         return res.status(404).send({message:'User not found.'})
