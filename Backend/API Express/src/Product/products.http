@@ -1,10 +1,29 @@
-### Obtener todos los usuarios
+### Obtener todos los productos
 GET http://localhost:3000/api/products
 
-### Obtener uno en particular
-GET http://localhost:3000/api/products/66c3c0d5e8ac1812bfedcacb
+### Crear un nuevo producto
+# @name createGin
+POST http://localhost:3000/api/products
+Content-Type: application/json
 
-### Crear un nuevo usuario
+{
+    "code":"G2340", 
+    "priceUni":8000, 
+    "name":"Gordon",
+    "stock":4,
+    "type":"Gin",
+    "state":"Disponible",
+    "discount":0,
+    "brand":"Aconcagua"
+}
+
+### ID
+@id = {{createGin.response.body.data.id}}
+
+### Obtener uno en particular
+GET http://localhost:3000/api/products/{{id}}
+
+### Crear un nuevo producto
 POST http://localhost:3000/api/products
 Content-Type: application/json
 
@@ -19,8 +38,8 @@ Content-Type: application/json
     "brand":"San Martin"
 }
 
-### Modificar un nuevo usuario (PUT - recuro completo e idempotente)
-PUT http://localhost:3000/api/products/66c3c0d5e8ac1812bfedcacb
+### Modificar un nuevo producto (PUT - recuro completo e idempotente)
+PUT http://localhost:3000/api/products/{{id}}
 Content-Type: application/json
 
 {
@@ -34,8 +53,8 @@ Content-Type: application/json
     "brand":" "
 }
 
-### Modificar un nuevo usuario (PATCH - recurso parcial)
-PATCH http://localhost:3000/api/products/66c3c0d5e8ac1812bfedcacb
+### Modificar un nuevo producto (PATCH - recurso parcial)
+PATCH http://localhost:3000/api/products/{{id}}
 Content-Type: application/json
 
 {
@@ -46,4 +65,4 @@ Content-Type: application/json
 }
 
 ### Borrar un elemento
-DELETE http://localhost:3000/api/products/66c3c0d5e8ac1812bfedcacb
+DELETE http://localhost:3000/api/products/{{id}}

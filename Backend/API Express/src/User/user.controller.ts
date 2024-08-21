@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction} from "express"
-import { UserRepository } from "./user.repository.js"
-import { User } from "./users.entity.js"
+import { User } from "./user.entity.js"
+import { orm } from "../shared/db/orm.js"
 
-const repository = new UserRepository()
+const em = orm.em
 
 
 function sanitizeUserInput(req: Request, res: Response, next: NextFunction){
@@ -26,55 +26,64 @@ function sanitizeUserInput(req: Request, res: Response, next: NextFunction){
     next()
 }
 
-async function findAll(req:Request, res:Response) {
-    res.json({ data: await repository.findAll() })
-}
-
-async function findOne(req:Request, res:Response) {
-    const user = await repository.findOne({id: req.params.id})
-    if(!user){
-        return res.status(404).send({message:'User not found.'})
+async function findAll(req: Request, res: Response) {
+    try {
+      const users = await em.find(
+        User,
+        {}//,
+        //{ populate: ['userClass', 'items'] }
+      )
+      res.status(200).json({ message: 'found all users', data: users })
+    } catch (error: any) {
+      res.status(500).json({ message: error.message })
     }
-    res.json(user)
-}
+  }
 
-async function add(req:Request, res:Response) {
-    const input = req.body.sanitizedUserInput
-
-    const userInput = new User(
-        input.name, 
-        input.surname, 
-        input.user, 
-        input.password, 
-        input.type, 
-        input.mail, 
-        input.cellphone, 
-        input.age,
-    )
-
-    const user = await repository.add(userInput)
-    return res.status(201).send({message: 'User created', data: user})
-}
-
-async function update(req:Request, res:Response) {
-    const user = await repository.update(req.params.id, req.body.sanitizedUserInput)
-
-    if(!user){
-        return res.status(404).send({message:'User not found.'})
+  async function findOne(req: Request, res: Response) {
+    try {
+      const id = req.params.id
+      //const user = await em.findOneOrFail(User, id)
+      const user = await em.findOneOrFail(User, { id })
+      res.status(200).json({ message: 'found user', data: user })
+    } catch (error: any) {
+      res.status(500).json({ message: error.message })
     }
-    return res.status(200).send({message: 'User updated.', data: user})
-}
-
-async function remove(req:Request, res:Response) {
-    const id = req.params.id
-    const user = await repository.delete({id})
-    
-    if(!user){
-        return res.status(404).send({message:'User not found.'})
-    }else{
-        return res.status(200).send({message:'User deleted succesfully.'})
+  }
+  
+  async function add(req: Request, res: Response) {
+    try {
+      const user = em.create(User, req.body.sanitizedInput)
+      await em.flush()
+      res.status(201).json({ message: 'user created', data: user })
+    } catch (error: any) {
+      res.status(500).json({ message: error.message })
     }
-}
+  }
+  
+  async function update(req: Request, res: Response) {
+    try {
+      const id = req.params.id
+      //const userToUpdate = await em.findOneOrFail(User, id)
+      const userToUpdate = await em.findOneOrFail(User, { id })
+      em.assign(userToUpdate, req.body.sanitizedInput)
+      await em.flush()
+      res
+        .status(200)
+        .json({ message: 'user updated', data: userToUpdate })
+    } catch (error: any) {
+      res.status(500).json({ message: error.message })
+    }
+  }
+  
+  async function remove(req: Request, res: Response) {
+    try {
+      const id = req.params.id
+      const user = em.getReference(User, id)
+      await em.removeAndFlush(user)
+    } catch (error: any) {
+      res.status(500).json({ message: error.message })
+    }
+  }
 
 
 export {sanitizeUserInput, findAll, findOne, add, update, remove}
