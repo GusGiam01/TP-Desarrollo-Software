@@ -9,7 +9,7 @@ Content-Type: application/json
 {
     "name":"Gustavo", 
     "surname":"Giampietro", 
-    "user":"GusGiam",
+    "userName":"GusGiam",
     "password":"12345",
     "type":"Admin",
     "mail":"gusgiam@gmail.com",
@@ -31,7 +31,7 @@ Content-Type: application/json
 {
     "name":"Sebastian", 
     "surname":"Ondarcuhu", 
-    "user":"Sebas",
+    "userName":"Sebas",
     "password":"214365",
     "type":"Cliente",
     "mail":"sondar@gmail.com",
@@ -46,7 +46,7 @@ Content-Type: application/json
 {
     "name":"Gabriel", 
     "surname":"Dequelli", 
-    "user":"GDequelli",
+    "userName":"GDequelli",
     "password":"123452354",
     "type":"Admin",
     "mail":"dequelliG@gmail.com",
@@ -73,7 +73,7 @@ Content-Type: application/json
 {
     "name":"Natalia", 
     "surname":"Peruchena", 
-    "user":"NatiP",
+    "userName":"NatiP",
     "password":"0137036542",
     "type":"Client",
     "mail":"natiPM@gmail.com",
@@ -89,7 +89,7 @@ DELETE http://localhost:3000/api/users/{{idToDelete}}
 PATCH http://localhost:3000/api/users/{{idToDelete}}
 Content-Type: application/json
 {
-    "user":"NPeru",
+    "userName":"NPeru",
     "password":"5485",
     "type":"Admin"
 }

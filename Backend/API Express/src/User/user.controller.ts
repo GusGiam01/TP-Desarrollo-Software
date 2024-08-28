@@ -4,12 +4,11 @@ import { orm } from "../shared/db/orm.js"
 
 const em = orm.em
 
-
 function sanitizeUserInput(req: Request, res: Response, next: NextFunction){
     req.body.sanitizedUserInput = {
         name: req.body.name, 
         surname: req.body.surname, 
-        user: req.body.user, 
+        userName: req.body.userName, 
         password: req.body.password, 
         type: req.body.type, 
         mail: req.body.mail, 

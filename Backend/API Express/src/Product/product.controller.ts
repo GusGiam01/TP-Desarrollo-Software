@@ -4,7 +4,6 @@ import { orm } from "../shared/db/orm.js"
 
 const em = orm.em
 
-
 function sanitizeProductInput(req: Request, res: Response, next: NextFunction){
     req.body.sanitizedProductInput = {
         code: req.body.code, 

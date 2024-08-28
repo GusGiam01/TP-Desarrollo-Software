@@ -29,7 +29,7 @@ import {
     surname!: string
   
     @Property({ type: 'string', nullable: false })
-    user!: string
+    userName!: string
   
     @Property({ type: 'string', nullable: false })
     password!: string
