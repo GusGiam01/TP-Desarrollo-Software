@@ -11,28 +11,28 @@ import {
   
   @Entity()
   export class Product extends BaseEntity {
-    @Property({ nullable: false })
+    @Property({ type: 'string', nullable: false })
     code!: string
   
-    @Property({ nullable: false })
+    @Property({ type: 'string', nullable: false })
     priceUni!: number
   
-    @Property({ nullable: false })
+    @Property({ type: 'string', nullable: false })
     name!: string
   
-    @Property({ nullable: false })
+    @Property({ type: 'number', nullable: false })
     stock!: number
   
-    @Property({ nullable: false })
+    @Property({ type: 'string', nullable: false })
     state!: string
 
-    @Property({ nullable: false })
+    @Property({ type: 'number', nullable: false })
     discount!: number
 
-    @Property({ nullable: false })
+    @Property({ type: 'string', nullable: false })
     type!: string
 
-    @Property({ nullable: false })
+    @Property({ type: 'string', nullable: false })
     brand!: string
 
   }

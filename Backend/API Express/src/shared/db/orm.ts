@@ -1,6 +1,5 @@
 import { MikroORM } from '@mikro-orm/core'
 import { MongoHighlighter } from '@mikro-orm/mongo-highlighter'
-import { defineConfig } from '@mikro-orm/mongodb';
 import { MongoDriver } from '@mikro-orm/mongodb';
 
 export const orm = await MikroORM.init({
@@ -9,6 +8,7 @@ export const orm = await MikroORM.init({
   dbName: 'tiendaSM',
   //type: 'mongo',
   driver: MongoDriver,
+  //driver: 'mongodb',
   clientUrl: 'mongodb://localhost:27017',
   highlighter: new MongoHighlighter(),
   debug: true,

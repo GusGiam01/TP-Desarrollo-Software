@@ -11,28 +11,28 @@ import {
   
   @Entity()
   export class User extends BaseEntity {
-    @Property({ nullable: false })
+    @Property({ type: 'string', nullable: false })
     name!: string
 
-    @Property({ nullable: false })
+    @Property({ type: 'string', nullable: false })
     surname!: string
   
-    @Property({ nullable: false })
+    @Property({ type: 'string', nullable: false })
     user!: string
   
-    @Property({ nullable: false })
+    @Property({ type: 'string', nullable: false })
     password!: string
   
-    @Property({ nullable: false })
+    @Property({ type: 'string', nullable: false })
     type!: string
   
-    @Property({ nullable: false })
+    @Property({ type: 'string', nullable: false })
     mail!: string
 
-    @Property({ nullable: false })
+    @Property({ type: 'number', nullable: false })
     cellphone!: number
 
-    @Property({ nullable: false })
+    @Property({ type: 'number', nullable: false })
     age!: number
 
   }
