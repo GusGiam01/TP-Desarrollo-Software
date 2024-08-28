@@ -4,6 +4,7 @@ import { userRouter } from './User/user.routes.js'
 import { productRouter } from './Product/product.routes.js'
 import { orm } from './shared/db/orm.js'
 import { RequestContext } from '@mikro-orm/core'
+//import { RequestContext } from '@mikro-orm/mongodb'
 
 const app = express()
 app.use(express.json())     //middleware que completa el req.body

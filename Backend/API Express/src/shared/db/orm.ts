@@ -1,4 +1,5 @@
 import { MikroORM } from '@mikro-orm/core'
+//import { MikroORM } from '@mikro-orm/mongodb'                   //¿Sería el que está mas abajo?
 import { MongoHighlighter } from '@mikro-orm/mongo-highlighter'
 import { MongoDriver } from '@mikro-orm/mongodb';
 
