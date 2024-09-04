@@ -4,16 +4,13 @@ import { userRouter } from './User/user.routes.js'
 import { productRouter } from './Product/product.routes.js'
 import { orm } from './shared/db/orm.js'
 import { RequestContext } from '@mikro-orm/core'
-//import { RequestContext } from '@mikro-orm/mongodb'
 
 const app = express()
-app.use(express.json())     //middleware que completa el req.body
+app.use(express.json())
 
-//luego de los middlewares base
 app.use((req, res, next) => {
     RequestContext.create(orm.em, next)
 })
-//antes de las rutas y middlewares de negocio
 
 app.use('/api/users', userRouter)
 app.use('/api/products', productRouter)

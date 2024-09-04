@@ -7,17 +7,7 @@ import {
     Rel,
     Collection,
   } from '@mikro-orm/core'
-  /*
-  import {
-    Entity,
-    Property,
-    ManyToMany,
-    Cascade,
-    ManyToOne,
-    Rel,
-    Collection,
-  } from '@mikro-orm/mongodb'
-  */
+  
   import { BaseEntity } from '../shared/db/baseEntity.entity.js'
   
   @Entity()

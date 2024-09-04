@@ -29,8 +29,7 @@ async function findAll(req: Request, res: Response) {
     try {
       const products = await em.find(
         Product,
-        {}//,
-        //{ populate: ['productClass', 'items'] }
+        {}
       )
       res.status(200).json({ message: 'found all products', data: products })
     } catch (error: any) {
@@ -41,7 +40,6 @@ async function findAll(req: Request, res: Response) {
   async function findOne(req: Request, res: Response) {
     try {
       const id = req.params.id
-      //const product = await em.findOneOrFail(Product, id)
       const product = await em.findOneOrFail(Product, { id })
       res.status(200).json({ message: 'found product', data: product })
     } catch (error: any) {
@@ -51,7 +49,7 @@ async function findAll(req: Request, res: Response) {
   
   async function add(req: Request, res: Response) {
     try {
-      const product = em.create(Product, req.body.sanitizedInput)
+      const product = em.create(Product, req.body.sanitizedProductInput)
       await em.flush()
       res.status(201).json({ message: 'product created', data: product })
     } catch (error: any) {
@@ -62,9 +60,8 @@ async function findAll(req: Request, res: Response) {
   async function update(req: Request, res: Response) {
     try {
       const id = req.params.id
-      //const productToUpdate = await em.findOneOrFail(Product, id)
       const productToUpdate = await em.findOneOrFail(Product, { id })
-      em.assign(productToUpdate, req.body.sanitizedInput)
+      em.assign(productToUpdate, req.body.sanitizedProductInput)
       await em.flush()
       res
         .status(200)

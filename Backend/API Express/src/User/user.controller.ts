@@ -29,8 +29,7 @@ async function findAll(req: Request, res: Response) {
     try {
       const users = await em.find(
         User,
-        {}//,
-        //{ populate: ['userClass', 'items'] }
+        {}
       )
       res.status(200).json({ message: 'found all users', data: users })
     } catch (error: any) {
@@ -41,7 +40,6 @@ async function findAll(req: Request, res: Response) {
   async function findOne(req: Request, res: Response) {
     try {
       const id = req.params.id
-      //const user = await em.findOneOrFail(User, id)
       const user = await em.findOneOrFail(User, { id })
       res.status(200).json({ message: 'found user', data: user })
     } catch (error: any) {
@@ -51,7 +49,7 @@ async function findAll(req: Request, res: Response) {
   
   async function add(req: Request, res: Response) {
     try {
-      const user = em.create(User, req.body.sanitizedInput)
+      const user = em.create(User, req.body.sanitizedUserInput)
       await em.flush()
       res.status(201).json({ message: 'user created', data: user })
     } catch (error: any) {
@@ -62,9 +60,8 @@ async function findAll(req: Request, res: Response) {
   async function update(req: Request, res: Response) {
     try {
       const id = req.params.id
-      //const userToUpdate = await em.findOneOrFail(User, id)
       const userToUpdate = await em.findOneOrFail(User, { id })
-      em.assign(userToUpdate, req.body.sanitizedInput)
+      em.assign(userToUpdate, req.body.sanitizedUserInput)
       await em.flush()
       res
         .status(200)
