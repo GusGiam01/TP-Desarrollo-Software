@@ -30,10 +30,16 @@ import {
     @Property({ type: 'string', nullable: false })
     mail!: string
 
-    @Property({ type: 'number', nullable: false })
-    cellphone!: number
+    @Property({ type: 'string', nullable: false })
+    cellphone!: string
 
-    @Property({ type: 'number', nullable: false })
-    age!: number
+    @Property({ type: 'number', nullable: true })
+    age?: number | null
+
+    @Property({ type: 'Date', nullable: false })
+    birthDate!: Date
+
+    @Property({ type: 'string', nullable: false })
+    dni!: string
 
   }

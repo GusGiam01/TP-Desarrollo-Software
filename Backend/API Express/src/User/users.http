@@ -13,8 +13,10 @@ Content-Type: application/json
     "password":"12345",
     "type":"Admin",
     "mail":"gusgiam@gmail.com",
-    "cellphone":3364987633,
-    "age":22
+    "cellphone":"3364987633",
+    "age":22,
+    "birthDate": "2001-11-01",
+    "dni": "43355669"
 }
 
 ### ID
@@ -34,8 +36,10 @@ Content-Type: application/json
     "password":"214365",
     "type":"Cliente",
     "mail":"sondar@gmail.com",
-    "cellphone":3364845962,
-    "age":53
+    "cellphone":"3364845962",
+    "age":53,
+    "birthDate": "1972-04-29",
+    "dni": "22457894"
 }
 
 ### Modificar un nuevo usuario (PUT - recuro completo e idempotente)
@@ -49,8 +53,10 @@ Content-Type: application/json
     "password":"123452354",
     "type":"Admin",
     "mail":"dequelliG@gmail.com",
-    "cellphone":3364456871,
-    "age":25
+    "cellphone":"3364456871",
+    "age":25,
+    "birthDate": "1998-05-31",
+    "dni": "40564842"
 }
 
 ### Modificar un nuevo usuario (PATCH - recurso parcial)
@@ -60,7 +66,7 @@ Content-Type: application/json
 {
     "name":"Marcos", 
     "surname":"Galperin", 
-    "cellphone":3364651748,
+    "cellphone":"3364651748",
     "age":40
 }
 
@@ -76,8 +82,10 @@ Content-Type: application/json
     "password":"0137036542",
     "type":"Client",
     "mail":"natiPM@gmail.com",
-    "cellphone":3364534664,
-    "age":52
+    "cellphone":"3364534664",
+    "age":52,
+    "birthDate": "1973-05-12",
+    "dni": "23512478"
 }
 
 ### DELETE a user

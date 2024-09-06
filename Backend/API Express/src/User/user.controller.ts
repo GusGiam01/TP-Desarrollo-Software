@@ -14,6 +14,8 @@ function sanitizeUserInput(req: Request, res: Response, next: NextFunction){
         mail: req.body.mail, 
         cellphone: req.body.cellphone, 
         age: req.body.age,
+        birthDate: req.body.birthDate,
+        dni: req.body.dni,
     }
 
     Object.keys(req.body.sanitizedUserInput).forEach((key)=>{
@@ -37,7 +39,7 @@ async function findAll(req: Request, res: Response) {
     }
   }
 
-  async function findOne(req: Request, res: Response) {
+  async function findOne(req: Request, res: Response) {                     //Busca por id
     try {
       const id = req.params.id
       const user = await em.findOneOrFail(User, { id })
