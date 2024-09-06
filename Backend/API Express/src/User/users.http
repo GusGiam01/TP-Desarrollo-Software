@@ -17,7 +17,6 @@ Content-Type: application/json
     "age":22
 }
 
-
 ### ID
 @id = {{createGustavo.response.body.data.id}}
 
