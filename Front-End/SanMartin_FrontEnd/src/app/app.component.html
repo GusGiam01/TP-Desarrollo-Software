@@ -116,14 +116,17 @@
 
     <!-- PAGINA PRODUCTOS -> IDPAGINA:5 -->
     <section *ngSwitchCase="5" data-id="5">
-
+        <app-sm-product></app-sm-product>
     </section>
 
     <!-- PAGINA ¿QUIENES SOMOS? -> IDPAGINA:6 -->
     <section *ngSwitchCase="6" data-id="6">
 
     </section>
+
+    
 </div>
+
 
 <sm-header (pageIdChange)="idPagina = $event"></sm-header>
 <app-sm-footer (pageIdChange)="idPagina = $event"></app-sm-footer>
