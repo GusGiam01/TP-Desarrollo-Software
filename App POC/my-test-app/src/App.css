@@ -1,102 +1,69 @@
 .App {
   text-align: center;
-  font-family: 'Arial', sans-serif;
-  background-color: #282c34;
-  color: white;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.App-logo {
-  height: 20vmin;
-  pointer-events: none;
-  animation: App-logo-spin infinite 20s linear;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5; /* Color de fondo suave */
+  min-height: 100vh; /* Altura mínima para llenar la pantalla */
 }
 
 .App-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
+  background-color: #282c34;
   padding: 20px;
+  color: white;
+}
+
+.App-logo {
+  height: 40px;
+  pointer-events: none;
+}
+
+.app-description {
+  margin: 10px 0;
 }
 
 .App-link {
   color: #61dafb;
-  text-decoration: none;
-  font-size: 18px;
-  margin: 10px 0;
-}
-
-.content {
-  margin-top: 20px;
 }
 
 .form-container {
-  background-color: #444;
+  background: rgb(27, 137, 240);
   padding: 20px;
-  border-radius: 8px;
-  margin: 20px;
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  margin: 20px auto; /* Centrar en la página */
+  max-width: 400px; /* Ancho máximo */
+}
+
+.input-form {
+  display: flex;
+  flex-direction: column; /* Distribuir en columna */
 }
 
 .input-field {
   padding: 10px;
-  margin: 10px 0;
-  border-radius: 5px;
-  border: none;
-  width: 200px;
+  margin: 10px 0; /* Espaciado entre elementos */
+  border: 1px solid #ccc;
+  border-radius: 5px; /* Bordes redondeados */
 }
 
 .submit-button {
-  background-color: #61dafb;
-  color: black;
+  padding: 10px;
+  background-color: #66fb61;
   border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
+  border-radius: 5px; /* Bordes redondeados */
+  color: rgb(255, 255, 255);
   cursor: pointer;
-  font-size: 16px;
-  margin-top: 10px;
 }
 
-.submit-button:hover {
-  background-color: #21a1f1;
+.submit-button:disabled {
+  background-color: #ccc; /* Color para el botón deshabilitado */
+  cursor: not-allowed; /* Cambia el cursor para el botón deshabilitado */
 }
 
 .submitted-text {
   margin-top: 10px;
-  font-size: 16px;
-  color: #61dafb;
+  color: #000000; /* Color verde para el texto enviado */
 }
 
 .components-section {
-  display: flex;
-  justify-content: space-around;
-  width: 100%;
-  margin-top: 30px;
-}
-
-button {
-  background-color: #61dafb;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-button:hover {
-  background-color: #21a1f1;
+  margin-top: 20px; /* Espacio superior para la sección de componentes */
 }

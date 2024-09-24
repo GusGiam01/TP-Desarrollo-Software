@@ -34,18 +34,20 @@ test('renders a link with the correct href', () => {
     expect(linkElement).toHaveAttribute('href', 'https://reactjs.org');
   });
 
-//Verificar que el componente se renderiza correctamente
+//5. Verificar que el componente se renderiza correctamente
   test('renders without crashing', () => {
     const { container } = render(<App />);
     expect(container).toBeInTheDocument();
   });
 
+//6. Pruebas de Atributos y Clases de CSS
   test('renders the logo with the correct class', () => {
     render(<App />);
     const logo = screen.getByAltText('logo');
     expect(logo).toHaveClass('App-logo');
   });
 
+  //7. Verificar que el campo de texto se actualiza cuando el usuario escribe
   test('actualiza el campo de texto cuando el usuario escribe', () => {
     render(<App />);
     
@@ -54,10 +56,11 @@ test('renders a link with the correct href', () => {
     // Simular que el usuario escribe en el campo de texto
     fireEvent.change(input, { target: { value: 'Hola Mundo' } });
     
-    // Verificar que el valor del input se ha actualizado
+  // Verificar que el valor del input se ha actualizado
     expect(input.value).toBe('Hola Mundo');
   });
   
+  //8. Verificar que el texto enviado se muestra después de hacer clic en "Enviar".
   test('muestra el texto enviado cuando se hace clic en "Enviar"', () => {
     render(<App />);
     
@@ -70,4 +73,19 @@ test('renders a link with the correct href', () => {
     
     // Verificar que el texto enviado aparece en la interfaz
     expect(screen.getByText(/texto enviado: prueba de formulario/i)).toBeInTheDocument();
+  });
+
+
+  //9. Verifica que al enviar el formulario con el campo vacío no ocurra ningún error.
+  test('submitting empty form does not crash', () => {
+    render(<App />);
+    fireEvent.submit(screen.getByRole('button', { name: /enviar/i }));
+    expect(screen.getByText(/ingresa un texto/i)).toBeInTheDocument();
+  });
+
+  //10. Verifica que el botón esté deshabilitado si no hay texto en el input.
+  test('button is disabled when input is empty', () => {
+    render(<App />);
+    const button = screen.getByRole('button', { name: /enviar/i });
+    expect(button).toBeDisabled();
   });
