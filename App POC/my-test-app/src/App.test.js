@@ -48,7 +48,7 @@ test('renders a link with the correct href', () => {
   });
 
   //7. Verificar que el campo de texto se actualiza cuando el usuario escribe
-  test('actualiza el campo de texto cuando el usuario escribe', () => {
+  test('updates the text field when the user types', () => {
     render(<App />);
     
     const input = screen.getByLabelText(/ingresa un texto/i);
@@ -61,7 +61,7 @@ test('renders a link with the correct href', () => {
   });
   
   //8. Verificar que el texto enviado se muestra después de hacer clic en "Enviar".
-  test('muestra el texto enviado cuando se hace clic en "Enviar"', () => {
+  test('displays the text sent when "Send" is clicked', () => {
     render(<App />);
     
     const input = screen.getByLabelText(/ingresa un texto/i);
