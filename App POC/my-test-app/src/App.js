@@ -44,7 +44,7 @@ function App() {
               onChange={(e) => setInputValue(e.target.value)}
               placeholder="Escribe algo aquí..."
             />
-            <button type="submit" className="submit-button" /*disabled={!inputValue}*/>Enviar</button>
+            <button type="submit" className="submit-button" disabled={!inputValue}>Enviar</button>
           </form>
           {submittedValue && (
             <p className="submitted-text">Texto enviado: {submittedValue}</p>
