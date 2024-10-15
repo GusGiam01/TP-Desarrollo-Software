@@ -1,6 +1,5 @@
 import { Component, EventEmitter, HostListener, Output } from '@angular/core';
 
-import { NgxHideOnScrollModule } from 'ngx-hide-on-scroll';
 
 @Component({
   selector: 'sm-header',
