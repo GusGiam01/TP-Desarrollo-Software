@@ -1,0 +1,21 @@
+.index {
+    margin-top: 180px;
+}
+
+.video{
+
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.slider{
+    grid-column: 1;
+    grid-row: 1;
+    padding: 40px 0;
+}
+
+.div_slider_vid{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: max-content;
+}

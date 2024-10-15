@@ -1,12 +1,12 @@
 import { Component, } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SMHeaderComponent } from './sm-header/sm-header.component.js';
-import { IndexSliderComponent } from './index-slider/index-slider.component.js';
-import { IndexVideoComponent } from './index-video/index-video.component.js';
+import { IndexSliderComponent } from './pages/index/index-slider/index-slider.component.js';
+import { IndexVideoComponent } from './pages/index/index-video/index-video.component.js';
 import { CommonModule } from '@angular/common';
-import { PuntosventaListaComponent } from './puntosventa-lista/puntosventa-lista.component.js'
+import { PuntosventaListaComponent } from './pages/puntosventa/puntosventa-lista.component.js'
 import { SmFooterComponent } from './sm-footer/sm-footer.component.js';
-import { SmContactComponent } from './sm-contact/sm-contact.component.js';
+import { SmContactComponent } from './pages/contact/sm-contact.component.js';
 
 @Component({
   selector: 'app-root',

@@ -1,0 +1,27 @@
+@font-face {
+    font-family: "SecondarySMfont";
+    src: url("../../../../public/font/puntosVenta/SaaSeriesCDOT.ttf")
+}
+
+.container{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: max-content;
+    margin-top: 180px;
+    text-align: center;
+    font-family: "SecondarySMfont";
+}
+
+.item-container{
+    display: grid;
+    grid-template-columns: 1fr 0.3fr 0.3fr 0.3fr 0.1fr;
+    grid-template-areas: 'product' 'price' 'amount' 'total' 'x';
+}
+
+ tr {
+    border-bottom: 1.5px solid black;
+}
+
+tr:last-child {
+    border-bottom: none;
+}
