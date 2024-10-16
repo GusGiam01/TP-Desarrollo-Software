@@ -1,11 +1,11 @@
 <div class="container div_log-in_sign-in">
     <section class="log-in">
             <div class="log-in_form">
-                <form action="" class="form">
+                <form [formGroup]="loginForm" action="" class="form" (ngSubmit)="onLogin(loginForm.value)">
                     <label for="username" class="form-line">Usuario:</label>
-                    <input type="text" id="username" name="username" required class="form-line">
+                    <input type="text" id="user"required class="form-line"  formControlName="user" >
                     <label for="password" class="form-line">Contraseña:</label>
-                    <input type="password" id="password" name="password" required class="form-line">
+                    <input type="password" id="password" required class="form-line" formControlName="password" >
                     <button type="submit" class="form-line">Ingresar</button>
                     <a href="#" class="form-line">¿Olvidaste tu contraseña?</a>
                 </form>

@@ -7,6 +7,9 @@ import { CommonModule } from '@angular/common';
 import { PuntosventaListaComponent } from './pages/puntosventa/puntosventa-lista.component.js'
 import { SmFooterComponent } from './sm-footer/sm-footer.component.js';
 import { SmContactComponent } from './pages/contact/sm-contact.component.js';
+import { routingComponents } from './app.routes.js';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +21,10 @@ import { SmContactComponent } from './pages/contact/sm-contact.component.js';
     CommonModule,
     PuntosventaListaComponent,
     SmFooterComponent,
-    SmContactComponent
+    SmContactComponent,
+    routingComponents,
+    ReactiveFormsModule,
+    FormsModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
