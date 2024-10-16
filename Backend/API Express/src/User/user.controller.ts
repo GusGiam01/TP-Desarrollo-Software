@@ -39,10 +39,10 @@ async function findAll(req: Request, res: Response) {
     }
   }
 
-  async function findOne(req: Request, res: Response) {                     //Busca por id
+  async function findOneByDni(req: Request, res: Response) {                     //Busca por DNI
     try {
-      const id = req.params.id
-      const user = await em.findOneOrFail(User, { id })
+      const dni = req.params.dni
+      const user = await em.findOneOrFail(User, { dni })
       res.status(200).json({ message: 'found user', data: user })
     } catch (error: any) {
       res.status(500).json({ message: error.message })
@@ -82,6 +82,6 @@ async function findAll(req: Request, res: Response) {
       res.status(500).json({ message: error.message })
     }
   }
+  
 
-
-export {sanitizeUserInput, findAll, findOne, add, update, remove}
+export {sanitizeUserInput, findAll, findOneByDni, add, update, remove}

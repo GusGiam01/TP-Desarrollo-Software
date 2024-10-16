@@ -1,4 +1,6 @@
+import { userI } from "./user.interface.js";
+
 export interface responseI{
-    status:string;
-    response:string;
+    data:userI;
+    message:string;
 }
