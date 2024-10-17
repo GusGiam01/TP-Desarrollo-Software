@@ -1,23 +1,41 @@
 
 <div class="div-control">
-    
-
     <nav class="header">
         <ul class="header_ul-menu header_ul-grid">
+
+            <li class="exit-li" *ngIf="loggedUser != null">
+                <a href="/" class="ingresar_carrito-a" (click)="logOut();pageId = 2; emitPageId();">
+                    <span class="dot">
+                        <img class="exit-img" src="svg/exit.svg" alt="exit">
+                    </span>
+                    <span class="ingresar_carrito-span" >Exit</span>
+                </a>
+            </li>
+
             <li class="li_titulo">
                 <div>
                     <a class="a_logo" href="#" (click)="pageId = 0; emitPageId();">SAN MARTIN</a>
                 </div>
             </li>
-            <li class="ingresar-li">
+            
+            <li class="ingresar-li" *ngIf="loggedUser != null">
+                <a href="/" class="ingresar_carrito-a" (click)="pageId = 2; emitPageId();">
+                    <span class="dot">
+                        <img class="ingresar-img" src="svg/account.svg" alt="ingresar">
+                    </span>
+                    <span class="ingresar_carrito-span" >Cuenta</span>
+                </a>
+            </li>
+
+            <li class="ingresar-li" *ngIf="loggedUser == null">
                 <a href="/login" class="ingresar_carrito-a" (click)="pageId = 2; emitPageId();">
                     <span class="dot">
                         <img class="ingresar-img" src="svg/account.svg" alt="ingresar">
                     </span>
                     <span class="ingresar_carrito-span" >Ingresar</span>
                 </a>
-                
             </li>
+            
             <li class="carrito-li" (click)="pageId = 3; emitPageId();">
                 <a href="/cart" class="ingresar_carrito-a" >
                     <span class="dot">
@@ -26,6 +44,7 @@
                     <span class="ingresar_carrito-span">Carrito</span>
                 </a>
             </li>
+        
         </ul>
     </nav>
 
@@ -41,7 +60,7 @@
                     </li>
                     <li class="li-bottom_menu">|</li>
                     <li class="li-bottom_menu" (click)="pageId = 5; emitPageId();">
-                        <a href="#Productos" class="a_li-bottom_menu">
+                        <a href="/products" class="a_li-bottom_menu">
                             PRODUCTOS
                         </a>
                     </li>

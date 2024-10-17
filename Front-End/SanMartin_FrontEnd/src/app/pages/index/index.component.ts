@@ -13,5 +13,4 @@ import { IndexVideoComponent } from './index-video/index-video.component.js';
   styleUrl: './index.component.scss'
 })
 export class IndexComponent {
-
 }

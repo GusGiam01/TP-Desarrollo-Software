@@ -1,0 +1,36 @@
+.div_products{
+    padding-top: 180px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: right;
+    align-items: center;
+}
+
+.div_product_container{
+    width: 14rem;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+.div_product{
+    background-color: #c0956d;
+
+}
+
+.product_img{
+    height: 180px;
+    width: 180px;
+    background-color: aqua;
+    margin-top: 1rem;
+}
+
+.product_price{
+    margin: 0;
+}
+
+.product_btn{
+    width: 7rem;
+    height: 1rem;
+}
