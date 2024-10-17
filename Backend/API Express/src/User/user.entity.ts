@@ -8,7 +8,6 @@ import {
     Collection,
     PrimaryKey,
   } from '@mikro-orm/core'
-  
   import { BaseEntity } from '../shared/db/baseEntity.entity.js'
   
   @Entity()

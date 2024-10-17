@@ -7,7 +7,6 @@ import {
     Rel,
     Collection,
   } from '@mikro-orm/core'
-
   import { BaseEntity } from '../shared/db/baseEntity.entity.js'
   
   @Entity()
