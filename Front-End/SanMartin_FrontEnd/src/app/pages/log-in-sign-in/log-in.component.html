@@ -15,20 +15,49 @@
 
     <section class="sign-in">
         <div class="sign-in_form">
-            <form action="" class="form">
-                <label for="username" class="form-line">Nombre de usuario:</label>
-                <input type="text" id="username" name="username" required class="form-line">
+            <form action="" class="form" [formGroup]="signinForm" (ngSubmit)="OnSignUp(signinForm.value)">
+                <div class="div_input_button">
+                    <div class="div_inputs_right_left">
+                        <div class="div_input">
+                            <label for="name" class="form-line">Nombre:</label>
+                            <input type="text" id="name" name="name" required class="form-line"  formControlName="name">
+                            
+                            <label for="username" class="form-line">Nombre de usuario:</label>
+                            <input type="text" id="username" name="username" required class="form-line" formControlName="username">
+                            
+                            <label for="password" class="form-line">Contraseña:</label>
+                            <input type="password" id="registerpassword" name="registerpassword" required class="form-line" formControlName="password">
+                            
+                            <label for="dni" class="form-line">Dni:</label>
+                            <input type="text" id="dni" name="dni" required class="form-line"  formControlName="dni">
+
+                            <label for="cellphone" class="form-line">Celular:</label>
+                            <input type="text" id="cellphone" name="cellphone" required class="form-line"  formControlName="cellphone">
+                        </div>
+                        <div class="div_input">
+                            <label for="surname" class="form-line">Apellido:</label>
+                            <input type="text" id="surname" name="surname" required class="form-line"  formControlName="surname">
+
+                            <label for="email" class="form-line">Correo electrónico:</label>
+                            <input type="text" id="email" name="email" required class="form-line"  formControlName="mail">
+
+                            <label for="confirmpassword" class="form-line">Confirmar contraseña:</label>
+                            <input type="password" id="confirmpassword" name="confirmpassword" required class="form-line"  formControlName="confirmpassword">
+
+                            <label for="birthDate" class="form-line">Fecha de Nacimiento:</label>
+                            <input type="date" id="birthDate" name="birthDate" required class="form-line"  formControlName="birthDate">
+
+                            <label for="type" class="form-line">Tipo:</label>
+                            <input type="text" id="type" name="type" required class="form-line"  formControlName="type">
+                        </div>
+                    </div>
+                    <div class="div_button">
+                        <button type="submit" class="form-line">Registrarse</button>
+                    </div> 
+                </div>
                 
-                <label for="email" class="form-line">Correo electrónico:</label>
-                <input type="email" id="email" name="email" required class="form-line">
                 
-                <label for="password" class="form-line">Contraseña:</label>
-                <input type="password" id="password" name="password" required class="form-line">
                 
-                <label for="confirm-password" class="form-line">Confirmar contraseña:</label>
-                <input type="password" id="confirm-password" name="confirm-password" required class="form-line">
-                
-                <button type="submit" class="form-line">Registrarse</button>
             </form>
         </div>
     </section>

@@ -1,10 +1,14 @@
 import { Component, EventEmitter, HostListener, Output } from '@angular/core';
+import { CommonModule, NgIf } from '@angular/common';
 
 
 @Component({
   selector: 'sm-header',
   standalone: true,
-  imports: [],
+  imports: [
+    CommonModule,
+    NgIf
+  ],
   templateUrl: './sm-header.component.html',
   styleUrl: './sm-header.component.scss'
 })
@@ -16,19 +20,17 @@ export class SMHeaderComponent {
     this.pageIdChange.emit(this.pageId)
   }
 
-  // showMenu(){
-  //   const currentScrollpos:number= window.scrollY;
-  //   alert(currentScrollpos);
-  //   const element = document.getElementById("bottom_menu");
-  //   if (currentScrollpos < this.prevScrollpos) {
-  //     if (element != null) element.style.top = "0";
-  //   } else {
-  //     if (element != null){
-  //     element.style.top = "-50px";
-  //     }
-  //   }
-  //   this.prevScrollpos = currentScrollpos;
-  // }
+  loggedUser:string | null = localStorage.getItem("token");
+
+  ngOnInit():void{
+    this.loggedUser = localStorage.getItem("token");
+  }
+
+  logOut(){
+    localStorage.removeItem("token");
+    this.loggedUser = null;
+    location.reload();
+  }
 
   showMenu:string = 'bot-2';
   prevScrollpos = window.scrollY;

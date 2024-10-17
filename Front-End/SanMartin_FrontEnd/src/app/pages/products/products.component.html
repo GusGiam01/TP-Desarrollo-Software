@@ -1,0 +1,16 @@
+<div class="div_products">
+    <div class="div_product_container" *ngFor="let p of products">
+        <div class="div_product">
+            <img src="svg/bottle.svg" class="product_img">
+            <span>producto</span>
+            <h2 class="product_price">$4000</h2>
+            <form action="">
+                <button class="product_btn"></button>
+            </form>
+        </div>
+    </div>
+
+    <div *ngIf="products.length == 0">
+        <h1>NO HAY PRODUCTOS DISPONIBLES</h1>
+    </div>
+</div>

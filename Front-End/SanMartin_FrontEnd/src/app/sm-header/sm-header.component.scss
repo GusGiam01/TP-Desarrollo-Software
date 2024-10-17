@@ -172,6 +172,29 @@
 }*/
 
 /*..............................................................*/
+/*EXIT*/
+.exit-li{
+    display: flex;
+    justify-content: space-between;
+    margin-right: 15%;
+    margin-left: 15%;
+    grid-column: 1;
+    grid-row: 1;
+    align-self: center;
+    padding-left: 15%;
+    padding-right: 15%;
+}
+
+.exit-img{
+    width: 30px;
+    height: 30px;
+    padding-left: 1px;
+    padding-right: 8px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+/*..............................................................*/
 /*TITULO*/
 .li_titulo{
     justify-self: center;
@@ -191,7 +214,7 @@
     background-size: cover;
 }
 /*..............................................................*/
-/*ICONOS INGRESAR Y CARRITO*/
+/*ICONOS INGRESAR/CUENTA Y CARRITO*/
 .carrito-li{
     display: flex;
     justify-content: space-between;
