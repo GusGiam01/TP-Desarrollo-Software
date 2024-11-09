@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { orderI } from '../../modelos/order.interface.js';
+import { lineOrderI } from '../../modelos/lineOrder.interface.js';
 
 @Component({
   selector: 'app-cart',
@@ -8,5 +10,6 @@ import { Component } from '@angular/core';
   styleUrl: './cart.component.scss'
 })
 export class CartComponent {
+  linesOrder:Array<lineOrderI> = [];
 
 }

@@ -2,7 +2,7 @@ import 'reflect-metadata'
 import express from 'express'
 import { userRouter } from './User/user.routes.js'
 import { productRouter } from './Product/product.routes.js'
-import { orderRouter } from './Order/order.routes.js'
+import { cartRouter } from './Cart/cart.routes.js'
 import { orm } from './shared/db/orm.js'
 import { RequestContext } from '@mikro-orm/core'
 
@@ -15,7 +15,7 @@ app.use((req, res, next) => {
 
 app.use('/api/users', userRouter)
 app.use('/api/products', productRouter)
-app.use('/api/orders', orderRouter)
+app.use('/api/carts', cartRouter)
 
 app.use((_, res) =>{
     return res.status(404).send({message: 'Resource not found.'})

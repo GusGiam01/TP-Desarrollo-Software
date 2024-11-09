@@ -14,7 +14,8 @@ Content-Type: application/json
     "type":"Gin",
     "state":"Disponible",
     "discount":0,
-    "brand":"Aconcagua"
+    "brand":"Aconcagua",
+    "img":"hola"
 }
 
 ### ID

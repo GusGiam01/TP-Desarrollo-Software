@@ -6,8 +6,8 @@ import {
     ManyToOne,
     Rel,
     Collection,
-    PrimaryKey,
   } from '@mikro-orm/core'
+  
   import { BaseEntity } from '../shared/db/baseEntity.entity.js'
   
   @Entity()
@@ -18,7 +18,7 @@ import {
     @Property({ type: 'string', nullable: false })
     surname!: string
   
-    @Property({ type: 'string', nullable: false })//comnbinaria con el dni
+    @Property({ type: 'string', nullable: false })
     userName!: string
   
     @Property({ type: 'string', nullable: false })
@@ -33,16 +33,13 @@ import {
     @Property({ type: 'string', nullable: false })
     cellphone!: string
 
-    @Property({ type: 'number', nullable: true }) //podriamos sacar
+    @Property({ type: 'number', nullable: true })
     age?: number | null
 
     @Property({ type: 'Date', nullable: false })
     birthDate!: Date
 
-    @Property({ type: 'string', nullable: false, unique: true })
+    @Property({ type: 'string', nullable: false })
     dni!: string
 
-
-    //@PrimaryKey({ type: 'string', nullable: false, unique:true})
-    //dni!:string
   }

@@ -6,12 +6,14 @@ import {
     ManyToOne,
     Rel,
     Collection,
+    PrimaryKey,
   } from '@mikro-orm/core'
+
   import { BaseEntity } from '../shared/db/baseEntity.entity.js'
   
   @Entity()
   export class Product extends BaseEntity {
-    @Property({ type: 'string', nullable: false })
+    @Property({ type: 'string', nullable: false, unique: true })
     code!: string
   
     @Property({ type: 'string', nullable: false })
@@ -34,5 +36,4 @@ import {
 
     @Property({ type: 'string', nullable: false })
     brand!: string
-
   }

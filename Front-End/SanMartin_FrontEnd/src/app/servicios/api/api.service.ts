@@ -5,11 +5,13 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { userI } from "../../modelos/user.interface.js";
 import { signinI } from "../../modelos/signin.interface.js";
+import { responseProductsI } from "../../modelos/responseProducts.interface.js";
+import { responseProdI } from "../../modelos/responseProduct.interface.js";
 
 @Injectable({
     providedIn: 'root'
 })
-export class ApiService {
+export class ApiService{
     readonly url:string = "/api"
 
     constructor(private http:HttpClient){   }
@@ -24,5 +26,15 @@ export class ApiService {
     postUser(user:signinI){
        let direccion = this.url + "/users";
        return this.http.post<responseI>(direccion, user)
+    }
+
+    searchProducts(){
+        let direction = this.url + "/products";
+        return this.http.get<responseProductsI>(direction)
+    }
+
+    searchProductByCode(code:string){
+        let direction = this.url + "/products/" + code;
+        return this.http.get<responseProdI>(direction)
     }
 }

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { sanitizeUserInput, findAll, findOneByDni, add, update, remove } from "./user.controller.js";
+import { sanitizeUserInput, findAll, findOne, add, update, remove, findOneByDni } from "./user.controller.js";
 
 export const userRouter = Router()
 

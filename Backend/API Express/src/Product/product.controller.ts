@@ -46,6 +46,16 @@ async function findAll(req: Request, res: Response) {
       res.status(500).json({ message: error.message })
     }
   }
+
+  async function findOneByCode(req: Request, res: Response) {
+    try {
+      const code = req.params.code
+      const product = await em.findOneOrFail(Product, { code })
+      res.status(200).json({ message: 'found product', data: product })
+    } catch (error: any) {
+      res.status(500).json({ message: error.message })
+    }
+  }
   
   async function add(req: Request, res: Response) {
     try {
@@ -82,4 +92,4 @@ async function findAll(req: Request, res: Response) {
   }
 
 
-export {sanitizeProductInput, findAll, findOne, add, update, remove}
+export {sanitizeProductInput, findAll, findOne, findOneByCode, add, update, remove}

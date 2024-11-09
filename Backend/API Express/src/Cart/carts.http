@@ -1,0 +1,96 @@
+### Obtener todos los cartos
+GET http://localhost:3000/api/carts
+
+### Crear un nuevo carto
+# @name createCart
+POST http://localhost:3000/api/carts
+Content-Type: application/json
+
+{
+    "userId": "12345",
+    "products": [
+        {
+            "code": "G2340",
+            "priceUni": 8000,
+            "name": "Gordon",
+            "stock": 4,
+            "type": "Gin",
+            "state": "Disponible",
+            "discount": 0,
+            "brand": "Aconcagua"
+        }
+    ],
+    "date": "2024-09-30T00:00:00.000Z",
+    "status": "Pendiente",
+    "totalPrice": 8000
+}
+
+### ID
+@id = {{createCart.response.body.data.id}}
+
+### Obtener uno en particular
+GET http://localhost:3000/api/carts/{{id}}
+
+### Crear un nuevo carto
+POST http://localhost:3000/api/carts
+Content-Type: application/json
+
+{
+    "userId": "67890",
+    "products": [
+        {
+            "code": "SM2900",
+            "priceUni": 2300,
+            "name": "San Martin",
+            "stock": 7,
+            "type": "Vermuoth",
+            "state": "Disponible",
+            "discount": 15,
+            "brand": "San Martin"
+        }
+    ],
+    "date": "2024-09-30T00:00:00.000Z",
+    "status": "Pendiente",
+    "totalPrice": 2300
+}
+
+### Modificar un nuevo carto (PUT - recuro completo e idempotente)
+PUT http://localhost:3000/api/carts/{{id}}
+Content-Type: application/json
+
+{
+    "userId": "12345",
+    "products": [
+        {
+            "code": "P2900",
+            "priceUni": 500,
+            "name": "Pimienta",
+            "stock": 9,
+            "type": "Botanico",
+            "state": "Encargado",
+            "discount": 0,
+            "brand": " "
+        }
+    ],
+    "date": "2024-09-30T00:00:00.000Z",
+    "status": "Actualizado",
+    "totalPrice": 500
+}
+
+### Modificar un nuevo carto (PATCH - recurso parcial)
+PATCH http://localhost:3000/api/carts/{{id}}
+Content-Type: application/json
+
+{
+    "products": [
+        {
+            "name": "Fernet",
+            "priceUni": 1000,
+            "discount": 0,
+            "brand": "Branca"
+        }
+    ]
+}
+
+### Borrar un elemento
+DELETE http://localhost:3000/api/carts/{{id}}

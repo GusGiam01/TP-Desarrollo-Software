@@ -16,21 +16,14 @@ Content-Type: application/json
     "cellphone":"3364987633",
     "age":22,
     "birthDate": "2001-11-01",
-    "dni": "43399550"
+    "dni": "43355669"
 }
 
 ### ID
-@id = {{createGustavo.response.body.data.id}}
+@id = {{createGustavo.response.body.data.dni}}
 
 ### Obtener uno en particular
 GET http://localhost:3000/api/users/{{id}}
-
-
-@dni = 43399550
-
-### Obtener uno en particular (DNI)
-GET http://localhost:3000/api/users/{{dni}}
-
 
 ### Crear un nuevo usuario
 POST http://localhost:3000/api/users
@@ -108,8 +101,5 @@ Content-Type: application/json
     "type":"Admin"
 }
 
-
-
 ### Borrar un elemento
-
-DELETE  http://localhost:3000/api/users/idAborrar
+DELETE http://localhost:3000/api/users/{{id}}

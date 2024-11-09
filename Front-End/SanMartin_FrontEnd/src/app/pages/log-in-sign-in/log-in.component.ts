@@ -55,14 +55,20 @@ export class LogInComponent {
     this.api.searchByDni(form.user).subscribe({
       next: (data) => {
         let dataResponse:responseI = data;
+        console.log(dataResponse.data)
         if (dataResponse.data.dni == form.user && dataResponse.data.password == form.password){
+
           localStorage.setItem("token", dataResponse.data.id);
           this.router.navigate(['home']).then(() => {
             location.reload()
           });
+        } 
+        else {
+          alert("La contraseña ingresada es incorrecta.")
         }
       },
       error: (e) => {
+        alert("No exite usuario con ese número de documento.")
         console.log(e);
       }
     });
