@@ -1,12 +1,18 @@
 <div class="div_products">
     <div class="div_product_container" *ngFor="let p of products">
         <div class="div_product">
-            <img src="img/productoSanMartin.png" class="product_img">
+            <img src={{p.img}} class="product_img">
             <span style="display: block;">{{p.name}}</span>
             <h2 class="product_price">{{p.priceUni}}</h2>
             <form action="" >
-                <button type="button" class="product_btn" (click)="addToCart(p.code, 1)"></button>
+                <button type="button" class="product_btn" (click)=" selectProduct(p.code, p.stock) ;addToCart(p.code, 1)"></button>
+                <div *ngIf="p.code == productCode">
+                    <button type="button"(click)="decrease()" ></button>
+                    <span>{{quantity}}</span>
+                    <button type="button"(click)="increase()"></button>
+                </div>
             </form>
+            
         </div>
     </div>
 

@@ -6,9 +6,11 @@ import {
     ManyToOne,
     Rel,
     Collection,
+    OneToMany,
   } from '@mikro-orm/core'
   
   import { BaseEntity } from '../shared/db/baseEntity.entity.js'
+import { Order } from '../Order/order.entity.js'
   
   @Entity()
   export class User extends BaseEntity {
@@ -41,5 +43,8 @@ import {
 
     @Property({ type: 'string', nullable: false })
     dni!: string
+
+    @OneToMany(() => Order, order => order.user, {cascade: [Cascade.ALL]})
+    orders = new Collection<Order>(this)
 
   }

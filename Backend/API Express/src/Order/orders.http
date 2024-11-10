@@ -2,36 +2,25 @@
 GET http://localhost:3000/api/orders
 
 ### Crear un nuevo pedido
+
 # @name createGin
 POST http://localhost:3000/api/orders
 Content-Type: application/json
+
 {
     "confirmDate": "2024-10-17T10:30:00Z",
-    "user": {
-        "name": "John Doe",
-        "email": "john@example.com"
-    }, 
+    "user": "6730d8974d45af1f62ee49b0", 
     "linesOrder": [
         { 
-            "product": {
-                "code": "P1234",
-                "name": "Product A",
-                "priceUni": 5000,
-                "stock": 10
-            },
+            "product": "6730e2716d02e8faf36c1617",
             "quantity": 2
         },
         { 
-            "product": {
-                "code": "P5678",
-                "name": "Product B",
-                "priceUni": 3000,
-                "stock": 20
-            },
+            "product": "6730e2496d02e8faf36c1616",
             "quantity": 1
         }
     ],
-    "totalAmount": 13000,
+    "totalAmount": 18300,
     "statusHistory": ["Order created"]
 }
 

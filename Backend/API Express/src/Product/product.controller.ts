@@ -13,7 +13,8 @@ function sanitizeProductInput(req: Request, res: Response, next: NextFunction){
         type: req.body.type, 
         state: req.body.state, 
         discount: req.body.discount, 
-        brand: req.body.brand
+        brand: req.body.brand,
+        img: "img/products/" + req.body.code +".png" 
     }
 
     Object.keys(req.body.sanitizedProductInput).forEach((key)=>{

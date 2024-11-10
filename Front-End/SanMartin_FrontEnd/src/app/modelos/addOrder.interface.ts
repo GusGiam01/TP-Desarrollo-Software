@@ -1,8 +1,7 @@
 import { lineOrderI } from "./lineOrder.interface.js";
 import { userI } from "./user.interface.js";
 
-export interface orderI{
-    id:string;
+export interface addOrderI{
     confirmDate:Date;
     user: userI;
     linesOrder:Array<lineOrderI>;

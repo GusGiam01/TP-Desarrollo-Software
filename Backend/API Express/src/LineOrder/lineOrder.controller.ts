@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction} from "express"
 import { LineOrder } from "./lineOrder.entity.js"
 import { orm } from "../shared/db/orm.js"
+import { Product } from "../Product/product.entity.js"
+import { MikroORM } from "@mikro-orm/mongodb"
 
 const em = orm.em
 

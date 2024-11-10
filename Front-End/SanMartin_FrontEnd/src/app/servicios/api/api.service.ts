@@ -7,6 +7,9 @@ import { userI } from "../../modelos/user.interface.js";
 import { signinI } from "../../modelos/signin.interface.js";
 import { responseProductsI } from "../../modelos/responseProducts.interface.js";
 import { responseProdI } from "../../modelos/responseProduct.interface.js";
+import { orderI } from "../../modelos/order.interface.js";
+import { responseOrderI } from "../../modelos/responseOrder.interface.js";
+import { addOrderI } from "../../modelos/addOrder.interface.js";
 
 @Injectable({
     providedIn: 'root'
@@ -19,13 +22,13 @@ export class ApiService{
     user:any;
 
     searchByDni(dni:string):Observable<responseI>{
-        let direccion = this.url + "/users/" + dni;
-        return this.http.get<responseI>(direccion);
+        let direction = this.url + "/users/" + dni;
+        return this.http.get<responseI>(direction);
     }
 
     postUser(user:signinI){
-       let direccion = this.url + "/users";
-       return this.http.post<responseI>(direccion, user)
+       let direction = this.url + "/users";
+       return this.http.post<responseI>(direction, user)
     }
 
     searchProducts(){
@@ -36,5 +39,20 @@ export class ApiService{
     searchProductByCode(code:string){
         let direction = this.url + "/products/" + code;
         return this.http.get<responseProdI>(direction)
+    }
+
+    postOrder(order:addOrderI){
+        let direction = this.url + "/orders";
+        return this.http.post<responseOrderI>(direction, order)
+    }
+
+    searchOrderById(id:string){
+        let direction = this.url + "/orders/" + id;
+        return this.http.get<responseOrderI>(direction)
+    }
+
+    updateOrder(order:orderI){
+        let direction = this.url + "/orders";
+        return this.http.put<responseOrderI>(direction, order)
     }
 }

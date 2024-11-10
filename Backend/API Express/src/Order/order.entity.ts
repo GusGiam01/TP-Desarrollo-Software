@@ -1,4 +1,4 @@
-import { Entity, Property, ManyToOne, OneToMany, Collection, Cascade } from '@mikro-orm/core';
+import { Entity, Property, ManyToOne, OneToMany, Collection, Cascade, Ref } from '@mikro-orm/core';
 import { BaseEntity } from '../shared/db/baseEntity.entity.js';
 import { User } from '../User/user.entity.js';
 import { LineOrder } from '../LineOrder/lineOrder.entity.js';
@@ -9,7 +9,7 @@ export class Order extends BaseEntity {
   confirmDate?: Date;
 
   @ManyToOne(() => User, { nullable: false })
-  user!: User;
+  user!: Ref<User>;
 
   @OneToMany(() => LineOrder, (lineaOrder) => lineaOrder.order, { cascade: [Cascade.PERSIST, Cascade.REMOVE], nullable: false })
   linesOrder = new Collection<LineOrder>(this);

@@ -10,13 +10,13 @@ Content-Type: application/json
     "name":"Gustavo", 
     "surname":"Giampietro", 
     "userName":"GusGiam",
-    "password":"12345",
+    "password":"ggg",
     "type":"Admin",
     "mail":"gusgiam@gmail.com",
     "cellphone":"3364987633",
     "age":22,
     "birthDate": "2001-11-01",
-    "dni": "43355669"
+    "dni": "43355660"
 }
 
 ### ID

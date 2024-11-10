@@ -7,12 +7,16 @@ import {
     Rel,
     Collection,
     PrimaryKey,
+    SerializedPrimaryKey,
+    OneToMany,
   } from '@mikro-orm/core'
 
   import { BaseEntity } from '../shared/db/baseEntity.entity.js'
+import { LineOrder } from '../LineOrder/lineOrder.entity.js'
   
   @Entity()
   export class Product extends BaseEntity {
+
     @Property({ type: 'string', nullable: false, unique: true })
     code!: string
   
@@ -36,4 +40,10 @@ import {
 
     @Property({ type: 'string', nullable: false })
     brand!: string
+
+    @Property({ type: 'string', nullable: false })
+    img!: string
+
+    @OneToMany(() => LineOrder, lineOrder => lineOrder.product, {cascade: [Cascade.ALL]})
+    linesOrder = new Collection<LineOrder>(this)
   }
