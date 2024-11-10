@@ -8,6 +8,7 @@ import { orderI } from '../../modelos/order.interface.js';
 import { responseOrderI } from '../../modelos/responseOrder.interface.js';
 import { addOrderI } from '../../modelos/addOrder.interface.js';
 import { lineOrderI } from '../../modelos/lineOrder.interface.js';
+import { Token } from '@angular/compiler';
 
 @Component({
   selector: 'app-products',
@@ -68,53 +69,61 @@ export class ProductsComponent {
     return line
   }
 
+  addToOrder(o:orderI, line:lineOrderI):orderI{
+    let order:orderI = {
+      id: o.id,
+      linesOrder: [],
+      totalAmount: o.totalAmount,
+      statusHistory: o.statusHistory,
+      user: o.user
+    };
+    this.api.searchLinesOrderByOrderId(order.id).subscribe({
+      next: (data) => {
+        for (let i = 0; i < data.data.length; i++){
+          order.linesOrder.push(data.data[i]);
+        }
+        order.linesOrder.push(line);
+      },
+      error: (e) => {
+        console.log(e)
+      }
+    })
+    return order
+  }
+
   addToCart(code:string, q:number){   
     this.api.searchProductByCode(code).subscribe({
       next: (prod) => {
         const selectedProduct = prod.data;
         if (selectedProduct.stock >= q){
           if (localStorage.getItem("orderId") == null) {
-            let dni = ""+localStorage.getItem("dni"); 
-            this.api.searchByDni(dni).subscribe({
-              next: (u) => {
-                let thisUser = u.data;
-                let order:addOrderI = {
-                  confirmDate: new Date(),
-                  statusHistory: "",
-                  linesOrder: [],
-                  totalAmount: 0,
-                  user: thisUser
-                }
-                let line = this.createLineOrder(selectedProduct., q);
-                order.linesOrder.push(line);
-                for (let i=0; i < order.linesOrder.length; i++){
-                  order.totalAmount = order.totalAmount + (order.linesOrder[i].product.priceUni * order.linesOrder[i].quantity) 
-                }
-                this.api.postOrder(order).subscribe({
-                  next: (co) => {
-                    let dataResponseOrder:responseOrderI = co;
-                    localStorage.setItem("orderId", dataResponseOrder.data.id);
-                    console.log("Se creo la orden.")
-                  }
-                })
+            let userId = "" + localStorage.getItem("token");
+            let order:addOrderI = {
+              statusHistory: "",
+              linesOrder: [],
+              totalAmount: 0,
+              user: userId
+            }
+            let line = this.createLineOrder(selectedProduct.id, q);
+            order.linesOrder.push(line);
+            order.totalAmount = selectedProduct.priceUni * q;
+            this.api.postOrder(order).subscribe({
+              next: (co) => {
+                let dataResponseOrder:responseOrderI = co;
+                localStorage.setItem("orderId", dataResponseOrder.data.id);
+                console.log("Se creo la orden.")
               },
               error: (e) => {
-                console.log(e);
+                console.log(e)
               }
             })
-
-            
           }
           else {
             let orderId = ""+localStorage.getItem("orderId")
             this.api.searchOrderById(orderId).subscribe({
               next: (go) => {
-                let order = go.data;
-                let line = this.createLineOrder(selectedProduct, q);
-                order.linesOrder.push(line);
-                for (let i=0; i < order.linesOrder.length; i++){
-                  order.totalAmount = order.totalAmount + (order.linesOrder[i].product.priceUni * order.linesOrder[i].quantity) 
-                }
+                let order = this.addToOrder(go.data, this.createLineOrder(selectedProduct.id, q));
+                order.totalAmount = order.totalAmount + (selectedProduct.priceUni * q)
                 this.api.updateOrder(order).subscribe({
                   next: (uo) => {
                     console.log("Se agrego el objeto al pedido.")

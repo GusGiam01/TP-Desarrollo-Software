@@ -33,6 +33,16 @@ async function findAll(req: Request, res: Response) {
       res.status(500).json({ message: error.message })
     }
   }
+
+async function findAllWithOrderId(req: Request, res: Response) {
+  try {
+    const order = req.params.order
+    const lineOrders = await em.find(LineOrder, {order})
+    res.status(200).json({ message: 'found all lineOrders', data: lineOrders })
+  } catch (error: any) {
+    res.status(500).json({ message: error.message })
+  }
+}
   
   async function findOne(req: Request, res: Response) {
     try {
@@ -79,4 +89,4 @@ async function findAll(req: Request, res: Response) {
   }
 
 
-export {sanitizeLineOrderInput, findAll, findOne, add, update, remove}
+export {sanitizeLineOrderInput, findAll, findAllWithOrderId, findOne, add, update, remove}

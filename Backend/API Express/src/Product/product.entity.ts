@@ -9,6 +9,7 @@ import {
     PrimaryKey,
     SerializedPrimaryKey,
     OneToMany,
+    Unique,
   } from '@mikro-orm/core'
 
   import { BaseEntity } from '../shared/db/baseEntity.entity.js'
@@ -18,6 +19,7 @@ import { LineOrder } from '../LineOrder/lineOrder.entity.js'
   export class Product extends BaseEntity {
 
     @Property({ type: 'string', nullable: false, unique: true })
+    @Unique()
     code!: string
   
     @Property({ type: 'string', nullable: false })
