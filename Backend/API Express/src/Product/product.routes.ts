@@ -4,7 +4,7 @@ import { sanitizeProductInput, findAll, findOne, add, update, remove, findOneByC
 export const productRouter = Router()
 
 productRouter.get('/', findAll)
-productRouter.get('/:code', findOneByCode)
+productRouter.get('/:id', findOne)
 productRouter.post('/', sanitizeProductInput, add)
 productRouter.put('/:id', sanitizeProductInput, update)
 productRouter.patch('/:id', sanitizeProductInput, update)

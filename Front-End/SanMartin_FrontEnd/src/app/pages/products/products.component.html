@@ -5,14 +5,16 @@
             <span class="name_span">{{p.name}}</span>
             <h2 class="product_price">{{p.priceUni}}</h2>
             <form action="" >
-                <button type="button" class="product_btn" (click)=" selectProduct(p.code, p.stock)" *ngIf="p.code != productCode">COMPRAR</button>
+                <button type="button" class="product_btn" (click)=" selectProduct(p.code, p.stock)" *ngIf="p.code != productCode">
+                    COMPRAR
+                </button>
                 <div *ngIf="p.code == productCode" class="container">
                     <div class="counter-container">
                         <button type="button" class="counter_btn" (click)="decrease()">-</button>
                         <span class="counter_span">{{quantity}}</span>
                         <button type="button" class="counter_btn" (click)="increase()">+</button>
                     </div>
-                    <button type="button" class="buy_btn" (click)="addToCart(p.code, quantity)">AÑADIR AL CARRITO</button>
+                    <button type="button" class="buy_btn" (click)="addToCart(p.id, quantity)">AÑADIR AL CARRITO</button>
                 </div>
             </form>
             

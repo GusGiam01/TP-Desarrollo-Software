@@ -40,9 +40,11 @@ export class ProductsComponent {
   decrease(){
     if (this.quantity > 1){
       this.quantity--
-    }
-    if (this.quantity = 1){
-      this.productCode = "";
+    } 
+    else{
+      if (this.quantity == 1){
+        this.productCode = "";
+      }
     }
   }
 
@@ -61,11 +63,20 @@ export class ProductsComponent {
     });
   }
 
-  createLineOrder(p:string, q:number):lineOrderI{
+  createLineOrder(p:string, q:number, o:string):lineOrderI{
     let line:lineOrderI = {
       product: p,
-      quantity: q
+      quantity: q,
+      order: o
     }
+    this.api.postLineOrder(line).subscribe({
+      next: (data) => {
+        console.log("line order: " + data.data.id + " creada exitosamente.")
+      },
+      error: (e) => {
+        console.log(e)
+      }
+    })
     return line
   }
 
@@ -82,7 +93,6 @@ export class ProductsComponent {
         for (let i = 0; i < data.data.length; i++){
           order.linesOrder.push(data.data[i]);
         }
-        order.linesOrder.push(line);
       },
       error: (e) => {
         console.log(e)
@@ -91,8 +101,8 @@ export class ProductsComponent {
     return order
   }
 
-  addToCart(code:string, q:number){   
-    this.api.searchProductByCode(code).subscribe({
+  addToCart(id:string, q:number){   
+    this.api.searchProductById(id).subscribe({
       next: (prod) => {
         const selectedProduct = prod.data;
         if (selectedProduct.stock >= q){
@@ -104,7 +114,10 @@ export class ProductsComponent {
               totalAmount: 0,
               user: userId
             }
-            let line = this.createLineOrder(selectedProduct.id, q);
+            let line:lineOrderI = {
+              product:selectedProduct.id, 
+              quantity: q
+            }
             order.linesOrder.push(line);
             order.totalAmount = selectedProduct.priceUni * q;
             this.api.postOrder(order).subscribe({
@@ -112,6 +125,15 @@ export class ProductsComponent {
                 let dataResponseOrder:responseOrderI = co;
                 localStorage.setItem("orderId", dataResponseOrder.data.id);
                 console.log("Se creo la orden.")
+                selectedProduct.stock = selectedProduct.stock - q;
+                this.api.updateProduct(selectedProduct).subscribe({
+                  next: (pp) => {
+                    console.log("stock modificado.")
+                  },
+                  error: (e) => {
+                    console.log(e)
+                  }
+                }) 
               },
               error: (e) => {
                 console.log(e)
@@ -122,11 +144,20 @@ export class ProductsComponent {
             let orderId = ""+localStorage.getItem("orderId")
             this.api.searchOrderById(orderId).subscribe({
               next: (go) => {
-                let order = this.addToOrder(go.data, this.createLineOrder(selectedProduct.id, q));
+                let order = this.addToOrder(go.data, this.createLineOrder(selectedProduct.id, q, orderId));
                 order.totalAmount = order.totalAmount + (selectedProduct.priceUni * q)
                 this.api.updateOrder(order).subscribe({
                   next: (uo) => {
                     console.log("Se agrego el objeto al pedido.")
+                    selectedProduct.stock = selectedProduct.stock - q;
+                  this.api.updateProduct(selectedProduct).subscribe({
+                    next: (pp) => {
+                      console.log("stock modificado.")
+                    },
+                    error: (e) => {
+                      console.log(e)
+                    }
+                  })
                   },
                   error: (e) =>
                     alert("Hubo un problema al agregar un articulo a su carrito.")
@@ -149,6 +180,7 @@ export class ProductsComponent {
         alert("No se encontro el objeto")
       }
     })
+    this.productCode = "";
   }
 
   ngOnInit(): void{

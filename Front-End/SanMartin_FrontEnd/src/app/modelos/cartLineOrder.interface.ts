@@ -1,8 +1,7 @@
 import { productI } from "./product.interface.js";
 
-export interface lineOrderI{
+export interface cartLineOrderI{
     id?:string;
-    product:string;
+    product:productI;
     quantity:number;
-    order?: string;
 }
