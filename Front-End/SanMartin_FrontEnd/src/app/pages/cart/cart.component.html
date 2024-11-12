@@ -1,31 +1,31 @@
 <div class="container">
-    <tr>
+    <tr >
         <div class="item-container item">
             <p style="grid-area: 'product';">Producto</p>
             <p style="grid-area: 'price';">Precio</p>
-            <p style="grid-area: 'amount';">Cant.</p>
-            <p style="grid-area: 'total';">Total</p>
+            <p style="grid-area: 'quantity';">Cant.</p>
+            <p style="grid-area: 'total';">Subtotal</p>
             <p style="grid-area: 'x';"> </p>
         </div>
     </tr>
 
-    <tr>
+    <tr *ngFor="let l of cartLinesOrder">
         <div class="item-container item">
-            <p style="grid-area: 'product';">aaa</p>
-            <p style="grid-area: 'price';">bbb</p>
-            <p style="grid-area: 'amount';">ccc</p>
-            <p style="grid-area: 'total';">ddd</p>
-            <p style="grid-area: 'x';">x</p>
+            <p style="grid-area: 'product';">{{l.product.name}}</p>
+            <p style="grid-area: 'price';">{{l.product.priceUni}}</p>
+            <p style="grid-area: 'quantity';">{{l.quantity}}</p>
+            <p style="grid-area: 'total';">{{l.product.priceUni * l.quantity}}</p>
+            <div class="remove_btn_grid">
+                <button type="button" class="remove_btn" (click)="removeItem(l)"> X </button>
+            </div>
         </div>
     </tr>
 
-    <tr>
-        <div class="item-container item">
-            <p style="grid-area: 'product';">aaa</p>
-            <p style="grid-area: 'price';">bbb</p>
-            <p style="grid-area: 'amount';">ccc</p>
-            <p style="grid-area: 'total';">ddd</p>
-            <p style="grid-area: 'x';">x</p>
-        </div>
-    </tr>
+   <div class="outline_div">
+    <div >
+        <span>TOTAL: $</span>
+        <span>{{total}}</span>
+    </div>
+    <button type="button" class="buy_btn">CONTINUAR A LA COMPRA</button>
+   </div>
 </div>

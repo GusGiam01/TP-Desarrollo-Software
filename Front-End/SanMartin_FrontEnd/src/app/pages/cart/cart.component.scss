@@ -15,7 +15,8 @@
 .item-container{
     display: grid;
     grid-template-columns: 1fr 0.3fr 0.3fr 0.3fr 0.1fr;
-    grid-template-areas: 'product' 'price' 'amount' 'total' 'x';
+    grid-template-areas: 'product' 'price' 'quantity' 'total' 'x';
+    font-size: 16px;
 }
 
  tr {
@@ -24,4 +25,43 @@
 
 tr:last-child {
     border-bottom: none;
+}
+
+.outline_div{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: right;
+    align-items: flex-end;
+    padding: 1rem;
+    padding-top: 0%;
+    font-size: 30px;
+}
+
+.buy_btn{
+    width: 10rem;
+    height: 3rem;
+    background-color: #8F342F;
+    border: none;
+    border-radius: 2.5px;
+    font-family: 'SecondarySMfont';
+    font-size: 18px;
+}
+
+.remove_btn{
+    height: 1.5rem;
+    width: 1.5rem;
+    background-color: #8F342F;
+    border: none;
+    border-radius: 2.5px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.remove_btn_grid{
+    grid-area: 'x';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
 }

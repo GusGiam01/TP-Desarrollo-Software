@@ -11,6 +11,9 @@ import { orderI } from "../../modelos/order.interface.js";
 import { responseOrderI } from "../../modelos/responseOrder.interface.js";
 import { addOrderI } from "../../modelos/addOrder.interface.js";
 import { responseLinesOrderI } from "../../modelos/responseLinesOrders.interface.js";
+import { lineOrderI } from "../../modelos/lineOrder.interface.js";
+import { responseLineOrderI } from "../../modelos/responseLineOrders.interface.js";
+import { productI } from "../../modelos/product.interface.js";
 
 @Injectable({
     providedIn: 'root'
@@ -37,8 +40,8 @@ export class ApiService{
         return this.http.get<responseProductsI>(direction)
     }
 
-    searchProductByCode(code:string){
-        let direction = this.url + "/products/" + code;
+    searchProductById(id:string){
+        let direction = this.url + "/products/" + id;
         return this.http.get<responseProdI>(direction)
     }
 
@@ -60,5 +63,20 @@ export class ApiService{
     searchLinesOrderByOrderId(orderid:string){
         let direction = this.url + "/linesorder/" + orderid;
         return this.http.get<responseLinesOrderI>(direction)
+    }
+
+    postLineOrder(line:lineOrderI){
+        let direction = this.url + "/linesorder/";
+        return this.http.post<responseLineOrderI>(direction, line)
+    }
+
+    updateProduct(product:productI){
+        let direction = this.url + "/products/" + product.id
+        return this.http.put<responseProdI>(direction, product)
+    }
+
+    removeLineOrder(lineId:string){
+        let direction = this.url + "/linesorder/" + lineId;
+        return this.http.delete<responseLineOrderI>(direction);
     }
 }
