@@ -14,6 +14,8 @@ import { responseLinesOrderI } from "../../modelos/responseLinesOrders.interface
 import { lineOrderI } from "../../modelos/lineOrder.interface.js";
 import { responseLineOrderI } from "../../modelos/responseLineOrders.interface.js";
 import { productI } from "../../modelos/product.interface.js";
+import { shippingI } from "../../modelos/shipping.interface.js";
+import { addShippingI } from "../../modelos/addShipping.interface.js";
 
 @Injectable({
     providedIn: 'root'
@@ -25,6 +27,8 @@ export class ApiService{
 
     user:any;
 
+    // Usuarios
+
     searchByDni(dni:string):Observable<responseI>{
         let direction = this.url + "/users/" + dni;
         return this.http.get<responseI>(direction);
@@ -34,6 +38,8 @@ export class ApiService{
        let direction = this.url + "/users";
        return this.http.post<responseI>(direction, user)
     }
+
+    // Productos
 
     searchProducts(){
         let direction = this.url + "/products";
@@ -45,7 +51,14 @@ export class ApiService{
         return this.http.get<responseProdI>(direction)
     }
 
-    postOrder(order:addOrderI){
+    updateProduct(product:productI){                                //No seria add?
+        let direction = this.url + "/products/" + product.id
+        return this.http.put<responseProdI>(direction, product)
+    }
+
+    // Orders
+
+    postOrder(order:addOrderI){                     // No seria un orderI?
         let direction = this.url + "/orders";
         return this.http.post<responseOrderI>(direction, order)
     }
@@ -55,10 +68,12 @@ export class ApiService{
         return this.http.get<responseOrderI>(direction)
     }
 
-    updateOrder(order:orderI){
+    updateOrder(order:orderI){                      // No seria un addOrderI?
         let direction = this.url + "/orders/" + order.id;
         return this.http.put<responseOrderI>(direction, order)
     }
+
+    // Lineas de Orden
 
     searchLinesOrderByOrderId(orderid:string){
         let direction = this.url + "/linesorder/" + orderid;
@@ -70,13 +85,15 @@ export class ApiService{
         return this.http.post<responseLineOrderI>(direction, line)
     }
 
-    updateProduct(product:productI){
-        let direction = this.url + "/products/" + product.id
-        return this.http.put<responseProdI>(direction, product)
-    }
-
     removeLineOrder(lineId:string){
         let direction = this.url + "/linesorder/" + lineId;
         return this.http.delete<responseLineOrderI>(direction);
+    }
+
+    // Shipping
+
+    postShipping(shipping:shippingI){
+        let direction = this.url + "/shipping/";
+        return this.http.post<responseLineOrderI>(direction, shipping)
     }
 }
