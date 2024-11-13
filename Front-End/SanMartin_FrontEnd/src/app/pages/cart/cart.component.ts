@@ -82,6 +82,10 @@ export class CartComponent {
     
   }
 
+  redirectToComponent() {
+    this.router.navigate(['/execute-purchase']);
+  }
+
   ngOnInit(): void{
     this.getLinesOrder();
   }

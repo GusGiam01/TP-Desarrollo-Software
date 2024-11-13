@@ -1,86 +1,125 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../servicios/api/api.service.js';
-import { Router } from '@angular/router';  // Para navegar después de la compra
+import { Router } from '@angular/router';
 import { addShippingI } from '../../modelos/addShipping.interface.js';
+import { orderI } from '../../modelos/order.interface.js';
+import { cartLineOrderI } from '../../modelos/cartLineOrder.interface.js';
+import { CommonModule } from '@angular/common';
+import { FormGroup, FormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'app-execute-purchase',
+  standalone: true,
+  imports: [
+    ReactiveFormsModule,
+    CommonModule
+  ],
   templateUrl: './execute-purchase.component.html',
-  styleUrls: ['./execute-purchase.component.css']
+  styleUrls: ['./execute-purchase.component.scss']
 })
+
 export class ExecutePurchaseComponent implements OnInit {
 
-  constructor(private apiService: ApiService, private router: Router) { }
+  shippingForm = new FormGroup({
+    address : new FormControl('', Validators.required),
+    city : new FormControl('', Validators.required),
+    zipCode : new FormControl('', Validators.required),
+    cardNumber : new FormControl('', Validators.required),
+    expiryDate: new FormControl('', Validators.required),
+    cvv : new FormControl('', Validators.required),
+    order : new FormControl('', Validators.required),
+    cardholderName : new FormControl('', Validators.required),
+  })
+  
+  cartLinesOrder: cartLineOrderI[] = [];
+
+  order: orderI = {
+    id: '',
+    user: '',
+    linesOrder: [],
+    totalAmount: 0,
+    statusHistory: ''
+  };
+  
+  shippingDetails: addShippingI = {
+    address: '',
+    city: '',
+    zipCode: '',
+    cardNumber: '',
+    expiryDate: '',
+    cvv: '',
+    cardholderName: '',
+    order: ''
+  };
+
+  constructor(private api: ApiService, private router: Router) { }
 
   ngOnInit(): void {
-    // Obtener los productos del carrito desde el backend o servicio adecuado
-    this.cartLinesOrder = this.getCartItems(); // Puedes obtenerlos desde el servicio Api si es necesario
-    this.calculateTotal(); // Calcular el total de la compra
+    this.getLinesOrder();
+    this.calculateOrderTotal();
   }
 
-  // Obtener los productos del carrito
-  getCartItems(): any[] {
-    // Aquí puedes hacer una llamada a tu servicio para obtener los productos en el carrito.
-    // Asegúrate de que la API esté bien configurada para manejar esta consulta.
-    // Por ejemplo, usando ApiService si lo tienes implementado.
-    // return this.apiService.getCartItems(); // Un ejemplo de cómo podrías hacer esto si existiera un endpoint.
-    return []; // Retorna el carrito vacío como ejemplo.
-  }
-
-  // Calcular el total de la compra
-  calculateTotal(): void {
-    this.total = this.cartLinesOrder.reduce((acc, item) => acc + (item.product.priceUni * item.quantity), 0);
-  }
-
-  // Método para procesar la compra
-  submitPurchase(): void {
-    if (this.isFormValid()) {
-      // Crear un objeto con la información necesaria para realizar la compra
-      const orderData = {
-        shippingDetails: this.shippingDetails,
-        paymentDetails: this.paymentDetails,
-        linesOrder: this.cartLinesOrder,
-        total: this.total
-      };
-
-      // Llamar al API para realizar la compra
-      this.apiService.postShipping(orderData).subscribe(
-        (response) => {
-          // Lógica si la compra fue exitosa
-          alert('Compra realizada con éxito!');
-          this.router.navigate(['/confirmation']); // Redirige a una página de confirmación
-        },
-        (error) => {
-          // Lógica si hubo un error al procesar la compra
-          alert('Hubo un error al procesar la compra. Intente nuevamente.');
+  getLinesOrder(){                                            // Podria pasarla a servicio y llamarla de Cart y Execute-purchase a ahi
+    let orderId = "" + localStorage.getItem("orderId")
+    this.api.searchLinesOrderByOrderId(orderId).subscribe({
+      next: (data) => {
+        for (let i = 0; i < data.data.length; i++){
+          this.api.searchProductById(data.data[i].product).subscribe({
+            next: (p) => {
+              let line:cartLineOrderI = {
+                id: data.data[i].id,
+                product: p.data,
+                quantity: data.data[i].quantity
+              }
+              this.cartLinesOrder.push(line)
+              this.order.totalAmount = this.order.totalAmount + (p.data.priceUni * data.data[i].quantity);
+            },
+            error: (e) => {
+              console.log(e)
+            }
+          })
         }
-      );
-    } else {
-      alert('Por favor, complete todos los campos correctamente.');
-    }
+      },
+      error: (e) => {
+        console.log(e)
+      }
+    })
   }
 
-  // Método para validar que el formulario está completo
-  isFormValid(): boolean {
-    
-    var respuesta;
-    
-    if (this.shippingDetails.fullName && this.shippingDetails.address && this.shippingDetails.city && this.shippingDetails.zipCode && this.paymentDetails.cardNumber 
-      && this.paymentDetails.expiryDate && this.paymentDetails.cvv && this.paymentDetails.cardholderName){
-      respuesta = true;
-    }else{
-      respuesta = false;
-    }
-    return respuesta;
+  calculateOrderTotal(): void {
+    this.order.totalAmount = this.cartLinesOrder.reduce((acc, item) => acc + item.product.priceUni * item.quantity, 0);
   }
 
-  // Método para manejar el envío de la información del formulario
+  /*
   onSubmit(): void {
-    if (this.isFormValid()) {
-      console.log('Detalles de Envío:', this.shippingDetails);
-      console.log('Detalles de Pago:', this.paymentDetails);
-    } else {
-      alert('Por favor, complete todos los campos.');
-    }
+    // Método vacío para manejar el evento ngSubmit, aunque el botón tiene su propio (click)
+  }
+  */
+
+  submitPurchase(form:any): void {
+    
+    let orderId = "" + localStorage.getItem("orderId");
+
+    let shippingData: addShippingI = {
+      address: form.address,
+      city: form.city,
+      zipCode: form.zipCode,
+      cardNumber: form.cardNumber,
+      expiryDate: form.expiryDate,
+      cvv: form.cvv,
+      cardholderName: form.cardholderName,
+      order: orderId 
+    };
+
+    this.api.postShipping(shippingData).subscribe({
+      next: (response) => {
+        console.log('Envío confirmado:', response);
+        this.router.navigate(['/purchase-confirmation']); 
+      },
+      error: err => {
+        console.error('Error en la compra:', err);
+      }
+    });
   }
 }

@@ -1,0 +1,131 @@
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2rem;
+    color: #333;
+  }
+  
+  .order-summary {
+    margin-bottom: 40px;
+  
+    h2 {
+      font-size: 1.5rem;
+      color: #333;
+      margin-bottom: 15px;
+    }
+  
+    .order-summary-header {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+  
+    .order-summary-item {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      align-items: center;
+      border-bottom: 1px solid #e0e0e0;
+      padding: 10px 0;
+  
+      p {
+        margin: 0;
+        color: #555;
+      }
+    }
+  
+    .order-total {
+      text-align: right;
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 1.2rem;
+  
+      p {
+        margin: 0;
+      }
+    }
+  }
+  
+  .shipping-details, .payment-details {
+    margin-bottom: 30px;
+  }
+  
+  h2 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  
+    label {
+      font-size: 1rem;
+      color: #333;
+      display: block;
+      margin-bottom: 5px;
+    }
+  
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+      color: #555;
+      box-sizing: border-box;
+    }
+  
+    input:focus {
+      border-color: #007BFF;
+      outline: none;
+    }
+  }
+  
+  button.buy_btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .order-summary-header, .order-summary-item {
+      grid-template-columns: 1fr 1fr;
+    }
+  
+    .order-total {
+      font-size: 1rem;
+    }
+  
+    .form-group {
+      input {
+        font-size: 0.9rem;
+      }
+    }
+  
+    button.buy_btn {
+      font-size: 1rem;
+    }
+  }
+  

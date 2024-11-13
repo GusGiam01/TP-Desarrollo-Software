@@ -16,6 +16,7 @@ import { responseLineOrderI } from "../../modelos/responseLineOrders.interface.j
 import { productI } from "../../modelos/product.interface.js";
 import { shippingI } from "../../modelos/shipping.interface.js";
 import { addShippingI } from "../../modelos/addShipping.interface.js";
+import { responseShippingI } from "../../modelos/responseShipping.interface.js";
 
 @Injectable({
     providedIn: 'root'
@@ -51,14 +52,14 @@ export class ApiService{
         return this.http.get<responseProdI>(direction)
     }
 
-    updateProduct(product:productI){                                //No seria add?
+    updateProduct(product:productI){                            
         let direction = this.url + "/products/" + product.id
         return this.http.put<responseProdI>(direction, product)
     }
 
     // Orders
 
-    postOrder(order:addOrderI){                     // No seria un orderI?
+    postOrder(order:addOrderI){                     
         let direction = this.url + "/orders";
         return this.http.post<responseOrderI>(direction, order)
     }
@@ -68,7 +69,7 @@ export class ApiService{
         return this.http.get<responseOrderI>(direction)
     }
 
-    updateOrder(order:orderI){                      // No seria un addOrderI?
+    updateOrder(order:orderI){                     
         let direction = this.url + "/orders/" + order.id;
         return this.http.put<responseOrderI>(direction, order)
     }
@@ -81,7 +82,7 @@ export class ApiService{
     }
 
     postLineOrder(line:lineOrderI){
-        let direction = this.url + "/linesorder/";
+        let direction = this.url + "/linesorder";
         return this.http.post<responseLineOrderI>(direction, line)
     }
 
@@ -92,8 +93,8 @@ export class ApiService{
 
     // Shipping
 
-    postShipping(shipping:shippingI){
-        let direction = this.url + "/shipping/";
-        return this.http.post<responseLineOrderI>(direction, shipping)
+    postShipping(shipping:addShippingI){
+        let direction = this.url + "/shipping";
+        return this.http.post<responseShippingI>(direction, shipping)
     }
 }
