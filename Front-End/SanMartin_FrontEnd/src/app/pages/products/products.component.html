@@ -1,3 +1,11 @@
+<div class="order-selector">
+    <label for="sortBy">Ordenar por:</label>
+    <select id="sortBy" (change)="onSortChange($event)" class="sort-select">
+        <option value="alphabetical">Alfabéticamente</option>
+        <option value="priceAsc">Precio: Menor a mayor</option>
+    </select>
+</div>
+
 <div class="div_products">
     <div class="div_product_container" *ngFor="let p of products">
         <div class="div_product">
