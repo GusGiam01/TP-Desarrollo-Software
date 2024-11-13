@@ -1,10 +1,10 @@
 ### Obtener todos los pedido
-GET http://localhost:3000/api/shippings
+GET http://localhost:3000/api/shipping
 
 ### Crear un nuevo pedido
 
 # @name createGin
-POST http://localhost:3000/api/shippings
+POST http://localhost:3000/api/shipping
 Content-Type: application/json
 
 {
