@@ -1,7 +1,7 @@
 export interface signinI{
     name:string;
     surname:string;
-    userName:string;
+    address:string;
     password:string;
     type:string;
     mail:string;

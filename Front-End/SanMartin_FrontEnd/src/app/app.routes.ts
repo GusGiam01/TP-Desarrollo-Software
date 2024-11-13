@@ -7,6 +7,7 @@ import { CartComponent } from './pages/cart/cart.component.js';
 import { ProductsComponent } from './pages/products/products.component.js';
 import { AboutUsComponent } from './pages/about-us/about-us.component.js';
 import { ExecutePurchaseComponent } from './pages/execute-purchase/execute-purchase.component.js';
+import { ThanksForBuyingComponent } from './pages/thanks-for-buying/thanks-for-buying.component.js';
 
 export const routes: Routes = [
     {path:'', redirectTo:'home', pathMatch:'full'},
@@ -17,7 +18,9 @@ export const routes: Routes = [
     {path:'cart', component:CartComponent},
     {path:'products', component:ProductsComponent},
     {path:'about-us', component:AboutUsComponent},
-    {path:'execute-purchase', component:ExecutePurchaseComponent}
+    {path:'execute-purchase', component:ExecutePurchaseComponent},
+    {path:'thanks', component:ThanksForBuyingComponent}
 ];
 
-export const routingComponents = [PuntosventaListaComponent, IndexComponent, SmContactComponent, LogInComponent, CartComponent, ProductsComponent, AboutUsComponent, ExecutePurchaseComponent]
+export const routingComponents = [PuntosventaListaComponent, IndexComponent, SmContactComponent, LogInComponent, CartComponent, 
+    ProductsComponent, AboutUsComponent, ExecutePurchaseComponent, ThanksForBuyingComponent]

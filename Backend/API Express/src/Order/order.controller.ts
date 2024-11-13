@@ -11,6 +11,9 @@ function sanitizeOrderInput(req: Request, res: Response, next: NextFunction){
       linesOrder: req.body.linesOrder, 
       totalAmount: req.body.totalAmount, 
       statusHistory: req.body.statusHistory,
+      address: req.body.address,
+      zipCode: req.body.zipCode,
+      province: req.body.province,
     };
 
     Object.keys(req.body.sanitizedOrderInput).forEach((key)=>{

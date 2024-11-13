@@ -8,7 +8,7 @@ function sanitizeUserInput(req: Request, res: Response, next: NextFunction){
     req.body.sanitizedUserInput = {
         name: req.body.name, 
         surname: req.body.surname, 
-        userName: req.body.userName, 
+        address: req.body.address, 
         password: req.body.password, 
         type: req.body.type, 
         mail: req.body.mail, 

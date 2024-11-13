@@ -1,0 +1,45 @@
+$background-color: #d7b599;
+$text-color: #8B1D1E;
+$button-color: #007bff;
+
+.thank-you-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: $background-color;
+  color: $text-color;
+
+  .thank-you-message {
+    font-size: 3rem;
+    font-weight: bold;
+    text-align: center;
+    animation: fadeInZoom 1.5s ease forwards, pulse 2s ease-in-out infinite;
+    transform-origin: center;
+
+    // Sombra para dar efecto 3D
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+  }
+}
+
+// Animación de entrada con fade y zoom
+@keyframes fadeInZoom {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+// Efecto de pulsación suave
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}

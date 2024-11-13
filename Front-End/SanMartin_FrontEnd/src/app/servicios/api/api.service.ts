@@ -14,9 +14,6 @@ import { responseLinesOrderI } from "../../modelos/responseLinesOrders.interface
 import { lineOrderI } from "../../modelos/lineOrder.interface.js";
 import { responseLineOrderI } from "../../modelos/responseLineOrders.interface.js";
 import { productI } from "../../modelos/product.interface.js";
-import { shippingI } from "../../modelos/shipping.interface.js";
-import { addShippingI } from "../../modelos/addShipping.interface.js";
-import { responseShippingI } from "../../modelos/responseShipping.interface.js";
 
 @Injectable({
     providedIn: 'root'
@@ -89,12 +86,5 @@ export class ApiService{
     removeLineOrder(lineId:string){
         let direction = this.url + "/linesorder/" + lineId;
         return this.http.delete<responseLineOrderI>(direction);
-    }
-
-    // Shipping
-
-    postShipping(shipping:addShippingI){
-        let direction = this.url + "/shipping";
-        return this.http.post<responseShippingI>(direction, shipping)
     }
 }

@@ -21,9 +21,6 @@ import { Order } from '../Order/order.entity.js'
     surname!: string
   
     @Property({ type: 'string', nullable: false })
-    userName!: string
-  
-    @Property({ type: 'string', nullable: false })
     password!: string
   
     @Property({ type: 'string', nullable: false })
@@ -46,5 +43,10 @@ import { Order } from '../Order/order.entity.js'
 
     @OneToMany(() => Order, order => order.user, {cascade: [Cascade.ALL]})
     orders = new Collection<Order>(this)
+
+    // Correspondiente a direccion. Eliminar cuando se cree la respectiva clase.
+
+    @Property({ type: 'string', nullable: true })
+    address?: string
 
   }
