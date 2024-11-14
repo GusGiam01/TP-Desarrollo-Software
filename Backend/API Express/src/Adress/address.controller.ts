@@ -77,5 +77,4 @@ async function remove(req: Request, res: Response) {
   }
 }
 
-
 export { sanitizeAdressInput, findAll, findOne, add, update, remove }

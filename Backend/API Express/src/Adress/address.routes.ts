@@ -1,11 +1,11 @@
 import { Router } from "express";
-import { sanitizeProductInput, findAll, findOne, add, update, remove, findOneByCode } from "./address.controller.js";
+import { sanitizeAdressInput, findAll, findOne, add, update, remove } from "./address.controller.js";
 
-export const productRouter = Router()
+export const addressRouter = Router()
 
-productRouter.get('/', findAll)
-productRouter.get('/:id', findOne)
-productRouter.post('/', sanitizeProductInput, add)
-productRouter.put('/:id', sanitizeProductInput, update)
-productRouter.patch('/:id', sanitizeProductInput, update)
-productRouter.delete('/:id', sanitizeProductInput, remove)
+addressRouter.get('/', findAll)
+addressRouter.get('/:id', findOne)
+addressRouter.post('/', sanitizeAdressInput, add)
+addressRouter.put('/:id', sanitizeAdressInput, update)
+addressRouter.patch('/:id', sanitizeAdressInput, update)
+addressRouter.delete('/:id', sanitizeAdressInput, remove)
