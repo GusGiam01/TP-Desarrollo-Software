@@ -10,6 +10,7 @@ import { ExecutePurchaseComponent } from './pages/execute-purchase/execute-purch
 import { ThanksForBuyingComponent } from './pages/thanks-for-buying/thanks-for-buying.component.js';
 import { AdminMenuComponent } from './pages/admin-menu/admin-menu.component.js';
 import { AddProductComponent } from './pages/add-product/add-product.component.js';
+import { ViewOrdersComponent } from './pages/view-orders/view-orders.component.js';
 
 export const routes: Routes = [
     {path:'', redirectTo:'home', pathMatch:'full'},
@@ -23,8 +24,9 @@ export const routes: Routes = [
     {path:'execute-purchase', component:ExecutePurchaseComponent},
     {path:'thanks', component:ThanksForBuyingComponent},
     {path:'admin-menu', component:AdminMenuComponent},
-    {path:'add-product', component:AddProductComponent}
+    {path:'add-product', component:AddProductComponent},
+    {path:'view-orders', component:ViewOrdersComponent}
 ];
 
 export const routingComponents = [PuntosventaListaComponent, IndexComponent, SmContactComponent, LogInComponent, CartComponent, 
-    ProductsComponent, AboutUsComponent, ExecutePurchaseComponent, ThanksForBuyingComponent, AdminMenuComponent, AddProductComponent]
+    ProductsComponent, AboutUsComponent, ExecutePurchaseComponent, ThanksForBuyingComponent, AdminMenuComponent, AddProductComponent, ViewOrdersComponent]
