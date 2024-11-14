@@ -29,6 +29,11 @@ export class ApiService{
 
     // Usuarios
 
+    searchUserById(id:string){
+        let direction = this.url + "/users/" + id;
+        return this.http.get<responseI>(direction)
+    }
+
     searchByDni(dni:string):Observable<responseI>{
         let direction = this.url + "/users/" + dni;
         return this.http.get<responseI>(direction);
@@ -37,6 +42,11 @@ export class ApiService{
     postUser(user:signinI){
        let direction = this.url + "/users";
        return this.http.post<responseI>(direction, user)
+    }
+
+    updateUser(user:userI){                            
+        let direction = this.url + "/users/" + user.id
+        return this.http.put<responseProdI>(direction, user)
     }
 
     // Productos
