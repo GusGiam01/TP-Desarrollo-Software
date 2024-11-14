@@ -84,13 +84,13 @@ async function findAll(req: Request, res: Response) {
   async function findOneByUserId(req: Request, res: Response) {
     try {
       const userId = req.params.userId
-      const order = await em.findOneOrFail(Order, { user: {id: userId} })
-      //const order = await em.findOneOrFail(Order, { user: userId })
+
+      const order = await em.findOneOrFail(Order, { user: {id: userId} })     //Aca esta el problema
+
       res.status(200).json({ message: 'found order', data: order })
     } catch (error: any) {
       res.status(500).json({ message: error.message })
     }
   }
-
 
 export {sanitizeOrderInput, findAll, findOne, findOneByUserId, add, update, remove}
