@@ -29,12 +29,32 @@ export class ViewSingleOrderComponent {
     let orderId = "" + localStorage.getItem("OrderId");
     this.api.searchOrderById(orderId).subscribe({
       next: (data) => {
-        this.order = data.data;                                    
+        this.order = data.data;
       },
       error: (e) => {
         console.log(e)
       }
     })
+  }
+
+  getNameProduct(productId:string) : string{
+    let nombreProduct : string = "";
+    this.api.searchProductById(productId).subscribe({
+      next: (data) => {
+        nombreProduct = data.data.name;
+      }
+    })
+    return nombreProduct;
+  }
+
+  getPriceProduct(productId:string) : number{
+    let nombreProduct : number = 0;
+    this.api.searchProductById(productId).subscribe({
+      next: (data) => {
+        nombreProduct = data.data.priceUni;
+      } 
+    })
+    return nombreProduct;
   }
 
   goBack(){

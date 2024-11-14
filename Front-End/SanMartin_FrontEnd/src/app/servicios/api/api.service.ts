@@ -44,6 +44,11 @@ export class ApiService{
        return this.http.post<responseI>(direction, user)
     }
 
+    updateUser(user:userI){                            
+        let direction = this.url + "/users/" + user.id
+        return this.http.put<responseProdI>(direction, user)
+    }
+
     // Productos
 
     searchProducts(){
