@@ -1,0 +1,29 @@
+<div class="addresses-container">
+    <h2>Direcciones de Usuario</h2>
+    
+    <div *ngIf="addresses.length > 0; else noAddresses">
+      <ul class="addresses-list">
+        <li *ngFor="let address of addresses" class="address-item">
+          <h3>{{ address.nickName }}</h3>
+          <p><strong>Código Postal:</strong> {{ address.zipCode }}</p>
+          <p><strong>Dirección:</strong> {{ address.address }}</p>
+          <p><strong>Provincia:</strong> {{ address.province }}</p>
+          
+          <!-- Botón para eliminar la dirección -->
+          <button (click)="deleteAddress(address.id)" class="delete-btn">Eliminar</button>
+        </li>
+      </ul>
+    </div>
+  
+    <ng-template #noAddresses>
+      <p>No tienes direcciones guardadas.</p>
+    </ng-template>
+  
+    <!-- Botón para agregar una nueva dirección -->
+    <button (click)="addAddress()" class="add-btn">Agregar Dirección</button>
+    
+    <!-- Botón para volver atrás -->
+    <button (click)="goBack()" class="back-btn">Volver Atrás</button>
+  </div>
+  
+  

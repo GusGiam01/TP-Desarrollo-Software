@@ -12,6 +12,9 @@ import { AdminMenuComponent } from './pages/admin-menu/admin-menu.component.js';
 import { AddProductComponent } from './pages/add-product/add-product.component.js';
 import { ViewOrdersComponent } from './pages/view-orders/view-orders.component.js';
 import { EditUserComponent } from './pages/modifyuser/modifyuser.component.js';
+import { AddAddressComponent } from './pages/add-address/add-address.component.js';
+import { AddressesComponent } from './pages/list-address/list-address.component.js';
+
 
 export const routes: Routes = [
     {path:'', redirectTo:'home', pathMatch:'full'},
@@ -27,8 +30,10 @@ export const routes: Routes = [
     {path:'admin-menu', component:AdminMenuComponent},
     {path:'add-product', component:AddProductComponent},
     {path:'view-orders', component:ViewOrdersComponent},
-    {path:'modify-user', component:EditUserComponent}
+    {path:'modify-user', component:EditUserComponent},
+    {path:'add-address', component:AddAddressComponent},
+    {path:'list-address', component:AddressesComponent}
 ];
 
-export const routingComponents = [PuntosventaListaComponent, IndexComponent, SmContactComponent, LogInComponent, CartComponent, EditUserComponent,
-    ProductsComponent, AboutUsComponent, ExecutePurchaseComponent, ThanksForBuyingComponent, AdminMenuComponent, AddProductComponent, ViewOrdersComponent]
+export const routingComponents = [PuntosventaListaComponent, IndexComponent, SmContactComponent, LogInComponent, CartComponent, EditUserComponent, AddAddressComponent,
+    ProductsComponent, AboutUsComponent, ExecutePurchaseComponent, ThanksForBuyingComponent, AdminMenuComponent, AddProductComponent, AddressesComponent, ViewOrdersComponent]
