@@ -21,18 +21,14 @@ import { addressI } from '../../modelos/address.interface.js';
 
 export class ExecutePurchaseComponent implements OnInit {
 
-  addresses:Array<addressI> = []; 
+  addresses: Array<addressI> = []; 
 
   shippingForm = new FormGroup({
-    address: new FormControl('', Validators.required),
-    city: new FormControl('', Validators.required),
-    zipCode: new FormControl('', Validators.required),
     cardNumber: new FormControl('', Validators.required),
     expiryDate: new FormControl('', Validators.required),
     cvv: new FormControl('', Validators.required),
-    order: new FormControl('', Validators.required),
     cardholderName: new FormControl('', Validators.required),
-    province: new FormControl('', Validators.required)  // Asegúrate de incluir el campo para la provincia si es necesario
+    address: new FormControl('', Validators.required) 
   });
 
   cartLinesOrder: cartLineOrderI[] = [];
@@ -41,14 +37,21 @@ export class ExecutePurchaseComponent implements OnInit {
     user: '',
     linesOrder: [],
     totalAmount: 0,
-    statusHistory: ''
+    statusHistory: '',
+    address: {
+      id: '',
+      zipCode: '',
+      province: '',
+      nickName: '',
+      address: ''
+    }
   };
 
   constructor(private api: ApiService, private router: Router) { }
 
   ngOnInit(): void {
     this.getLinesOrder();
-    this.loadUserAddresses(); // Cargar direcciones del usuario
+    this.loadUserAddresses();
     this.calculateOrderTotal();
   }
 
@@ -111,9 +114,7 @@ export class ExecutePurchaseComponent implements OnInit {
           linesOrder: data.data.linesOrder,
           totalAmount: data.data.totalAmount,
           statusHistory: data.data.statusHistory,
-          address: form.address,
-          zipCode: form.zipCode,
-          province: form.province // Asegúrate de incluir la provincia si es necesaria
+          address: form.address // Ajustado para usar el objeto address completo
         };
 
         this.api.updateOrder(completeOrder).subscribe({

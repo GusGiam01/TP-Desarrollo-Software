@@ -23,9 +23,7 @@
         </div>
     </section>
 
-    <!-- Formulario de Datos de Envío y Pago -->
     <form class="form" [formGroup]="shippingForm" (ngSubmit)="submitPurchase(shippingForm.value)">
-        <!-- Datos de Envío -->
         <div class="form-group">
             <label for="address">Dirección</label>
             <select id="address" formControlName="address">
@@ -33,7 +31,6 @@
             </select>
           </div>
 
-        <!-- Datos de la Tarjeta -->
         <section class="payment-details">
             <h2>Datos de la Tarjeta</h2>
             <div class="form-group">
@@ -57,7 +54,6 @@
             </div>
         </section>
 
-        <!-- Confirmación de la Compra -->
         <section class="confirmation">
             <button type="submit" class="buy_btn">Efectuar Compra</button>
         </section>

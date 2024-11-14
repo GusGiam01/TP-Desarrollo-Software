@@ -1,3 +1,4 @@
+import { addressI } from "./address.interface.js";
 import { lineOrderI } from "./lineOrder.interface.js";
 import { userI } from "./user.interface.js";
 
@@ -7,7 +8,5 @@ export interface addOrderI{
     linesOrder:Array<lineOrderI>;
     totalAmount:number;
     statusHistory:string;
-    address?:string;
-    zipCode?:number;
-    province?:string;
+    address?:addressI;
 }
