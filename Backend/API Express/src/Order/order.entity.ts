@@ -1,7 +1,9 @@
-import { Entity, Property, ManyToOne, OneToMany, Collection, Cascade, Ref } from '@mikro-orm/core';
+import { Entity, Property, ManyToOne, OneToMany, Collection, Cascade, Ref, OneToOne } from '@mikro-orm/core';
 import { BaseEntity } from '../shared/db/baseEntity.entity.js';
 import { User } from '../User/user.entity.js';
 import { LineOrder } from '../LineOrder/lineOrder.entity.js';
+import { Adress } from '../Adress/address.entity.js'
+
 
 @Entity()
 export class Order extends BaseEntity {
@@ -20,14 +22,6 @@ export class Order extends BaseEntity {
   @Property({ type: 'json', nullable: true })
   statusHistory: string[] = [];
 
-  // Correspondiente a direccion. Eliminar cuando se cree la respectiva clase.
-
   @Property({ type: 'string', nullable: true })
-  address?: string
-
-  @Property({ type: 'number', nullable: true })
-  zipCode?: number
-
-  @Property({ type: 'string', nullable: true })
-  province?: string
+  address?: Adress;
 }
