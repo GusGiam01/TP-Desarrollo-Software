@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express"
 import { Order } from "../Order/order.entity.js"
+import { User } from "../User/user.entity.js"
 import { orm } from "../shared/db/orm.js"
 
 const em = orm.em
@@ -81,11 +82,13 @@ async function findAll(req: Request, res: Response) {
     }
   }
 
-  async function findOneByUserId(req: Request, res: Response) {
+  async function findAllByUserId(req: Request, res: Response) {
     try {
-      const userId = req.params.userId
+      const id = req.params.user
 
-      const order = await em.findOneOrFail(Order, { user: {id: userId} })     //Aca esta el problema
+      const user = await em.findOneOrFail(User, {id})
+
+      const order = await em.findOneOrFail(Order, { user })     //Aca esta el problema
 
       res.status(200).json({ message: 'found order', data: order })
     } catch (error: any) {
@@ -93,4 +96,4 @@ async function findAll(req: Request, res: Response) {
     }
   }
 
-export {sanitizeOrderInput, findAll, findOne, findOneByUserId, add, update, remove}
+export {sanitizeOrderInput, findAll, findOne, findAllByUserId, add, update, remove}
