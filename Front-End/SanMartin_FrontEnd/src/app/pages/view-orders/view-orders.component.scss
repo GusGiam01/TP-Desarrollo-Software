@@ -64,6 +64,30 @@
           background-color: #0056b3;
         }
       }
+
+      .go-back-btn {
+        background-color: #4caf50;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      
+        &:hover {
+          background-color: #388e3c;
+        }
+      
+        &:active {
+          background-color: #2e7d32;
+        }
+      
+        &:focus {
+          outline: none;
+          box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.5);
+        }
+      }      
     }
   }
   

@@ -3,7 +3,7 @@
         <h2 class="menu-title">Panel de Administración</h2>
     </div>
     <ul class="menu-list">
-        <li class="menu-item" *ngIf="(typeUser === 'Admin' || typeUser === 'admin')">
+        <li class="menu-item" *ngIf="!(typeUser == 'Admin' || typeUser == 'admin')">
             <button class="menu-link" (click)="navigateTo()">Dar de alta un producto</button>
         </li>
         <li class="menu-item">

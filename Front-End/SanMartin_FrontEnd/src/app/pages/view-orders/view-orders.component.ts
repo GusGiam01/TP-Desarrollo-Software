@@ -45,4 +45,8 @@ export class ViewOrdersComponent {
     localStorage.setItem("OrderId", orderId);
     this.router.navigate(['/view-single-order']);
   }
+
+  goBack(){
+    this.router.navigate(['/admin-menu']);
+  }
 }

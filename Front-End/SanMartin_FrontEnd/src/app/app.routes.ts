@@ -11,7 +11,7 @@ import { ThanksForBuyingComponent } from './pages/thanks-for-buying/thanks-for-b
 import { AdminMenuComponent } from './pages/admin-menu/admin-menu.component.js';
 import { AddProductComponent } from './pages/add-product/add-product.component.js';
 import { ViewOrdersComponent } from './pages/view-orders/view-orders.component.js';
-import { ModifyuserComponent } from './pages/modifyuser/modifyuser.component.js';
+import { EditUserComponent } from './pages/modifyuser/modifyuser.component.js';
 
 export const routes: Routes = [
     {path:'', redirectTo:'home', pathMatch:'full'},
@@ -27,8 +27,8 @@ export const routes: Routes = [
     {path:'admin-menu', component:AdminMenuComponent},
     {path:'add-product', component:AddProductComponent},
     {path:'view-orders', component:ViewOrdersComponent},
-    {path:'modify-user', component:ModifyuserComponent}
+    {path:'modify-user', component:EditUserComponent}
 ];
 
-export const routingComponents = [PuntosventaListaComponent, IndexComponent, SmContactComponent, LogInComponent, CartComponent, ModifyuserComponent,
+export const routingComponents = [PuntosventaListaComponent, IndexComponent, SmContactComponent, LogInComponent, CartComponent, EditUserComponent,
     ProductsComponent, AboutUsComponent, ExecutePurchaseComponent, ThanksForBuyingComponent, AdminMenuComponent, AddProductComponent, ViewOrdersComponent]

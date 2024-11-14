@@ -35,11 +35,6 @@
       </div>
   
       <div class="form-group">
-        <label for="age">Edad</label>
-        <input id="age" formControlName="age" type="number" />
-      </div>
-  
-      <div class="form-group">
         <label for="birthDate">Fecha de Nacimiento</label>
         <input id="birthDate" formControlName="birthDate" type="date" />
       </div>
@@ -55,6 +50,7 @@
       </div>
   
       <button type="submit" [disabled]="userForm.invalid">Guardar Cambios</button>
+      <button type="submit" class="cancel_btn" (click)="goBack()">Cancelar</button>
     </form>
   </div>
   

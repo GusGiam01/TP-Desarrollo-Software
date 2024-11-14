@@ -59,4 +59,8 @@ export class AddProductComponent implements OnInit {
       }
     });
   }
+
+  goBack(){
+    this.router.navigate(['/admin-menu']);
+  }
 }

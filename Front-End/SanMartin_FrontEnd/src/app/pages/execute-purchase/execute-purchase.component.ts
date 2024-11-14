@@ -108,4 +108,8 @@ export class ExecutePurchaseComponent implements OnInit {
       }
     })    
   }
+
+  goBack(){
+    this.router.navigate(['/cart']);
+  }
 }
