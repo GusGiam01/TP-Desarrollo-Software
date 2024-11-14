@@ -36,27 +36,43 @@ export class AddressesComponent implements OnInit {
       next: (data) => {
         this.addresses = data.data;
         const updatedAddresses = this.addresses.filter(address => address.id !== addressId);
-        const updatedUser : userI = { 
-          ...data, 
-          addresses: updatedAddresses  // Actualizamos específicamente la propiedad 'addresses'
-        };
-        this.api.updateUser(updatedUser).subscribe({
-          next: () => {
-            console.log("Dirección eliminada correctamente.");
-            this.api.removeAddress(addressId).subscribe({
+        this.api.searchUserById(userId).subscribe({
+          next: (data1) => {
+            const updatedUser : userI = {
+              id: data1.data.id,
+              name: data1.data.name,
+              surname: data1.data.surname,
+              password: data1.data.password,
+              type: data1.data.type,
+              mail: data1.data.mail, 
+              cellphone: data1.data.cellphone, 
+              birthDate: data1.data.birthDate, 
+              dni: data1.data.dni, 
+              addresses: updatedAddresses
+            };
+
+            this.api.updateUser(updatedUser).subscribe({
               next: () => {
-                console.log("Dirección eliminada de la base de datos.");
-                this.router.navigate([this.router.url]);
+                console.log("Dirección eliminada correctamente.");
+                this.api.removeAddress(addressId).subscribe({
+                  next: () => {
+                    console.log("Dirección eliminada de la base de datos.");
+                    this.router.navigate([this.router.url]);
+                  },
+                  error: (t) => {
+                    console.error('Error al eliminar la dirección de la base de datos:', t);
+                  }
+                });
               },
-              error: (error) => {
-                console.error('Error al eliminar la dirección de la base de datos:', error);
+              error: (r) => {
+                console.error('Error al actualizar el usuario:', r);
               }
             });
           },
-          error: (error) => {
-            console.error('Error al actualizar el usuario:', error);
+          error: (s) => {
+            console.error('Error al eliminar la dirección de la base de datos:', s);
           }
-        });
+        })
       },
       error: (error) => {
         console.error('Error al obtener las direcciones:', error);

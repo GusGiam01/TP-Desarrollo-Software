@@ -20,6 +20,8 @@ import { responseAddressI } from "../../modelos/responseAddress.interface.js";
 import { addressI } from "../../modelos/address.interface.js";
 import { addAddressI } from "../../modelos/addAddress.interface.js";
 import { responseAddressesI } from "../../modelos/responseAddresses.interface.js";
+import { userPatchI } from '../../modelos/userPatch.interface';
+
 
 
 @Injectable({
@@ -52,6 +54,11 @@ export class ApiService {
     updateUser(user: userI) {
         let direction = this.url + "/users/" + user.id
         return this.http.put<responseI>(direction, user)
+    }
+
+    patchUser(user: userPatchI) {
+        let direction = this.url + "/users/" + user.id
+        return this.http.patch<responseI>(direction, user)
     }
 
     // Productos

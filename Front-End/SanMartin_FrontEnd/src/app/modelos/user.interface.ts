@@ -11,7 +11,6 @@ export interface userI {
     age?: number | null;
     birthDate: Date;
     dni: string;
-    address: string;
     addresses?: Array<addressI>; // Nueva propiedad para almacenar direcciones (tipo de Adress)
   }
   

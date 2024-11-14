@@ -17,14 +17,6 @@
       </div>
   
       <div class="form-group">
-        <label for="type">Tipo de Usuario</label>
-        <select id="type" formControlName="type">
-          <option value="admin">Admin</option>
-          <option value="user">Usuario</option>
-        </select>
-      </div>
-  
-      <div class="form-group">
         <label for="mail">Correo Electrónico</label>
         <input id="mail" formControlName="mail" type="email" />
       </div>
@@ -42,16 +34,6 @@
       <div class="form-group">
         <label for="birthDate">Fecha de Nacimiento</label>
         <input id="birthDate" formControlName="birthDate" type="date" />
-      </div>
-  
-      <div class="form-group">
-        <label for="dni">DNI</label>
-        <input id="dni" formControlName="dni" type="text" />
-      </div>
-  
-      <div class="form-group">
-        <label for="address">Dirección</label>
-        <input id="address" formControlName="address" type="text" />
       </div>
   
       <button type="submit" [disabled]="userForm.invalid">Guardar Cambios</button>

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { ApiService } from '../../servicios/api/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { userI } from '../../modelos/user.interface';
+import { userPatchI } from '../../modelos/userPatch.interface';
 import { CommonModule } from '@angular/common';
 
 
@@ -63,7 +64,7 @@ export class EditUserComponent implements OnInit {
             age: this.user.age,
             birthDate: this.user.birthDate,
             dni: this.user.dni,
-            address: this.user.address
+            addresses: this.user.addresses
           });
         },
         error: (e) => {
@@ -75,20 +76,17 @@ export class EditUserComponent implements OnInit {
 
   onSubmit(): void {
     if (this.userForm.valid && this.userId) {
-      const updatedUser: userI = {
+      const updatedUser: userPatchI = {
         id: this.userId,
         name: this.userForm.get('name')?.value,
         surname: this.userForm.get('surname')?.value,
         password: this.userForm.get('password')?.value,
-        type: this.userForm.get('type')?.value,
         mail: this.userForm.get('mail')?.value,
         cellphone: this.userForm.get('cellphone')?.value,
         age: this.userForm.get('age')?.value,
         birthDate: this.userForm.get('birthDate')?.value,
-        dni: this.userForm.get('dni')?.value,
-        address: this.userForm.get('address')?.value
       };
-      this.api.updateUser(updatedUser).subscribe({
+      this.api.patchUser(updatedUser).subscribe({
         next: () => {
           this.router.navigate(['/admin-menu']);
         },
