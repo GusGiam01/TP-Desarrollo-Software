@@ -93,7 +93,7 @@ export class ApiService {
         return this.http.put<responseOrderI>(direction, order)
     }
 
-    searchOrdersByUserId(userid: string) {
+    searchOrdersByUser(userid: string) {
         let direction = this.url + "/orders/" + userid;
         return this.http.get<responseOrdersI>(direction)
     }

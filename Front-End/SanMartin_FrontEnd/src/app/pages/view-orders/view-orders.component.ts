@@ -26,8 +26,9 @@ export class ViewOrdersComponent {
   odersOfUser : orderI[] = [];
 
   getOrders(){
-    let userId = "" + localStorage.getItem("Token");
-    this.api.searchOrdersByUserId(userId).subscribe({
+    let userId = "" + localStorage.getItem("token");
+    console.log("recupero-----------", userId);
+    this.api.searchOrdersByUser(userId).subscribe({
       next: (data) => {                                       //Condicion de si ya se efectuo la compra que no aparezca la orden aca.
         for (let i = 0; i < data.data.length; i++){
           if(data.data[i].statusHistory != "UNPAID"){
