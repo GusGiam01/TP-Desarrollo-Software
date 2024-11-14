@@ -26,70 +26,70 @@ function sanitizeOrderInput(req: Request, res: Response, next: NextFunction) {
 }
 
 async function findAll(req: Request, res: Response) {
-  try {
-    const orders = await em.find(
-      Order,
-      {}
-    )
-    res.status(200).json({ message: 'found all orders', data: orders })
-  } catch (error: any) {
-    res.status(500).json({ message: error.message })
+    try {
+      const orders = await em.find(
+        Order,
+        {}
+      )
+      res.status(200).json({ message: 'found all orders', data: orders })
+    } catch (error: any) {
+      res.status(500).json({ message: error.message })
+    }
   }
-}
-
-async function findOne(req: Request, res: Response) {
-  try {
-    const id = req.params.id
-    const order = await em.findOneOrFail(Order, { id })
-    res.status(200).json({ message: 'found order', data: order })
-  } catch (error: any) {
-    res.status(500).json({ message: error.message })
+  
+  async function findOne(req: Request, res: Response) {
+    try {
+      const id = req.params.id
+      const order = await em.findOneOrFail(Order, { id })
+      res.status(200).json({ message: 'found order', data: order })
+    } catch (error: any) {
+      res.status(500).json({ message: error.message })
+    }
   }
-}
 
-async function add(req: Request, res: Response) {
-  try {
-    const order = em.create(Order, req.body.sanitizedOrderInput)
-    await em.flush()
-    res.status(201).json({ message: 'order created', data: order })
-  } catch (error: any) {
-    res.status(500).json({ message: error.message })
+  async function findOneByUser(req: Request, res: Response) {
+    try {
+      const user = req.params.user
+      const order = await em.findOneOrFail(Order, { user })
+      res.status(200).json({ message: 'found order', data: order })
+    } catch (error: any) {
+      res.status(500).json({ message: error.message })
+    }
   }
-}
-
-async function update(req: Request, res: Response) {
-  try {
-    const id = req.params.id
-    const orderToUpdate = await em.findOneOrFail(Order, { id })
-    em.assign(orderToUpdate, req.body.sanitizedOrderInput)
-    await em.flush()
-    res
-      .status(200)
-      .json({ message: 'order updated', data: orderToUpdate })
-  } catch (error: any) {
-    res.status(500).json({ message: error.message })
+  
+  async function add(req: Request, res: Response) {
+    try {
+      const order = em.create(Order, req.body.sanitizedOrderInput)
+      await em.flush()
+      res.status(201).json({ message: 'order created', data: order })
+    } catch (error: any) {
+      res.status(500).json({ message: error.message })
+    }
   }
-}
-
-async function remove(req: Request, res: Response) {
-  try {
-    const id = req.params.id
-    const order = em.getReference(Order, id)
-    await em.removeAndFlush(order)
-  } catch (error: any) {
-    res.status(500).json({ message: error.message })
+  
+  async function update(req: Request, res: Response) {
+    try {
+      const id = req.params.id
+      const orderToUpdate = await em.findOneOrFail(Order, { id })
+      em.assign(orderToUpdate, req.body.sanitizedOrderInput)
+      await em.flush()
+      res
+        .status(200)
+        .json({ message: 'order updated', data: orderToUpdate })
+    } catch (error: any) {
+      res.status(500).json({ message: error.message })
+    }
   }
-}
-
-async function findAllByUserId(req: Request, res: Response) {
-  try {
-    const id = req.params.id
-    const orders = await em.find(Order, { user: id })
-    res.status(200).json({ message: 'found all orders for that userId', data: orders })
-  } catch (error: any) {
-    res.status(500).json({ message: error.message })
+  
+  async function remove(req: Request, res: Response) {
+    try {
+      const id = req.params.id
+      const order = em.getReference(Order, id)
+      await em.removeAndFlush(order)
+    } catch (error: any) {
+      res.status(500).json({ message: error.message })
+    }
   }
-}
 
 
-export { sanitizeOrderInput, findAll, findOne, add, update, remove, findAllByUserId }
+export {sanitizeOrderInput, findAll, findOne, findOneByUser, add, update, remove}
