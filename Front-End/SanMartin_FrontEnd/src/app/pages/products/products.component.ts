@@ -146,6 +146,7 @@ export class ProductsComponent {
                     let dataResponseOrder:responseOrderI = co;
                     localStorage.setItem("orderId", dataResponseOrder.data.id);
                     console.log("Se creo la orden.")
+
                     selectedProduct.stock = selectedProduct.stock - q;
                     this.api.updateProduct(selectedProduct).subscribe({
                       next: (pp) => {
@@ -154,7 +155,23 @@ export class ProductsComponent {
                       error: (e) => {
                         console.log(e)
                       }
-                    }) 
+                    })
+                    this.api.searchUserById(userId).subscribe({
+                      next: (su) => {
+                        su.data.orders.push(dataResponseOrder.data.id);
+                        this.api.updateUser(su.data).subscribe({
+                          next: (uu) => {
+                            console.log("Usuario " + uu.data.dni + " actualizado.");
+                          },
+                          error: (errorUpdate) => {
+                            console.log(errorUpdate);
+                          }
+                        })
+                      },
+                      error: (erroruser) => {
+                        console.log(erroruser)
+                      }
+                    })
                   },
                   error: (e) => {
                     console.log(e)

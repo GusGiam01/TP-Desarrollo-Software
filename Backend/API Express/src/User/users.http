@@ -16,7 +16,8 @@ Content-Type: application/json
     "cellphone":"3364987633",
     "age":22,
     "birthDate": "2001-11-01",
-    "dni": "43355660"
+    "dni": "43355660",
+    "orders":[]
 }
 
 ### ID

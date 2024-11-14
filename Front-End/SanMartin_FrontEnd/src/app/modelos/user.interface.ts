@@ -1,3 +1,5 @@
+import { orderI } from "./order.interface.js";
+
 export interface userI{
     id:string;
     name:string;
@@ -10,4 +12,5 @@ export interface userI{
     birthDate: Date;
     dni:string;
     address:string;
+    orders:Array<string>;
 }

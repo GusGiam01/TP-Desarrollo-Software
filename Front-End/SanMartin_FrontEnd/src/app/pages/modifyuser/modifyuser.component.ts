@@ -86,7 +86,11 @@ export class EditUserComponent implements OnInit {
         age: this.userForm.get('age')?.value,
         birthDate: this.userForm.get('birthDate')?.value,
         dni: this.userForm.get('dni')?.value,
-        address: this.userForm.get('address')?.value
+        address: this.userForm.get('address')?.value,
+        orders: []
+      };
+      if (this.user != undefined) {
+        updatedUser.orders = this.user.orders;
       };
       this.api.updateUser(updatedUser).subscribe({
         next: () => {
