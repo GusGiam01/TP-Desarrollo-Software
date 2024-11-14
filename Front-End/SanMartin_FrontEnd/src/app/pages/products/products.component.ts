@@ -9,6 +9,7 @@ import { responseOrderI } from '../../modelos/responseOrder.interface.js';
 import { addOrderI } from '../../modelos/addOrder.interface.js';
 import { lineOrderI } from '../../modelos/lineOrder.interface.js';
 import { Token } from '@angular/compiler';
+import { addressI } from '../../modelos/address.interface.js';
 
 @Component({
   selector: 'app-products',
@@ -102,7 +103,8 @@ export class ProductsComponent {
     return order
   }
   
-  addToCart(id:string, q:number){   
+  addToCart(id:string, q:number){  
+ 
     this.api.searchProductById(id).subscribe({
       next: (prod) => {
         const selectedProduct = prod.data;
@@ -117,10 +119,7 @@ export class ProductsComponent {
                 user: "",
                 linesOrder : [],
                 totalAmount:0,
-                statusHistory:"",
-                address:"",
-                zipCode: 0,
-                province : ""
+                statusHistory:""
               };
               for (let j = 0; j < orders.length; j++){
                 if (orders[j].statusHistory == "UNPAID" && orders[j].user == localStorage.getItem("token")) {
