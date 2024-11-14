@@ -20,12 +20,12 @@ import { responseOrdersI } from "../../modelos/responseOrders.interface.js";
 @Injectable({
     providedIn: 'root'
 })
-export class ApiService{
-    readonly url:string = "/api"
+export class ApiService {
+    readonly url: string = "/api"
 
-    constructor(private http:HttpClient){   }
+    constructor(private http: HttpClient) { }
 
-    user:any;
+    user: any;
 
     // Usuarios
 
@@ -39,78 +39,78 @@ export class ApiService{
         return this.http.get<responseI>(direction);
     }
 
-    postUser(user:signinI){
-       let direction = this.url + "/users";
-       return this.http.post<responseI>(direction, user)
+    postUser(user: signinI) {
+        let direction = this.url + "/users";
+        return this.http.post<responseI>(direction, user)
     }
 
-    updateUser(user:userI){                            
+    updateUser(user: userI) {
         let direction = this.url + "/users/" + user.id
-        return this.http.put<responseProdI>(direction, user)
+        return this.http.put<responseI>(direction, user)
     }
 
     // Productos
 
-    searchProducts(){
+    searchProducts() {
         let direction = this.url + "/products";
         return this.http.get<responseProductsI>(direction)
     }
 
-    searchProductById(id:string){
+    searchProductById(id: string) {
         let direction = this.url + "/products/" + id;
         return this.http.get<responseProdI>(direction)
     }
 
-    updateProduct(product:productI){                            
+    updateProduct(product: productI) {
         let direction = this.url + "/products/" + product.id
         return this.http.put<responseProdI>(direction, product)
     }
 
-    postProduct(product:addProductI){                     
+    postProduct(product: addProductI) {
         let direction = this.url + "/products";
         return this.http.post<responseOrderI>(direction, product)
     }
 
     // Orders
 
-    searchOrders(){
+    searchOrders() {
         let direction = this.url + "/orders";
         return this.http.get<responseOrdersI>(direction)
     }
 
-    searchOrdersByUserId(userid:string){
-        let direction = this.url + "/orders/" + userid;
-        return this.http.get<responseOrdersI>(direction)
-    }
-
-    postOrder(order:addOrderI){                     
+    postOrder(order: addOrderI) {
         let direction = this.url + "/orders";
         return this.http.post<responseOrderI>(direction, order)
     }
 
-    searchOrderById(id:string){
+    searchOrderById(id: string) {
         let direction = this.url + "/orders/" + id;
         return this.http.get<responseOrderI>(direction)
     }
 
-    updateOrder(order:orderI){                     
+    updateOrder(order: orderI) {
         let direction = this.url + "/orders/" + order.id;
         return this.http.put<responseOrderI>(direction, order)
     }
 
+    searchOrdersByUser(userid: string) {
+        let direction = this.url + "/orders/" + userid;
+        return this.http.get<responseOrdersI>(direction)
+    }
+
     // Lineas de Orden
 
-    searchLinesOrderByOrderId(orderid:string){
+    searchLinesOrderByOrderId(orderid: string) {
         let direction = this.url + "/linesorder/" + orderid;
         return this.http.get<responseLinesOrderI>(direction)
     }
 
-    postLineOrder(line:lineOrderI){
+    postLineOrder(line: lineOrderI) {
         let direction = this.url + "/linesorder";
         return this.http.post<responseLineOrderI>(direction, line)
     }
 
-    removeLineOrder(lineId:string){
+    removeLineOrder(lineId: string) {
         let direction = this.url + "/linesorder/" + lineId;
         return this.http.delete<responseLineOrderI>(direction);
     }

@@ -1,28 +1,28 @@
-import { Request, Response, NextFunction} from "express"
+import { Request, Response, NextFunction } from "express"
 import { Order } from "../Order/order.entity.js"
 import { orm } from "../shared/db/orm.js"
 
 const em = orm.em
 
-function sanitizeOrderInput(req: Request, res: Response, next: NextFunction){
-    req.body.sanitizedOrderInput = {
-      confirmDate: req.body.confirmDate, 
-      user: req.body.user, 
-      linesOrder: req.body.linesOrder, 
-      totalAmount: req.body.totalAmount, 
-      statusHistory: req.body.statusHistory,
-      address: req.body.address,
-      zipCode: req.body.zipCode,
-      province: req.body.province,
-    };
+function sanitizeOrderInput(req: Request, res: Response, next: NextFunction) {
+  req.body.sanitizedOrderInput = {
+    confirmDate: req.body.confirmDate,
+    user: req.body.user,
+    linesOrder: req.body.linesOrder,
+    totalAmount: req.body.totalAmount,
+    statusHistory: req.body.statusHistory,
+    address: req.body.address,
+    zipCode: req.body.zipCode,
+    province: req.body.province,
+  };
 
-    Object.keys(req.body.sanitizedOrderInput).forEach((key)=>{
-        if(req.body.sanitizedOrderInput[key] === undefined) {
-            delete req.body.sanitizedOrderInput[key]
-        }
-    })
+  Object.keys(req.body.sanitizedOrderInput).forEach((key) => {
+    if (req.body.sanitizedOrderInput[key] === undefined) {
+      delete req.body.sanitizedOrderInput[key]
+    }
+  })
 
-    next()
+  next()
 }
 
 async function findAll(req: Request, res: Response) {
@@ -41,16 +41,6 @@ async function findAll(req: Request, res: Response) {
     try {
       const id = req.params.id
       const order = await em.findOneOrFail(Order, { id })
-      res.status(200).json({ message: 'found order', data: order })
-    } catch (error: any) {
-      res.status(500).json({ message: error.message })
-    }
-  }
-
-  async function findOneByUser(req: Request, res: Response) {
-    try {
-      const user = req.params.user
-      const order = await em.findOneOrFail(Order, { user })
       res.status(200).json({ message: 'found order', data: order })
     } catch (error: any) {
       res.status(500).json({ message: error.message })
@@ -91,5 +81,16 @@ async function findAll(req: Request, res: Response) {
     }
   }
 
+  async function findOneByUserId(req: Request, res: Response) {
+    try {
+      const userId = req.params.userId
 
-export {sanitizeOrderInput, findAll, findOne, findOneByUser, add, update, remove}
+      const order = await em.findOneOrFail(Order, { user: {id: userId} })     //Aca esta el problema
+
+      res.status(200).json({ message: 'found order', data: order })
+    } catch (error: any) {
+      res.status(500).json({ message: error.message })
+    }
+  }
+
+export {sanitizeOrderInput, findAll, findOne, findOneByUserId, add, update, remove}

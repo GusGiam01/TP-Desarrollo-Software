@@ -19,6 +19,7 @@ import { CommonModule } from '@angular/common';
 export class EditUserComponent implements OnInit {
   userForm: FormGroup;
   userId: string = '';
+  userDNI: string = '';
   user: userI | undefined;
 
   constructor(
@@ -42,16 +43,28 @@ export class EditUserComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userId = this.route.snapshot.paramMap.get('id') || '';
-    this.loadUserData();
+    this.userDNI = "" + localStorage.getItem("dni");
+    this.userId = "" + localStorage.getItem("token");
+    this.loadUserData(this.userDNI);
   }
 
-  loadUserData(): void {
-    if (this.userId) {
-      this.api.searchUserById(this.userId).subscribe({
+  loadUserData(userDNI:string): void {
+    if (userDNI) {
+      this.api.searchUserById(userDNI).subscribe({
         next: (data) => {
           this.user = data.data;
-          this.userForm.patchValue(this.user);
+          this.userForm.patchValue({
+            name: this.user.name,
+            surname: this.user.surname,
+            password: this.user.password,
+            type: this.user.type,
+            mail: this.user.mail,
+            cellphone: this.user.cellphone,
+            age: this.user.age,
+            birthDate: this.user.birthDate,
+            dni: this.user.dni,
+            address: this.user.address
+          });
         },
         error: (e) => {
           console.error(e);
@@ -62,15 +75,31 @@ export class EditUserComponent implements OnInit {
 
   onSubmit(): void {
     if (this.userForm.valid && this.userId) {
-      const updatedUser: userI = { ...this.userForm.value, id: this.userId };
+      const updatedUser: userI = {
+        id: this.userId,
+        name: this.userForm.get('name')?.value,
+        surname: this.userForm.get('surname')?.value,
+        password: this.userForm.get('password')?.value,
+        type: this.userForm.get('type')?.value,
+        mail: this.userForm.get('mail')?.value,
+        cellphone: this.userForm.get('cellphone')?.value,
+        age: this.userForm.get('age')?.value,
+        birthDate: this.userForm.get('birthDate')?.value,
+        dni: this.userForm.get('dni')?.value,
+        address: this.userForm.get('address')?.value
+      };
       this.api.updateUser(updatedUser).subscribe({
         next: () => {
-          this.router.navigate(['/users']);
+          this.router.navigate(['/admin-menu']);
         },
         error: (e) => {
           console.error(e);
         }
       });
     }
+  }
+
+  goBack(){
+    this.router.navigate(['/admin-menu']);
   }
 }
