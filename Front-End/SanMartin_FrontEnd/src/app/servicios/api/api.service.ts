@@ -15,6 +15,7 @@ import { lineOrderI } from "../../modelos/lineOrder.interface.js";
 import { responseLineOrderI } from "../../modelos/responseLineOrders.interface.js";
 import { productI } from "../../modelos/product.interface.js";
 import { addProductI } from "../../modelos/addProduct.interface.js";
+import { responseOrdersI } from "../../modelos/responseOrders.interface.js";
 
 @Injectable({
     providedIn: 'root'
@@ -61,6 +62,16 @@ export class ApiService{
     }
 
     // Orders
+
+    searchOrders(){
+        let direction = this.url + "/orders";
+        return this.http.get<responseOrdersI>(direction)
+    }
+
+    searchOrdersByUserId(userid:string){
+        let direction = this.url + "/orders/" + userid;
+        return this.http.get<responseOrdersI>(direction)
+    }
 
     postOrder(order:addOrderI){                     
         let direction = this.url + "/orders";
