@@ -1,0 +1,45 @@
+.admin-menu {
+    background-color: #EDDBCD; /* Fondo principal */
+    width: 250px;
+    height: 100vh; /* Asegura que el menú ocupe toda la altura de la pantalla */
+    padding: 20px;
+    box-sizing: border-box;
+    
+    .menu-header {
+        text-align: center;
+        margin-bottom: 30px;
+        margin-top: 150px;
+        
+        .menu-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+    }
+
+    .menu-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        
+        .menu-item {
+            margin-bottom: 15px;
+            
+            .menu-link {
+                text-decoration: none;
+                color: #ffffff;
+                font-size: 18px;
+                padding: 10px 15px;
+                background-color: #8F342F; /* Color del menú */
+                border-radius: 5px;
+                display: block;
+                transition: background-color 0.3s ease, color 0.3s ease;
+                
+                &:hover {
+                    background-color: #B7584C; /* Color más claro para hover */
+                    color: #333; /* Cambia el color de la letra al pasar el mouse */
+                }
+            }
+        }
+    }
+}

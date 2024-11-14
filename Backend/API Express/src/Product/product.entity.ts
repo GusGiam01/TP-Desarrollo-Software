@@ -34,7 +34,7 @@ import { LineOrder } from '../LineOrder/lineOrder.entity.js'
     state!: string
 
     @Property({ type: 'number', nullable: false })
-    discount!: number
+    discount?: number
 
     @Property({ type: 'string', nullable: false })
     type!: string

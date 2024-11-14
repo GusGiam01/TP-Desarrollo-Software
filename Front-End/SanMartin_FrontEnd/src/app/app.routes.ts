@@ -8,6 +8,8 @@ import { ProductsComponent } from './pages/products/products.component.js';
 import { AboutUsComponent } from './pages/about-us/about-us.component.js';
 import { ExecutePurchaseComponent } from './pages/execute-purchase/execute-purchase.component.js';
 import { ThanksForBuyingComponent } from './pages/thanks-for-buying/thanks-for-buying.component.js';
+import { AdminMenuComponent } from './pages/admin-menu/admin-menu.component.js';
+import { AddProductComponent } from './pages/add-product/add-product.component.js';
 
 export const routes: Routes = [
     {path:'', redirectTo:'home', pathMatch:'full'},
@@ -19,8 +21,10 @@ export const routes: Routes = [
     {path:'products', component:ProductsComponent},
     {path:'about-us', component:AboutUsComponent},
     {path:'execute-purchase', component:ExecutePurchaseComponent},
-    {path:'thanks', component:ThanksForBuyingComponent}
+    {path:'thanks', component:ThanksForBuyingComponent},
+    {path:'admin-menu', component:AdminMenuComponent},
+    {path:'add-product', component:AddProductComponent}
 ];
 
 export const routingComponents = [PuntosventaListaComponent, IndexComponent, SmContactComponent, LogInComponent, CartComponent, 
-    ProductsComponent, AboutUsComponent, ExecutePurchaseComponent, ThanksForBuyingComponent]
+    ProductsComponent, AboutUsComponent, ExecutePurchaseComponent, ThanksForBuyingComponent, AdminMenuComponent, AddProductComponent]

@@ -14,6 +14,7 @@ import { responseLinesOrderI } from "../../modelos/responseLinesOrders.interface
 import { lineOrderI } from "../../modelos/lineOrder.interface.js";
 import { responseLineOrderI } from "../../modelos/responseLineOrders.interface.js";
 import { productI } from "../../modelos/product.interface.js";
+import { addProductI } from "../../modelos/addProduct.interface.js";
 
 @Injectable({
     providedIn: 'root'
@@ -52,6 +53,11 @@ export class ApiService{
     updateProduct(product:productI){                            
         let direction = this.url + "/products/" + product.id
         return this.http.put<responseProdI>(direction, product)
+    }
+
+    postProduct(product:addProductI){                     
+        let direction = this.url + "/products";
+        return this.http.post<responseOrderI>(direction, product)
     }
 
     // Orders

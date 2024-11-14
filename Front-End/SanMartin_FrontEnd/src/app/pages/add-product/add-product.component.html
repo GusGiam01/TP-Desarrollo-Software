@@ -1,0 +1,47 @@
+<div class="add-product-container">
+    <h2 class="form-title">Dar de alta un producto</h2>
+    <form [formGroup]="addProductForm" (ngSubmit)="addProduct()" class="add-product-form">
+      <div class="form-group">
+        <label for="productName">Nombre del Producto</label>
+        <input type="text" id="productName" formControlName="name" required class="form-control">
+      </div>
+  
+      <div class="form-group">
+        <label for="productCode">Código del Producto</label>
+        <input type="text" id="productCode" formControlName="code" required class="form-control">
+      </div>
+  
+      <div class="form-group">
+        <label for="productPrice">Precio Unitario</label>
+        <input type="number" id="productPrice" formControlName="priceUni" required class="form-control">
+      </div>
+  
+      <div class="form-group">
+        <label for="productStock">Stock</label>
+        <input type="number" id="productStock" formControlName="stock" required class="form-control">
+      </div>
+  
+      <div class="form-group">
+        <label for="productType">Tipo de Producto</label>
+        <input type="text" id="productType" formControlName="type" required class="form-control">
+      </div>
+  
+      <div class="form-group">
+        <label for="productBrand">Marca</label>
+        <input type="text" id="productBrand" formControlName="brand" required class="form-control">
+      </div>
+  
+      <div class="form-group">
+        <label for="productImage">Imagen (Ruta del archivo)</label>
+        <input type="text" id="productImage" formControlName="img" required class="form-control">
+      </div>
+  
+      <button type="submit" class="submit-btn">Agregar Producto</button>
+    </form>
+  
+    <!-- Mostrar el mensaje de éxito solo si message es verdadero -->
+    <!--<div *ngIf="message" class="success-message">
+        <p>¡Producto agregado exitosamente!</p>
+    </div>-->
+  </div>
+  

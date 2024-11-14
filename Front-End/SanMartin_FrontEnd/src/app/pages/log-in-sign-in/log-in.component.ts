@@ -62,6 +62,7 @@ export class LogInComponent {
 
           localStorage.setItem("token", dataResponse.data.id);
           localStorage.setItem("dni", dataResponse.data.dni);
+          localStorage.setItem("type", dataResponse.data.type);
           this.router.navigate(['home']).then(() => {
             location.reload()
           });
@@ -106,6 +107,7 @@ export class LogInComponent {
                   let dataResponse:responseI = data;
                   localStorage.setItem("token", dataResponse.data.id);
                   localStorage.setItem("dni", dataResponse.data.dni);
+                  localStorage.setItem("type", dataResponse.data.type);
                   this.router.navigate(['home']).then(() => {
                     location.reload()
                   });
