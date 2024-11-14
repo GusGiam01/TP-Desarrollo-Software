@@ -7,6 +7,8 @@ import { RequestContext } from '@mikro-orm/core'
 import { orderRouter } from './Order/order.routes.js'
 import { lineOrderRouter } from './LineOrder/lineOrder.routes.js'
 
+
+
 const app = express()
 app.use(express.json())
 
@@ -23,6 +25,7 @@ app.use((_, res) =>{
     return res.status(404).send({message: 'Resource not found.'})
 })
 
+
 app.listen(3000, () => {
-    console.log('Server running on http://localhost:27017/')
+    console.log('Server running on mongodb+srv://usuario:usuario@cluster.k0o09.mongodb.net/')
 }) 

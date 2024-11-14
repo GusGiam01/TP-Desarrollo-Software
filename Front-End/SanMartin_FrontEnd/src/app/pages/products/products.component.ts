@@ -166,7 +166,7 @@ export class ProductsComponent {
               },
               error: (e) => {
                 console.log(e);
-                alert("No se encontro el objeto")
+                alert("No se encontro la orden")
               }
             })
           }
