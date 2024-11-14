@@ -1,0 +1,20 @@
+<div class="orders-container">
+    <h2>Mis órdenes</h2>
+    
+    <div *ngIf="odersOfUser.length === 0" class="no-orders-message">
+      <p>No tienes órdenes pendientes.</p>
+    </div>
+  
+    <div *ngFor="let order of odersOfUser" class="order-card">
+      <div class="order-header">
+        <span class="order-id">Orden #{{ order.id }}</span>
+        <span class="order-status">{{ order.statusHistory }}</span>
+      </div>
+      <div class="order-details">
+        <p><strong>Fecha:</strong> {{ order.confirmDate | date }}</p>
+        <p><strong>Total:</strong> ${{ order.totalAmount }}</p>
+      </div>
+      <button (click)="viewOrderDetails(order.id)" class="view-details-btn">Ver detalles</button>
+    </div>
+  </div>
+  
