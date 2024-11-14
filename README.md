@@ -56,7 +56,7 @@ Nosotros utilizamos mongoDB Atlas, para su utilización debe:
 Nuestro proyecto se va a basar en la creación de una página web para la venta de una bebida alcoholica, implementando un sistema de control de stock y otro para la reserva. Dentro del control de stock nuestra idea era implementar el ABM de cada producto (resguardándonos contra posible expansión). Para el sistema de reserva habíamos pensado en agregar un “carrito” donde uno puede ir viendo el monto del mismo.
 
 ## Modelo
-![Modelo de dominio](./estructura%20de%20negocio/Modelo_de_dominio.png)
+![Modelo de dominio](./Estructura-de-negocio/Modelo%20de%20dominio.jpg)
 
 ## Alcance funcional
 ### Alcance mínimo
