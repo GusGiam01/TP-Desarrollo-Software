@@ -10,6 +10,7 @@ import { SmContactComponent } from './pages/contact/sm-contact.component.js';
 import { routingComponents } from './app.routes.js';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { AddressesComponent } from './pages/list-address/list-address.component.js';
 
 @Component({
   selector: 'app-root',
@@ -23,7 +24,7 @@ import { HttpClient } from '@angular/common/http';
     //PuntosventaListaComponent,
     SmFooterComponent,
     //SmContactComponent,
-    routingComponents,
+    //routingComponents,
     ReactiveFormsModule,
     FormsModule
   ],

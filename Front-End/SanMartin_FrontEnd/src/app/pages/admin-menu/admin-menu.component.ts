@@ -34,5 +34,9 @@ export class AdminMenuComponent {
     localStorage.removeItem("token");
     this.router.navigate(['/']);
   }
+
+  navigateToAddAddress(){
+    this.router.navigate(['/list-address']);
+  }
 }
 

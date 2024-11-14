@@ -1,6 +1,6 @@
 # TP-Desarrollo-Software
 ## Informacion del grupo
-**Integrantes del grupo:** Gustavo Giampietro (50671) & Juan Cruz Mondino (51922)  
+**Integrantes del grupo:** Gustavo Giampietro (50671) Gabriel Dequelli (44073) & Juan Cruz Mondino (51922)  
 **Profesores:** Andres Otaduy & Mario Bressano  
 **Comisión:** 3k02  
 
@@ -62,7 +62,7 @@ Nuestro proyecto se va a basar en la creación de una página web para la venta 
 ### Alcance mínimo
 | Req | Detalle |
 |--------------|--------------|
-| CRUD Simple | 1. CRUD Usuario\n2. CRUD Producto|
-| CRUD dependiente| 1. Línea de pedido (depende de producto y de orden)\n2. Orden (depende de Usuario)|
-| Listado\n+\ndetalle| 1. Listado de productos:\nse ordena alfabeticamente y por precio |
-| CUU/Epic | 1. Login de user\n2. Crear un producto |
+| CRUD Simple | 1. CRUD Usuario 2. CRUD Producto 3. CRUD Direcciones|
+| CRUD dependiente| 1. Línea de pedido (depende de producto y de orden)  2. Orden (depende de Usuario)|
+| Listado + detalle| 1. Listado de productos:  se ordena alfabeticamente y por precio |
+| CUU/Epic | 1. Login de user  2. Crear un producto |

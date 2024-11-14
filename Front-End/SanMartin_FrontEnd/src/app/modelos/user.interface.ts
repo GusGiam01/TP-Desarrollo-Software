@@ -1,16 +1,16 @@
-import { orderI } from "./order.interface.js";
+import { addressI } from "./address.interface";
 
-export interface userI{
-    id:string;
-    name:string;
-    surname:string;
-    password:string;
-    type:string;
-    mail:string;
-    cellphone:string;
-    age?:number | null;
+export interface userI {
+    id: string;
+    name: string;
+    surname: string;
+    password: string;
+    type: string;
+    mail: string;
+    cellphone: string;
+    age?: number | null;
     birthDate: Date;
-    dni:string;
-    address:string;
-    orders:Array<string>;
-}
+    dni: string;
+    addresses?: Array<addressI>; // Nueva propiedad para almacenar direcciones (tipo de Adress)
+  }
+  

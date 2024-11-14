@@ -6,6 +6,7 @@ import { orm } from './shared/db/orm.js'
 import { RequestContext } from '@mikro-orm/core'
 import { orderRouter } from './Order/order.routes.js'
 import { lineOrderRouter } from './LineOrder/lineOrder.routes.js'
+import { addressRouter } from './Adress/address.routes.js'
 
 
 
@@ -20,6 +21,7 @@ app.use('/api/users', userRouter)
 app.use('/api/products', productRouter)
 app.use('/api/orders', orderRouter)
 app.use('/api/linesorder', lineOrderRouter)
+app.use('/api/adress', addressRouter)
 
 app.use((_, res) =>{
     return res.status(404).send({message: 'Resource not found.'})
