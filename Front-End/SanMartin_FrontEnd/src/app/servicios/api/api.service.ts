@@ -28,7 +28,12 @@ export class ApiService{
 
     // Usuarios
 
-    searchByDni(dni:string):Observable<responseI>{
+    searchUserById(id:string):Observable<responseI>{
+        let direction = this.url + "/users/" + id;
+        return this.http.get<responseI>(direction);
+    }
+
+    searchUserByDni(dni:string):Observable<responseI>{
         let direction = this.url + "/users/" + dni;
         return this.http.get<responseI>(direction);
     }

@@ -54,7 +54,7 @@ export class LogInComponent {
      dni: form.dni,
      password: form.password
     }
-    this.api.searchByDni(form.dni).subscribe({
+    this.api.searchUserByDni(form.dni).subscribe({
       next: (data) => {
         let dataResponse:responseI = data;
         console.log(dataResponse.data)
@@ -94,7 +94,7 @@ export class LogInComponent {
     const birthDate = new Date(form.birthDate);
     let age = today.getFullYear() - birthDate.getFullYear();
     user.age = age;
-    this.api.searchByDni(form.dni).subscribe({                  // Por qué se usa el next? no seria mejor un if?
+    this.api.searchUserByDni(form.dni).subscribe({                  // Por qué se usa el next? no seria mejor un if?
       next: () => {
         alert("Ya existe un usuario con ese DNI.")
       },

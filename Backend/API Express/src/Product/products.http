@@ -39,13 +39,13 @@ Content-Type: application/json
 }
 
 ### Modificar un nuevo producto (PUT - recuro completo e idempotente)
-PUT http://localhost:3000/api/products/{{id}}
+POST http://localhost:3000/api/products
 Content-Type: application/json
 
 {
-    "code":"P2900", 
+    "code":"VC234", 
     "priceUni":500, 
-    "name":"Pimienta",
+    "name":"Vokda",
     "stock":9,
     "type":"Botanico",
     "state":"Encargado",
