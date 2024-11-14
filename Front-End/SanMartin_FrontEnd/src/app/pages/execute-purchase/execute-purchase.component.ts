@@ -100,7 +100,7 @@ export class ExecutePurchaseComponent implements OnInit {
           zipCode: form.zipCode,
           province: form.province 
         };
-
+        localStorage.setItem("orderId", "");
         this.router.navigate(['/thanks']);
       },
       error: (e) => {
