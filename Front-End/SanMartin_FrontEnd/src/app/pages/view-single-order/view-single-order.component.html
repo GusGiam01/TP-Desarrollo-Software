@@ -16,9 +16,9 @@
     <div class="order-lines">
       <h3>Detalles de los productos</h3>
       <div *ngFor="let line of order.linesOrder" class="order-line">
-        <p><strong>Producto:</strong> {{ line.product.name }}</p>
+        <p><strong>Producto:</strong> {{ getNameProduct(line.product) }}</p>
         <p><strong>Cantidad:</strong> {{ line.quantity }}</p>
-        <p><strong>Precio:</strong> ${{ line. }}</p>
+        <p><strong>Precio:</strong> ${{ getPriceProduct(line.product) }}</p>
       </div>    
     </div>
   
