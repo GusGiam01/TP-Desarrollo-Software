@@ -46,6 +46,16 @@ async function findAll(req: Request, res: Response) {
       res.status(500).json({ message: error.message })
     }
   }
+
+  async function findOneByUser(req: Request, res: Response) {
+    try {
+      const user = req.params.user
+      const order = await em.findOneOrFail(Order, { user })
+      res.status(200).json({ message: 'found order', data: order })
+    } catch (error: any) {
+      res.status(500).json({ message: error.message })
+    }
+  }
   
   async function add(req: Request, res: Response) {
     try {
@@ -82,4 +92,4 @@ async function findAll(req: Request, res: Response) {
   }
 
 
-export {sanitizeOrderInput, findAll, findOne, add, update, remove}
+export {sanitizeOrderInput, findAll, findOne, findOneByUser, add, update, remove}

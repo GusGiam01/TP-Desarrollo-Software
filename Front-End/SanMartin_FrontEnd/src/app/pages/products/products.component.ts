@@ -69,6 +69,7 @@ export class ProductsComponent {
       quantity: q,
       order: o
     }
+    console.log(line)
     this.api.postLineOrder(line).subscribe({
       next: (data) => {
         console.log("line order: " + data.data.id + " creada exitosamente.")
@@ -100,17 +101,33 @@ export class ProductsComponent {
     })
     return order
   }
-  /*
+  
   addToCart(id:string, q:number){   
     this.api.searchProductById(id).subscribe({
       next: (prod) => {
         const selectedProduct = prod.data;
         if (selectedProduct.stock >= q){
           let userId = "" + localStorage.getItem("token");
-          this.api.searchOrdersByUserId(userId).subscribe({
-            next: (uo) => {
-              let order = uo.data
-              if (order == null){
+          this.api.searchOrders().subscribe({
+            next: (os) => {
+              let orders = os.data
+              let order:orderI = {
+                id: "",
+                confirmDate : new Date(),
+                user: "",
+                linesOrder : [],
+                totalAmount:0,
+                statusHistory:"",
+                address:"",
+                zipCode: 0,
+                province : ""
+              };
+              for (let j = 0; j < orders.length; j++){
+                if (orders[j].statusHistory == "UNPAID" && orders[j].user == localStorage.getItem("token")) {
+                  let order = orders[j]
+                }
+              }
+              if (order.id == ""){
                 let userId = "" + localStorage.getItem("token");
                 let order:addOrderI = {
                   statusHistory: "UNPAID",
@@ -145,7 +162,7 @@ export class ProductsComponent {
                 })
               }
               else {
-                order = this.addToOrder(uo.data, this.createLineOrder(selectedProduct.id, q, order.id));
+                order = this.addToOrder(order, this.createLineOrder(selectedProduct.id, q, order.id));
                 order.totalAmount = order.totalAmount + (selectedProduct.priceUni * q)
                 this.api.updateOrder(order).subscribe({
                   next: (uorder) => {
@@ -181,7 +198,7 @@ export class ProductsComponent {
       }
     })
     this.productCode = "";
-  }*/
+  }
 
   ngOnInit(): void{
     this.getProducts();
