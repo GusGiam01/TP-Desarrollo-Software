@@ -101,109 +101,76 @@ export class ProductsComponent {
     })
     return order
   }
-  
+
   addToCart(id:string, q:number){   
     this.api.searchProductById(id).subscribe({
       next: (prod) => {
         const selectedProduct = prod.data;
         if (selectedProduct.stock >= q){
-          let userId = "" + localStorage.getItem("token");
-          this.api.searchOrders().subscribe({
-            next: (os) => {
-              let orders = os.data
-              let order:orderI = {
-                id: "",
-                confirmDate : new Date(),
-                user: "",
-                linesOrder : [],
-                totalAmount:0,
-                statusHistory:"",
-                address:"",
-                zipCode: 0,
-                province : ""
-              };
-              for (let j = 0; j < orders.length; j++){
-                if (orders[j].statusHistory == "UNPAID" && orders[j].user == localStorage.getItem("token")) {
-                  let order = orders[j]
-                }
-              }
-              if (order.id == ""){
-                let userId = "" + localStorage.getItem("token");
-                let order:addOrderI = {
-                  statusHistory: "UNPAID",
-                  linesOrder: [],
-                  totalAmount: 0,
-                  user: userId
-                }
-                let line:lineOrderI = {
-                  product:selectedProduct.id, 
-                  quantity: q
-                }
-                order.linesOrder.push(line);
-                order.totalAmount = selectedProduct.priceUni * q;
-                this.api.postOrder(order).subscribe({
-                  next: (co) => {
-                    let dataResponseOrder:responseOrderI = co;
-                    localStorage.setItem("orderId", dataResponseOrder.data.id);
-                    console.log("Se creo la orden.")
-
-                    selectedProduct.stock = selectedProduct.stock - q;
-                    this.api.updateProduct(selectedProduct).subscribe({
-                      next: (pp) => {
-                        console.log("stock modificado.")
-                      },
-                      error: (e) => {
-                        console.log(e)
-                      }
-                    })
-                    this.api.searchUserById(userId).subscribe({
-                      next: (su) => {
-                        su.data.orders.push(dataResponseOrder.data.id);
-                        this.api.updateUser(su.data).subscribe({
-                          next: (uu) => {
-                            console.log("Usuario " + uu.data.dni + " actualizado.");
-                          },
-                          error: (errorUpdate) => {
-                            console.log(errorUpdate);
-                          }
-                        })
-                      },
-                      error: (erroruser) => {
-                        console.log(erroruser)
-                      }
-                    })
+          if (localStorage.getItem("orderId") == null) {
+            let userId = "" + localStorage.getItem("token");
+            let order:addOrderI = {
+              statusHistory: "",
+              linesOrder: [],
+              totalAmount: 0,
+              user: userId
+            }
+            let line:lineOrderI = {
+              product:selectedProduct.id, 
+              quantity: q
+            }
+            order.linesOrder.push(line);
+            order.totalAmount = selectedProduct.priceUni * q;
+            this.api.postOrder(order).subscribe({
+              next: (co) => {
+                let dataResponseOrder:responseOrderI = co;
+                localStorage.setItem("orderId", dataResponseOrder.data.id);
+                console.log("Se creo la orden.")
+                selectedProduct.stock = selectedProduct.stock - q;
+                this.api.updateProduct(selectedProduct).subscribe({
+                  next: (pp) => {
+                    console.log("stock modificado.")
                   },
                   error: (e) => {
                     console.log(e)
                   }
-                })
+                }) 
+              },
+              error: (e) => {
+                console.log(e)
               }
-              else {
-                order = this.addToOrder(order, this.createLineOrder(selectedProduct.id, q, order.id));
+            })
+          }
+          else {
+            let orderId = ""+localStorage.getItem("orderId")
+            this.api.searchOrderById(orderId).subscribe({
+              next: (go) => {
+                let order = this.addToOrder(go.data, this.createLineOrder(selectedProduct.id, q, orderId));
                 order.totalAmount = order.totalAmount + (selectedProduct.priceUni * q)
                 this.api.updateOrder(order).subscribe({
-                  next: (uorder) => {
+                  next: (uo) => {
                     console.log("Se agrego el objeto al pedido.")
                     selectedProduct.stock = selectedProduct.stock - q;
-                    this.api.updateProduct(selectedProduct).subscribe({
-                      next: (pp) => {
-                        console.log("stock modificado.")
-                      },
-                      error: (e) => {
-                        console.log(e)
-                      }
-                    })
+                  this.api.updateProduct(selectedProduct).subscribe({
+                    next: (pp) => {
+                      console.log("stock modificado.")
+                    },
+                    error: (e) => {
+                      console.log(e)
+                    }
+                  })
                   },
-                  error: (e) => {
+                  error: (e) =>
                     alert("Hubo un problema al agregar un articulo a su carrito.")
-                  } 
                 })
+
+              },
+              error: (e) => {
+                console.log(e);
+                alert("No se encontro la orden")
               }
-            },
-            error: (e) => {
-              console.log(e);
-            }
-          })
+            })
+          }
         } 
         else {
           alert("No hay suficiente stock.")
@@ -216,6 +183,7 @@ export class ProductsComponent {
     })
     this.productCode = "";
   }
+
 
   ngOnInit(): void{
     this.getProducts();

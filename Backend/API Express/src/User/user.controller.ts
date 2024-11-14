@@ -16,7 +16,7 @@ function sanitizeUserInput(req: Request, res: Response, next: NextFunction) {
     age: req.body.age,
     birthDate: req.body.birthDate,
     dni: req.body.dni,
-    orders:req.body.dni
+    addresses: req.body.addresses 
   }
 
   Object.keys(req.body.sanitizedUserInput).forEach((key) => {
@@ -93,6 +93,5 @@ async function findOneByDni(req: Request, res: Response) {
     res.status(500).json({ message: error.message })
   }
 }
-
 
 export { sanitizeUserInput, findAll, findOne, findOneByDni, add, update, remove }

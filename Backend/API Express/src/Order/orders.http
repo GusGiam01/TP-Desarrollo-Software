@@ -9,7 +9,7 @@ Content-Type: application/json
 
 {
     "confirmDate": "2024-10-17T10:30:00Z",
-    "user": "67356c268382750cc6797981", 
+    "user": "6736516fa9a89726bc47536a", 
     "linesOrder": [
         { 
             "product": "6730e2716d02e8faf36c1617",
@@ -28,7 +28,7 @@ Content-Type: application/json
 @id = {{createGin.response.body.data.id}}
 
 ### Obtener uno en particular
-GET http://localhost:3000/api/orders/67356c268382750cc6797981
+GET http://localhost:3000/api/orders/
 ### Crear un nuevo ordero
 POST http://localhost:3000/api/orders
 Content-Type: application/json

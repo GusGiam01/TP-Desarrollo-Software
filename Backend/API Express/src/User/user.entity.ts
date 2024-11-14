@@ -39,7 +39,7 @@ import { Order } from '../Order/order.entity.js'
     birthDate!: Date
 
     @Property({ type: 'string', nullable: false })
-    dni!: string
+    dni!: String
 
     @OneToMany(() => Order, order => order.user, {cascade: [Cascade.ALL]})
     orders = new Collection<Order>(this)

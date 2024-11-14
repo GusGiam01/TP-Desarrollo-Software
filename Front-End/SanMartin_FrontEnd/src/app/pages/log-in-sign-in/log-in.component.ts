@@ -95,7 +95,7 @@ export class LogInComponent {
     const birthDate = new Date(form.birthDate);
     let age = today.getFullYear() - birthDate.getFullYear();
     user.age = age;
-    this.api.searchUserByDni(form.dni).subscribe({                  // Por qué se usa el next? no seria mejor un if?
+    this.api.searchUserByDni(form.dni).subscribe({                  
       next: () => {
         alert("Ya existe un usuario con ese DNI.")
       },
