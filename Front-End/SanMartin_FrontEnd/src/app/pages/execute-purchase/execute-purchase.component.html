@@ -26,23 +26,12 @@
     <!-- Formulario de Datos de Envío y Pago -->
     <form class="form" [formGroup]="shippingForm" (ngSubmit)="submitPurchase(shippingForm.value)">
         <!-- Datos de Envío -->
-        <section class="shipping-details">
-            <h2>Datos de Envío</h2>
-            <div class="form-group">
-                <label for="address">Dirección:</label>
-                <input type="text" id="address" name="address" formControlName="adress" required />
-            </div>
-
-            <div class="form-group">
-                <label for="city">Ciudad:</label>
-                <input type="text" id="city" name="city" formControlName="city" required />
-            </div>
-
-            <div class="form-group">
-                <label for="zipCode">Código Postal:</label>
-                <input type="text" id="zipCode" name="zipCode" formControlName="zipCode" required />
-            </div>
-        </section>
+        <div class="form-group">
+            <label for="address">Dirección</label>
+            <select id="address" formControlName="address">
+              <option *ngFor="let address of addresses" [value]="address.id">{{ address.nickName }} - {{ address.address }}</option>
+            </select>
+          </div>
 
         <!-- Datos de la Tarjeta -->
         <section class="payment-details">

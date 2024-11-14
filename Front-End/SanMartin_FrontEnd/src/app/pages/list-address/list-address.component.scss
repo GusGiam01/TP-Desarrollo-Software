@@ -1,0 +1,45 @@
+.addresses-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    
+    h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+  
+    .addresses-list {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+  
+    .address-item {
+      background-color: #f9f9f9;
+      margin-bottom: 15px;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+  
+    .address-item h3 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+  
+    .address-item p {
+      margin: 5px 0;
+    }
+  
+    .address-item strong {
+      color: #333;
+    }
+  
+    ng-template {
+      text-align: center;
+      font-size: 1.2rem;
+      color: #999;
+    }
+  }
+  

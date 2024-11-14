@@ -1,17 +1,32 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f7f7f7;
+}
+
 .admin-menu {
-    background-color: #EDDBCD; /* Fondo principal */
-    width: 250px;
-    height: 100vh; /* Asegura que el menú ocupe toda la altura de la pantalla */
+    margin-top: 140px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #EDDBCD;
+    width: 400px;
+    max-height: 80vh;
     padding: 20px;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
     
     .menu-header {
         text-align: center;
-        margin-bottom: 30px;
-        margin-top: 150px;
+        margin-bottom: 40px;
         
         .menu-title {
-            font-size: 24px;
+            font-size: 32px;
             font-weight: bold;
             color: #333;
         }
@@ -21,23 +36,35 @@
         list-style: none;
         padding: 0;
         margin: 0;
+        width: 100%;
         
         .menu-item {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             
             .menu-link {
                 text-decoration: none;
                 color: #ffffff;
-                font-size: 18px;
-                padding: 10px 15px;
-                background-color: #8F342F; /* Color del menú */
-                border-radius: 5px;
+                font-size: 20px;
+                padding: 15px 20px;
+                background-color: #8F342F;
+                border-radius: 8px;
                 display: block;
+                width: 100%;
+                text-align: center;
                 transition: background-color 0.3s ease, color 0.3s ease;
                 
                 &:hover {
-                    background-color: #B7584C; /* Color más claro para hover */
-                    color: #333; /* Cambia el color de la letra al pasar el mouse */
+                    background-color: #B7584C;
+                    color: #333;
+                }
+            }
+
+            &:last-child .menu-link {
+                background-color: #34608F;
+
+                &:hover {
+                    background-color: #4C78B7;
+                    color: #fff;
                 }
             }
         }

@@ -16,6 +16,13 @@ import { responseLineOrderI } from "../../modelos/responseLineOrders.interface.j
 import { productI } from "../../modelos/product.interface.js";
 import { addProductI } from "../../modelos/addProduct.interface.js";
 import { responseOrdersI } from "../../modelos/responseOrders.interface.js";
+import { responseAddressI } from "../../modelos/responseAddress.interface.js";
+import { addressI } from "../../modelos/address.interface.js";
+import { addAddressI } from "../../modelos/addAddress.interface.js";
+import { responseAddressesI } from "../../modelos/responseAddresses.interface.js";
+import { userPatchI } from '../../modelos/userPatch.interface';
+
+
 
 @Injectable({
     providedIn: 'root'
@@ -47,6 +54,11 @@ export class ApiService {
     updateUser(user: userI) {
         let direction = this.url + "/users/" + user.id
         return this.http.put<responseI>(direction, user)
+    }
+
+    patchUser(user: userPatchI) {
+        let direction = this.url + "/users/" + user.id
+        return this.http.patch<responseI>(direction, user)
     }
 
     // Productos
@@ -113,5 +125,37 @@ export class ApiService {
     removeLineOrder(lineId: string) {
         let direction = this.url + "/linesorder/" + lineId;
         return this.http.delete<responseLineOrderI>(direction);
+    }
+
+    // Address
+
+    searchAllAddresses() {
+        let direction = this.url + "/addresses";
+        return this.http.get<responseAddressI>(direction);
+    }
+    
+    searchAddressById(id: string) {
+        let direction = this.url + "/addresses/" + id;
+        return this.http.get<responseAddressI>(direction);
+    }
+
+    postAddress(address: addAddressI) {
+        let direction = this.url + "/addresses";
+        return this.http.post<any>(direction, address);
+    }
+    
+    updateAddress(address: addressI) {
+        let direction = this.url + "/addresses/" + address.id;
+        return this.http.put<responseAddressI>(direction, address);
+    }
+    
+    removeAddress(id: string) {
+        let direction = this.url + "/addresses/" + id;
+        return this.http.delete<responseAddressI>(direction);
+    }
+    
+    getUserAddresses(userId:string){
+        let direction = this.url + "/users/" + userId;
+        return this.http.get<responseAddressesI>(direction);
     }
 }
