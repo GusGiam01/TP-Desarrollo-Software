@@ -33,12 +33,19 @@ GET http://localhost:3000/api/orders/{{id}}
 ### Crear un nuevo ordero
 POST http://localhost:3000/api/orders
 Content-Type: application/json
-
 {
     "confirmDate": "2024-10-17T11:00:00Z",
     "user": {
-        "name": "Jane Smith",
-        "email": "jane@example.com"
+        "name": "Laura",
+        "surname": "Martinez",
+        "userName": "LauMart",
+        "password": "laura123",
+        "type": "User",
+        "mail": "laura.martinez@gmail.com",
+        "cellphone": "3358976541",
+        "age": 28,
+        "birthDate": "1995-02-14",
+        "dni": "40235891"
     }, 
     "linesOrder": [
         { 
@@ -58,12 +65,19 @@ Content-Type: application/json
 ### Modificar un nuevo ordero (PUT - recuro completo e idempotente)
 PUT http://localhost:3000/api/orders/{{id}}
 Content-Type: application/json
-
 {
     "confirmDate": "2024-10-17T12:00:00Z",
     "user": {
-        "name": "Alice",
-        "email": "alice@example.com"
+        "name": "Carlos",
+        "surname": "Gomez",
+        "userName": "CarlG",
+        "password": "carlospass",
+        "type": "Admin",
+        "mail": "carlos.gomez@gmail.com",
+        "cellphone": "3498765412",
+        "age": 35,
+        "birthDate": "1989-06-23",
+        "dni": "38123456"
     }, 
     "linesOrder": [
         { 
@@ -83,7 +97,6 @@ Content-Type: application/json
 ### Modificar un nuevo ordero (PATCH - recurso parcial)
 PATCH http://localhost:3000/api/orders/{{id}}
 Content-Type: application/json
-
 {
     "statusHistory": ["Order shipped"]
 }

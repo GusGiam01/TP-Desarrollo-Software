@@ -21,14 +21,18 @@ export class SMHeaderComponent {
   }
 
   loggedUser:string | null = localStorage.getItem("token");
+  typeUser:string | null = localStorage.getItem("tipo");
 
   ngOnInit():void{
     this.loggedUser = localStorage.getItem("token");
+    this.typeUser = localStorage.getItem("type");
   }
 
   logOut(){
     localStorage.removeItem("token");
+    localStorage.removeItem("type");
     this.loggedUser = null;
+    this.typeUser = null;
     location.reload();
   }
 

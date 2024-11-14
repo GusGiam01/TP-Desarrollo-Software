@@ -19,4 +19,15 @@ export class Order extends BaseEntity {
 
   @Property({ type: 'json', nullable: true })
   statusHistory: string[] = [];
+
+  // Correspondiente a direccion. Eliminar cuando se cree la respectiva clase.
+
+  @Property({ type: 'string', nullable: true })
+  address?: string
+
+  @Property({ type: 'number', nullable: true })
+  zipCode?: number
+
+  @Property({ type: 'string', nullable: true })
+  province?: string
 }

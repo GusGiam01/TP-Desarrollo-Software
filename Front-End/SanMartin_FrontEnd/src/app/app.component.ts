@@ -14,14 +14,15 @@ import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, 
+  imports: [
+    RouterOutlet, 
     SMHeaderComponent,
-    IndexSliderComponent,
-    IndexVideoComponent,
+    //IndexSliderComponent,
+    //IndexVideoComponent,
     CommonModule,
-    PuntosventaListaComponent,
+    //PuntosventaListaComponent,
     SmFooterComponent,
-    SmContactComponent,
+    //SmContactComponent,
     routingComponents,
     ReactiveFormsModule,
     FormsModule

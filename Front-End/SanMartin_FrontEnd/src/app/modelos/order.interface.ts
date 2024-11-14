@@ -8,4 +8,7 @@ export interface orderI{
     linesOrder:Array<lineOrderI>;
     totalAmount:number;
     statusHistory:string;
+    address?:string;
+    zipCode?:number;
+    province?:string;
 }

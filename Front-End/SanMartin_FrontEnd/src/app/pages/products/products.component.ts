@@ -187,4 +187,23 @@ export class ProductsComponent {
     this.getProducts();
   }
 
+  onSortChange(event: any): void {
+    const sortBy = event.target.value;
+
+    this.api.searchProducts().subscribe({
+      next: (data) => {
+        this.products = data.data;
+
+        if (sortBy === 'alphabetical') {
+          this.products = [...this.products].sort((a, b) => a.name.localeCompare(b.name));
+        } else if (sortBy === 'priceAsc') {
+          this.products = [...this.products].sort((a, b) => a.priceUni - b.priceUni);
+        }
+      },
+      error: (e) => {
+        console.log(e);
+      }
+    });
+  }
+
 }

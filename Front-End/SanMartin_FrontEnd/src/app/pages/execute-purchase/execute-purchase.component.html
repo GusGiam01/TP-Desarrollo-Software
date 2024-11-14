@@ -1,0 +1,76 @@
+<div class="container">
+    <h1>Detalles de la Compra</h1>
+
+    <!-- Resumen de los productos -->
+    <section class="order-summary">
+        <h2>Resumen de tu Pedido</h2>
+        <div class="order-summary-header">
+            <p>Producto</p>
+            <p>Precio</p>
+            <p>Cantidad</p>
+            <p>Subtotal</p>
+        </div>
+
+        <div *ngFor="let item of cartLinesOrder" class="order-summary-item">
+            <p>{{ item.product.name }}</p>
+            <p>{{ item.product.priceUni}}</p>
+            <p>{{ item.quantity }}</p>
+            <p>{{ item.product.priceUni * item.quantity}}</p>
+        </div>
+
+        <div class="order-total">
+            <p><strong>Total: </strong>{{ order.totalAmount}}</p>
+        </div>
+    </section>
+
+    <!-- Formulario de Datos de Envío y Pago -->
+    <form class="form" [formGroup]="shippingForm" (ngSubmit)="submitPurchase(shippingForm.value)">
+        <!-- Datos de Envío -->
+        <section class="shipping-details">
+            <h2>Datos de Envío</h2>
+            <div class="form-group">
+                <label for="address">Dirección:</label>
+                <input type="text" id="address" name="address" formControlName="adress" required />
+            </div>
+
+            <div class="form-group">
+                <label for="city">Ciudad:</label>
+                <input type="text" id="city" name="city" formControlName="city" required />
+            </div>
+
+            <div class="form-group">
+                <label for="zipCode">Código Postal:</label>
+                <input type="text" id="zipCode" name="zipCode" formControlName="zipCode" required />
+            </div>
+        </section>
+
+        <!-- Datos de la Tarjeta -->
+        <section class="payment-details">
+            <h2>Datos de la Tarjeta</h2>
+            <div class="form-group">
+                <label for="cardNumber">Número de Tarjeta:</label>
+                <input type="text" id="cardNumber" name="cardNumber" formControlName="cardNumber" required />
+            </div>
+
+            <div class="form-group">
+                <label for="expiryDate">Fecha de Vencimiento:</label>
+                <input type="month" id="expiryDate" name="expiryDate" formControlName="expiryDate" required />
+            </div>
+
+            <div class="form-group">
+                <label for="cvv">CVV:</label>
+                <input type="text" id="cvv" name="cvv" formControlName="cvv" required />
+            </div>
+
+            <div class="form-group">
+                <label for="cardholderName">Nombre del Titular:</label>
+                <input type="text" id="cardholderName" name="cardholderName" formControlName="cardholderName" required />
+            </div>
+        </section>
+
+        <!-- Confirmación de la Compra -->
+        <section class="confirmation">
+            <button type="submit" class="buy_btn">Efectuar Compra</button>
+        </section>
+    </form>
+</div>

@@ -21,12 +21,11 @@ import { signinI } from '../../modelos/signin.interface.js';
 export class LogInComponent {
 
   loginForm = new FormGroup({
-    user : new FormControl('', Validators.required),
+    dni : new FormControl('', Validators.required),
     password : new FormControl('', Validators.required)
   })
 
   signinForm = new FormGroup({
-    username : new FormControl('', Validators.required),
     name : new FormControl('', Validators.required),
     surname : new FormControl('', Validators.required),
     password : new FormControl('', Validators.required),
@@ -36,6 +35,9 @@ export class LogInComponent {
     birthDate : new FormControl('', Validators.required),
     cellphone : new FormControl('', Validators.required),
     type : new FormControl('', Validators.required),
+    address: new FormControl('', Validators.required),
+    zipCode: new FormControl('', Validators.required),
+    province: new FormControl('', Validators.required),
   })
 
   valPass(password: string): boolean {
@@ -49,17 +51,18 @@ export class LogInComponent {
 
   onLogin(form:any){
      const login:loginI= {
-     user: form.user,
+     dni: form.dni,
      password: form.password
     }
-    this.api.searchByDni(form.user).subscribe({
+    this.api.searchByDni(form.dni).subscribe({
       next: (data) => {
         let dataResponse:responseI = data;
         console.log(dataResponse.data)
-        if (dataResponse.data.dni == form.user && dataResponse.data.password == form.password){
+        if (dataResponse.data.dni == form.dni && dataResponse.data.password == form.password){
 
           localStorage.setItem("token", dataResponse.data.id);
           localStorage.setItem("dni", dataResponse.data.dni);
+          localStorage.setItem("type", dataResponse.data.type);
           this.router.navigate(['home']).then(() => {
             location.reload()
           });
@@ -77,7 +80,6 @@ export class LogInComponent {
 
   OnSignUp(form:any){
     const user:signinI = {
-      userName: form.username,
       name: form.name,
       surname: form.surname,
       birthDate: form.birthDate,
@@ -85,13 +87,14 @@ export class LogInComponent {
       dni: form.dni,
       cellphone: form.cellphone,
       type: form.type,
-      password: form.password
+      password: form.password,
+      address: form.address
     }
     const today = new Date();
     const birthDate = new Date(form.birthDate);
     let age = today.getFullYear() - birthDate.getFullYear();
     user.age = age;
-    this.api.searchByDni(form.dni).subscribe({
+    this.api.searchByDni(form.dni).subscribe({                  // Por qué se usa el next? no seria mejor un if?
       next: () => {
         alert("Ya existe un usuario con ese DNI.")
       },
@@ -104,6 +107,7 @@ export class LogInComponent {
                   let dataResponse:responseI = data;
                   localStorage.setItem("token", dataResponse.data.id);
                   localStorage.setItem("dni", dataResponse.data.dni);
+                  localStorage.setItem("type", dataResponse.data.type);
                   this.router.navigate(['home']).then(() => {
                     location.reload()
                   });

@@ -2,7 +2,6 @@ export interface userI{
     id:string;
     name:string;
     surname:string;
-    username:string;
     password:string;
     type:string;
     mail:string;
@@ -10,4 +9,5 @@ export interface userI{
     age?:number | null;
     birthDate: Date;
     dni:string;
+    address:string;
 }
