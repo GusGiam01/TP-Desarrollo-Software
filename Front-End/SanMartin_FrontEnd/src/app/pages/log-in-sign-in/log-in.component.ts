@@ -125,28 +125,33 @@ export class LogInComponent {
   }
 
   recoverPassword(dni:string){
-    
-    this.api.searchUserByDni(dni).subscribe({
-      next: (data) => {
-        const emailData = {
-          to: data.data.mail,
-          subject: "Recuperar contraseña",
-          text: "Su contraseña es " + data.data.password
-        }
-        this.api.sendEmail(emailData).subscribe({
-          next: (response) => {
-            alert('Correo de recuperacion enviado con éxito');
-          },
-          error: (e) => {
-            //alert('Hubo un error al enviar el correo de recuperacion');
-            console.error(e);
+    if (dni != "") {
+      this.api.searchUserByDni(dni).subscribe({
+        next: (data) => {
+          const emailData = {
+            to: data.data.mail,
+            subject: "Recuperar contraseña",
+            text: "Su contraseña es " + data.data.password
           }
-        });
-      },
-      error: (e) => {
-        console.log(e)
-      }
-    })
+          this.api.sendEmail(emailData).subscribe({
+            next: (response) => {
+              alert('Hemos enviado un mail a su correo!');
+            },
+            error: (e) => {
+              alert('Hubo un error al enviar el correo de recuperacion');
+              console.error(e);
+            }
+          });
+        },
+        error: (e) => {
+          console.log(e)
+          alert('No existe ninguna cuenta con ese DNI.')
+        }
+      })
+    }
+    else {
+      alert('Por favor ingrese su DNI para poder recurperar su contraeña.')
+    }
     
   }
 }
