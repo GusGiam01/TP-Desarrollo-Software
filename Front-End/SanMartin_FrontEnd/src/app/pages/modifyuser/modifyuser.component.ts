@@ -33,13 +33,10 @@ export class EditUserComponent implements OnInit {
       name: ['', Validators.required],
       surname: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      type: ['', Validators.required],
       mail: ['', [Validators.required, Validators.email]],
       cellphone: ['', Validators.required],
-      age: [null, [Validators.min(0)]],
       birthDate: ['', Validators.required],
-      dni: ['', Validators.required],
-      address: ['', Validators.required]
+      dni: ['', Validators.required]
     });
   }
 
@@ -58,13 +55,11 @@ export class EditUserComponent implements OnInit {
             name: this.user.name,
             surname: this.user.surname,
             password: this.user.password,
-            type: this.user.type,
             mail: this.user.mail,
             cellphone: this.user.cellphone,
-            age: this.user.age,
             birthDate: this.user.birthDate,
             dni: this.user.dni,
-            addresses: this.user.addresses
+            //addresses: this.user.addresses
           });
         },
         error: (e) => {
@@ -83,17 +78,9 @@ export class EditUserComponent implements OnInit {
         password: this.userForm.get('password')?.value,
         mail: this.userForm.get('mail')?.value,
         cellphone: this.userForm.get('cellphone')?.value,
-        age: this.userForm.get('age')?.value,
         birthDate: this.userForm.get('birthDate')?.value,
-<<<<<<< HEAD
-        dni: this.userForm.get('dni')?.value,
-        address: this.userForm.get('address')?.value,
-        orders: []
-      };
-      if (this.user != undefined) {
-        updatedUser.orders = this.user.orders;
-=======
->>>>>>> 254b14647d2cba2cae0e4fecd049cedfcdba6f1c
+        age: this.calculateAge(this.userForm.get('birthDate')?.value),                       // Actualizar
+
       };
       this.api.patchUser(updatedUser).subscribe({
         next: () => {
@@ -104,6 +91,19 @@ export class EditUserComponent implements OnInit {
         }
       });
     }
+  }
+
+  calculateAge(birthDate: Date): number {
+    const today = new Date();
+    const birth = new Date(birthDate);
+    let age = today.getFullYear() - birth.getFullYear();
+    const monthDiff = today.getMonth() - birth.getMonth();
+    
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+      age--;
+    }
+  
+    return age;
   }
 
   goBack(){

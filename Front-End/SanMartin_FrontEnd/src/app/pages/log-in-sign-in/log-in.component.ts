@@ -87,9 +87,7 @@ export class LogInComponent {
       dni: form.dni,
       cellphone: form.cellphone,
       type: form.type,
-      password: form.password,
-      address: form.address,
-      orders: []
+      password: form.password
     }
     const today = new Date();
     const birthDate = new Date(form.birthDate);
