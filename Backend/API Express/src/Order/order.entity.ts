@@ -22,6 +22,6 @@ export class Order extends BaseEntity {
   @Property({ type: 'json', nullable: true })
   statusHistory: string[] = [];
 
-  @Property({ type: 'string', nullable: true })
+  @Property({ nullable: true })
   address?: Adress;
 }

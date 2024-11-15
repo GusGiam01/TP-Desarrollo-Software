@@ -97,8 +97,10 @@ export class ApiService {
     }
 
     searchOrderById(id: string) {
+        const params = new HttpParams().set('type', "ORDER");
+        //params.set('ID', id);
         let direction = this.url + "/orders/" + id;
-        return this.http.get<responseOrderI>(direction)
+        return this.http.get<responseOrderI>(direction, {params})
     }
 
     updateOrder(order: orderI) {
@@ -112,11 +114,12 @@ export class ApiService {
     }
 
     searchOrdersByUser(userid: string) {
+        const params = new HttpParams().set('type', "USER ORDERS");
         let direction = this.url + "/orders/" + userid;
-        return this.http.get<responseOrdersI>(direction)
+        return this.http.get<responseOrdersI>(direction, {params})
     }
 
-    // Lineas de Orden
+    // Lines Order
 
     searchLinesOrderByOrderId(orderid: string) {
         let direction = this.url + "/linesorder/" + orderid;
@@ -160,8 +163,16 @@ export class ApiService {
         return this.http.delete<responseAddressI>(direction);
     }
     
-    getUserAddresses(userId:string){
-        let direction = this.url + "/users/" + userId;
-        return this.http.get<responseAddressesI>(direction);
+    searchAddressesByUserId(userId:string){
+        const params = new HttpParams().set('type', "USER ADDRESSES");
+        let direction = this.url + "/addresses/" + userId;
+        return this.http.get<responseAddressesI>(direction, {params});
+    }
+
+    //Otros
+
+    sendEmail(emailData:any):Observable<any>{
+        let direction = this.url + "/send-email"
+        return this.http.post<any>(direction, emailData)
     }
 }

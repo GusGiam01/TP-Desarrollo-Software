@@ -4,7 +4,7 @@
     <div *ngIf="addresses.length > 0; else noAddresses">
       <ul class="addresses-list">
         <li *ngFor="let address of addresses" class="address-item">
-          <h3>{{ address.nickName }}</h3>
+          <h3>{{ address.nickname }}</h3>
           <p><strong>Código Postal:</strong> {{ address.zipCode }}</p>
           <p><strong>Dirección:</strong> {{ address.address }}</p>
           <p><strong>Provincia:</strong> {{ address.province }}</p>
