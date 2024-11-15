@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IndexSliderComponent } from './index-slider/index-slider.component.js';
 import { IndexVideoComponent } from './index-video/index-video.component.js';
+import { CommonModule, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-index',
