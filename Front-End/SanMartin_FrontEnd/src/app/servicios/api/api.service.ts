@@ -21,6 +21,7 @@ import { addressI } from "../../modelos/address.interface.js";
 import { addAddressI } from "../../modelos/addAddress.interface.js";
 import { responseAddressesI } from "../../modelos/responseAddresses.interface.js";
 import { userPatchI } from '../../modelos/userPatch.interface';
+import { orderPatchI } from '../../modelos/orderPatch.interface';
 
 
 
@@ -103,6 +104,11 @@ export class ApiService {
     updateOrder(order: orderI) {
         let direction = this.url + "/orders/" + order.id;
         return this.http.put<responseOrderI>(direction, order)
+    }
+
+    patchOrder(order: orderPatchI) {
+        let direction = this.url + "/orders/" + order.id;
+        return this.http.patch<responseOrderI>(direction, order)
     }
 
     searchOrdersByUser(userid: string) {
