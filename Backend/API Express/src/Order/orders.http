@@ -29,6 +29,10 @@ Content-Type: application/json
 
 ### Obtener uno en particular
 GET http://localhost:3000/api/orders/67356c268382750cc6797981
+
+### Obtener uno en particular
+GET http://localhost:3000/api/orders/673694ee5df2e95693c64b5b
+
 ### Crear un nuevo ordero
 POST http://localhost:3000/api/orders
 Content-Type: application/json
