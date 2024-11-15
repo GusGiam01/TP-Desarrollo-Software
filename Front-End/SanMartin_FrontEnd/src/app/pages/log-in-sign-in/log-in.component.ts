@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
-import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Component, NgModule } from '@angular/core';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ApiService } from '../../servicios/api/api.service.js';
 import { loginI } from '../../modelos/login.interface.js';
 import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { responseI } from '../../modelos/response.interface.js';
-import { timer } from 'rxjs';
+import { Subject, timer } from 'rxjs';
 import { userI } from '../../modelos/user.interface.js';
 import { signinI } from '../../modelos/signin.interface.js';
 
@@ -13,12 +13,15 @@ import { signinI } from '../../modelos/signin.interface.js';
   selector: 'app-log-in',
   standalone: true,
   imports: [
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   templateUrl: './log-in.component.html',
   styleUrl: './log-in.component.scss'
 })
 export class LogInComponent {
+
+  dni = "";
 
   loginForm = new FormGroup({
     dni : new FormControl('', Validators.required),
@@ -119,6 +122,32 @@ export class LogInComponent {
         } else {alert("Usted no es mayor de edad, no puede crear una cuenta.")}
       }
     })
+  }
+
+  recoverPassword(dni:string){
+    
+    this.api.searchUserByDni(dni).subscribe({
+      next: (data) => {
+        const emailData = {
+          to: data.data.mail,
+          subject: "Recuperar contraseña",
+          text: "Su contraseña es " + data.data.password
+        }
+        this.api.sendEmail(emailData).subscribe({
+          next: (response) => {
+            alert('Correo de recuperacion enviado con éxito');
+          },
+          error: (e) => {
+            //alert('Hubo un error al enviar el correo de recuperacion');
+            console.error(e);
+          }
+        });
+      },
+      error: (e) => {
+        console.log(e)
+      }
+    })
+    
   }
 }
 

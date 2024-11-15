@@ -163,4 +163,10 @@ export class ApiService {
         return this.http.get<responseAddressesI>(direction, {params});
     }
 
+    //Otros
+
+    sendEmail(emailData:any):Observable<any>{
+        let direction = this.url + "/send-email"
+        return this.http.post<any>(direction, emailData)
+    }
 }
