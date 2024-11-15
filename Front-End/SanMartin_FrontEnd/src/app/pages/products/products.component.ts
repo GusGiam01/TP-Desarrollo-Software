@@ -110,7 +110,7 @@ export class ProductsComponent {
           if (localStorage.getItem("orderId") == null) {
             let userId = "" + localStorage.getItem("token");
             let order:addOrderI = {
-              statusHistory: "",
+              statusHistory: "UNPAID",
               linesOrder: [],
               totalAmount: 0,
               user: userId

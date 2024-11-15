@@ -2,11 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../servicios/api/api.service';
 import { Router } from '@angular/router';
 import { userI } from '../../modelos/user.interface';
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
+  standalone: true,
+  imports: [
+    NgIf,
+    NgFor
+  ],
   selector: 'app-addresses',
   templateUrl: './list-address.component.html',
-  styleUrls: ['./list-address.component.scss']
+  styleUrls: ['./list-address.component.scss'],
 })
 export class AddressesComponent implements OnInit {
   addresses: any[] = [];
@@ -20,9 +26,11 @@ export class AddressesComponent implements OnInit {
   // Obtiene las direcciones del usuario desde el servicio
   getAddresses(): void {
     let userId = "" + localStorage.getItem("token");
-    this.api.getUserAddresses(userId).subscribe({
+    this.api.searchAddressesByUserId(userId).subscribe({
       next: (data) => {
-        this.addresses = data.data;
+        for (let i = 0; i < data.data.length; i++ ){
+          this.addresses.push(data.data[i]);
+        }
       },
       error: (error) => {
         console.error('Error al obtener las direcciones:', error);
@@ -32,7 +40,7 @@ export class AddressesComponent implements OnInit {
   
   deleteAddress(addressId: string) {
     let userId = "" + localStorage.getItem("token");
-    this.api.getUserAddresses(userId).subscribe({
+    this.api.searchAddressesByUserId(userId).subscribe({
       next: (data) => {
         this.addresses = data.data;
         const updatedAddresses = this.addresses.filter(address => address.id !== addressId);

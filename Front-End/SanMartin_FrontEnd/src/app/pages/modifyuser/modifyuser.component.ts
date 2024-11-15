@@ -85,15 +85,6 @@ export class EditUserComponent implements OnInit {
         cellphone: this.userForm.get('cellphone')?.value,
         age: this.userForm.get('age')?.value,
         birthDate: this.userForm.get('birthDate')?.value,
-<<<<<<< HEAD
-        dni: this.userForm.get('dni')?.value,
-        address: this.userForm.get('address')?.value,
-        orders: []
-      };
-      if (this.user != undefined) {
-        updatedUser.orders = this.user.orders;
-=======
->>>>>>> 254b14647d2cba2cae0e4fecd049cedfcdba6f1c
       };
       this.api.patchUser(updatedUser).subscribe({
         next: () => {

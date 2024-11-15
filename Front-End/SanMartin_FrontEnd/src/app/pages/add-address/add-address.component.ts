@@ -20,7 +20,8 @@ export class AddAddressComponent {
     zipCode: '',
     nickName: '',
     address: '',
-    province: ''
+    province: '',
+    user: ''
   };
 
   constructor(private router: Router, private api: ApiService, private fb: FormBuilder) {
@@ -35,8 +36,9 @@ export class AddAddressComponent {
   onSubmit() {
     if (this.addressForm.valid) {
       this.address = this.addressForm.value;
+      this.address.user = ""+localStorage.getItem("token");
       this.api.postAddress(this.address).subscribe({
-        next: () => this.router.navigate(['/addresses']),
+        next: () => this.router.navigate(['/list-address']),
         error: (error) => console.error('Error al guardar la dirección:', error)
       });
     }

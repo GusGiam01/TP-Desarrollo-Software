@@ -27,6 +27,7 @@ export class CartComponent {
     let orderId = "" + localStorage.getItem("orderId")
     this.api.searchLinesOrderByOrderId(orderId).subscribe({
       next: (data) => {
+        console.log("Mostrando la orden: " + orderId)
         for (let i = 0; i < data.data.length; i++){
           this.api.searchProductById(data.data[i].product).subscribe({
             next: (p) => {
