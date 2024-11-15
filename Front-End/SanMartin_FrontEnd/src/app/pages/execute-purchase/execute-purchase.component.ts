@@ -98,6 +98,12 @@ export class ExecutePurchaseComponent implements OnInit {
   }
 
   submitPurchase(form: any): void {
+
+    if (this.addresses.length === 0) {
+      alert('Debe cargar al menos una dirección antes de efectuar la compra.');
+      return;
+    }
+
     let orderId = "" + localStorage.getItem("orderId");
     this.api.searchOrderById(orderId).subscribe({
       next: (data) => {

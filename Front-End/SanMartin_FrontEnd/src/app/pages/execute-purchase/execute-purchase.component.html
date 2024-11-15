@@ -26,10 +26,17 @@
     <form class="form" [formGroup]="shippingForm" (ngSubmit)="submitPurchase(shippingForm.value)">
         <div class="form-group">
             <label for="address">Dirección</label>
-            <select id="address" formControlName="address">
-              <option *ngFor="let address of addresses" [value]="address.id">{{ address.nickName }} - {{ address.address }}</option>
-            </select>
-          </div>
+            <ng-container *ngIf="addresses && addresses.length > 0; else noAddresses">
+                <select id="address" formControlName="address">
+                    <option *ngFor="let address of addresses" [value]="address.id">
+                        {{ address.nickName }} - {{ address.address }}
+                    </option>
+                </select>
+            </ng-container>
+            <ng-template #noAddresses>
+                <p>Usted no ha cargado direcciones aún.</p>
+            </ng-template>
+        </div>
 
         <section class="payment-details">
             <h2>Datos de la Tarjeta</h2>
@@ -50,13 +57,14 @@
 
             <div class="form-group">
                 <label for="cardholderName">Nombre del Titular:</label>
-                <input type="text" id="cardholderName" name="cardholderName" formControlName="cardholderName" required />
+                <input type="text" id="cardholderName" name="cardholderName" formControlName="cardholderName"
+                    required />
             </div>
         </section>
 
-        <section class="confirmation">
-            <button type="submit" class="buy_btn">Efectuar Compra</button>
-        </section>
+        <button type="submit" class="buy_btn" [disabled]="!shippingForm.valid || addresses.length === 0">
+            Efectuar Compra
+        </button>        
 
         <button type="submit" class="cancel_btn" (click)="goBack()">Volver</button>
     </form>
