@@ -83,118 +83,108 @@ export class ProductsComponent {
     return line
   }
 
-  addToOrder(o: orderI, line: lineOrderI): void {
-    this.api.searchProductById(line.product).subscribe({
-      next: (productResponse) => {
-        const product = productResponse.data;
-
-        this.api.searchLinesOrderByOrderId(o.id).subscribe({
-          next: (data) => {
-            const updatedLines = [...data.data, line];
-            const updatedOrder: orderPatchI = {
-              //...o,
-              id: o.id,
-              linesOrder: updatedLines,
-              totalAmount: o.totalAmount + line.quantity * product.priceUni
-            };
-            this.api.patchOrder(updatedOrder).subscribe({
-              next: () => {
-                console.log("Orden actualizada exitosamente.");
-              },
-              error: (e) => {
-                console.error("Error al actualizar la orden:", e);
-              }
-            });
-          },
-          error: (e) => {
-            console.error("Error al obtener líneas de la orden:", e);
-          }
-        });
-      },
-      error: (e) => {
-        console.error("Error al obtener detalles del producto:", e);
-      }
-    });
-  }
-
-  addToCart(id: string, q: number) {
-    this.api.searchProductById(id).subscribe({
-      next: (prod) => {
-        const selectedProduct = prod.data;
-        if (selectedProduct.stock >= q) {
-          const userId = "" + localStorage.getItem("token");
-  
-          // Recuperar ID de orden de localStorage, si existe
-          let existingOrderId = localStorage.getItem("orderId");
-  
-          this.api.searchOrders().subscribe({
-            next: (os) => {
-              const orders = os.data;
-  
-              // Buscar orden UNPAID del usuario
-              let order: orderI | null = null;
-              for (let j = 0; j < orders.length; j++) {
-                if (
-                  orders[j].statusHistory === "UNPAID" &&
-                  orders[j].user === userId
-                ) {
-                  order = orders[j]; // Actualizar la variable "order"
-                  break; // Detener el bucle al encontrar la orden
-                }
-              }
-  
-              // Si ya existe la orden, agregar la línea
-              if (order) {
-                const newLine = this.createLineOrder(selectedProduct.id, q, order.id);
-                this.addToOrder(order, newLine);
-              }
-              // Si no existe la orden, crear una nueva
-              else if (existingOrderId) {
-                console.log("Usando orden existente de localStorage:", existingOrderId);
-                this.api.searchOrderById(existingOrderId).subscribe({
-                  next: (response) => {
-                    const storedOrder = response.data;
-                    const newLine = this.createLineOrder(selectedProduct.id, q, storedOrder.id);
-                    this.addToOrder(storedOrder, newLine);
-                  },
-                  error: (e) => {
-                    console.error("Error al recuperar la orden desde localStorage:", e);
-                  },
-                });
-              } else {
-                const newLine: lineOrderI = { product: selectedProduct.id, quantity: q };
-                const newOrder: addOrderI = {
-                  statusHistory: "UNPAID",
-                  linesOrder: [newLine],
-                  totalAmount: selectedProduct.priceUni * q,
-                  user: userId,
-                };
-  
-                this.api.postOrder(newOrder).subscribe({
-                  next: (response) => {
-                    localStorage.setItem("orderId", response.data.id);
-                    console.log("Orden creada exitosamente.");
-                  },
-                  error: (e) => {
-                    console.error("Error al crear la orden:", e);
-                  },
-                });
-              }
-            },
-            error: (e) => {
-              console.error("Error al buscar órdenes:", e);
-            },
-          });
-        } else {
-          alert("No hay suficiente stock.");
+  addToOrder(o:orderI, line:lineOrderI):orderI{
+    let order:orderI = {
+      id: o.id,
+      linesOrder: [],
+      totalAmount: o.totalAmount,
+      statusHistory: o.statusHistory,
+      user: o.user
+    };
+    this.api.searchLinesOrderByOrderId(order.id).subscribe({
+      next: (data) => {
+        for (let i = 0; i < data.data.length; i++){
+          order.linesOrder.push(data.data[i]);
         }
       },
       error: (e) => {
-        console.error("Error al buscar el producto:", e);
-        alert("No se encontró el producto.");
+        console.log(e)
+      }
+    })
+    return order
+  }
+
+  addToCart(id:string, q:number){   
+    this.api.searchProductById(id).subscribe({
+      next: (prod) => {
+        const selectedProduct = prod.data;
+        if (selectedProduct.stock >= q){
+          if (localStorage.getItem("orderId") == null) {
+            let userId = "" + localStorage.getItem("token");
+            let order:addOrderI = {
+              statusHistory: "",
+              linesOrder: [],
+              totalAmount: 0,
+              user: userId
+            }
+            let line:lineOrderI = {
+              product:selectedProduct.id, 
+              quantity: q
+            }
+            order.linesOrder.push(line);
+            order.totalAmount = selectedProduct.priceUni * q;
+            this.api.postOrder(order).subscribe({
+              next: (co) => {
+                let dataResponseOrder:responseOrderI = co;
+                localStorage.setItem("orderId", dataResponseOrder.data.id);
+                console.log(dataResponseOrder.data.id);
+                console.log("Se creo la orden.")
+                selectedProduct.stock = selectedProduct.stock - q;
+                this.api.updateProduct(selectedProduct).subscribe({
+                  next: (pp) => {
+                    console.log("stock modificado.")
+                  },
+                  error: (e) => {
+                    console.log(e)
+                  }
+                }) 
+              },
+              error: (e) => {
+                console.log(e)
+              }
+            })
+          }
+          else {
+            let orderId = ""+localStorage.getItem("orderId")
+            console.log("orderId: ", orderId);
+            this.api.searchOrderById(orderId).subscribe({
+              next: (go) => {
+                let order = this.addToOrder(go.data, this.createLineOrder(selectedProduct.id, q, orderId));
+                order.totalAmount = order.totalAmount + (selectedProduct.priceUni * q)
+                this.api.updateOrder(order).subscribe({
+                  next: (uo) => {
+                    console.log("Se agrego el objeto al pedido.")
+                    selectedProduct.stock = selectedProduct.stock - q;
+                  this.api.updateProduct(selectedProduct).subscribe({
+                    next: (pp) => {
+                      console.log("stock modificado.")
+                    },
+                    error: (e) => {
+                      console.log(e)
+                    }
+                  })
+                  },
+                  error: (e) =>
+                    alert("Hubo un problema al agregar un articulo a su carrito.")
+                })
+
+              },
+              error: (e) => {
+                console.log(e);
+                alert("No se encontro la orden")
+              }
+            })
+          }
+        } 
+        else {
+          alert("No hay suficiente stock.")
+        }
       },
-    });
-  
+      error: (e) => {
+        console.log(e);
+        alert("No se encontro el objeto")
+      }
+    })
     this.productCode = "";
   }
   

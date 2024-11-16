@@ -14,13 +14,14 @@ orderRouter.get('/:value', (req, res) => {
     //type -> "ORDER"|"USER ORDERS"
     const type = req.query.type
     const id = req.params.value
+    console.log("", id)
     
     if (!req.params.value) {
         return res.status(400).json({ message: 'Id is required' });
     }
     else {
         if (type == "ORDER") {
-            findOne(req, res)
+            findOne(req, res, id)
         }
         else {
             findAllByUserId(req, res, id)
