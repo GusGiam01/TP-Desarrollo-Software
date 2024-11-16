@@ -29,7 +29,7 @@
             <ng-container *ngIf="addresses && addresses.length > 0; else noAddresses">
                 <select id="address" formControlName="address">
                     <option *ngFor="let address of addresses" [value]="address.id">
-                        {{ address.nickName }} - {{ address.address }}
+                        {{ address.nickname }} - {{ address.address }}
                     </option>
                 </select>
             </ng-container>

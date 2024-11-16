@@ -14,7 +14,7 @@ addressRouter.get('/:value', (req, res) => {
     //type -> "ADDRESS"|"USER ADDRESSES"
     const type = req.query.type
     const id = req.params.value
-    
+
     if (!req.params.value) {
         return res.status(400).json({ message: 'Id is required' });
     }
