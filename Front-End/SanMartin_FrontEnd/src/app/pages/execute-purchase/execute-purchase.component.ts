@@ -119,14 +119,14 @@ export class ExecutePurchaseComponent implements OnInit {
           user: data.data.user,
           linesOrder: data.data.linesOrder,
           totalAmount: data.data.totalAmount,
-          statusHistory: data.data.statusHistory,
+          statusHistory: "PAID",
           confirmDate: new Date(),
           address: form.address // Ajustado para usar el objeto address completo
         };
 
         this.api.updateOrder(completeOrder).subscribe({
           next: () => {
-            localStorage.setItem("orderId", "");
+            localStorage.removeItem("orderId");
             this.router.navigate(['/thanks']);
           },
           error: (e) => {

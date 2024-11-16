@@ -25,30 +25,35 @@ export class CartComponent {
 
   getLinesOrder(){
     let orderId = "" + localStorage.getItem("orderId")
-    this.api.searchLinesOrderByOrderId(orderId).subscribe({
-      next: (data) => {
-        console.log("Mostrando la orden: " + orderId)
-        for (let i = 0; i < data.data.length; i++){
-          this.api.searchProductById(data.data[i].product).subscribe({
-            next: (p) => {
-              let line:cartLineOrderI = {
-                id: data.data[i].id,
-                product: p.data,
-                quantity: data.data[i].quantity
+    if(orderId != null && orderId != ""){
+      this.api.searchLinesOrderByOrderId(orderId).subscribe({
+        next: (data) => {
+          console.log("Mostrando la orden: " + orderId)
+          for (let i = 0; i < data.data.length; i++){
+            console.log("Orden:  ", data.data[i].order);
+            this.api.searchProductById(data.data[i].product).subscribe({
+              next: (p) => {
+                let line:cartLineOrderI = {
+                  id: data.data[i].id,
+                  product: p.data,
+                  quantity: data.data[i].quantity
+                }
+                this.cartLinesOrder.push(line)
+                this.total = this.total + (p.data.priceUni * data.data[i].quantity);
+              },
+              error: (e) => {
+                console.log(e)
               }
-              this.cartLinesOrder.push(line)
-              this.total = this.total + (p.data.priceUni * data.data[i].quantity);
-            },
-            error: (e) => {
-              console.log(e)
-            }
-          })
+            })
+          }
+        },
+        error: (e) => {
+          console.log(e)
         }
-      },
-      error: (e) => {
-        console.log(e)
-      }
-    })
+      })
+    }else{
+      console.log("El orderId es nulo o vacio.")
+    }
   }
 
   removeItem(line:cartLineOrderI){

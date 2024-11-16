@@ -43,7 +43,7 @@ export class ViewOrdersComponent {
   }
 
   viewOrderDetails(orderId:any){
-    localStorage.setItem("OrderId", orderId);
+    localStorage.setItem("orderId", orderId);
     this.router.navigate(['/view-single-order']);
   }
 

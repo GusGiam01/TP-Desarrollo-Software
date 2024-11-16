@@ -109,7 +109,7 @@ export class ProductsComponent {
       next: (prod) => {
         const selectedProduct = prod.data;
         if (selectedProduct.stock >= q){
-          if (localStorage.getItem("orderId") == null) {
+          if (localStorage.getItem("orderId") == null || localStorage.getItem("orderId") == "") {
             let userId = "" + localStorage.getItem("token");
             let order:addOrderI = {
               statusHistory: "",
