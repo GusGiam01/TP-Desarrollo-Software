@@ -38,13 +38,15 @@ export class ApiService {
     // Usuarios
 
     searchUserById(id:string):Observable<responseI>{
+        const params = new HttpParams().set('type', "ID");
         let direction = this.url + "/users/" + id;
-        return this.http.get<responseI>(direction);
+        return this.http.get<responseI>(direction, {params});
     }
 
     searchUserByDni(dni:string):Observable<responseI>{
+        const params = new HttpParams().set('type', "DNI");
         let direction = this.url + "/users/" + dni;
-        return this.http.get<responseI>(direction);
+        return this.http.get<responseI>(direction, {params});
     }
 
     postUser(user: signinI) {
@@ -174,5 +176,10 @@ export class ApiService {
     sendEmail(emailData:any):Observable<any>{
         let direction = this.url + "/send-email"
         return this.http.post<any>(direction, emailData)
+    }
+
+    fetchData():Observable<any>{
+        let direction = this.url + "/data"
+        return this.http.get<any>(direction)
     }
 }
