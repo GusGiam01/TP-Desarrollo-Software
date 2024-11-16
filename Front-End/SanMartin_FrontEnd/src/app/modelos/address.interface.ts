@@ -4,5 +4,6 @@ export interface addressI{
     zipCode:string;
     address:string;
     province: string;
-    nickName: string;
+    nickname: string;
+    user: string;
 }
