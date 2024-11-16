@@ -80,13 +80,10 @@ async function findAll(req: Request, res: Response) {
     }
   }
 
-  async function findAllByUserId(req: Request, res: Response) {
+  async function findAllByUserId(req: Request, res: Response, id:string) {
     try {
-      const id = req.params.user
-
       const user = await em.findOneOrFail(User, {id})
-
-      const order = await em.findOneOrFail(Order, { user })     //Aca esta el problema
+      const order = await em.find(Order, { user })  
 
       res.status(200).json({ message: 'found order', data: order })
     } catch (error: any) {

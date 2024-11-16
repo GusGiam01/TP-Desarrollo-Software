@@ -23,7 +23,7 @@ export class AddressesComponent implements OnInit {
     this.getAddresses();
   }
 
-  // Obtiene las direcciones del usuario desde el servicio
+ 
   getAddresses(): void {
     let userId = "" + localStorage.getItem("token");
     this.api.searchAddressesByUserId(userId).subscribe({
@@ -38,6 +38,8 @@ export class AddressesComponent implements OnInit {
     });
   }
   
+
+  //Revisar desp 
   deleteAddress(addressId: string) {
     let userId = "" + localStorage.getItem("token");
     this.api.searchAddressesByUserId(userId).subscribe({

@@ -9,12 +9,22 @@ addressRouter.post('/', sanitizeAdressInput, add)
 addressRouter.put('/:id', sanitizeAdressInput, update)
 addressRouter.patch('/:id', sanitizeAdressInput, update)
 addressRouter.delete('/:id', sanitizeAdressInput, remove)
+<<<<<<< HEAD
 addressRouter.get('/:value', (req, res) => {
     //value -> {type: "ADDRESS"|"USER ADDRESSES"}
     const type = req.query.type
     const id = req.params.value
     console.log("entra");
     if (!id) {
+=======
+
+addressRouter.get('/:value', (req, res) => {
+    //type -> "ADDRESS"|"USER ADDRESSES"
+    const type = req.query.type
+    const id = req.params.value
+    
+    if (!req.params.value) {
+>>>>>>> viendocambios
         return res.status(400).json({ message: 'Id is required' });
     }
     else {
