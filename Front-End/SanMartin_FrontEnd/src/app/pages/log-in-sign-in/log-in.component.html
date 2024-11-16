@@ -1,16 +1,17 @@
 <div class="container div_log-in_sign-in">
 
     <section class="log-in">
-            <div class="log-in_form">
-                <form action="" class="form" [formGroup]="loginForm" (ngSubmit)="onLogin(loginForm.value)">
-                    <label for="dni" class="form-line">DNI:</label>
-                    <input type="text" id="dni" required class="form-line"  formControlName="dni" [(ngModel)]="dni">
-                    <label for="password" class="form-line">Contraseña:</label>
-                    <input type="password" id="password" required class="form-line" formControlName="password" >
-                    <button type="submit" class="form-line" style="cursor: pointer;">Ingresar</button>
-                    <a class="form-line" (click)="recoverPassword(dni)" style="cursor: pointer;">¿Olvidaste tu contraseña?</a>
-                </form>
-            </div>
+        <div class="log-in_form">
+            <form action="" class="form" [formGroup]="loginForm" (ngSubmit)="onLogin(loginForm.value)">
+                <label for="dni" class="form-line">DNI:</label>
+                <input type="text" id="dni" required class="form-line" formControlName="dni" [(ngModel)]="dni">
+                <label for="password" class="form-line">Contraseña:</label>
+                <input type="password" id="password" required class="form-line" formControlName="password">
+                <button type="submit" class="form-line" style="cursor: pointer;">Ingresar</button>
+                <a class="form-line" (click)="recoverPassword(dni)" style="cursor: pointer;">¿Olvidaste tu
+                    contraseña?</a>
+            </form>
+        </div>
     </section>
 
     <section class="sign-in">
@@ -32,6 +33,9 @@
 
                             <label for="dni" class="form-line">Dni:</label>
                             <input type="text" id="dni" name="dni" required class="form-line" formControlName="dni">
+
+                            <label for="type" class="form-line">Codigo admin:</label>
+                            <input type="text" id="type" name="type" required class="form-line" formControlName="type">
                         </div>
                         <div class="div_input">
                             <label for="surname" class="form-line">Apellido:</label>
@@ -53,11 +57,8 @@
                     </div>
                     <div class="div_button">
                         <button type="submit" class="form-line" style="cursor: pointer;">Registrarse</button>
-                    </div> 
+                    </div>
                 </div>
-
-
-
             </form>
         </div>
     </section>

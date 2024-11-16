@@ -7,5 +7,4 @@ export interface addProductI {
     discount: number;
     type: string;
     brand: string;
-    img:string;
 }
