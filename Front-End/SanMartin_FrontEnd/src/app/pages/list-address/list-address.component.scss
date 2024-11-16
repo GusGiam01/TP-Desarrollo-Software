@@ -1,9 +1,15 @@
+@font-face {
+  font-family: "SecondarySMfont";
+  src: url("../../../../public/font/puntosVenta/SaaSeriesCDOT.ttf")
+}
+
 .addresses-container {
     margin-top: 180px;
     padding: 20px;
     max-width: 800px;
     margin: 0 auto;
     margin-top: 180px;
+    font-family: 'SecondarySMfont';
     
     h2 {
       text-align: center;
@@ -18,7 +24,7 @@
     }
   
     .address-item {
-      background-color: #f9f9f9;
+      background-color: #c0956d;
       margin-bottom: 15px;
       padding: 15px;
       border-radius: 5px;
@@ -35,7 +41,7 @@
     }
   
     .address-item strong {
-      color: #333;
+      color: black;
     }
   
     ng-template {
@@ -43,5 +49,22 @@
       font-size: 1.2rem;
       color: #999;
     }
-  }
+}
+
+.div_button{
+  margin-bottom: 10px;
+}
+
+.address_btn{
+  font-family: 'SecondarySMfont';
+  margin-right: 10px;
+  background-color: #8F342F;
+  border: none;
+  border-radius: 2px;
+  height: 30px;
+}
+
+.go-back_btn{
+  font-size: 16px;
+}
   

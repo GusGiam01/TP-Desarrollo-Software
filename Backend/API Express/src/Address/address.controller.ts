@@ -80,22 +80,12 @@ async function remove(req: Request, res: Response) {
   }
 }
 
-<<<<<<< HEAD
-async function findAllByUserId(req: Request, res: Response, id: string) {
-  try {
-    const user = await em.findOneOrFail(User, {id})
-
-    const order = await em.find(Address, {user})     
-
-    res.status(200).json({ message: 'found addresses', data: order })
-=======
 async function findAllByUserId(req: Request, res: Response, id:string) {
   try {
     const user = await em.findOneOrFail(User, {id})
     const order = await em.find(Address, { user })    
 
     res.status(200).json({ message: 'found order', data: order })
->>>>>>> viendocambios
   } catch (error: any) {
     res.status(500).json({ message: error.message })
   }

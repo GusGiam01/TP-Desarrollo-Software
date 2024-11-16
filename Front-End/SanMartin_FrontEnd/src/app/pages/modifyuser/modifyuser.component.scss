@@ -1,27 +1,35 @@
+@font-face {
+  font-family: "SecondarySMfont";
+  src: url("../../../../public/font/puntosVenta/SaaSeriesCDOT.ttf")
+}
+
 .edit-user-container {
     max-width: 500px;
-    margin-top: 150px;
+    margin-top: 180px;
     margin-right: auto;
     margin-left: auto;
+    margin-bottom: 20px;
     padding: 20px;
-    background-color: #f7f7f7;
+    background-color: #c0956d;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'SecondarySMfont';
   
     h2 {
       text-align: center;
       margin-bottom: 20px;
-      color: #333;
+      color: black;
     }
   
     .form-group {
       margin-bottom: 15px;
+      margin-right: 15px;
   
       label {
         display: block;
         margin-bottom: 5px;
         font-weight: 500;
-        color: #555;
+        color: #333;
       }
   
       input,
@@ -29,6 +37,7 @@
         width: 100%;
         padding: 8px;
         font-size: 16px;
+        background-color: #EDDBCD;
         border: 1px solid #ccc;
         border-radius: 4px;
       }
@@ -37,13 +46,14 @@
         font-family: Arial, sans-serif;
       }
     }
-  
+}
     button {
       width: 100%;
       padding: 10px;
       font-size: 16px;
-      color: #fff;
-      background-color: #007bff;
+      font-family: 'SecondarySMfont';
+      color: black;
+      background-color: #32659b;
       border: none;
       border-radius: 4px;
       cursor: pointer;
@@ -60,17 +70,19 @@
     }
 
     .cancel_btn {
-      background-color: #f44336;
-      color: #fff;
+      background-color: #8F342F;
+      color: black;
+      font-family: 'SecondarySMfont';
       border: none;
+      margin-top: 10px;
       padding: 10px 20px;
       font-size: 16px; 
       border-radius: 5px;
       cursor: pointer;
       transition: background-color 0.3s ease;
     
-      &:hover {
-        background-color: #d32f2f;
+      .cancel_btn:hover {
+        background-color: #B7584C;
       }
     
       &:active {
@@ -83,5 +95,5 @@
       }
     }
     
-  }
+  
   

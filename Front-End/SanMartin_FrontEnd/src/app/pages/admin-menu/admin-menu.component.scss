@@ -1,3 +1,9 @@
+@font-face {
+    font-family: "SecondarySMfont";
+    src: url("../../../../public/font/puntosVenta/SaaSeriesCDOT.ttf")
+  }
+  
+
 html, body {
     height: 100%;
     margin: 0;
@@ -5,13 +11,16 @@ html, body {
     justify-content: center;
     align-items: center;
     background-color: #f7f7f7;
+    
 }
 
 .admin-menu {
-    margin-top: 140px;
+    font-family: 'SecondarySMfont';
+    margin-top: 180px;
     margin-left: auto;
     margin-right: auto;
-    background-color: #EDDBCD;
+    margin-bottom: 20px;
+    background-color: #c0956d;
     width: 400px;
     max-height: 80vh;
     padding: 20px;
@@ -28,7 +37,7 @@ html, body {
         .menu-title {
             font-size: 32px;
             font-weight: bold;
-            color: #333;
+            color: #000000;
         }
     }
 
@@ -41,9 +50,12 @@ html, body {
         .menu-item {
             margin-bottom: 20px;
             
+            
             .menu-link {
+                font-family: 'SecondarySMfont';
                 text-decoration: none;
-                color: #ffffff;
+                //color: #ffffff;
+                color: #000000;
                 font-size: 20px;
                 padding: 15px 20px;
                 background-color: #8F342F;
@@ -52,10 +64,12 @@ html, body {
                 width: 100%;
                 text-align: center;
                 transition: background-color 0.3s ease, color 0.3s ease;
+                border: none;
                 
                 &:hover {
                     background-color: #B7584C;
                     color: #333;
+                    
                 }
             }
 

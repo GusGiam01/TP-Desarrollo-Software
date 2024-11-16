@@ -22,11 +22,6 @@ export class Order extends BaseEntity {
   @Property({ type: 'json', nullable: true })
   statusHistory: string[] = [];
 
-<<<<<<< HEAD
-  @Property({ nullable: true })
-  address?: Adress;
-=======
   @ManyToOne(() => Address, { nullable: true })
   address?: Address;
->>>>>>> viendocambios
 }
