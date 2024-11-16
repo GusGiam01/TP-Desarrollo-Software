@@ -50,11 +50,16 @@ ng-template {
   color: #999;
 }
 
+.sortcontainer-button_div{
+  display: flex;
+  justify-content: space-between;
+}
+
 .sort-container {
   margin-bottom: 20px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: right;
 }
 
 .sort-container label {
