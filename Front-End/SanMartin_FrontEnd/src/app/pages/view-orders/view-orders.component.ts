@@ -13,41 +13,54 @@ import { CommonModule, NgIf, NgFor } from '@angular/common';
     NgFor
   ],
   templateUrl: './view-orders.component.html',
-  styleUrl: './view-orders.component.scss'
+  styleUrls: ['./view-orders.component.scss']
 })
 export class ViewOrdersComponent {
-  
+
   ngOnInit(): void {
     this.getOrders();
   }
 
   constructor(private api: ApiService, private router: Router) { }
 
-  odersOfUser : orderI[] = [];
+  odersOfUser: orderI[] = [];
 
-  getOrders(){
+  getOrders() {
     let userId = "" + localStorage.getItem("token");
     console.log("Usuario: ", userId);
     this.api.searchOrdersByUser(userId).subscribe({
-      next: (data) => {        
-        for (let i = 0; i < data.data.length; i++){
-          if(data.data[i].statusHistory != "UNPAID" && data.data[i].statusHistory != "CANCELLED"){
-            this.odersOfUser.push(data.data[i])
+      next: (data) => {
+        for (let i = 0; i < data.data.length; i++) {
+          if (data.data[i].statusHistory != "UNPAID" && data.data[i].statusHistory != "CANCELLED") {
+            this.odersOfUser.push(data.data[i]);
           }
         }
       },
       error: (e) => {
-        console.log(e)
+        console.log(e);
       }
-    })
+    });
   }
 
-  viewOrderDetails(orderId:any){
+  viewOrderDetails(orderId: any) {
     localStorage.setItem("orderId", orderId);
     this.router.navigate(['/view-single-order']);
   }
 
-  goBack(){
+  goBack() {
     this.router.navigate(['/admin-menu']);
+  }
+
+  sortOrders(event: any) {
+    const sortValue = event.target.value;
+    if (sortValue === 'date') {
+      this.odersOfUser.sort((a, b) => {
+        const dateA = a.confirmDate ? new Date(a.confirmDate).getTime() : 0;
+        const dateB = b.confirmDate ? new Date(b.confirmDate).getTime() : 0;
+        return dateB - dateA;
+      });
+    } else if (sortValue === 'total') {
+      this.odersOfUser.sort((a, b) => b.totalAmount - a.totalAmount);
+    }
   }
 }
