@@ -120,6 +120,7 @@ export class ExecutePurchaseComponent implements OnInit {
           linesOrder: data.data.linesOrder,
           totalAmount: data.data.totalAmount,
           statusHistory: data.data.statusHistory,
+          confirmDate: new Date(),
           address: form.address // Ajustado para usar el objeto address completo
         };
 
