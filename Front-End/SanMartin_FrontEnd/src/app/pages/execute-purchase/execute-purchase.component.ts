@@ -120,7 +120,7 @@ export class ExecutePurchaseComponent implements OnInit {
           linesOrder: data.data.linesOrder,
           totalAmount: data.data.totalAmount,
           statusHistory: data.data.statusHistory,
-          address: form.address // Ajustado para usar el objeto address completo
+          address: form.address
         };
 
         this.api.updateOrder(completeOrder).subscribe({
