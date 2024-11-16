@@ -48,7 +48,7 @@ app.post('/api/send-email', async (req, res) => {
       text: text,
     };
   
-    transporter.sendMail(mailOptions, (error, info) => {
+    transporter.sendMail(mailOptions, (error: Error | null, info: any) => {
       if (error) {
         return res.status(500).json({ message: 'Error al enviar el correo', error });
       } else {

@@ -1,27 +1,31 @@
 <div class="addresses-container">
-    <h2>Direcciones de Usuario</h2>
-    <div class="div_button">
-      <button (click)="addAddress()" class="address_btn">Agregar Dirección</button>
-    </div>
-    
-    <div *ngIf="addresses.length > 0; else noAddresses">
-      <ul class="addresses-list">
-        <li *ngFor="let address of addresses" class="address-item">
-          <h3>{{ address.nickname }}</h3>
-          <p><strong>Código Postal:</strong> {{ address.zipCode }}</p>
-          <p><strong>Dirección:</strong> {{ address.address }}</p>
-          <p><strong>Provincia:</strong> {{ address.province }}</p>
-          <button (click)="deleteAddress(address.id)" class="address_btn">Eliminar</button>
-        </li>
-        <button (click)="goBack()" class="address_btn go-back_btn">Volver Atrás</button>
-      </ul>
-    </div>
-  
-    <ng-template #noAddresses>
-      <p>No tienes direcciones guardadas.</p>
-    </ng-template>
-  
-    
+  <h2>Direcciones de Usuario</h2>
+  <div class="div_button">
+    <button (click)="addAddress()" class="address_btn">Agregar Dirección</button>
   </div>
-  
-  
+
+  <div class="sort-container">
+    <label for="sortSelector">Ordenar por:</label>
+    <select id="sortSelector" (change)="sortAddresses($event)">
+      <option value="nickname">Apodo</option>
+      <option value="address">Dirección</option>
+    </select>
+  </div>
+
+  <div *ngIf="addresses.length > 0; else noAddresses">
+    <ul class="addresses-list">
+      <li *ngFor="let address of addresses" class="address-item">
+        <h3>{{ address.nickname }}</h3>
+        <p><strong>Código Postal:</strong> {{ address.zipCode }}</p>
+        <p><strong>Dirección:</strong> {{ address.address }}</p>
+        <p><strong>Provincia:</strong> {{ address.province }}</p>
+        <button (click)="deleteAddress(address.id)" class="address_btn">Eliminar</button>
+      </li>
+      <button (click)="goBack()" class="address_btn go-back_btn">Volver Atrás</button>
+    </ul>
+  </div>
+
+  <ng-template #noAddresses>
+    <p>No tienes direcciones guardadas.</p>
+  </ng-template>
+</div>

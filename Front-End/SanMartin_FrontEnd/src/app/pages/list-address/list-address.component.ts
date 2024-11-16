@@ -97,4 +97,14 @@ export class AddressesComponent implements OnInit {
   goBack(){
     this.router.navigate(['/admin-menu']);
   }
+
+  sortAddresses(event: Event): void {
+    const sortBy = (event.target as HTMLSelectElement).value;
+  
+    if (sortBy === 'nickname') {
+      this.addresses.sort((a, b) => a.nickname.localeCompare(b.nickname));
+    } else if (sortBy === 'address') {
+      this.addresses.sort((a, b) => a.address.localeCompare(b.address));
+    }
+  }  
 }
