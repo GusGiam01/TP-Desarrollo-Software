@@ -2,7 +2,7 @@ import { Entity, Property, ManyToOne, OneToMany, Collection, Cascade, Ref, OneTo
 import { BaseEntity } from '../shared/db/baseEntity.entity.js';
 import { User } from '../User/user.entity.js';
 import { LineOrder } from '../LineOrder/lineOrder.entity.js';
-import { Adress } from '../Adress/address.entity.js'
+import { Address } from '../Address/address.entity.js'
 
 
 @Entity()
@@ -22,6 +22,6 @@ export class Order extends BaseEntity {
   @Property({ type: 'json', nullable: true })
   statusHistory: string[] = [];
 
-  @Property({ type: 'string', nullable: true })
-  address?: Adress;
+  @ManyToOne(() => Address, { nullable: true })
+  address?: Address;
 }
