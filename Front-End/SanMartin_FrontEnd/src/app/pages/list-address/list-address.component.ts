@@ -3,6 +3,7 @@ import { ApiService } from '../../servicios/api/api.service';
 import { Router } from '@angular/router';
 import { userI } from '../../modelos/user.interface';
 import { NgFor, NgIf } from '@angular/common';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -41,55 +42,49 @@ export class AddressesComponent implements OnInit {
 
   //Revisar desp 
   deleteAddress(addressId: string) {
-    let userId = "" + localStorage.getItem("token");
-    this.api.searchAddressesByUserId(userId).subscribe({
-      next: (data) => {
-        this.addresses = data.data;
-        const updatedAddresses = this.addresses.filter(address => address.id !== addressId);
-        this.api.searchUserById(userId).subscribe({
-          next: (data1) => {
-            const updatedUser : userI = {
-              id: data1.data.id,
-              name: data1.data.name,
-              surname: data1.data.surname,
-              password: data1.data.password,
-              type: data1.data.type,
-              mail: data1.data.mail, 
-              cellphone: data1.data.cellphone, 
-              birthDate: data1.data.birthDate, 
-              dni: data1.data.dni, 
-              addresses: updatedAddresses
-            };
-
-            this.api.updateUser(updatedUser).subscribe({
-              next: () => {
-                console.log("Dirección eliminada correctamente.");
-                this.api.removeAddress(addressId).subscribe({
-                  next: () => {
-                    console.log("Dirección eliminada de la base de datos.");
-                    this.router.navigate([this.router.url]);
-                  },
-                  error: (t) => {
-                    console.error('Error al eliminar la dirección de la base de datos:', t);
-                  }
-                });
-              },
-              error: (r) => {
-                console.error('Error al actualizar el usuario:', r);
-              }
-            });
-          },
-          error: (s) => {
-            console.error('Error al eliminar la dirección de la base de datos:', s);
-          }
-        })
-      },
-      error: (error) => {
-        console.error('Error al obtener las direcciones:', error);
+    if (this.addresses.length > 1){
+      console.log(addressId)
+      let userId = "" + localStorage.getItem("token");
+      const updatedAddresses = this.addresses.filter(address => address.id !== addressId);
+      const addressesIds:Array<string> = [];
+      for (let j = 0; j < updatedAddresses.length; j++){
+        addressesIds.push(updatedAddresses[j].id)
       }
-    });
+      this.api.searchUserById(userId).subscribe({
+        next: (data1) => {
+          const updatedUser  = data1.data;
+          updatedUser.addresses = addressesIds
+          console.log(updatedUser);
+          this.api.updateUser(updatedUser).subscribe({
+            next: (uu) => {
+              console.log(uu.data);
+              console.log("Dirección eliminada correctamente.");
+              this.api.removeAddress(addressId).subscribe({
+                next: () => {
+                  console.log("Dirección eliminada de la base de datos.");
+                },
+                error: (t) => {
+                  console.error('Error al eliminar la dirección de la base de datos:', t);
+                }
+              });
+            },
+            error: (r) => {
+              console.error('Error al actualizar el usuario:', r);
+            }
+          });
+          
+          location.reload();
+        },
+        error: (s) => {
+          console.error('Error al eliminar la dirección de la base de datos:', s);
+        }
+      })
+    }
+    else {
+      alert("No se puede borrar tu unica dirección, debes agregar otra antes.")
+    }                    
   }  
-
+  
   addAddress(): void {
     this.router.navigate(['/add-address']);
   }

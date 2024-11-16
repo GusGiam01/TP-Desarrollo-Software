@@ -42,8 +42,9 @@ export class ExecutePurchaseComponent implements OnInit {
       id: '',
       zipCode: '',
       province: '',
-      nickName: '',
-      address: ''
+      nickname: '',
+      address: '',
+      user: ''
     }
   };
 
