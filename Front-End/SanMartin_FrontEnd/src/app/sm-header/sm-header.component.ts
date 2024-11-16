@@ -31,6 +31,8 @@ export class SMHeaderComponent {
   logOut(){
     localStorage.removeItem("token");
     localStorage.removeItem("type");
+    localStorage.removeItem("dni");
+    localStorage.removeItem("orderId");
     this.loggedUser = null;
     this.typeUser = null;
     location.reload();

@@ -83,7 +83,7 @@ export class ExecutePurchaseComponent implements OnInit {
   }
 
   loadUserAddresses(): void {
-    this.api.getUserAddresses("" + localStorage.getItem("token")).subscribe({
+    this.api.searchAddressesByUserId("" + localStorage.getItem("token")).subscribe({
       next: (data) => {
         this.addresses = data.data;
       },
