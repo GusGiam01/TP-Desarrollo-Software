@@ -1,6 +1,6 @@
 # TP-Desarrollo-Software
 ## Informacion del grupo
-**Integrantes del grupo:** Gustavo Giampietro (50671) Gabriel Dequelli (44073) & Juan Cruz Mondino (51922)  
+**Integrantes del grupo:** Gustavo Giampietro (50671), Gabriel Dequelli (44073) & Juan Cruz Mondino (51922)  
 **Profesores:** Andres Otaduy & Mario Bressano  
 **Comisión:** 3k02  
 
