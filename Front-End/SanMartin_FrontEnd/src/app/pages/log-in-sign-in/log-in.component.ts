@@ -38,9 +38,6 @@ export class LogInComponent {
     birthDate : new FormControl('', Validators.required),
     cellphone : new FormControl('', Validators.required),
     type : new FormControl('', Validators.required),
-    address: new FormControl('', Validators.required),
-    zipCode: new FormControl('', Validators.required),
-    province: new FormControl('', Validators.required),
   })
 
   valPass(password: string): boolean {

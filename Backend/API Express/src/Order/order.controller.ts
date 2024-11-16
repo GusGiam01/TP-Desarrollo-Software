@@ -36,9 +36,10 @@ async function findAll(req: Request, res: Response) {
     }
   }
   
-  async function findOne(req: Request, res: Response) {
+  async function findOne(req: Request, res: Response, id:string) {
     try {
-      const id = req.params.id
+      //const id = req.params.id
+      console.log("Entro: ", id)
       const order = await em.findOneOrFail(Order, { id })
       res.status(200).json({ message: 'found order', data: order })
     } catch (error: any) {

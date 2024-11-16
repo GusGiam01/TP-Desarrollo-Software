@@ -32,7 +32,6 @@ export class AddProductComponent implements OnInit {
     discount: new FormControl(0, Validators.required),
     type: new FormControl('', Validators.required),
     brand: new FormControl('', Validators.required),
-    img: new FormControl('', Validators.required),
   });
 
   addProduct() {
@@ -45,8 +44,7 @@ export class AddProductComponent implements OnInit {
       state: formValues.state ?? 'Habilitado',
       discount: formValues.discount ?? 0,
       type: formValues.type ?? '',
-      brand: formValues.brand ?? '',
-      img: formValues.img ?? ''
+      brand: formValues.brand ?? ''
     };
 
     this.api.postProduct(newProduct).subscribe({
