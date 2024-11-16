@@ -199,7 +199,8 @@ export class ProductsComponent {
   }
   
 
-  ngOnInit(): void {
+
+  ngOnInit(): void{
     this.getProducts();
   }
 

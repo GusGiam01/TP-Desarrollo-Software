@@ -1,3 +1,5 @@
+import { orderI } from "./order.interface.js";
+
 export interface signinI{
     name:string;
     surname:string;
@@ -8,4 +10,5 @@ export interface signinI{
     age?:number | null;
     birthDate: Date;
     dni:string;
+    orders?:Array<string>;
 }

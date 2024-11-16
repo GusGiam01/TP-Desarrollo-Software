@@ -32,7 +32,12 @@ export class AdminMenuComponent {
 
   logout(){
     localStorage.removeItem("token");
-    this.router.navigate(['/']);
+    localStorage.removeItem("dni");
+    localStorage.removeItem("orderId");
+    localStorage.removeItem("type");
+    this.router.navigate(['home']).then(() => {
+      location.reload()
+    });
   }
 
   navigateToAddAddress(){

@@ -11,7 +11,7 @@
         <div class="div_product">
             <img src={{p.img}} class="product_img">
             <span class="name_span">{{p.name}}</span>
-            <h2 class="product_price">{{p.priceUni}}</h2>
+            <h2 class="product_price">${{p.priceUni}}</h2>
             <form action="" >
                 <button type="button" class="product_btn" (click)=" selectProduct(p.code, p.stock)" *ngIf="p.code != productCode">
                     COMPRAR

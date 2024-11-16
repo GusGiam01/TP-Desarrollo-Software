@@ -80,6 +80,7 @@ export class EditUserComponent implements OnInit {
         cellphone: this.userForm.get('cellphone')?.value,
         birthDate: this.userForm.get('birthDate')?.value,
         age: this.calculateAge(this.userForm.get('birthDate')?.value),                       // Actualizar
+
       };
       this.api.patchUser(updatedUser).subscribe({
         next: () => {

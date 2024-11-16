@@ -11,7 +11,7 @@ import {
 
 import { BaseEntity } from '../shared/db/baseEntity.entity.js'
 import { Order } from '../Order/order.entity.js'
-import { Adress } from '../Adress/address.entity.js'
+import { Address } from '../Address/address.entity.js'
 
 @Entity()
 export class User extends BaseEntity {
@@ -47,7 +47,7 @@ export class User extends BaseEntity {
 
   // Correspondiente a direccion. Eliminar cuando se cree la respectiva clase.
 
-  @Property({ type: 'string', nullable: true })
-  addresses?: Array<Adress>
+  @OneToMany(() => Address, address => address.user, { type: 'string', nullable: true })
+  addresses?: Array<Address>
 
 }
