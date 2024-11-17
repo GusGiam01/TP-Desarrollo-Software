@@ -41,14 +41,13 @@ export class EditUserComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userDNI = "" + localStorage.getItem("dni");
     this.userId = "" + localStorage.getItem("token");
-    this.loadUserData(this.userDNI);
+    this.loadUserData(this.userId);
   }
 
-  loadUserData(userDNI:string): void {
-    if (userDNI) {
-      this.api.searchUserById(userDNI).subscribe({
+  loadUserData(userId:string): void {
+    if (userId) {
+      this.api.searchUserById(userId).subscribe({
         next: (data) => {
           this.user = data.data;
           this.userForm.patchValue({
@@ -84,7 +83,7 @@ export class EditUserComponent implements OnInit {
       };
       this.api.patchUser(updatedUser).subscribe({
         next: () => {
-          this.router.navigate(['/admin-menu']);
+          this.router.navigate(['/view-user-data']);
         },
         error: (e) => {
           console.error(e);
@@ -107,6 +106,6 @@ export class EditUserComponent implements OnInit {
   }
 
   goBack(){
-    this.router.navigate(['/admin-menu']);
+    this.router.navigate(['/view-user-data']);
   }
 }

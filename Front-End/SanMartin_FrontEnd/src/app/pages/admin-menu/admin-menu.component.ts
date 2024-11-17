@@ -27,7 +27,7 @@ export class AdminMenuComponent {
   }
 
   navigateToModifyUser(){
-    this.router.navigate(['/modify-user']);
+    this.router.navigate(['/view-user-data']);
   }
 
   logout(){

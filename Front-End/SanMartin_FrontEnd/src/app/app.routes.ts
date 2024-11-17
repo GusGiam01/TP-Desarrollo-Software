@@ -14,6 +14,7 @@ import { ViewOrdersComponent } from './pages/view-orders/view-orders.component.j
 import { EditUserComponent } from './pages/modifyuser/modifyuser.component.js';
 import { AddAddressComponent } from './pages/add-address/add-address.component.js';
 import { AddressesComponent } from './pages/list-address/list-address.component.js';
+import { ViewUserDataComponent } from './pages/view-user-data/view-user-data.component.js';
 
 
 export const routes: Routes = [
@@ -32,8 +33,10 @@ export const routes: Routes = [
     {path:'view-orders', component:ViewOrdersComponent},
     {path:'modify-user', component:EditUserComponent},
     {path:'add-address', component:AddAddressComponent},
-    {path:'list-address', component:AddressesComponent}
+    {path:'list-address', component:AddressesComponent},
+    {path:'view-user-data', component:ViewUserDataComponent}
 ];
 
 export const routingComponents = [PuntosventaListaComponent, IndexComponent, SmContactComponent, LogInComponent, CartComponent, EditUserComponent, AddAddressComponent,
-    ProductsComponent, AboutUsComponent, ExecutePurchaseComponent, ThanksForBuyingComponent, AdminMenuComponent, AddProductComponent, AddressesComponent, ViewOrdersComponent]
+    ProductsComponent, AboutUsComponent, ExecutePurchaseComponent, ThanksForBuyingComponent, AdminMenuComponent, AddProductComponent, AddressesComponent, ViewOrdersComponent,
+    ViewUserDataComponent]

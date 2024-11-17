@@ -3,17 +3,17 @@
         <h2 class="menu-title">Panel de Administración</h2>
     </div>
     <ul class="menu-list">
-        <li class="menu-item" *ngIf="!(typeUser == 'Admin' || typeUser == 'admin')">
-            <button class="menu-link" (click)="navigateTo()">Dar de alta un producto</button>
+        <li class="menu-item">
+            <button class="menu-link" (click)="navigateToModifyUser()">Ver datos usuario</button>
         </li>
         <li class="menu-item">
             <button class="menu-link" (click)="navigateToOrders()">Ver tus pedidos</button>
         </li>
         <li class="menu-item">
-            <button class="menu-link" (click)="navigateToModifyUser()">Modificar usuario</button>
-        </li>
-        <li class="menu-item">
             <button class="menu-link" (click)="navigateToAddAddress()">Ver direcciones</button>
+        </li>
+        <li class="menu-item" *ngIf="!(typeUser == 'Admin' || typeUser == 'admin')">
+            <button class="menu-link" (click)="navigateTo()">Dar de alta un producto</button>
         </li>
         <li class="menu-item">
             <button class="menu-link" (click)="logout()">Cerrar sesión</button>
