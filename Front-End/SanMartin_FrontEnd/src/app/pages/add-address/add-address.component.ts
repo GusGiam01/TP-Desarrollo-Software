@@ -78,7 +78,8 @@ export class AddAddressComponent implements OnInit {
                 this.api.searchUserById(getAddress[0].user).subscribe({
                   next: (datauser) => {
                     const user = datauser.data
-                    user.addresses?.push(getAddress[0].id);
+                    let transformo : string = getAddress[0].id ?? "";
+                    user.addresses?.push(transformo);
                     this.api.updateUser(user).subscribe({
                       next: (updateuser) => {
                         console.log("Direccion con id: " + getAddress[0].id + " añadida al usuario: " + updateuser.data)
