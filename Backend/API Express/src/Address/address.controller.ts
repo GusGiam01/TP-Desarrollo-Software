@@ -36,9 +36,9 @@ async function findAll(req: Request, res: Response) {
   }
 }
 
-async function findOne(req: Request, res: Response) {
+async function findOne(req: Request, res: Response, id: string) {
   try {
-    const id = req.params.id
+    //const id = req.params.id
     const adress = await em.findOneOrFail(Address, { id })
     res.status(200).json({ message: 'found adress', data: adress })
   } catch (error: any) {

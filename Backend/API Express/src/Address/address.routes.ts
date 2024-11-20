@@ -20,7 +20,7 @@ addressRouter.get('/:value', (req, res) => {
     }
     else {
         if (type == "ADDRESS") {
-            findOne(req, res)
+            findOne(req, res, id)
         }
         else {
             findAllByUserId(req, res, id)
