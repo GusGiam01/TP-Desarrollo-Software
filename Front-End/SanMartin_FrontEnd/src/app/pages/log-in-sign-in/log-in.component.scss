@@ -73,3 +73,21 @@
     padding-right: 5px;
     gap: 1.5px;
 }
+
+.a_recover-password{
+    cursor: pointer;
+}
+
+.a_recover-password:hover{
+    color: rgb(80, 79, 79);
+}
+
+.btn_login-signin{
+    width: 7rem;
+    height: 2rem;
+    background-color: #aa524d;
+    border: none;
+    border-radius: 2.5px;
+    font-family: "SecondarySMfont";
+    cursor: pointer;
+}
