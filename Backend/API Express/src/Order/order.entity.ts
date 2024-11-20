@@ -23,5 +23,5 @@ export class Order extends BaseEntity {
   statusHistory: string[] = [];
 
   @ManyToOne(() => Address, { nullable: true })
-  address?: Address;
+  address?: Ref<Address>;
 }

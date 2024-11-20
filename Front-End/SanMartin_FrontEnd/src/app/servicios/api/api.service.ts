@@ -146,8 +146,9 @@ export class ApiService {
     }
     
     searchAddressById(id: string) {
+        const params = new HttpParams().set('type', "ADDRESS");
         let direction = this.url + "/addresses/" + id;
-        return this.http.get<responseAddressI>(direction);
+        return this.http.get<responseAddressI>(direction, {params});
     }
 
     postAddress(address: addAddressI) {
