@@ -61,8 +61,6 @@ export class LogInComponent {
         if (dataResponse.data.dni == form.dni && dataResponse.data.password == form.password){
 
           localStorage.setItem("token", dataResponse.data.id);
-          localStorage.setItem("dni", dataResponse.data.dni);
-          localStorage.setItem("type", dataResponse.data.type);
           this.router.navigate(['home']).then(() => {
             location.reload()
           });
