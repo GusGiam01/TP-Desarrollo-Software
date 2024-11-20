@@ -11,7 +11,8 @@ import { cartLineOrderI } from '../../modelos/cartLineOrder.interface.js';
   selector: 'app-cart',
   standalone: true,
   imports: [
-    NgFor
+    NgFor,
+    NgIf
   ],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss'
