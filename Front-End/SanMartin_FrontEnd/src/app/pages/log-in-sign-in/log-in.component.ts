@@ -61,8 +61,6 @@ export class LogInComponent {
         if (dataResponse.data.dni == form.dni && dataResponse.data.password == form.password){
 
           localStorage.setItem("token", dataResponse.data.id);
-          localStorage.setItem("dni", dataResponse.data.dni);
-          localStorage.setItem("type", dataResponse.data.type);
           this.router.navigate(['home']).then(() => {
             location.reload()
           });
@@ -79,6 +77,11 @@ export class LogInComponent {
   }
 
   OnSignUp(form:any){
+    let userType = "CLIENT";
+    let formType = "" + form.type;
+    if (formType.toUpperCase() == "DSW2024SM"){
+      userType = "ADMIN";
+    }
     const user:signinI = {
       name: form.name,
       surname: form.surname,
@@ -86,7 +89,7 @@ export class LogInComponent {
       mail: form.mail,
       dni: form.dni,
       cellphone: form.cellphone,
-      type: form.type,
+      type: userType,
       password: form.password
     }
     const today = new Date();
