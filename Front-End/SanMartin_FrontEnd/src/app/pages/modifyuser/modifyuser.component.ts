@@ -33,6 +33,7 @@ export class EditUserComponent implements OnInit {
       name: ['', Validators.required],
       surname: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
+      confirm_password: ['', [Validators.required, Validators.minLength(6)]],
       mail: ['', [Validators.required, Validators.email]],
       cellphone: ['', Validators.required],
       birthDate: ['', Validators.required],
@@ -45,7 +46,7 @@ export class EditUserComponent implements OnInit {
     this.loadUserData(this.userId);
   }
 
-  loadUserData(userId:string): void {
+  loadUserData(userId: string): void {
     if (userId) {
       this.api.searchUserById(userId).subscribe({
         next: (data) => {
@@ -54,11 +55,11 @@ export class EditUserComponent implements OnInit {
             name: this.user.name,
             surname: this.user.surname,
             password: this.user.password,
+            confirm_password: this.user.password,
             mail: this.user.mail,
             cellphone: this.user.cellphone,
             birthDate: this.user.birthDate,
-            dni: this.user.dni,
-            //addresses: this.user.addresses
+            dni: this.user.dni
           });
         },
         error: (e) => {
@@ -78,8 +79,7 @@ export class EditUserComponent implements OnInit {
         mail: this.userForm.get('mail')?.value,
         cellphone: this.userForm.get('cellphone')?.value,
         birthDate: this.userForm.get('birthDate')?.value,
-        age: this.calculateAge(this.userForm.get('birthDate')?.value),                       // Actualizar
-
+        age: this.calculateAge(this.userForm.get('birthDate')?.value),
       };
       this.api.patchUser(updatedUser).subscribe({
         next: () => {
@@ -92,20 +92,89 @@ export class EditUserComponent implements OnInit {
     }
   }
 
+  validateName(): boolean {
+    if (this.userForm.get('name')?.value) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  validateSurname(): boolean {
+    if (this.userForm.get('surname')?.value) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  validatePassword(): boolean {
+    let password = this.userForm.get('password')?.value;
+    if (password && password.length >= 6 && /[0-9]/.test(password) && /[A-Z]/.test(password)) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  validateConfirmPassword(): boolean {
+    const password = this.userForm.get('password')?.value;
+    const confirmPassword = this.userForm.get('confirm_password')?.value;
+    if (confirmPassword && password && confirmPassword === password) {
+      return false;
+    }
+    return true;
+  }
+
+  validateMail(): boolean {
+    const mail = this.userForm.get('mail')?.value;
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return !emailRegex.test(mail);
+  }
+
+  validateCellphone(): boolean {
+    let cellphone = this.userForm.get('cellphone')?.value;
+    if (cellphone && cellphone.length >= 9 && /^\d+$/.test(cellphone)) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  validateBirthDate(): boolean {
+    let birthDate = this.userForm.get('birthDate')?.value;
+    if (this.calculateAge(birthDate) >= 18) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  validateForm(): boolean {
+    return (
+      this.validateName() ||
+      this.validateSurname() ||
+      this.validatePassword() ||
+      this.validateConfirmPassword() ||
+      this.validateMail() ||
+      this.validateCellphone() ||
+      this.validateBirthDate()
+    );
+  }
+
   calculateAge(birthDate: Date): number {
     const today = new Date();
     const birth = new Date(birthDate);
     let age = today.getFullYear() - birth.getFullYear();
     const monthDiff = today.getMonth() - birth.getMonth();
-    
+
     if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
       age--;
     }
-  
     return age;
   }
 
-  goBack(){
+  goBack() {
     this.router.navigate(['/view-user-data']);
   }
 }
