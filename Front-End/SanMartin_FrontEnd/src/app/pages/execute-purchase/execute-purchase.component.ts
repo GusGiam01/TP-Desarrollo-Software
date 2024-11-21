@@ -60,6 +60,7 @@ export class ExecutePurchaseComponent implements OnInit {
     let orderId = "" + localStorage.getItem("orderId");
     this.api.searchLinesOrderByOrderId(orderId).subscribe({
       next: (data) => {
+        this.order.totalAmount = 0;
         for (let i = 0; i < data.data.length; i++) {
           this.api.searchProductById(data.data[i].product).subscribe({
             next: (p) => {
@@ -115,6 +116,8 @@ export class ExecutePurchaseComponent implements OnInit {
           cardholderName: form.cardholderName,
         };
 
+        //let selectedAddress = this.addresses.find(address => address.id === form.address);
+
         let completeOrder: orderI = {
           id: data.data.id,
           user: data.data.user,
@@ -122,16 +125,18 @@ export class ExecutePurchaseComponent implements OnInit {
           totalAmount: data.data.totalAmount,
           statusHistory: "PAID",
           confirmDate: new Date(),
-          address: form.address // Ajustado para usar el objeto address completo
+          //address: selectedAddress
+          address: form.address
         };
 
         this.api.updateOrder(completeOrder).subscribe({
           next: () => {
+            console.log("Actualizado.");
             localStorage.removeItem("orderId");
             this.router.navigate(['/thanks']);
           },
-          error: (e) => {
-            console.log(e);
+          error: (r) => {
+            console.log(r);
           }
         });
       },

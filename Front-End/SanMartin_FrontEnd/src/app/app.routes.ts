@@ -16,6 +16,7 @@ import { AddAddressComponent } from './pages/add-address/add-address.component.j
 import { AddressesComponent } from './pages/list-address/list-address.component.js';
 import { ViewUserDataComponent } from './pages/view-user-data/view-user-data.component.js';
 import { SendUsMailComponent } from './pages/send-us-mail/send-us-mail.component.js';
+import { ViewSingleOrderComponent } from './pages/view-single-order/view-single-order.component.js';
 
 
 export const routes: Routes = [
@@ -36,9 +37,10 @@ export const routes: Routes = [
     {path:'add-address', component:AddAddressComponent},
     {path:'list-address', component:AddressesComponent},
     {path:'view-user-data', component:ViewUserDataComponent},
-    {path:'send-us-an-email', component:SendUsMailComponent }
+    {path:'send-us-an-email', component:SendUsMailComponent },
+    {path:'order-detail', component:ViewSingleOrderComponent}
 ];
 
 export const routingComponents = [PuntosventaListaComponent, IndexComponent, SmContactComponent, LogInComponent, CartComponent, EditUserComponent, AddAddressComponent,
     ProductsComponent, AboutUsComponent, ExecutePurchaseComponent, ThanksForBuyingComponent, AdminMenuComponent, AddProductComponent, AddressesComponent, ViewOrdersComponent,
-    ViewUserDataComponent]
+    ViewUserDataComponent, ViewSingleOrderComponent]
