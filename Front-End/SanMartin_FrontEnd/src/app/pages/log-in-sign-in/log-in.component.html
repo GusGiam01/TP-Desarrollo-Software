@@ -7,8 +7,8 @@
                 <input type="text" id="dni" required class="form-line" formControlName="dni" [(ngModel)]="dni">
                 <label for="password" class="form-line">Contraseña:</label>
                 <input type="password" id="password" required class="form-line" formControlName="password">
-                <button type="submit" class="form-line" style="cursor: pointer;">Ingresar</button>
-                <a class="form-line" (click)="recoverPassword(dni)" style="cursor: pointer;">¿Olvidaste tu
+                <button type="submit" class="form-line btn_login-signin" style="cursor: pointer;">Ingresar</button>
+                <a class="form-line" (click)="recoverPassword(dni)" class="a_recover-password">¿Olvidaste tu
                     contraseña?</a>
             </form>
         </div>
@@ -55,8 +55,8 @@
                                 formControlName="cellphone">
                         </div>
                     </div>
-                    <div class="div_button">
-                        <button type="submit" class="form-line" style="cursor: pointer;">Registrarse</button>
+                    <div class="div_button" >
+                        <button type="submit" class="form-line btn_login-signin" style="cursor: pointer;">Registrarse</button>
                     </div>
                 </div>
             </form>
