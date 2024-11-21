@@ -45,6 +45,11 @@
       input[type='date'] {
         font-family: Arial, sans-serif;
       }
+
+      .error-message {
+        color: red;
+        font-weight: bold;
+      }
     }
 }
     button {
