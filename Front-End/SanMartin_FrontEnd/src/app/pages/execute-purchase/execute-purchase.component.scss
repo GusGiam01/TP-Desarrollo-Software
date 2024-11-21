@@ -59,6 +59,11 @@
   .shipping-details, .payment-details {
     margin-bottom: 30px;
   }
+
+  .error-message {
+    color: red;
+    font-weight: bold;
+  }
   
   h2 {
     font-size: 1.4rem;
@@ -106,6 +111,12 @@
   
     &:hover {
       background-color: #0056b3;
+    }
+  
+    &:disabled {
+      background-color: #ccc;
+      color: #666;
+      cursor: not-allowed;
     }
   }
   
