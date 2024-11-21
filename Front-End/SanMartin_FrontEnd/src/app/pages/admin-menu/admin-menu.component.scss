@@ -84,3 +84,25 @@ html, body {
         }
     }
 }
+
+//SM - hasta: 391px
+@media (max-width: 391px){
+    .admin-menu{
+        width: 330px;
+        max-height:max-content;
+        margin-top: 140px;
+
+        .menu-title{
+            margin-bottom: 0%;
+            margin-top: 0%;
+        }
+
+        .menu-link{
+            font-size: 14px;
+        }
+
+        .menu-item:last-child{
+            margin-bottom: 0%;
+        }
+    }
+}

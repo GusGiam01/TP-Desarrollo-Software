@@ -3,3 +3,16 @@
     height: 100vh;
     padding: 40px 0;
 }
+
+//SM - hasta: 576px
+@media (max-width: 576px){
+    .index_video{
+        height: 400px;
+    }
+
+    .div_video{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}

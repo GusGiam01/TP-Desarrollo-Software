@@ -34,3 +34,10 @@ a {
 p{
     margin-top: 0px;
 }
+
+//SM - hasta:391px
+@media (max-width: 391px) {
+    .ul-puntos{
+        margin-top: 140px;
+    }
+}

@@ -27,9 +27,10 @@
     }
 }
 
-@media (max-width: 576px) {
+//SM - hasta:390px
+@media (max-width: 391px) {
     .index {
-        margin-top: 180px;
+        margin-top: 150px;
     }
     
     .video{
@@ -45,15 +46,16 @@
     }
     
     .div_slider_vid{
-        display: grid;
-        grid-template-columns: max-content;
-        grid-template-rows: 1fr 1fr;
+        display: block;
+        //display: grid;
+        //grid-template-columns: max-content;
+        //grid-template-rows: 1fr 1fr;
     }
 
     .div_video{
-        grid-column: 1;
-        grid-row: 2;
-        display: flex;
+        //grid-column: 1;
+        //grid-row: 2;
+        display: block;
         align-items: center;
         justify-content: center;
     }

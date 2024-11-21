@@ -91,3 +91,25 @@
     font-family: "SecondarySMfont";
     cursor: pointer;
 }
+
+//SM Hasta: 576px
+@media (max-width:px) {
+    .container{
+        margin-top: 120px;
+    }
+
+    .div_log-in_sign-in{
+        display: block;
+    }
+}
+
+//SM Hasta: 576px
+@media (max-width: 576px) {
+    .container{
+        margin-top: 120px;
+    }
+
+    .div_log-in_sign-in{
+        display: block;
+    }
+}

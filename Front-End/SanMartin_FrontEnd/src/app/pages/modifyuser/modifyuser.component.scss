@@ -95,5 +95,11 @@
       }
     }
     
-  
+//SM - hasta:391px
+@media (max-width: 391px) {
+  .edit-user-container{
+    margin-top: 130px;
+    max-width: 330px;
+  }
+}
   

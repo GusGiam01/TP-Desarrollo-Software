@@ -138,3 +138,14 @@
     margin-top: 180px;
     padding: 10px;
 }
+
+//SM - hasta: 391px
+@media (max-width: 391px){
+    .div_filter-container{
+        margin-top: 130px;
+    }
+
+    .div_products{
+        justify-content: center;
+    }
+}

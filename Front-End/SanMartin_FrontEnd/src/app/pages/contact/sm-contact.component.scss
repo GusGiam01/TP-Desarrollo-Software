@@ -129,3 +129,58 @@ a:hover{
     height: 30px;
     width: 30px;
 }
+
+.div_h5{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.div_form-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+//SM - hasta:391px
+@media (max-width:391px) {
+    #div-contact{
+        margin-top: 130px;
+    }
+
+    #mail-logo{
+        height: 100px;
+        width: 100px;
+    }
+    
+    #whatsapp-logo{
+        height: 100px;
+        width: 100px;
+    }
+    
+    #instagram-logo{
+        height: 88px;
+        width: 80px;
+        margin-bottom: 13px;
+    }
+
+    .h3-contact{
+        font-size: 16px;
+        margin: 0%;
+    }
+    .span-contact{
+        font-size: 12px;
+    }
+
+    #ul-contact{
+        padding-right: 10px;
+    }
+
+    #h5-newsletter{
+        display: block;
+    }
+
+    #div-newsletter{
+        display: block;
+    }
+}

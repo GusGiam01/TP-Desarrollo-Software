@@ -67,3 +67,30 @@
     }
   }
 }
+
+
+//SM - hasta:391px
+@media (max-width: 391px){
+  .user-card-container{  
+    margin-top: 120px;
+
+    .modify-btn{
+      left: 120px
+    }
+
+    .user-card{
+      width:300px;
+      max-width: 300px;
+    }
+
+    h2 {
+      font-size: 12px;
+    }
+
+    .back-btn{
+      margin-bottom: 0%;
+    }
+  }
+
+  
+}
