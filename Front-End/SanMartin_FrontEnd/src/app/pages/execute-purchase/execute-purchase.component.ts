@@ -186,7 +186,7 @@ export class ExecutePurchaseComponent implements OnInit {
 
   validateCardOwnerName(): boolean {
     let cardholderName = '' + this.shippingForm.get('cardholderName')?.value;
-    if (cardholderName && /[a-zA-Z]/.test(cardholderName)) {
+    if (cardholderName && /^[a-zA-Z]+$/.test(cardholderName)) {
       return false;
     } else {
       return true;

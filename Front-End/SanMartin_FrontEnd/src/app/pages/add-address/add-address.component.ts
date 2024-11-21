@@ -4,12 +4,15 @@ import { ApiService } from '../../servicios/api/api.service';
 import { addAddressI } from '../../modelos/addAddress.interface';
 import { FormGroup, FormControl, Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { addressI } from '../../modelos/address.interface.js';
+import { CommonModule, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-address-form',
   standalone: true,
   imports: [
-    ReactiveFormsModule 
+    ReactiveFormsModule,
+    CommonModule,
+    NgIf
   ],
   templateUrl: './add-address.component.html',
   styleUrls: ['./add-address.component.scss']
@@ -114,6 +117,51 @@ export class AddAddressComponent implements OnInit {
         }
       }
     }
+  }
+
+  validateZipCode():boolean{
+    let zipCode = "" + this.addressForm.get("zipCode")?.value;
+    if(zipCode && /^[0-9]+$/.test(zipCode) && zipCode.length == 4){
+      return false;
+    }else{
+      return true;
+    }
+  }
+
+  validateNickname():boolean{
+    let nickname = "" + this.addressForm.get("nickname")?.value;
+    if(nickname && /^[a-zA-Z0-9]+$/.test(nickname)){
+      return false;
+    }else{
+      return true;
+    }
+  }
+
+  validateAddress():boolean{
+    let address = "" + this.addressForm.get("address")?.value;
+    if(address && /^[a-zA-Z0-9]+$/.test(address)){
+      return false;
+    }else{
+      return true;
+    }
+  }
+
+  validateProvince():boolean{
+    let province = "" + this.addressForm.get("province")?.value;
+    if(province && /^[a-zA-Z]+$/.test(province)){
+      return false;
+    }else{
+      return true;
+    }
+  }
+
+  validateForm():boolean{
+    return (
+      this.validateAddress() ||
+      this.validateNickname() ||
+      this.validateProvince() ||
+      this.validateZipCode()
+    )
   }
 
   onCancel() {
