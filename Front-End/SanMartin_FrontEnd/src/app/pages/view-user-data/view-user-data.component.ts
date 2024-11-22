@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { userI } from '../../modelos/user.interface';
 import { ApiService } from '../../servicios/api/api.service.js';
 import { Router } from '@angular/router';
-//import { Navigation } from '@angular/router';
 
 @Component({
   selector: 'app-view-user-data',
