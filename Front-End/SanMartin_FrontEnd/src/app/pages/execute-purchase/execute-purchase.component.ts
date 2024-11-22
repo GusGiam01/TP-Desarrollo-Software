@@ -169,8 +169,8 @@ export class ExecutePurchaseComponent implements OnInit {
       } else {
         return true;
       }
-    }else{
-      console.log("Transform no tiene ningun valor.");
+    } else {
+      console.log('Transform no tiene ningun valor.');
       return true;
     }
   }
@@ -194,11 +194,12 @@ export class ExecutePurchaseComponent implements OnInit {
   }
 
   validateForm(): boolean {
-    if (this.validateCVV() || this.validateCardNumber() || this.validateCardOwnerName() || this.validateExpiryDate()) {
-      return false;
-    } else {
-      return true;
-    }
+    return (
+      this.validateCVV() ||
+      this.validateCardNumber() ||
+      this.validateCardOwnerName() ||
+      this.validateExpiryDate()
+    );
   }
 
   goBack(): void {
