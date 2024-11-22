@@ -78,7 +78,7 @@ export class AddProductComponent implements OnInit {
 
   validateName():boolean{
     let name = "" + this.addProductForm.get("name")?.value;
-    if(/^[a-zA-Z0-9ñ]+$/.test(name)){
+    if(/^[a-zA-Z0-9ñ\s]+$/.test(name)){
       return false;
     }else{
       return true;
@@ -96,7 +96,7 @@ export class AddProductComponent implements OnInit {
 
   validateType():boolean{
     let type = "" + this.addProductForm.get("type")?.value;
-    if(/^[a-zA-Zñ]+$/.test(type)){
+    if(/^[a-zA-Zñ\s]+$/.test(type)){
       return false;
     }else{
       return true;
@@ -105,7 +105,7 @@ export class AddProductComponent implements OnInit {
 
   validateBrand():boolean{
     let brand = "" + this.addProductForm.get("brand")?.value;
-    if(/^[a-zA-Z0-9ñ]+$/.test(brand)){
+    if(/^[a-zA-Z0-9ñ\s]+$/.test(brand)){
       return false;
     }else{
       return true;

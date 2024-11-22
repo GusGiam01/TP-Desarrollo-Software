@@ -94,7 +94,7 @@ export class EditUserComponent implements OnInit {
 
   validateName(): boolean {
     let name = "" + this.userForm.get('name')?.value;
-    if (name && /^[a-zA-Z]+$/.test(name)) {
+    if (name && /^[a-zA-Zñ\s]+$/.test(name)) {
       return false;
     } else {
       return true;
@@ -103,7 +103,7 @@ export class EditUserComponent implements OnInit {
 
   validateSurname(): boolean {
     let surname = "" + this.userForm.get('surname')?.value;
-    if (surname && /^[a-zA-Z]+$/.test(surname)) {
+    if (surname && /^[a-zA-Zñ\s]+$/.test(surname)) {
       return false;
     } else {
       return true;

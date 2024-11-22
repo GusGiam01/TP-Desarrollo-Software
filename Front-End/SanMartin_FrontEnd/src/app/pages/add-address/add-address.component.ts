@@ -130,7 +130,7 @@ export class AddAddressComponent implements OnInit {
 
   validateNickname():boolean{
     let nickname = "" + this.addressForm.get("nickname")?.value;
-    if(nickname && /^[a-zA-Z0-9ñ]+$/.test(nickname)){
+    if(nickname && /^[a-zA-Z0-9ñ\s]+$/.test(nickname)){
       return false;
     }else{
       return true;
@@ -139,7 +139,7 @@ export class AddAddressComponent implements OnInit {
 
   validateAddress():boolean{
     let address = "" + this.addressForm.get("address")?.value;
-    if(address && /^[a-zA-Z0-9ñ]+$/.test(address)){
+    if(address && /^[a-zA-Z0-9ñ\s]+$/.test(address)){
       return false;
     }else{
       return true;
@@ -148,7 +148,7 @@ export class AddAddressComponent implements OnInit {
 
   validateProvince():boolean{
     let province = "" + this.addressForm.get("province")?.value;
-    if(province && /^[a-zA-Zñ]+$/.test(province)){
+    if(province && /^[a-zA-Zñ\s]+$/.test(province)){
       return false;
     }else{
       return true;
