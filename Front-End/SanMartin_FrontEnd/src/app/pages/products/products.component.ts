@@ -112,7 +112,7 @@ export class ProductsComponent {
           if (sessionStorage.getItem("orderId") == null || sessionStorage.getItem("orderId") == "") {
             let userId = "" + sessionStorage.getItem("token");
             let order:addOrderI = {
-              statusHistory: "",
+              statusHistory: "UNPAID",
               linesOrder: [],
               totalAmount: 0,
               user: userId
