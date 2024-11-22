@@ -64,5 +64,5 @@ Nuestro proyecto se va a basar en la creación de una página web para la venta 
 |--------------|--------------|
 | CRUD Simple | 1. CRUD Usuario 2. CRUD Producto 3. CRUD Direcciones|
 | CRUD dependiente| 1. Línea de pedido (depende de producto y de orden)  2. Orden (depende de Usuario)|
-| Listado + detalle| 1. Listado de productos:  se ordena alfabeticamente y por precio |
+| Listado + detalle| 1. Listado de productos:  se ordena alfabeticamente y por precio 2. Listado de ordenes: se ordena por monto y fecha, tiene detalle. 3. Listado direcciones: se ordena por nickname o dirección. |
 | CUU/Epic | 0. Registro de user 1. Login de user 2. Explorar catálogo de productos 3. Agregar producto al carrito 4. Eliminar producto del carrito 5. Actualizar productos del carrito 6. Confirmar pedido 7. Realizar pedido |
