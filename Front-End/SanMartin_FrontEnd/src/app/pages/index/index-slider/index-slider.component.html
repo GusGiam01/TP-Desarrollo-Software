@@ -1,0 +1,56 @@
+<section class="slider">
+    <div class="slider_container container">
+        <img src="svg/leftarrow.svg" class="slider_arrow" id="before" (click)="changePosition(-1)">
+
+        <section class="slider_body" data-id="1" [class.slider_body-show] = "showSlider1 === true">
+            <div class="slider_text">
+                <h3 class="subtitle"> PASO 1</h3>
+                <p class="slider_review">
+                    Llena el vaso de hielo, hay que tomarlo bien frio.
+                </p>
+            </div>
+            <figure class="slider_picture">
+                <img src="img/img 1.jpg" alt="" class="slider_img">
+            </figure>
+        </section>
+
+        <section class="slider_body" data-id="2" [class.slider_body-show] = "showSlider2 === true">
+            <div class="slider_text">
+                <h3 class="subtitle"> PASO 2</h3>
+                <p class="slider_review">
+                    Ponele una buena cantidad de San Martin.
+                </p>
+            </div>
+            <figure class="slider_picture">
+                <img src="img/img 2.jpg" alt="" class="slider_img">
+            </figure>
+        </section>
+
+        <section class="slider_body" data-id="3" [class.slider_body-show] = "showSlider3 === true">
+            <div class="slider_text">
+                <h3 class="subtitle"> PASO 3</h3>
+                <p class="slider_review">
+                    Agregale un sifonazo de soda.
+                </p>
+            </div>
+            <figure class="slider_picture">
+                <img src="img/img 3.jpg" alt="" class="slider_img">
+            </figure>
+        </section>
+
+        <section class="slider_body" data-id="4" [class.slider_body-show] = "showSlider4 === true">
+            <div class="slider_text">
+                <h3 class="subtitle"> PASO 4</h3>
+                <p class="slider_review">
+                    A disfrutar.
+                </p>
+            </div>
+            <figure class="slider_picture">
+                <img src="img/img 4.jpg" alt="" class="slider_img" >
+            </figure>
+        </section>
+
+        <img src="svg/rightarrow.svg" class="slider_arrow" id="next" (click)="changePosition(1)">
+
+    </div>
+</section>
