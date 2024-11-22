@@ -54,6 +54,7 @@ Nosotros utilizamos mongoDB Atlas, para su utilización debe:
    ```
 ## Descripción del trabajo
 Nuestro proyecto se va a basar en la creación de una página web para la venta de una bebida alcoholica, implementando un sistema de control de stock y otro para la reserva. Dentro del control de stock nuestra idea era implementar el ABM de cada producto (resguardándonos contra posible expansión). Para el sistema de reserva habíamos pensado en agregar un “carrito” donde uno puede ir viendo el monto del mismo.
+Hay diferentes funcionalidades dependiendo de si el usuario creado es ADMIN o usuario normal, para registrarse como admin es necesario ingresar el siguiente código: DSW2024SM. Si se desea crear una cuenta como user no ingrese nada en ese campo.
 
 ## Modelo
 ![Modelo de dominio](./Estructura-de-negocio/Modelo%20de%20dominio.jpg)
