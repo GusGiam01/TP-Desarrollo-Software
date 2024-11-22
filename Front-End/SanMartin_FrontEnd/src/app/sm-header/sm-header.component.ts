@@ -19,9 +19,11 @@ export class SMHeaderComponent {
   options = [
     {name: "Iniciar sesión", value: '/login'},
     {name: "Productos", value: '/products'},
+    {name: "Carrito", value: '/cart'},
     {name: "¿Dónde encontrarnos?", value: '/puntosVenta'},
     {name: "Contactanos", value: '/contact'},
     {name: "¿Quiénes somos?", value: '/about-us'},
+    
   ]
 
   constructor (private router:Router) {}

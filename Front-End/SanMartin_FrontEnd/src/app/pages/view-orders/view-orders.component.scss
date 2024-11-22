@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "SecondarySMfont";
+  src: url("../../../../public/font/puntosVenta/SaaSeriesCDOT.ttf")
+}
+
 .orders-container {
   padding: 20px;
   max-width: 800px;
@@ -120,10 +125,16 @@
   }
 }
 
-//SM - hasta:391px
-@media (max-width: 391px){
+//SM - hasta:650px
+@media (max-width: 650px){
   .orders-container{
     margin-top: 110px;
+  }
+}
 
+//SM - hasta:1024px
+@media (min-width: 650px) and (max-width: 1024px) {
+  .orders-container{
+    margin-top: 110px;
   }
 }

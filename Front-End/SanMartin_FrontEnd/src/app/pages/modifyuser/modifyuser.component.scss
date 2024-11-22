@@ -95,11 +95,19 @@
       }
     }
     
-//SM - hasta:391px
-@media (max-width: 391px) {
+//SM - hasta:650px
+@media (max-width: 650px) {
   .edit-user-container{
     margin-top: 130px;
     max-width: 330px;
+  }
+}
+
+//SM - hasta:1024px
+@media (min-width: 650px) and (max-width: 1024px) {
+  .edit-user-container{
+    margin-top: 130px;
+    max-width: 600px;
   }
 }
   

@@ -87,3 +87,39 @@ body {
     margin-bottom: 20px;
     text-align: left;
 }
+
+//SM - hasta:650px
+@media (max-width:650px) {
+    .div_email{
+        margin-top: 150px;
+    }
+
+    .form_send-email{
+        max-width: 330px;
+
+        input {
+            width: 300px;
+        }
+        textarea {
+            width: 300px;
+        }
+    }
+}
+
+//SM - hasta:1024px
+@media (min-width: 650px) and (max-width: 1024px) {
+    .div_email{
+        margin-top: 150px;
+    }
+
+    .form_send-email{
+        max-width: 600px;
+
+        input {
+            width: 550px;
+        }
+        textarea {
+            width: 550px;
+        }
+    }
+}

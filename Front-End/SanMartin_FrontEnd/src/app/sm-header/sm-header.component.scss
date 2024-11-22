@@ -219,7 +219,7 @@
 }
 
 //SM - hasta: 390px
-@media (max-width: 390px){
+@media (max-width: 650px){
     //Header estilo bombay
     .div-bottom{
         display: none;
@@ -263,7 +263,6 @@
         font-family: Arial, Helvetica, sans-serif;
         z-index: 3;
         position: relative;
-        width: 576px;
     }
     
     .header_ul-grid{
@@ -414,7 +413,7 @@
 }
 
 //MD - hasta: 750px
-@media (max-width: 750px){
+@media (max-width: 1024px) and (min-width: 650px){
     //Header estilo bombay
     .div-bottom{
         display: none;
@@ -458,7 +457,7 @@
         font-family: Arial, Helvetica, sans-serif;
         z-index: 3;
         position: relative;
-        width: 576px;
+        width: 100%;
     }
     
     .header_ul-grid{
@@ -473,41 +472,19 @@
     }
 
     //INGRESAR y CARRITO
-    .carrito-li{
-        display: none;
-    }
     
     .ingresar-li{
-        display: none;
-    }
-    
-    .ingresar_carrito-a{
-        display: none;
-    }
-    
-    .carrito-img{
-        display: none;
-    
-    }
-    
-    .ingresar-img{
-        display: none;
-    }
-    
-    .ingresar_carrito-span{
-        display: none;
-    }
-    
-    .dot{
-        display: none;
+        padding-left: 0%;
+        padding-right: 0%;
+        margin-right: 0%;
+        margin-left: 0%;
     }
 
-    .li-span-prueba{
-        display: none;
-    }
-    
-    .ingresar_carrito-a-prueba{
-        display: none;
+    .carrito-li{
+        padding-left: 0%;
+        padding-right: 0%;
+        margin-right: 0%;
+        margin-left: 0%;
     }
 
     .exit-li{
@@ -517,7 +494,6 @@
     /*TITULO*/
     .li_titulo{
         justify-self: center;
-        padding-right: 40%;
     }
 
     .a_logo{

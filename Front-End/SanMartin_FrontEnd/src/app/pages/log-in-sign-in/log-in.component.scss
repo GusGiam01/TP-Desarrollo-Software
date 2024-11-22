@@ -92,8 +92,8 @@
     cursor: pointer;
 }
 
-//SM Hasta: 576px
-@media (max-width:px) {
+//SM - hasta: 650px
+@media (max-width:650px) {
     .container{
         margin-top: 120px;
     }
@@ -103,8 +103,8 @@
     }
 }
 
-//SM Hasta: 576px
-@media (max-width: 576px) {
+//SM - hasta:1024px
+@media (min-width: 650px) and (max-width: 1024px) {
     .container{
         margin-top: 120px;
     }
