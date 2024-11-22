@@ -5,18 +5,18 @@
 **Comisión:** 3k02  
 
 ### Repositorio fullstack
------
+https://github.com/GusGiam01/TP-Desarrollo-Software.git
 
 ### Video de las principales funcionalidades de la aplicación
 https://drive.google.com/file/d/1uorkfZujcWpvdELEk-0UnZMv32eLGcqL/view?usp=sharing
 
 ### Pull request inicial
------
+https://github.com/GusGiam01/TP-Desarrollo-Software.git
 
 ## Instrucciones de instalación y ejecución
 1. Clonar el repositorio:
  ```sh
-  git clone --------------------
+  git clone https://github.com/GusGiam01/TP-Desarrollo-Software.git
  ```
 2. Navega hacia el backend:
   ```sh
