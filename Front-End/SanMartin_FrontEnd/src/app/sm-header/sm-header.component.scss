@@ -218,7 +218,7 @@
     display: none;
 }
 
-//SM - hasta: 390px
+//SM - hasta: 650px
 @media (max-width: 650px){
     //Header estilo bombay
     .div-bottom{
@@ -321,7 +321,7 @@
     /*TITULO*/
     .li_titulo{
         justify-self: center;
-        padding-right: 40%;
+        //padding-right: 20%;
     }
 
     .a_logo{
