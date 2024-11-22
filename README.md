@@ -8,7 +8,7 @@
 -----
 
 ### Video de las principales funcionalidades de la aplicación
------
+https://drive.google.com/file/d/1uorkfZujcWpvdELEk-0UnZMv32eLGcqL/view?usp=sharing
 
 ### Pull request inicial
 -----
