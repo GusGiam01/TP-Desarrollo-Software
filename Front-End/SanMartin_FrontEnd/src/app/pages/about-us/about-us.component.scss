@@ -95,4 +95,14 @@
     margin-top: 30px;
   }
 
+//SM - hasta: 391px
+@media (max-width: 391px){
+  .about-us{
+    margin-top: 120px;
+  }
+}
+
+//MD - hasta:1024px
+@media (min-width: 650px) and (max-width:1024px) {
   
+}

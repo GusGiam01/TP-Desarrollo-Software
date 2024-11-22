@@ -1,4 +1,8 @@
-$background-color: #d7b599;
+@font-face {
+  font-family: "SecondarySMfont";
+  src: url("../../../../public/font/puntosVenta/SaaSeriesCDOT.ttf")
+}
+$background-color: #c0956d;
 $text-color: #8B1D1E;
 $button-color: #007bff;
 
@@ -14,8 +18,9 @@ $button-color: #007bff;
     font-size: 3rem;
     font-weight: bold;
     text-align: center;
-    animation: fadeInZoom 1.5s ease forwards, pulse 2s ease-in-out infinite;
+    //animation: fadeInZoom 1.5s ease forwards, pulse 2s ease-in-out infinite;
     transform-origin: center;
+    font-family: 'SecondarySMfont';
 
     // Sombra para dar efecto 3D
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
@@ -41,5 +46,24 @@ $button-color: #007bff;
   }
   50% {
     transform: scale(1.05);
+  }
+}
+
+
+//SM - hasta:650px
+@media (max-width: 650px){
+  .thank-you-container{
+    height: 50vh;
+    margin-top: 150px;
+    .thank-you-message{
+      font-size: 2rem;
+    }
+  }
+}
+
+//SM - hasta:1024px
+@media (min-width: 650px) and (max-width: 1024px) {
+  .thank-you-container{
+    margin-top: 150px;
   }
 }

@@ -2,25 +2,51 @@
 <div class="div-control">
     <nav class="header">
         <ul class="header_ul-menu header_ul-grid">
+            <li id="li_menu">
+                <a [class.active]="isActive" class="menu_button">
+                    <img src="svg/menu.svg" class="menu_icon" (click)="toggleActive()">
+                </a>
+                <div class="dropdown" [class.active]="isActive">
+                    <div>
+                        <div id="div_button">
+                            <a id="close_button">
+                                <img src="svg/close.svg" class="menu_icon" (click)="toggleActive()">
+                            </a>
+                        </div>
+                    </div>
+                    <ul>
+                        <li (click)="redirectToComponent(options[0].value)">
+                            <a>{{options[0].name}}</a>
+                        </li>
+                        <li (click)="redirectToComponent(options[1].value)">
+                            <a >{{options[1].name}}</a>
+                        </li>
+                        <li (click)="redirectToComponent(options[2].value)">
+                            <a >{{options[2].name}}</a>
+                        </li>
+                        <li (click)="redirectToComponent(options[3].value)">
+                            <a >{{options[3].name}}</a>
+                        </li>
+                        <li (click)="redirectToComponent(options[4].value)">
+                            <a >{{options[4].name}}</a>
+                        </li>
+                        <li (click)="redirectToComponent(options[5].value)">
+                            <a >{{options[5].name}}</a>
+                        </li>
+                    </ul>
+                </div>
+                
+            </li>
 
             <li class="exit-li" *ngIf="loggedUser != null">
-                <a href="/" class="ingresar_carrito-a" (click)="logOut();pageId = 2; emitPageId();">
-                    <span class="dot">
+                <a href="/" class="exit-a" (click)="logOut();pageId = 2; emitPageId();">
+                    <span class="dot-exit">
                         <img class="exit-img" src="svg/exit.svg" alt="exit">
                     </span>
                     <span class="ingresar_carrito-span" >Exit</span>
                 </a>
             </li>
-            <!--
-            <li class="admin-li" *ngIf="loggedUser != null && (typeUser === 'admin' || typeUser === 'Admin')">
-                <a href="/admin-menu" class="ingresar_carrito-a">
-                    <span class="dot">
-                        <i class="fas fa-user-shield admin-icon"></i>
-                    </span>
-                    <span class="ingresar_carrito-span">Admin</span>
-                </a>
-            </li>
-            -->
+    
             <li class="li_titulo">
                 <div>
                     <a class="a_logo" href="#" (click)="pageId = 0; emitPageId();">SAN MARTIN</a>
@@ -57,11 +83,15 @@
         </ul>
     </nav>
 
-    <!-- PROBANDO HEADER ESTILO BOMBAY -->
-    <div class="div-bottom-prueba" id="bottom_menu" (scroll)="onScroll()" >
+
+    
+
+
+    <!-- HEADER ESTILO BOMBAY -->
+    <div class="div-bottom" id="bottom_menu" (scroll)="onScroll()" >
         <div class="compressed_menu">
             <div>
-                <ul class="ul-prueba">
+                <ul class="ul-bottom">
                     <li class="li-bottom_menu" (click)="pageId = 6; emitPageId();">
                         <a href="/about-us" class="a_li-bottom_menu">
                             ¿QUIENES SOMOS?

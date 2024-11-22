@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "SecondarySMfont";
+  src: url("../../../../public/font/puntosVenta/SaaSeriesCDOT.ttf")
+}
+
 .add-product-container {
     margin-top: 200px;
     margin-left: auto;
@@ -9,13 +14,13 @@
     width: 100%;
     max-width: 1200px;
     padding: 20px;
-    font-family: 'Arial', sans-serif;
+    font-family: "SecondarySMfont";
   
     .form-title {
       text-align: center;
       margin-bottom: 30px;
       font-size: 2rem;
-      color: #333;
+      color: #000000;
     }
   
     .form-group {
@@ -23,7 +28,7 @@
   
       label {
         font-size: 1rem;
-        color: #333;
+        color: #000000;
         display: block;
         margin-bottom: 5px;
       }
@@ -34,7 +39,7 @@
         border: 1px solid #ddd;
         border-radius: 4px;
         font-size: 1rem;
-        color: #555;
+        color: #000000;
         box-sizing: border-box;
   
         &:focus {
@@ -96,7 +101,7 @@
     
   }
   
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     .form-group {
       input {
         font-size: 0.9rem;
@@ -107,4 +112,21 @@
       font-size: 1rem;
     }
   }
-  
+
+//SM - hasta:391px
+@media (max-width:391px) {
+  .add-product-container{
+    margin-top: 100px;
+    max-width: 330px;
+    height: fit-content;
+  }
+}
+
+//SM - hasta:1024px
+@media (min-width: 650px) and (max-width: 1024px) {
+  .add-product-container{
+    margin-top: 100px;
+    max-width: 330px;
+    height: fit-content;
+  }
+}

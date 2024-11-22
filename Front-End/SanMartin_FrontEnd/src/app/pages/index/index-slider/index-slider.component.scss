@@ -1,6 +1,6 @@
 .container{
     width: 90%;
-    min-height: 100vh;
+    height: 100vh;
     max-width: 1200px;
     margin: 0 auto;
     overflow: hidden;
@@ -62,4 +62,85 @@
 
 .slider_arrow:nth-of-type(2){
     justify-self: end;
+}
+
+//SM - hasta: 650px
+@media (max-width: 650px) {
+    .slider_img{
+        width: 100px;
+        height: 200px;
+        object-fit: contain;
+        display: block;
+        margin: 0 auto;
+    }
+
+    .slider_picture{
+        margin: 0%;
+    }
+
+    .container{
+        height: 400px;
+    }
+
+    .slider_container{
+        background-color: #c0956d;
+        display: grid;
+        grid-template-columns: 25px 1fr 25px;
+        //grid-template-rows: 1fr 0.25fr;
+        align-items: center;
+        gap: 1em;
+        height: 400px;
+    }
+
+    .subtitle{
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        font-family: "SanMartin";
+    }
+    
+    .slider_review{
+        font-weight: 300pc;
+        font-size: 14px;
+        line-height: 1.7;
+        font-family: "SanMartin";
+    }
+}
+
+
+//MD - hasta: 1024px
+@media (min-width: 650px) and (max-width: 1024px) {
+    .slider_img{
+        width: 200px;
+        height: 400px;
+        object-fit: contain;
+        display: block;
+        margin: 0 auto;
+    }
+
+    .container{
+        height: 400px;
+    }
+
+    .slider_container{
+        background-color: #c0956d;
+        display: grid;
+        grid-template-columns: 25px 1fr 25px;
+        //grid-template-rows: 1fr 0.25fr;
+        align-items: center;
+        gap: 1em;
+        height: 400px;
+    }
+
+    .subtitle{
+        font-size: 3rem;
+        margin-bottom: 20px;
+        font-family: "SanMartin";
+    }
+    
+    .slider_review{
+        font-weight: 300pc;
+        font-size: 20px;
+        line-height: 1.7;
+        font-family: "SanMartin";
+    }
 }

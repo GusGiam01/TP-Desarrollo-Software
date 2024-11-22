@@ -1,16 +1,22 @@
+@font-face {
+  font-family: "SecondarySMfont";
+  src: url("../../../../public/font/puntosVenta/SaaSeriesCDOT.ttf")
+}
+
 .order-container {
     max-width: 800px;
     margin-top: 180px;
     margin-right: auto;
     margin-left: auto;
     padding: 20px;
-    background-color: #fff;
+    background-color: #c0956d;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: "SecondarySMfont";
   
     h2 {
       text-align: center;
-      color: #333;
+      color: #000000;
     }
   
     .order-header {
@@ -21,14 +27,14 @@
       .order-info {
         p {
           margin: 5px 0;
-          color: #555;
+          color: #000000;
         }
       }
   
       .order-address {
         p {
           margin: 5px 0;
-          color: #555;
+          color: #000000;
         }
       }
     }
@@ -37,12 +43,12 @@
       margin-bottom: 20px;
   
       h3 {
-        color: #444;
+        color: #000000;
         margin-bottom: 10px;
       }
   
       .order-line {
-        background-color: #f9f9f9;
+        background-color: #EDDBCD;
         padding: 10px;
         margin-bottom: 10px;
         border-radius: 5px;
@@ -58,13 +64,13 @@
       text-align: right;
       font-size: 18px;
       font-weight: bold;
-      color: #333;
+      color: #000000;
       margin-bottom: 20px;
     }
   
     .back-btn {
-      background-color: #007bff;
-      color: white;
+      background-color: #aa524d;
+      color: rgb(0, 0, 0);
       padding: 10px 20px;
       border: none;
       border-radius: 5px;
@@ -72,10 +78,23 @@
       font-size: 16px;
       width: 100%;
       margin-top: 20px;
+      font-family: 'SecondarySMfont';
   
-      &:hover {
-        background-color: #0056b3;
-      }
     }
   }
-  
+
+//SM - hasta:650px
+@media (max-width: 650px){
+  .order-container{
+    max-width: 330px;
+    margin-top: 140px;
+  }
+}
+
+//SM - hasta:1024px
+@media (min-width: 650px) and (max-width: 1024px) {
+  .order-container{
+    max-width: 600px;
+    margin-top: 140px;
+  }
+}
