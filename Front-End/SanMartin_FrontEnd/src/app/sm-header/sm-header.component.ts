@@ -20,17 +20,17 @@ export class SMHeaderComponent {
     this.pageIdChange.emit(this.pageId)
   }
 
-  loggedUser:string | null = localStorage.getItem("token");
-  typeUser:string | null = localStorage.getItem("tipo");
+  loggedUser:string | null = sessionStorage.getItem("token");
+  typeUser:string | null = sessionStorage.getItem("tipo");
 
   ngOnInit():void{
-    this.loggedUser = localStorage.getItem("token");
-    this.typeUser = localStorage.getItem("type");
+    this.loggedUser = sessionStorage.getItem("token");
+    this.typeUser = sessionStorage.getItem("type");
   }
 
   logOut(){
-    localStorage.removeItem("token");
-    localStorage.removeItem("orderId");
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("orderId");
     this.loggedUser = null;
     this.typeUser = null;
     location.reload();

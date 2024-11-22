@@ -4,34 +4,40 @@
       <div class="form-group">
         <label for="productName">Nombre del Producto</label>
         <input type="text" id="productName" formControlName="name" required class="form-control">
+        <p *ngIf="validateName()" class="error-message">Ingrese un nombre válido para el producto (use letras y/o números).</p>
       </div>
   
       <div class="form-group">
         <label for="productCode">Código del Producto</label>
         <input type="text" id="productCode" formControlName="code" required class="form-control">
+        <p *ngIf="validateCode()" class="error-message">Ingrese un código válido (2 letras + 4 números).</p>
       </div>
   
       <div class="form-group">
         <label for="productPrice">Precio Unitario</label>
         <input type="number" id="productPrice" formControlName="priceUni" required class="form-control">
+        <p *ngIf="validatePriceUni()" class="error-message">Ingrese un número válido.</p>
       </div>
   
       <div class="form-group">
         <label for="productStock">Stock</label>
         <input type="number" id="productStock" formControlName="stock" required class="form-control">
+        <p *ngIf="validateStock()" class="error-message">Ingrese un número.</p>
       </div>
   
       <div class="form-group">
         <label for="productType">Tipo de Producto</label>
         <input type="text" id="productType" formControlName="type" required class="form-control">
+        <p *ngIf="validateType()" class="error-message">Ingrese un tipo de producto válido (letras únicamente).</p>
       </div>
   
       <div class="form-group">
         <label for="productBrand">Marca</label>
         <input type="text" id="productBrand" formControlName="brand" required class="form-control">
+        <p *ngIf="validateBrand()" class="error-message">Ingrese una marca válida.</p>
       </div>
   
-      <button type="submit" class="submit-btn">Agregar Producto</button>
+      <button type="submit" class="submit-btn" [disabled]="validateForm()">Agregar Producto</button>
       <button type="submit" class="cancel-btn" (click)="goBack()">Cancelar</button>
     </form>
   

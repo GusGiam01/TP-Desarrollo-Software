@@ -25,7 +25,7 @@ export class CartComponent {
   constructor(private api:ApiService, private router:Router){ }
 
   getLinesOrder(){
-    let orderId = "" + localStorage.getItem("orderId")
+    let orderId = "" + sessionStorage.getItem("orderId")
     if(orderId != null && orderId != ""){
       this.api.searchLinesOrderByOrderId(orderId).subscribe({
         next: (data) => {

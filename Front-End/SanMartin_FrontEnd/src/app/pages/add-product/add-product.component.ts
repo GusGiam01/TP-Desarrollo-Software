@@ -58,6 +58,71 @@ export class AddProductComponent implements OnInit {
     });
   }
 
+  validateCode():boolean{
+    let code = "" + this.addProductForm.get("code")?.value;
+    if(code && /^[a-zA-Z]{2}[0-9]{4}$/.test(code)){
+      return false;
+    }else{
+      return true;
+    }
+  }
+
+  validatePriceUni():boolean{
+    let priceUni = this.addProductForm.get("priceUni")?.value;
+    if(priceUni != null && priceUni != undefined){
+      return false;
+    }else{
+      return true;
+    }
+  }
+
+  validateName():boolean{
+    let name = "" + this.addProductForm.get("name")?.value;
+    if(/^[a-zA-Z0-9ñ\s]+$/.test(name)){
+      return false;
+    }else{
+      return true;
+    }
+  }
+
+  validateStock():boolean{
+    let stock = this.addProductForm.get("stock")?.value;
+    if(stock != null && stock != undefined){
+      return false;
+    }else{
+      return true;
+    }
+  }
+
+  validateType():boolean{
+    let type = "" + this.addProductForm.get("type")?.value;
+    if(/^[a-zA-Zñ\s]+$/.test(type)){
+      return false;
+    }else{
+      return true;
+    }
+  }
+
+  validateBrand():boolean{
+    let brand = "" + this.addProductForm.get("brand")?.value;
+    if(/^[a-zA-Z0-9ñ\s]+$/.test(brand)){
+      return false;
+    }else{
+      return true;
+    }
+  }
+
+  validateForm():boolean{
+    return (
+      this.validateBrand() || 
+      this.validateCode() || 
+      this.validateName() || 
+      this.validatePriceUni() || 
+      this.validateStock() ||
+      this.validateType()
+    )
+  }
+
   goBack(){
     this.router.navigate(['/admin-menu']);
   }

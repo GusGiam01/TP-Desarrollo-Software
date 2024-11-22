@@ -4,31 +4,32 @@ import { Router } from '@angular/router';
 import { orderI } from '../../modelos/order.interface.js';
 import { cartLineOrderI } from '../../modelos/cartLineOrder.interface.js';
 import { CommonModule } from '@angular/common';
-import { FormGroup, FormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { responseAddressesI } from '../../modelos/responseAddresses.interface.js';
 import { addressI } from '../../modelos/address.interface.js';
 
 @Component({
   selector: 'app-execute-purchase',
   standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    CommonModule
-  ],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './execute-purchase.component.html',
-  styleUrls: ['./execute-purchase.component.scss']
+  styleUrls: ['./execute-purchase.component.scss'],
 })
-
 export class ExecutePurchaseComponent implements OnInit {
-
-  addresses: Array<addressI> = []; 
+  addresses: Array<addressI> = [];
 
   shippingForm = new FormGroup({
     cardNumber: new FormControl('', Validators.required),
     expiryDate: new FormControl('', Validators.required),
     cvv: new FormControl('', Validators.required),
     cardholderName: new FormControl('', Validators.required),
-    address: new FormControl('', Validators.required) 
+    address: new FormControl('', Validators.required),
   });
 
   cartLinesOrder: cartLineOrderI[] = [];
@@ -44,11 +45,11 @@ export class ExecutePurchaseComponent implements OnInit {
       province: '',
       nickname: '',
       address: '',
-      user: ''
-    }
+      user: '',
+    },
   };
 
-  constructor(private api: ApiService, private router: Router) { }
+  constructor(private api: ApiService, private router: Router) {}
 
   ngOnInit(): void {
     this.getLinesOrder();
@@ -57,7 +58,7 @@ export class ExecutePurchaseComponent implements OnInit {
   }
 
   getLinesOrder(): void {
-    let orderId = "" + localStorage.getItem("orderId");
+    let orderId = '' + sessionStorage.getItem('orderId');
     this.api.searchLinesOrderByOrderId(orderId).subscribe({
       next: (data) => {
         this.order.totalAmount = 0;
@@ -67,46 +68,52 @@ export class ExecutePurchaseComponent implements OnInit {
               let line: cartLineOrderI = {
                 id: data.data[i].id,
                 product: p.data,
-                quantity: data.data[i].quantity
+                quantity: data.data[i].quantity,
               };
               this.cartLinesOrder.push(line);
-              this.order.totalAmount = this.order.totalAmount + (p.data.priceUni * data.data[i].quantity);
+              this.order.totalAmount =
+                this.order.totalAmount +
+                p.data.priceUni * data.data[i].quantity;
             },
             error: (e) => {
               console.log(e);
-            }
+            },
           });
         }
       },
       error: (e) => {
         console.log(e);
-      }
+      },
     });
   }
 
   loadUserAddresses(): void {
-    this.api.searchAddressesByUserId("" + localStorage.getItem("token")).subscribe({
-      next: (data) => {
-        this.addresses = data.data;
-      },
-      error: (e) => {
-        console.log(e);
-      }
-    });
+    this.api
+      .searchAddressesByUserId('' + sessionStorage.getItem('token'))
+      .subscribe({
+        next: (data) => {
+          this.addresses = data.data;
+        },
+        error: (e) => {
+          console.log(e);
+        },
+      });
   }
 
   calculateOrderTotal(): void {
-    this.order.totalAmount = this.cartLinesOrder.reduce((acc, item) => acc + item.product.priceUni * item.quantity, 0);
+    this.order.totalAmount = this.cartLinesOrder.reduce(
+      (acc, item) => acc + item.product.priceUni * item.quantity,
+      0
+    );
   }
 
   submitPurchase(form: any): void {
-
     if (this.addresses.length === 0) {
       alert('Debe cargar al menos una dirección antes de efectuar la compra.');
       return;
     }
 
-    let orderId = "" + localStorage.getItem("orderId");
+    let orderId = '' + sessionStorage.getItem('orderId');
     this.api.searchOrderById(orderId).subscribe({
       next: (data) => {
         let cardData = {
@@ -116,34 +123,82 @@ export class ExecutePurchaseComponent implements OnInit {
           cardholderName: form.cardholderName,
         };
 
-        //let selectedAddress = this.addresses.find(address => address.id === form.address);
-
         let completeOrder: orderI = {
           id: data.data.id,
           user: data.data.user,
           linesOrder: data.data.linesOrder,
           totalAmount: data.data.totalAmount,
-          statusHistory: "PAID",
+          statusHistory: 'PAID',
           confirmDate: new Date(),
-          //address: selectedAddress
-          address: form.address
+          address: form.address,
         };
 
         this.api.updateOrder(completeOrder).subscribe({
           next: () => {
-            console.log("Actualizado.");
-            localStorage.removeItem("orderId");
+            console.log('Actualizado.');
+            sessionStorage.removeItem('orderId');
             this.router.navigate(['/thanks']);
           },
           error: (r) => {
             console.log(r);
-          }
+          },
         });
       },
       error: (e) => {
         console.log(e);
-      }
+      },
     });
+  }
+
+  validateCardNumber(): boolean {
+    let cardNumber = '' + this.shippingForm.get('cardNumber')?.value;
+    if (cardNumber.length == 16 && /^\d+$/.test(cardNumber)) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  validateExpiryDate(): boolean {
+    let transform = '' + this.shippingForm.get('expiryDate')?.value;
+    if (transform) {
+      let expiryDate = new Date(transform);
+      let today = new Date();
+      if (expiryDate && expiryDate > today) {
+        return false;
+      } else {
+        return true;
+      }
+    }else{
+      console.log("Transform no tiene ningun valor.");
+      return true;
+    }
+  }
+
+  validateCVV(): boolean {
+    let cvv = '' + this.shippingForm.get('cvv')?.value;
+    if (cvv.length == 3 && /^\d+$/.test(cvv)) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  validateCardOwnerName(): boolean {
+    let cardholderName = '' + this.shippingForm.get('cardholderName')?.value;
+    if (cardholderName && /^[a-zA-Zñ\s]+$/.test(cardholderName)) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  validateForm(): boolean {
+    if (this.validateCVV() || this.validateCardNumber() || this.validateCardOwnerName() || this.validateExpiryDate()) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   goBack(): void {
