@@ -93,7 +93,7 @@ Content-Type: application/json
     "statusHistory": ["Order updated"]
 }
 
-### Modificar un nuevo ordero (PATCH - recurso parcial)
+### Modificar un nuevo order (PATCH - recurso parcial)
 PATCH http://localhost:3000/api/orders/{{id}}
 Content-Type: application/json
 {

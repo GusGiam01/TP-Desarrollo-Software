@@ -18,16 +18,12 @@ $button-color: #007bff;
     font-size: 3rem;
     font-weight: bold;
     text-align: center;
-    //animation: fadeInZoom 1.5s ease forwards, pulse 2s ease-in-out infinite;
     transform-origin: center;
     font-family: 'SecondarySMfont';
-
-    // Sombra para dar efecto 3D
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
   }
 }
 
-// Animación de entrada con fade y zoom
 @keyframes fadeInZoom {
   0% {
     opacity: 0;
@@ -39,7 +35,6 @@ $button-color: #007bff;
   }
 }
 
-// Efecto de pulsación suave
 @keyframes pulse {
   0%, 100% {
     transform: scale(1);

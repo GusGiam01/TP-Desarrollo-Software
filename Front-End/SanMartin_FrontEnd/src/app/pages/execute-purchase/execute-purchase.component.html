@@ -64,8 +64,7 @@
                 <p *ngIf="validateCardOwnerName()" class="error-message">Ingrese el nombre completo del titular.</p>
             </div>
         </section>
-
-<!--         <button type="submit" class="buy_btn" [disabled]="!shippingForm.valid || addresses.length === 0">-->            
+        
         <button type="submit" class="buy_btn" [disabled]="validateForm()">         
             Efectuar Compra
         </button>
