@@ -31,7 +31,7 @@ export class AddAddressComponent implements OnInit {
   };
 
   ngOnInit(){
-    let userId = "" + localStorage.getItem("token");
+    let userId = "" + sessionStorage.getItem("token");
     this.api.searchAddressesByUserId(userId).subscribe({
       next: (data) => {
         this.addresses = data.data
@@ -69,7 +69,7 @@ export class AddAddressComponent implements OnInit {
   onSubmit() {
     if (this.addressForm.valid) {
       this.address = this.addressForm.value;
-      this.address.user = ""+localStorage.getItem("token");
+      this.address.user = ""+sessionStorage.getItem("token");
       let check = this.checkAddress(this.address, this.addresses)
       if (check == ""){ 
         this.api.postAddress(this.address).subscribe({

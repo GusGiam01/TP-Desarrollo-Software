@@ -24,7 +24,7 @@ export class AdminMenuComponent {
   }
 
   getUser(){
-    let id = "" + localStorage.getItem("token");
+    let id = "" + sessionStorage.getItem("token");
     this.api.searchUserById(id).subscribe({
       next: (data) => {
         this.userType = data.data.type;
@@ -48,8 +48,8 @@ export class AdminMenuComponent {
   }
 
   logout(){
-    localStorage.removeItem("token");
-    localStorage.removeItem("orderId");
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("orderId");
     this.router.navigate(['home']).then(() => {
       location.reload()
     });

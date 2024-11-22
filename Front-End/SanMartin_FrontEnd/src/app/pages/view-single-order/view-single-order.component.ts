@@ -42,7 +42,7 @@ export class ViewSingleOrderComponent {
   constructor(private api: ApiService, private router: Router) { }
 
   showOrder(): void {
-    let orderId = "" + localStorage.getItem("orderId");
+    let orderId = "" + sessionStorage.getItem("orderId");
     this.api.searchOrderById(orderId).subscribe({
       next: (data) => {
         this.order.id = data.data.id;
@@ -107,7 +107,7 @@ export class ViewSingleOrderComponent {
   }
   /*
     getLinesOrder(): void {
-      let orderId = "" + localStorage.getItem("orderId");
+      let orderId = "" + sessionStorage.getItem("orderId");
       this.api.searchLinesOrderByOrderId(orderId).subscribe({
         next: (data) => {
           this.order.totalAmount = 0;
@@ -137,7 +137,7 @@ export class ViewSingleOrderComponent {
 
     getLinesOrder(callback: () => void): void {
     console.log("Entroooooooooooooooooooo al getLinesOrder");
-      let orderId = "" + localStorage.getItem("orderId");
+      let orderId = "" + sessionStorage.getItem("orderId");
       this.api.searchLinesOrderByOrderId(orderId).subscribe({
         next: (data) => {
           this.order.totalAmount = 0;
