@@ -49,6 +49,23 @@
     padding-bottom: 5px;
 }
 
+.dot-exit{
+    height: 40px;
+    width: 40px;
+    background-color: #EDDBCD;
+    border-radius: 50%;
+    display: inline-block;
+    -webkit-text-stroke: 5px;
+    -webkit-text-stroke-color: #000000;
+    border: 2px solid black;
+}
+.exit-a{
+    display: grid;
+    grid-template-rows: 1.5fr 0.5fr;
+    justify-items: center;
+    text-decoration: none;
+}
+
 /*..............................................................*/
 /*TITULO*/
 .li_titulo{
@@ -140,27 +157,10 @@
     border: 2px solid black;
 }
 
-//pruebas
 
-.li-span-prueba{
-    color: #EDDBCD;
-    font-size: 20px;
-    text-align: center;
-    vertical-align: middle;
-}
+//HEADER ESTILO BOMBAY
 
-.ingresar_carrito-a-prueba{
-    display: block;
-    justify-items: center;
-    text-decoration: none;
-    text-align: center;
-    font-family: 'SecondarySMfont';
-}
-
-
-//Prubea header estilo bombay
-
-.div-bottom-prueba{
+.div-bottom{
     background-color: #aa524d;
     padding-top: 16px;
     padding-bottom: 16px;
@@ -177,7 +177,7 @@
     padding-right: 20px;
 }
 
-.ul-prueba{
+.ul-bottom{
     list-style: none;
     list-style-position: inside;
     justify-content: space-around;
@@ -213,3 +213,373 @@
     color: #EDDBCD; 
 }
 
+//DROPDOWN
+#li_menu{
+    display: none;
+}
+
+//SM - hasta: 650px
+@media (max-width: 650px){
+    //Header estilo bombay
+    .div-bottom{
+        display: none;
+    }
+    
+    .compressed_menu{
+        display: none;
+    }
+    
+    .ul-bottom{
+        display: none;
+    }
+    
+    .li-bottom_menu{
+        display: none;
+    }
+    
+    .li-bottom_menu:hover > .a_li-bottom_menu{
+        display: none;
+    }
+    
+    .a_li-bottom_menu{
+        display: none;
+    }
+    
+    .admin-icon {
+        display: none; 
+    }
+
+    //Header logo
+    .div-control{
+        position: fixed;
+        top: 0;
+        width: 100%;
+    }
+    
+    .header {
+        background-color: #8F342F; 
+        display: block;
+        padding: 10px;
+        font-family: Arial, Helvetica, sans-serif;
+        z-index: 3;
+        position: relative;
+    }
+    
+    .header_ul-grid{
+        justify-content: space-around;
+        align-items: center;
+        display: flex;
+        padding: 0;
+    }
+    
+    .header_ul-menu{
+        list-style: none;
+    }
+
+    //INGRESAR y CARRITO
+    .carrito-li{
+        display: none;
+    }
+    
+    .ingresar-li{
+        display: none;
+    }
+    
+    .ingresar_carrito-a{
+        display: none;
+    }
+    
+    .carrito-img{
+        display: none;
+    
+    }
+    
+    .ingresar-img{
+        display: none;
+    }
+    
+    .ingresar_carrito-span{
+        display: none;
+    }
+    
+    .dot{
+        display: none;
+    }
+
+    .li-span-prueba{
+        display: none;
+    }
+    
+    .ingresar_carrito-a-prueba{
+        display: none;
+    }
+
+    .exit-li{
+        display: none;
+    }
+
+    /*TITULO*/
+    .li_titulo{
+        justify-self: center;
+        //padding-right: 20%;
+    }
+
+    .a_logo{
+        font-family: "SanMartin";
+        color: transparent;
+        -webkit-text-stroke: 1.5px;
+        -webkit-text-stroke-color: black;
+        font-size: 3rem;
+        text-decoration: none;
+        background-clip: text;
+        background-image: url(../../../public/img/fondo-sanMartin.png);
+        background-size: cover;
+    }
+
+    //DROPDOWN
+    #li_menu{
+        display: block;
+        cursor: pointer;
+        padding-right: 15%;
+        .dropdown{
+            display: none;
+            position:absolute ;
+            top: 0%;
+            left: 0%;
+            width: 180px;
+            min-height: fit-content;
+            //max-height: 500px;
+            overflow: auto;
+            background-color: #aa524d;
+            border-radius: 5px;
+            border-top-left-radius: 0%;
+            ul {
+                margin: 20px;
+                list-style: none;
+                display: flex;
+                gap: 10px;
+                flex-direction: column;
+                padding: 0%;
+                margin-bottom: 0%;
+                margin-left: 0%;
+                
+                a {
+                    text-decoration: none;
+                    color: #000000;
+                    padding: 15px 30px;
+                    display: block;
+        
+                    
+                }
+        
+                li:hover{
+                    background-color: #8F342F;
+                }
+            }
+    
+            #div_button{
+                display: flex;
+                justify-content: left;
+                align-items: center;
+    
+                #close_button {
+                    padding-left: 10%;
+                    padding-top: 10%;
+                }
+            }
+        }
+    
+        
+        .dropdown.active{
+            display: block;
+        }
+        
+        .menu_button{
+            display: block;
+            padding-left: 80%;
+        }
+    
+        .menu_button.active{
+            display: none;
+        }
+    
+    }
+    
+    
+    .menu_icon{
+        display: block;
+        width: 25px;
+    }
+}
+
+//MD - hasta: 750px
+@media (max-width: 1024px) and (min-width: 650px){
+    //Header estilo bombay
+    .div-bottom{
+        display: none;
+    }
+    
+    .compressed_menu{
+        display: none;
+    }
+    
+    .ul-bottom{
+        display: none;
+    }
+    
+    .li-bottom_menu{
+        display: none;
+    }
+    
+    .li-bottom_menu:hover > .a_li-bottom_menu{
+        display: none;
+    }
+    
+    .a_li-bottom_menu{
+        display: none;
+    }
+    
+    .admin-icon {
+        display: none; 
+    }
+
+    //Header logo
+    .div-control{
+        position: fixed;
+        top: 0;
+        width: 100%;
+    }
+    
+    .header {
+        background-color: #8F342F; 
+        display: block;
+        padding: 10px;
+        font-family: Arial, Helvetica, sans-serif;
+        z-index: 3;
+        position: relative;
+        width: 100%;
+    }
+    
+    .header_ul-grid{
+        justify-content: space-around;
+        align-items: center;
+        display: flex;
+        padding: 0;
+    }
+    
+    .header_ul-menu{
+        list-style: none;
+    }
+
+    //INGRESAR y CARRITO
+    
+    .ingresar-li{
+        padding-left: 0%;
+        padding-right: 0%;
+        margin-right: 0%;
+        margin-left: 0%;
+    }
+
+    .carrito-li{
+        padding-left: 0%;
+        padding-right: 0%;
+        margin-right: 0%;
+        margin-left: 0%;
+    }
+
+    .exit-li{
+        display: none;
+    }
+
+    /*TITULO*/
+    .li_titulo{
+        justify-self: center;
+    }
+
+    .a_logo{
+        font-family: "SanMartin";
+        color: transparent;
+        -webkit-text-stroke: 1.5px;
+        -webkit-text-stroke-color: black;
+        font-size: 3rem;
+        text-decoration: none;
+        background-clip: text;
+        background-image: url(../../../public/img/fondo-sanMartin.png);
+        background-size: cover;
+    }
+
+    //DROPDOWN
+    #li_menu{
+        display: block;
+        cursor: pointer;
+        padding-right: 15%;
+        .dropdown{
+            display: none;
+            position:absolute ;
+            top: 0%;
+            left: 0%;
+            width: 180px;
+            min-height: fit-content;
+            //max-height: 500px;
+            overflow: auto;
+            background-color: #aa524d;
+            border-radius: 5px;
+            border-top-left-radius: 0%;
+            ul {
+                margin: 20px;
+                list-style: none;
+                display: flex;
+                gap: 10px;
+                flex-direction: column;
+                padding: 0%;
+                margin-bottom: 0%;
+                margin-left: 0%;
+                
+                a {
+                    text-decoration: none;
+                    color: #000000;
+                    padding: 15px 30px;
+                    display: block;
+        
+                    
+                }
+        
+                li:hover{
+                    background-color: #8F342F;
+                }
+            }
+    
+            #div_button{
+                display: flex;
+                justify-content: left;
+                align-items: center;
+    
+                #close_button {
+                    padding-left: 10%;
+                    padding-top: 10%;
+                }
+            }
+        }
+    
+        
+        .dropdown.active{
+            display: block;
+        }
+        
+        .menu_button{
+            display: block;
+            padding-left: 80%;
+        }
+    
+        .menu_button.active{
+            display: none;
+        }
+    
+    }
+    
+    
+    .menu_icon{
+        display: block;
+        width: 25px;
+    }
+}

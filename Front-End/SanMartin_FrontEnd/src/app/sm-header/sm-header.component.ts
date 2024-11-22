@@ -1,5 +1,6 @@
 import { Component, EventEmitter, HostListener, Output } from '@angular/core';
 import { CommonModule, NgIf } from '@angular/common';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -7,12 +8,26 @@ import { CommonModule, NgIf } from '@angular/common';
   standalone: true,
   imports: [
     CommonModule,
-    NgIf
+    NgIf,
   ],
   templateUrl: './sm-header.component.html',
   styleUrl: './sm-header.component.scss'
 })
 export class SMHeaderComponent {
+  isActive = false;
+
+  options = [
+    {name: "Iniciar sesión", value: '/login'},
+    {name: "Productos", value: '/products'},
+    {name: "Carrito", value: '/cart'},
+    {name: "¿Dónde encontrarnos?", value: '/puntosVenta'},
+    {name: "Contactanos", value: '/contact'},
+    {name: "¿Quiénes somos?", value: '/about-us'},
+    
+  ]
+
+  constructor (private router:Router) {}
+
   pageId?: number;
   @Output() pageIdChange = new EventEmitter<number>();
   
@@ -21,18 +36,21 @@ export class SMHeaderComponent {
   }
 
   loggedUser:string | null = sessionStorage.getItem("token");
-  typeUser:string | null = sessionStorage.getItem("tipo");
 
   ngOnInit():void{
     this.loggedUser = sessionStorage.getItem("token");
-    this.typeUser = sessionStorage.getItem("type");
+    if (this.loggedUser != null && this.loggedUser != "") {
+      this.options[0] = {
+        name: "Cuenta",
+        value: "/admin-menu"
+      }
+    }
   }
 
   logOut(){
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("orderId");
     this.loggedUser = null;
-    this.typeUser = null;
     location.reload();
   }
 
@@ -53,6 +71,15 @@ export class SMHeaderComponent {
       }
     }
     this.prevScrollpos = currentScrollpos;
+  }
+
+  toggleActive(){
+    this.isActive = !this.isActive
+  }
+
+  redirectToComponent(link:string) {
+    this.router.navigate([link]);
+    this.isActive = !this.isActive
   }
 }
 

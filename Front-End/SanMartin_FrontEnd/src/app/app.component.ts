@@ -3,7 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { SMHeaderComponent } from './sm-header/sm-header.component.js';
 import { IndexSliderComponent } from './pages/index/index-slider/index-slider.component.js';
 import { IndexVideoComponent } from './pages/index/index-video/index-video.component.js';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgFor } from '@angular/common';
 import { PuntosventaListaComponent } from './pages/puntosventa/puntosventa-lista.component.js'
 import { SmFooterComponent } from './sm-footer/sm-footer.component.js';
 import { SmContactComponent } from './pages/contact/sm-contact.component.js';

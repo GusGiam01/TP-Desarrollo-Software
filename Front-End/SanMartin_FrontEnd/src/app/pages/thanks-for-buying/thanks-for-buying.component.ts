@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ApiService } from '../../servicios/api/api.service.js';
 
 @Component({
   selector: 'app-thanks-for-buying',
@@ -8,5 +9,4 @@ import { Component } from '@angular/core';
   styleUrl: './thanks-for-buying.component.scss'
 })
 export class ThanksForBuyingComponent {
-
 }

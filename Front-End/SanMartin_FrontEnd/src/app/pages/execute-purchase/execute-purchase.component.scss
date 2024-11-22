@@ -163,5 +163,21 @@
       box-shadow: 0 0 0 2px rgba(244, 67, 54, 0.5); 
     }
   }
-  
+
+//SM - hasta:650px
+@media (max-width: 650px){
+  .container{
+    margin-top: 100px;
+    max-width: 330px;
+  }
+
+}
+
+//SM - hasta:1024px
+@media (min-width: 650px) and (max-width: 1024px) {
+  .container{
+    margin-top: 100px;
+    max-width: 600px;
+  }
+}
   

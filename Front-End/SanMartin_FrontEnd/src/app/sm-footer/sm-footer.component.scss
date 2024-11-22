@@ -94,3 +94,24 @@ li:has(.a-footer:hover) .arrow{
     margin-bottom: 0;
     vertical-align: middle;
 }
+
+//SM - hasta: 391px
+@media (max-width: 391px) {
+    .warning-span {
+        font-size: 12px;
+    }
+
+    .footer{
+        display: block;
+    }
+
+    #contact{
+        margin-bottom: 0%;
+        padding-bottom: 1em;
+    }
+}
+
+//MD - hasta: 751px
+@media (max-width: 750px) {
+    
+}
