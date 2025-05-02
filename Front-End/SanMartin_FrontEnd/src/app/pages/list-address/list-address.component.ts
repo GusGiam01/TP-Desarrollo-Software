@@ -39,8 +39,6 @@ export class AddressesComponent implements OnInit {
     });
   }
   
-
-  //Revisar desp 
   deleteAddress(addressId: string) {
     if (this.addresses.length > 1){
       console.log(addressId)

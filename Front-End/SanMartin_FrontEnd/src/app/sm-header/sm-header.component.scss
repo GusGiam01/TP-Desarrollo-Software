@@ -26,7 +26,6 @@
     list-style: none;
 }
 
-
 /*EXIT*/
 .exit-li{
     display: flex;
@@ -66,7 +65,6 @@
     text-decoration: none;
 }
 
-/*..............................................................*/
 /*TITULO*/
 .li_titulo{
     justify-self: center;
@@ -85,7 +83,7 @@
     background-image: url(../../../public/img/fondo-sanMartin.png);
     background-size: cover;
 }
-/*..............................................................*/
+
 /*ICONOS INGRESAR/CUENTA Y CARRITO*/
 .carrito-li{
     display: flex;
@@ -159,7 +157,6 @@
 
 
 //HEADER ESTILO BOMBAY
-
 .div-bottom{
     background-color: #aa524d;
     padding-top: 16px;
@@ -321,7 +318,6 @@
     /*TITULO*/
     .li_titulo{
         justify-self: center;
-        //padding-right: 20%;
     }
 
     .a_logo{
@@ -348,7 +344,6 @@
             left: 0%;
             width: 180px;
             min-height: fit-content;
-            //max-height: 500px;
             overflow: auto;
             background-color: #aa524d;
             border-radius: 5px;
@@ -520,7 +515,6 @@
             left: 0%;
             width: 180px;
             min-height: fit-content;
-            //max-height: 500px;
             overflow: auto;
             background-color: #aa524d;
             border-radius: 5px;
@@ -576,7 +570,6 @@
         }
     
     }
-    
     
     .menu_icon{
         display: block;
