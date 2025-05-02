@@ -9,6 +9,7 @@ import { lineOrderRouter } from './LineOrder/lineOrder.routes.js'
 import { addressRouter } from './Address/address.routes.js'
 import nodemailer from 'nodemailer';
 import cors from 'cors';
+import { MikroORM } from '@mikro-orm/mongodb'
 
 
 const app = express()
