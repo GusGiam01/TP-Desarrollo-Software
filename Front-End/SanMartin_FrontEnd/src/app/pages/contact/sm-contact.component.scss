@@ -1,0 +1,191 @@
+#div-contact{
+    font-family: 'SecondarySMfont';
+    margin-top: 180px;
+}
+
+#div-attention{
+    text-align: center;
+    font-size: 28px;
+}
+
+#title-attention{
+    margin-bottom: 0px;
+    display: block;
+}
+
+#day-attention{
+    margin-top: 0px;
+    font-weight: bolder;
+    display: block;
+}
+
+#ul-contact{
+    list-style: none;
+    display: flex;
+    padding-right: 40px;
+    padding-left: 0%;
+    justify-content: space-around;
+    text-align: center;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+    font-style: normal;
+
+}
+
+a:hover{
+    color: rgb(80, 79, 79);
+}
+
+.h3-contact{
+    margin-top: 8px;
+    margin-bottom: 8px;
+    font-size: 20px;
+}
+
+.span-contact{
+    font-size: 16px;
+    font-weight: normal;
+}
+
+
+#mail-logo{
+    height: 160px;
+    width: 160px;
+}
+
+#whatsapp-logo{
+    height: 160px;
+    width: 160px;
+}
+
+#instagram-logo{
+    height: 140px;
+    width: 140px;
+    margin-bottom: 20px;
+}
+
+#div-subscriptions{
+    background-color: #c0956d;
+    color: #8F342F;
+    padding-top: 2.85rem;
+    padding-bottom: 2.85rem;
+}
+
+#div-newsletter{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    
+}
+
+#h5-newsletter{
+    font-size: 25px;
+    display: flex;
+    margin: 10px 10px 10px 10px;
+}
+
+#input-email{
+    height: 38px;
+    width: 250px;
+    border: none;
+    padding-block: 1px;
+    padding-inline: 2px;
+    border: 0.5px solid #949393;
+    border-right: none;
+}
+
+#input-email:checked{
+    border: 0;
+}
+
+#button-confirm{
+    height: 41px;
+    width: 40px;
+    padding-block: 1px;
+    padding-inline: 2px;
+    border: 0.5px solid #949393;
+    border-left: none;
+    background-color: #EDDBCD;
+    justify-content: center;
+    vertical-align: middle;
+    padding-top: 2px;
+}
+
+#button-confirm:hover{
+    background-color: #8F342F;
+}
+
+#div-form{
+    display: flex;
+    vertical-align: middle;
+}
+
+#tick-img{
+    height: 30px;
+    width: 30px;
+}
+
+.div_h5{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.div_form-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+//SM - hasta:650px
+@media (max-width:650px) {
+    #div-contact{
+        margin-top: 130px;
+    }
+
+    #mail-logo{
+        height: 100px;
+        width: 100px;
+    }
+    
+    #whatsapp-logo{
+        height: 100px;
+        width: 100px;
+    }
+    
+    #instagram-logo{
+        height: 88px;
+        width: 80px;
+        margin-bottom: 13px;
+    }
+
+    .h3-contact{
+        font-size: 16px;
+        margin: 0%;
+    }
+    .span-contact{
+        font-size: 12px;
+    }
+
+    #ul-contact{
+        padding-right: 10px;
+    }
+
+    #h5-newsletter{
+        display: block;
+    }
+
+    #div-newsletter{
+        display: block;
+    }
+}
+
+//SM - hasta:1024px
+@media (min-width: 650px) and (max-width: 1024px) {
+    #div-contact{
+        margin-top: 130px;
+    }
+}

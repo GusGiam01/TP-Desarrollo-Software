@@ -1,0 +1,2 @@
+### Obtener todos los pedido
+GET http://localhost:3000/api/addresses

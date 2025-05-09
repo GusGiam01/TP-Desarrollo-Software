@@ -1,0 +1,90 @@
+### Obtener todos los productos
+GET http://localhost:3000/api/products
+
+### Crear un nuevo producto
+# @name createGin
+POST http://localhost:3000/api/products
+Content-Type: application/json
+{
+    "product": {
+      "code": "G2340",
+      "priceUni": 8000,
+      "name": "Gordon",
+      "stock": 4,
+      "type": "Gin",
+      "state": "Disponible",
+      "discount": 0,
+      "brand": "Aconcagua"
+    },
+    "quantity": 2,
+    "order": {
+      "id": 1,
+      "confirmDate": "2024-10-17T12:00:00Z", // Ejemplo de fecha en formato ISO 8601
+      "totalAmount": 16000,
+      "statusHistory": []
+    }
+}
+
+### ID
+@id = {{createGin.response.body.data.id}}
+
+### Obtener uno en particular
+GET http://localhost:3000/api/products/{{id}}
+
+### Crear un nuevo producto
+POST http://localhost:3000/api/products
+Content-Type: application/json
+{
+    "product": {
+      "code": "G2341",
+      "priceUni": 9500,
+      "name": "Tanqueray",
+      "stock": 3,
+      "type": "Gin",
+      "state": "Disponible",
+      "discount": 0,
+      "brand": "Tanqueray"
+    },
+    "quantity": 1,
+    "order": {
+      "id": 1,
+      "confirmDate": "2024-10-17T12:00:00Z",
+      "totalAmount": 9500,
+      "statusHistory": []
+    }
+}
+
+### Modificar un nuevo producto (PUT - recuro completo e idempotente)
+PUT http://localhost:3000/api/products/{{id}}
+Content-Type: application/json
+
+{
+    "product": {
+      "code": "G2342",
+      "priceUni": 7000,
+      "name": "Beefeater",
+      "stock": 5,
+      "type": "Gin",
+      "state": "Disponible",
+      "discount": 0,
+      "brand": "Beefeater"
+    },
+    "quantity": 3,
+    "order": {
+      "id": 2,
+      "confirmDate": "2024-10-17T12:00:00Z",
+      "totalAmount": 21000,
+      "statusHistory": []
+    }
+}
+
+### Modificar un nuevo producto (PATCH - recurso parcial)
+PATCH http://localhost:3000/api/products/{{id}}
+Content-Type: application/json
+
+{
+    "quantity": 7
+}
+
+### Borrar un elemento
+DELETE http://localhost:3000/api/products/{{id}}

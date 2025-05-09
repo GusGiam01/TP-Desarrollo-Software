@@ -1,0 +1,34 @@
+<div class="address-form-container">
+    <h2>Agregar Dirección</h2>
+    
+    <form class="form" [formGroup]="addressForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="zipCode">Código Postal</label>
+        <input type="text" id="zipCode" formControlName="zipCode" required>
+        <p *ngIf="validateZipCode()" class="error-message">Ingrese un código postal válido (4 dígitos).</p>
+      </div>
+  
+      <div class="form-group">
+        <label for="nickname">Apodo</label>
+        <input type="text" id="nickname" formControlName="nickname" required>
+        <p *ngIf="validateNickname()" class="error-message">Ingrese un nickname válido (únicamente caracteres alfanuméricos).</p>
+      </div>
+  
+      <div class="form-group">
+        <label for="address">Dirección</label>
+        <input type="text" id="address" formControlName="address" required>
+        <p *ngIf="validateAddress()" class="error-message">Ingrese una dirección válida.</p>
+      </div>
+  
+      <div class="form-group">
+        <label for="province">Provincia</label>
+        <input type="text" id="province" formControlName="province" required>
+        <p *ngIf="validateProvince()" class="error-message">Ingrese un nombre de provincia válido.</p>
+      </div>
+  
+      <div class="form-actions">
+        <button type="submit" [disabled]="validateForm()">Guardar</button>
+        <button type="button" class="cancel-btn" (click)="onCancel()">Cancelar</button>
+      </div>
+    </form>
+</div>
