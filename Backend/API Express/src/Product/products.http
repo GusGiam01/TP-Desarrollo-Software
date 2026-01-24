@@ -67,3 +67,7 @@ Content-Type: application/json
 
 ### Borrar un elemento
 DELETE http://localhost:3000/api/products/{{id}}
+
+### Borrar un elemento
+
+DELETE http://localhost:3000/api/products/6740a5e18057f76cd48ddb5e

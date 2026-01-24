@@ -34,3 +34,17 @@ a {
 p{
     margin-top: 0px;
 }
+
+//SM - hasta:650px
+@media (max-width: 650px) {
+    .ul-puntos{
+        margin-top: 140px;
+    }
+}
+
+//SM - hasta:1024px
+@media (min-width: 650px) and (max-width: 1024px) {
+    .ul-puntos{
+        margin-top: 140px;
+    }
+}

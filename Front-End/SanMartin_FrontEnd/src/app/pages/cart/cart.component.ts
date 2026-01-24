@@ -11,7 +11,8 @@ import { cartLineOrderI } from '../../modelos/cartLineOrder.interface.js';
   selector: 'app-cart',
   standalone: true,
   imports: [
-    NgFor
+    NgFor,
+    NgIf
   ],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss'
@@ -24,7 +25,7 @@ export class CartComponent {
   constructor(private api:ApiService, private router:Router){ }
 
   getLinesOrder(){
-    let orderId = "" + localStorage.getItem("orderId")
+    let orderId = "" + sessionStorage.getItem("orderId")
     if(orderId != null && orderId != ""){
       this.api.searchLinesOrderByOrderId(orderId).subscribe({
         next: (data) => {

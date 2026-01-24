@@ -1,12 +1,18 @@
+@font-face {
+  font-family: "SecondarySMfont";
+  src: url("../../../../public/font/puntosVenta/SaaSeriesCDOT.ttf")
+}
+
 .address-form-container {
     width: 100%;
     max-width: 600px;
     margin: 0 auto;
     margin-top: 180px;
     padding: 20px;
-    background-color: #fff;
+    background-color: #c0956d;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    font-family: "SecondarySMfont";
   
     h2 {
       text-align: center;
@@ -30,6 +36,7 @@
         border: 1px solid #ccc;
         border-radius: 4px;
         outline: none;
+        background-color: #EDDBCD;
   
         &:focus {
           border-color: #007bff;
@@ -48,11 +55,12 @@
         border: none;
         border-radius: 4px;
         cursor: pointer;
+        font-family: "SecondarySMfont";
       }
   
       button[type="submit"] {
-        background-color: #007bff;
-        color: white;
+        background-color: #aa524d;
+        color: rgb(0, 0, 0);
   
         &:disabled {
           background-color: #ccc;
@@ -70,5 +78,33 @@
         }
       }
     }
+
+    .error-message {
+      color: red;
+      font-weight: bold;
+    }
   }
-  
+
+//SM - hasta:650px
+@media (max-width:650px) {
+  .address-form-container{
+    max-width: 330px;
+    margin-top: 140px;
+
+    input {
+      max-width: 300px;
+    }
+  }
+}
+
+//MD - hasta:1024px
+@media (min-width: 650px) and (max-width:1024px) {
+  .address-form-container{
+    max-width: 600px;
+    margin-top: 140px;
+
+    input {
+      max-width: 550px;
+    }
+  }
+}

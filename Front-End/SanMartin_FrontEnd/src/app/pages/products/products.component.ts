@@ -109,10 +109,10 @@ export class ProductsComponent {
       next: (prod) => {
         const selectedProduct = prod.data;
         if (selectedProduct.stock >= q){
-          if (localStorage.getItem("orderId") == null || localStorage.getItem("orderId") == "") {
-            let userId = "" + localStorage.getItem("token");
+          if (sessionStorage.getItem("orderId") == null || sessionStorage.getItem("orderId") == "") {
+            let userId = "" + sessionStorage.getItem("token");
             let order:addOrderI = {
-              statusHistory: "",
+              statusHistory: "UNPAID",
               linesOrder: [],
               totalAmount: 0,
               user: userId
@@ -126,7 +126,7 @@ export class ProductsComponent {
             this.api.postOrder(order).subscribe({
               next: (co) => {
                 let dataResponseOrder:responseOrderI = co;
-                localStorage.setItem("orderId", dataResponseOrder.data.id);
+                sessionStorage.setItem("orderId", dataResponseOrder.data.id);
                 console.log(dataResponseOrder.data.id);
                 console.log("Se creo la orden.")
                 selectedProduct.stock = selectedProduct.stock - q;
@@ -145,7 +145,7 @@ export class ProductsComponent {
             })
           }
           else {
-            let orderId = ""+localStorage.getItem("orderId")
+            let orderId = ""+sessionStorage.getItem("orderId")
             console.log("orderId: ", orderId);
             this.api.searchOrderById(orderId).subscribe({
               next: (go) => {

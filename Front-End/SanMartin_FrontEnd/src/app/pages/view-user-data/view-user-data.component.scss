@@ -1,9 +1,15 @@
+@font-face {
+  font-family: "SecondarySMfont";
+  src: url("../../../../public/font/puntosVenta/SaaSeriesCDOT.ttf")
+}
+
 .user-card-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 180px;
   position: relative;
+  font-family: 'SecondarySMfont';
 
   .user-card {
     background-color: #fffaf0;
@@ -44,6 +50,7 @@
     cursor: pointer;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     transition: all 0.3s ease;
+    font-family: 'SecondarySMfont';
 
     &:hover {
       background-color: #b08968;
@@ -61,9 +68,44 @@
     font-size: 14px;
     cursor: pointer;
     transition: all 0.3s ease;
+    font-family: 'SecondarySMfont';
 
     &:hover {
       background-color: #784d36;
     }
+  }
+}
+
+
+//SM - hasta:650px
+@media (max-width: 650px){
+  .user-card-container{  
+    margin-top: 120px;
+
+    .modify-btn{
+      left: 120px
+    }
+
+    .user-card{
+      width:300px;
+      max-width: 300px;
+    }
+
+    h2 {
+      font-size: 12px;
+    }
+
+    .back-btn{
+      margin-bottom: 0%;
+    }
+  }
+
+  
+}
+
+//SM - hasta:1024px
+@media (min-width: 650px) and (max-width: 1024px) {
+  .user-card-container{  
+    margin-top: 120px;
   }
 }

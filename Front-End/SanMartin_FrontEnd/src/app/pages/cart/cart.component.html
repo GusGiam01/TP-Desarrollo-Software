@@ -26,6 +26,6 @@
         <span>TOTAL: $</span>
         <span>{{total}}</span>
     </div>
-    <button type="button" class="buy_btn" (click)="redirectToComponent()">CONTINUAR A LA COMPRA</button>
+    <button type="button" class="buy_btn" (click)="redirectToComponent()" *ngIf="total != 0">CONTINUAR A LA COMPRA</button>
    </div>
 </div>

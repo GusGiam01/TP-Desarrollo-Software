@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { SMHeaderComponent } from './pages/sm-header/sm-header.component.js';
+import { SMHeaderComponent } from './sm-header/sm-header.component.js';
 
 describe('AppComponent', () => {
   beforeEach(async () => {

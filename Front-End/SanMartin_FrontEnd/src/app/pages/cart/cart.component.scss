@@ -46,6 +46,7 @@ tr:last-child {
     border-radius: 2.5px;
     font-family: 'SecondarySMfont';
     font-size: 18px;
+    cursor: pointer;
 }
 
 .remove_btn{
@@ -64,4 +65,26 @@ tr:last-child {
     justify-content: center;
     align-items: center;
     flex-direction: row;
+}
+
+//SM - hasta:650px
+@media (max-width: 650px) {
+    .container{
+        tr {
+            padding-right: 5%;
+        }
+
+        margin-top: 130px;
+    }
+}
+
+//SM - hasta:1024px
+@media (min-width: 650px) and (max-width: 1024px) {
+    .container{
+        tr {
+            padding-right: 5%;
+        }
+
+        margin-top: 130px;
+    }
 }

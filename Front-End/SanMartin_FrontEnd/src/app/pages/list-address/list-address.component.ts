@@ -26,7 +26,7 @@ export class AddressesComponent implements OnInit {
 
  
   getAddresses(): void {
-    let userId = "" + localStorage.getItem("token");
+    let userId = "" + sessionStorage.getItem("token");
     this.api.searchAddressesByUserId(userId).subscribe({
       next: (data) => {
         for (let i = 0; i < data.data.length; i++ ){
@@ -39,12 +39,10 @@ export class AddressesComponent implements OnInit {
     });
   }
   
-
-  //Revisar desp 
   deleteAddress(addressId: string) {
     if (this.addresses.length > 1){
       console.log(addressId)
-      let userId = "" + localStorage.getItem("token");
+      let userId = "" + sessionStorage.getItem("token");
       const updatedAddresses = this.addresses.filter(address => address.id !== addressId);
       const addressesIds:Array<string> = [];
       for (let j = 0; j < updatedAddresses.length; j++){

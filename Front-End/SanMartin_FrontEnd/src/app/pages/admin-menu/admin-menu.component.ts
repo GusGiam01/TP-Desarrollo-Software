@@ -16,7 +16,24 @@ import { CommonModule, NgIf } from '@angular/common';
 export class AdminMenuComponent {
 
   constructor(private api: ApiService, private router: Router) { }
-  typeUser:string | null = localStorage.getItem("tipo");
+
+  userType = "";
+
+  ngOnInit():void{
+    this.getUser();
+  }
+
+  getUser(){
+    let id = "" + sessionStorage.getItem("token");
+    this.api.searchUserById(id).subscribe({
+      next: (data) => {
+        this.userType = data.data.type;
+      },
+      error: (e) => {
+        console.log(e)
+      }
+    })
+  }
 
   navigateTo() {
     this.router.navigate(['/add-product']);
@@ -31,10 +48,8 @@ export class AdminMenuComponent {
   }
 
   logout(){
-    localStorage.removeItem("token");
-    localStorage.removeItem("dni");
-    localStorage.removeItem("orderId");
-    localStorage.removeItem("type");
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("orderId");
     this.router.navigate(['home']).then(() => {
       location.reload()
     });

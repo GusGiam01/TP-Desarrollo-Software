@@ -22,13 +22,6 @@ import { catchError, map, finalize } from 'rxjs/operators';
   styleUrl: './view-single-order.component.scss'
 })
 export class ViewSingleOrderComponent {
-  /*
-    ngOnInit(): void {
-      this.getLinesOrder();
-      this.showOrder();
-    }
-  */
-
     ngOnInit(): void {
       this.getLinesOrder(() => {
         this.showOrder();
@@ -42,7 +35,7 @@ export class ViewSingleOrderComponent {
   constructor(private api: ApiService, private router: Router) { }
 
   showOrder(): void {
-    let orderId = "" + localStorage.getItem("orderId");
+    let orderId = "" + sessionStorage.getItem("orderId");
     this.api.searchOrderById(orderId).subscribe({
       next: (data) => {
         this.order.id = data.data.id;
@@ -61,32 +54,8 @@ export class ViewSingleOrderComponent {
       }
     })
   }
-  /*
-    getNameProduct(productId: string): string {
-      let nombreProduct: string = "";
-      this.api.searchProductById(productId).subscribe({
-        next: (data) => {
-          nombreProduct = data.data.name;
-        }
-      })
-      return nombreProduct;
-    }
-  
-    getPriceProduct(productId: string): number {
-      let nombreProduct: number = 0;
-      this.api.searchProductById(productId).subscribe({
-        next: (data) => {
-          nombreProduct = data.data.priceUni;
-        }
-      })
-      return nombreProduct;
-    }
-  */
   loadAddress(address: addressI): void {
-    console.log("Id de address:", address);
-    console.log("Id de address en order:", this.order.address);
     let addressId = "" + address;
-    console.log("Id de addressId:", address);
     if (address) {
       this.api.searchAddressById(addressId).subscribe({
         next: (data) => {
@@ -105,39 +74,8 @@ export class ViewSingleOrderComponent {
       console.error('Address ID is undefined');
     }
   }
-  /*
-    getLinesOrder(): void {
-      let orderId = "" + localStorage.getItem("orderId");
-      this.api.searchLinesOrderByOrderId(orderId).subscribe({
-        next: (data) => {
-          this.order.totalAmount = 0;
-          for (let i = 0; i < data.data.length; i++) {
-            this.api.searchProductById(data.data[i].product).subscribe({
-              next: (p) => {
-                let line: cartLineOrderI = {
-                  id: data.data[i].id,
-                  product: p.data,
-                  quantity: data.data[i].quantity
-                };
-                this.cartLinesOrder.push(line);
-                this.order.totalAmount = this.order.totalAmount + (p.data.priceUni * data.data[i].quantity);
-              },
-              error: (e) => {
-                console.log(e);
-              }
-            });
-          }
-        },
-        error: (e) => {
-          console.log(e);
-        }
-      });
-    }
-  */
-
     getLinesOrder(callback: () => void): void {
-    console.log("Entroooooooooooooooooooo al getLinesOrder");
-      let orderId = "" + localStorage.getItem("orderId");
+      let orderId = "" + sessionStorage.getItem("orderId");
       this.api.searchLinesOrderByOrderId(orderId).subscribe({
         next: (data) => {
           this.order.totalAmount = 0;
@@ -172,7 +110,7 @@ export class ViewSingleOrderComponent {
                   this.order.totalAmount += result.product.priceUni * result.line.quantity;
                 }
               });
-              callback(); // Llama al callback al finalizar
+              callback();
             },
             error: (q) => {
               console.error("Error in product requests:", q);

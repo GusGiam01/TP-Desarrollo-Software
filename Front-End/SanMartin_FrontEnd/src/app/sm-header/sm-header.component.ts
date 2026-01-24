@@ -1,5 +1,6 @@
 import { Component, EventEmitter, HostListener, Output } from '@angular/core';
 import { CommonModule, NgIf } from '@angular/common';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -7,12 +8,26 @@ import { CommonModule, NgIf } from '@angular/common';
   standalone: true,
   imports: [
     CommonModule,
-    NgIf
+    NgIf,
   ],
   templateUrl: './sm-header.component.html',
   styleUrl: './sm-header.component.scss'
 })
 export class SMHeaderComponent {
+  isActive = false;
+
+  options = [
+    {name: "Iniciar sesión", value: '/login'},
+    {name: "Productos", value: '/products'},
+    {name: "Carrito", value: '/cart'},
+    {name: "¿Dónde encontrarnos?", value: '/puntosVenta'},
+    {name: "Contactanos", value: '/contact'},
+    {name: "¿Quiénes somos?", value: '/about-us'},
+    
+  ]
+
+  constructor (private router:Router) {}
+
   pageId?: number;
   @Output() pageIdChange = new EventEmitter<number>();
   
@@ -20,21 +35,22 @@ export class SMHeaderComponent {
     this.pageIdChange.emit(this.pageId)
   }
 
-  loggedUser:string | null = localStorage.getItem("token");
-  typeUser:string | null = localStorage.getItem("tipo");
+  loggedUser:string | null = sessionStorage.getItem("token");
 
   ngOnInit():void{
-    this.loggedUser = localStorage.getItem("token");
-    this.typeUser = localStorage.getItem("type");
+    this.loggedUser = sessionStorage.getItem("token");
+    if (this.loggedUser != null && this.loggedUser != "") {
+      this.options[0] = {
+        name: "Cuenta",
+        value: "/admin-menu"
+      }
+    }
   }
 
   logOut(){
-    localStorage.removeItem("token");
-    localStorage.removeItem("type");
-    localStorage.removeItem("dni");
-    localStorage.removeItem("orderId");
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("orderId");
     this.loggedUser = null;
-    this.typeUser = null;
     location.reload();
   }
 
@@ -55,6 +71,15 @@ export class SMHeaderComponent {
       }
     }
     this.prevScrollpos = currentScrollpos;
+  }
+
+  toggleActive(){
+    this.isActive = !this.isActive
+  }
+
+  redirectToComponent(link:string) {
+    this.router.navigate([link]);
+    this.isActive = !this.isActive
   }
 }
 

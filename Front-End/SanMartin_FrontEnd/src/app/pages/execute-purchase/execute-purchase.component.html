@@ -42,28 +42,32 @@
             <div class="form-group">
                 <label for="cardNumber">Número de Tarjeta:</label>
                 <input type="text" id="cardNumber" name="cardNumber" formControlName="cardNumber" required />
+                <p *ngIf="validateCardNumber()" class="error-message">Ingrese un número de tarjeta válido (16 números). 
+                    Hágalo sin espacios, ni guiones.</p>
             </div>
 
             <div class="form-group">
                 <label for="expiryDate">Fecha de Vencimiento:</label>
                 <input type="month" id="expiryDate" name="expiryDate" formControlName="expiryDate" required />
+                <p *ngIf="validateExpiryDate()" class="error-message">Ingrese una fecha válida.</p>
             </div>
 
             <div class="form-group">
                 <label for="cvv">CVV:</label>
                 <input type="text" id="cvv" name="cvv" formControlName="cvv" required />
+                <p *ngIf="validateCVV()" class="error-message">Ingrese el CVV (son 3 dígitos).</p>
             </div>
 
             <div class="form-group">
-                <label for="cardholderName">Nombre del Titular:</label>
-                <input type="text" id="cardholderName" name="cardholderName" formControlName="cardholderName"
-                    required />
+                <label for="cardholderName">Nombre completo del titular:</label>
+                <input type="text" id="cardholderName" name="cardholderName" formControlName="cardholderName" required />
+                <p *ngIf="validateCardOwnerName()" class="error-message">Ingrese el nombre completo del titular.</p>
             </div>
         </section>
-
-        <button type="submit" class="buy_btn" [disabled]="!shippingForm.valid || addresses.length === 0">
+        
+        <button type="submit" class="buy_btn" [disabled]="validateForm()">         
             Efectuar Compra
-        </button>        
+        </button>
 
         <button type="submit" class="cancel_btn" (click)="goBack()">Volver</button>
     </form>

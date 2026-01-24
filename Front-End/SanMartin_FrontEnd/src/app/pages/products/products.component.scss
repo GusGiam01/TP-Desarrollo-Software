@@ -1,5 +1,4 @@
 .div_products{
-    //padding-top: 180px;
     display: flex;
     flex-wrap: wrap;
     justify-content: left;
@@ -60,7 +59,6 @@
 .product_img{
     height: 180px;
     width: 180px;
-    //background-color: #c0956d;
     margin-top: 1rem;
 }
 
@@ -91,7 +89,6 @@
 .counter_btn{
     width: 2rem;
     height: 2rem;
-    //background-color: #8F342F;
     background-color: #aa524d;
     border: none;
     border-radius: 2.5px;
@@ -119,10 +116,8 @@
 }
 
 .order-selector {
-    //position: absolute;
     justify-content: right;   
     right: 100px;
-    //top: 180px;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -137,4 +132,25 @@
 .div_filter-container{
     margin-top: 180px;
     padding: 10px;
+}
+
+//SM - hasta: 650px
+@media (max-width: 650px){
+    .div_filter-container{
+        margin-top: 130px;
+    }
+
+    .div_products{
+        justify-content: center;
+    }
+}
+
+//SM - hasta:1024px
+@media (min-width: 650px) and (max-width: 1024px) {
+    .div_filter-container{
+        margin-top: 130px;
+    }
+    .div_products{
+        justify-content: center;
+    }
 }
