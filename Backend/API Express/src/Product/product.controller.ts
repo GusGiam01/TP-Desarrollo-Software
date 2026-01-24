@@ -34,7 +34,7 @@ async function findAll(req: Request, res: Response) {
     )
     res.status(200).json({ message: 'found all products', data: products })
   } catch (error: any) {
-    res.status(500).json({ message: error.message })
+    res.status(503).json({ message: error.message })
   }
 }
 
