@@ -3,3 +3,15 @@ pnpm run start:dev
 
 Abrir el FrontEnd
 ng serve -o
+
+Levantar docker de MongoDB
+docker compose up -d
+docker compose -f "DockerCompose\docker-compose.yml" up -d
+
+Frenar docker de MongoDB
+docker compose down
+
+Comandos útiles
+docker ps
+docker logs -f mongo
+docker exec -it mongo mongosh -u admin -p admin123 --authenticationDatabase admin
