@@ -7,6 +7,11 @@ import { set } from "mongoose"
 
 const em = orm.em
 
+function normalizeDni(dni: unknown): string | undefined {
+  if (dni === undefined || dni === null) return undefined;
+  return String(dni).replace(/\D/g, ''); // deja solo números
+}
+
 function sanitizeUserInput(req: Request, res: Response, next: NextFunction) {
   req.body.sanitizedUserInput = {
     name: req.body.name,
@@ -18,14 +23,14 @@ function sanitizeUserInput(req: Request, res: Response, next: NextFunction) {
     cellphone: req.body.cellphone,
     age: req.body.age,
     birthDate: req.body.birthDate,
-    dni: req.body.dni,
+    dni: normalizeDni(req.body.dni),
     addresses: req.body.addresses 
   }
 
 
   Object.keys(req.body.sanitizedUserInput).forEach((key) => {
     if (req.body.sanitizedUserInput[key] === undefined) {
-      delete req.body.sanitizedUserInput[key]
+      delete req.body.sanitizedUserInput[key];
     }
   })
 
@@ -56,27 +61,39 @@ async function findOne(req: Request, res: Response, id:string) {
 
 async function add(req: Request, res: Response) {
   try {
-    const user = em.create(User, req.body.sanitizedUserInput)
-    await em.flush()
-    res.status(201).json({ message: 'user created', data: user })
+    const user = em.create(User, req.body.sanitizedUserInput);
+    await em.flush();
+    return res.status(201).json({ message: 'user created', data: user });
   } catch (error: any) {
-    res.status(500).json({ message: error.message })
+    // Mongo duplicate key suele incluir "E11000"
+    if (String(error?.message).includes('E11000')) {
+      return res.status(409).json({ message: 'User already exists (duplicate unique field)' });
+    }
+    return res.status(500).json({ message: error.message });
   }
 }
 
 async function update(req: Request, res: Response) {
   try {
-    
-    const id = req.params.id
-    const userToUpdate = await em.findOneOrFail(User, { id })
-    em.assign(userToUpdate, req.body.sanitizedUserInput)
-    await em.flush()
-    console.log(req.body.sanitizedUserInput)
-    res
-      .status(200)
-      .json({ message: 'user updated', data: userToUpdate })
+    const id = req.params.id;
+    const userToUpdate = await em.findOneOrFail(User, { id });
+
+    em.assign(userToUpdate, req.body.sanitizedUserInput);
+    await em.flush();
+
+    return res.status(200).json({ message: 'user updated', data: userToUpdate });
   } catch (error: any) {
-    res.status(500).json({ message: error.message })
+    // Duplicado por unique index en Mongo
+    if (String(error?.message).includes('E11000')) {
+      return res.status(409).json({ message: 'Duplicate value for a unique field (dni)' });
+    }
+
+    // Si no encuentra el usuario
+    if (error?.name === 'NotFoundError') {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    return res.status(500).json({ message: error.message });
   }
 }
 

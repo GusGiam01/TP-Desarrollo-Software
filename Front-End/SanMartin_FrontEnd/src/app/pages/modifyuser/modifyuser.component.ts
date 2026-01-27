@@ -42,7 +42,7 @@ export class EditUserComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userId = "" + sessionStorage.getItem("token");
+    this.userId = "" + localStorage.getItem("token");
     this.loadUserData(this.userId);
   }
 

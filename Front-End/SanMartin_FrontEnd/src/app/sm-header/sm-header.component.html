@@ -39,7 +39,7 @@
             </li>
 
             <li class="exit-li" *ngIf="loggedUser != null">
-                <a href="/" class="exit-a" (click)="logOut();pageId = 2; emitPageId();">
+                <a routerLink="/" class="exit-a" (click)="logOut();pageId = 2; emitPageId();">
                     <span class="dot-exit">
                         <img class="exit-img" src="svg/exit.svg" alt="exit">
                     </span>
@@ -54,7 +54,7 @@
             </li>
             
             <li class="ingresar-li" *ngIf="loggedUser != null">
-                <a href="/admin-menu" class="ingresar_carrito-a" (click)="pageId = 2; emitPageId();">
+                <a routerLink="/admin-menu" class="ingresar_carrito-a" (click)="pageId = 2; emitPageId();">
                     <span class="dot">
                         <img class="ingresar-img" src="svg/account.svg" alt="ingresar">
                     </span>
@@ -63,7 +63,7 @@
             </li>
 
             <li class="ingresar-li" *ngIf="loggedUser == null">
-                <a href="/login" class="ingresar_carrito-a" (click)="pageId = 2; emitPageId();">
+                <a routerLink="/login" class="ingresar_carrito-a" (click)="pageId = 2; emitPageId();">
                     <span class="dot">
                         <img class="ingresar-img" src="svg/account.svg" alt="ingresar">
                     </span>
@@ -72,7 +72,7 @@
             </li>
             
             <li class="carrito-li" (click)="pageId = 3; emitPageId();">
-                <a href="/cart" class="ingresar_carrito-a" >
+                <a routerLink="/cart" class="ingresar_carrito-a" >
                     <span class="dot">
                         <img class="carrito-img" src="svg/trolley.svg" alt="carrito">
                     </span>
@@ -83,24 +83,25 @@
         </ul>
     </nav>
     <!-- HEADER ESTILO BOMBAY -->
-    <div class="div-bottom" id="bottom_menu" (scroll)="onScroll()" >
+    <!-- <div class="div-bottom" id="bottom_menu" (scroll)="onScroll()" > -->
+    <div class="div-bottom" id="bottom_menu" >
         <div class="compressed_menu">
             <div>
                 <ul class="ul-bottom">
                     <li class="li-bottom_menu" (click)="pageId = 6; emitPageId();">
-                        <a href="/about-us" class="a_li-bottom_menu">
+                        <a routerLink="/about-us" class="a_li-bottom_menu">
                             ¿QUIENES SOMOS?
                         </a>
                     </li>
                     <li class="li-bottom_menu">|</li>
                     <li class="li-bottom_menu" (click)="pageId = 5; emitPageId();">
-                        <a href="/products" class="a_li-bottom_menu">
+                        <a routerLink="/products" class="a_li-bottom_menu">
                             PRODUCTOS
                         </a>
                     </li>
                     <li class="li-bottom_menu">|</li>
                     <li class="li-bottom_menu" (click)="pageId = 1; emitPageId();">
-                        <a href="/puntosVenta" class="a_li-bottom_menu" >
+                        <a routerLink="/puntosVenta" class="a_li-bottom_menu" >
                             ¿DÓNDE ENCONTRARNOS?
                         </a>
                     </li>

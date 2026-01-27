@@ -7,6 +7,7 @@ import {
   Rel,
   Collection,
   OneToMany,
+  Unique,
 } from '@mikro-orm/core'
 
 import { BaseEntity } from '../shared/db/baseEntity.entity.js'
@@ -39,6 +40,7 @@ export class User extends BaseEntity {
   @Property({ type: 'Date', nullable: false })
   birthDate!: Date
 
+  @Unique()
   @Property({ type: 'string', nullable: false })
   dni!: string
 

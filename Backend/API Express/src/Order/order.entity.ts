@@ -7,6 +7,8 @@ import { Address } from '../Address/address.entity.js'
 
 @Entity()
 export class Order extends BaseEntity {
+  // No seria mejor agregarle un ID?
+
   @Property({ type: 'Date', nullable: true })
   confirmDate?: Date;
 

@@ -58,7 +58,7 @@ export class ExecutePurchaseComponent implements OnInit {
   }
 
   getLinesOrder(): void {
-    let orderId = '' + sessionStorage.getItem('orderId');
+    let orderId = '' + localStorage.getItem('orderId');
     this.api.searchLinesOrderByOrderId(orderId).subscribe({
       next: (data) => {
         this.order.totalAmount = 0;
@@ -89,7 +89,7 @@ export class ExecutePurchaseComponent implements OnInit {
 
   loadUserAddresses(): void {
     this.api
-      .searchAddressesByUserId('' + sessionStorage.getItem('token'))
+      .searchAddressesByUserId('' + localStorage.getItem('token'))
       .subscribe({
         next: (data) => {
           this.addresses = data.data;
@@ -113,7 +113,7 @@ export class ExecutePurchaseComponent implements OnInit {
       return;
     }
 
-    let orderId = '' + sessionStorage.getItem('orderId');
+    let orderId = '' + localStorage.getItem('orderId');
     this.api.searchOrderById(orderId).subscribe({
       next: (data) => {
         let cardData = {
@@ -136,7 +136,7 @@ export class ExecutePurchaseComponent implements OnInit {
         this.api.updateOrder(completeOrder).subscribe({
           next: () => {
             console.log('Actualizado.');
-            sessionStorage.removeItem('orderId');
+            localStorage.removeItem('orderId');
             this.router.navigate(['/thanks']);
           },
           error: (r) => {

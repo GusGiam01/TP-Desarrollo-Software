@@ -30,7 +30,7 @@ export class ViewUserDataComponent {
   }
 
   loadUserData():void{
-    let userId = "" + sessionStorage.getItem("token");
+    let userId = "" + localStorage.getItem("token");
     this.api.searchUserById(userId).subscribe({
       next: (data) => {
         this.user = data.data;

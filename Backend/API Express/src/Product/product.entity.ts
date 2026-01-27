@@ -18,7 +18,8 @@ import { LineOrder } from '../LineOrder/lineOrder.entity.js'
   @Entity()
   export class Product extends BaseEntity {
 
-    @Property({ type: 'string', nullable: false, unique: true })
+    @Unique()
+    @Property({ type: 'string' })
     code!: string
   
     @Property({ type: 'number', nullable: false })
@@ -33,7 +34,7 @@ import { LineOrder } from '../LineOrder/lineOrder.entity.js'
     @Property({ type: 'string', nullable: false })
     state!: string
 
-    @Property({ type: 'number', nullable: false })
+    @Property({ type: 'number', nullable: true })
     discount?: number
 
     @Property({ type: 'string', nullable: false })

@@ -42,7 +42,7 @@ Content-Type: application/json
     "dni": "22457894"
 }
 
-### Modificar un nuevo usuario (PUT - recuro completo e idempotente)
+### Modificar un nuevo usuario (PUT - recurso completo e idempotente)
 PUT http://localhost:3000/api/users/{{id}}
 Content-Type: application/json
 
@@ -68,6 +68,16 @@ Content-Type: application/json
     "surname":"Galperin", 
     "cellphone":"3364651748",
     "age":40
+}
+
+@id1 = 697932e646593e4019def5cf
+
+### Modificar tipo de usuario (PATCH - recurso parcial)
+PATCH http://localhost:3000/api/users/{{id1}}
+Content-Type: application/json
+
+{
+    "type":"Admin"
 }
 
 

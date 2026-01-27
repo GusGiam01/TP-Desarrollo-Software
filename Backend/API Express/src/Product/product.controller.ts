@@ -4,9 +4,16 @@ import { orm } from "../shared/db/orm.js"
 
 const em = orm.em
 
+function normalizeCode(code: unknown): string | undefined {
+  if (code === undefined || code === null) return undefined;
+  return String(code).trim().toUpperCase(); // opcional pero recomendable
+}
+
 function sanitizeProductInput(req: Request, res: Response, next: NextFunction) {
+  const code = normalizeCode(req.body.code);
+
   req.body.sanitizedProductInput = {
-    code: req.body.code,
+    code,
     priceUni: req.body.priceUni,
     name: req.body.name,
     stock: req.body.stock,
@@ -14,13 +21,11 @@ function sanitizeProductInput(req: Request, res: Response, next: NextFunction) {
     state: req.body.state,
     discount: req.body.discount,
     brand: req.body.brand,
-    img: "img/products/" + req.body.code + ".png"
-  }
+    ...(code ? { img: `img/products/${code}.png` } : {}),
+  };
 
   Object.keys(req.body.sanitizedProductInput).forEach((key) => {
-    if (req.body.sanitizedProductInput[key] === undefined) {
-      delete req.body.sanitizedProductInput[key]
-    }
+    if (req.body.sanitizedProductInput[key] === undefined) delete req.body.sanitizedProductInput[key];
   })
 
   next()
@@ -52,9 +57,12 @@ async function add(req: Request, res: Response) {
   try {
     const product = em.create(Product, req.body.sanitizedProductInput)
     await em.flush()
-    res.status(201).json({ message: 'product created', data: product })
+    return res.status(201).json({ message: 'product created', data: product })
   } catch (error: any) {
-    res.status(500).json({ message: error.message })
+    if (String(error?.message).includes('E11000')) {
+      return res.status(409).json({ message: 'Product already exists (duplicate unique field)' });
+    }
+    return res.status(500).json({ message: error.message });
   }
 }
 
@@ -64,11 +72,17 @@ async function update(req: Request, res: Response) {
     const productToUpdate = await em.findOneOrFail(Product, { id })
     em.assign(productToUpdate, req.body.sanitizedProductInput)
     await em.flush()
-    res
-      .status(200)
-      .json({ message: 'product updated', data: productToUpdate })
+    return res.status(200).json({ message: 'product updated', data: productToUpdate })
   } catch (error: any) {
-    res.status(500).json({ message: error.message })
+    if (String(error?.message).includes('E11000')) {
+      return res.status(409).json({ message: 'Duplicate value for a unique field (código)' });
+    }
+
+    if (error?.name === 'NotFoundError') {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    return res.status(500).json({ message: error.message });
   }
 }
 
@@ -84,7 +98,7 @@ async function remove(req: Request, res: Response) {
 
 async function findOneByCode(req: Request, res: Response) {
   try {
-    const code = req.params.code
+    const code = String(req.params.code).trim().toUpperCase();
     const product = await em.findOneOrFail(Product, { code })
     res.status(200).json({ message: 'found product', data: product })
   } catch (error: any) {
