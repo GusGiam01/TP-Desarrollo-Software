@@ -26,9 +26,10 @@
         <div class="form-group">
             <label for="address">Dirección</label>
             <ng-container *ngIf="addresses && addresses.length > 0; else noAddresses">
-                <select id="address" formControlName="address">
-                    <option *ngFor="let address of addresses" [value]="address.id">
-                        {{ address.nickname }} - {{ address.address }}
+                <select formControlName="address" (change)="syncAddressToMP()">
+                    <option value="" disabled selected>Seleccioná una dirección</option>
+                    <option *ngFor="let a of addresses" [value]="a.id">
+                        {{ a.nickname }} - {{ a.address }}
                     </option>
                 </select>
             </ng-container>
@@ -67,6 +68,10 @@
         
         <button type="submit" class="buy_btn" [disabled]="validateForm()">         
             Efectuar Compra
+        </button>
+
+        <button class="btn-mp" (click)="pagarConMercadoPago()">
+            Pagar con Mercado Pago
         </button>
 
         <button type="submit" class="cancel_btn" (click)="goBack()">Volver</button>

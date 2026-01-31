@@ -30,7 +30,7 @@ Content-Type: application/json
 ### Obtener uno en particular
 GET http://localhost:3000/api/orders/
 ### Crear un nuevo ordero
-POST http://localhost:3000/api/orders
+POST http://localhost:3000/api/orders/
 Content-Type: application/json
 {
     "confirmDate": "2024-10-17T11:00:00Z",

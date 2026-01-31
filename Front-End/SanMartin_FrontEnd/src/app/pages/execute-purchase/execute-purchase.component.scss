@@ -119,6 +119,21 @@
       cursor: not-allowed;
     }
   }
+
+  .btn-mp{
+    padding: 10px 18px;
+    border: 2px solid #8F342F;
+    background: #8F342F;
+    color: #EDDBCD;
+    border-radius: 4px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+
+  .btn-mp:hover{
+    filter: brightness(1.05);
+  }
   
   @media (max-width: 768px) {
     .order-summary-header, .order-summary-item {

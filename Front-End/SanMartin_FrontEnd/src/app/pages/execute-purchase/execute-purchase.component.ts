@@ -13,6 +13,7 @@ import {
 } from '@angular/forms';
 import { responseAddressesI } from '../../modelos/responseAddresses.interface.js';
 import { addressI } from '../../modelos/address.interface.js';
+import { MercadopagoService } from '../../servicios/api/mercadopago.service.js';
 
 @Component({
   selector: 'app-execute-purchase',
@@ -21,6 +22,7 @@ import { addressI } from '../../modelos/address.interface.js';
   templateUrl: './execute-purchase.component.html',
   styleUrls: ['./execute-purchase.component.scss'],
 })
+
 export class ExecutePurchaseComponent implements OnInit {
   addresses: Array<addressI> = [];
 
@@ -29,6 +31,10 @@ export class ExecutePurchaseComponent implements OnInit {
     expiryDate: new FormControl('', Validators.required),
     cvv: new FormControl('', Validators.required),
     cardholderName: new FormControl('', Validators.required),
+    address: new FormControl('', Validators.required),
+  });
+
+  shippingForm_MP = new FormGroup({
     address: new FormControl('', Validators.required),
   });
 
@@ -98,6 +104,64 @@ export class ExecutePurchaseComponent implements OnInit {
           console.log(e);
         },
       });
+  }
+
+  syncAddressToMP() {
+    const v = this.shippingForm.get('address')?.value ?? null;
+    this.shippingForm_MP.get('address')?.setValue(v);
+  }
+
+  pagarConMercadoPago(): void {
+    if (this.addresses.length === 0) {
+      alert('Debe cargar al menos una dirección antes de efectuar la compra.');
+      return;
+    }
+
+    const orderId = '' + localStorage.getItem('orderId');
+    const selectedAddressId = '' + this.shippingForm_MP.get('address')?.value;
+
+    if (!orderId || orderId === 'null') {
+      alert('No hay una orden válida para pagar.');
+      return;
+    }
+
+    if (!selectedAddressId) {
+      alert('Seleccioná una dirección.');
+      return;
+    }
+
+    // 1) Traigo la orden real
+    this.api.searchOrderById(orderId).subscribe({
+      next: (data) => {
+        // 2) La actualizo con dirección + estado "pendiente de pago"
+        const updatedOrder: orderI = {
+          id: data.data.id,
+          user: data.data.user,
+          linesOrder: data.data.linesOrder,
+          totalAmount: data.data.totalAmount,
+          statusHistory: 'PENDING_PAYMENT',
+          confirmDate: new Date(),
+          address: selectedAddressId,
+        } as any;
+
+        this.api.updateOrder(updatedOrder).subscribe({
+          next: () => {
+            // 3) Creo preference en el back y redirijo
+            this.api.createMercadoPagoPreference(orderId).subscribe({
+              next: (r) => {
+                window.location.href = r.initPoint;
+              },
+              error: (err) => {
+                console.log(err);
+                alert('No se pudo iniciar el pago con Mercado Pago.');
+              },
+            });
+          },
+          error: (r) => console.log(r),
+        });
+      },
+      error: (e) => console.log(e),
+    });
   }
 
   calculateOrderTotal(): void {

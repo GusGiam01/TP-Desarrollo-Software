@@ -183,4 +183,17 @@ export class ApiService {
         let direction = this.url + "/data"
         return this.http.get<any>(direction)
     }
+    
+    createMercadoPagoPreference(orderId: string) {
+        const token = localStorage.getItem("token") ?? "";
+        return this.http.post<{ preferenceId: string; initPoint: string }>(
+            "/api/mercadopago/preference",
+            { orderId },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+    }
 }
