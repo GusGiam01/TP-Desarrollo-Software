@@ -1,0 +1,10 @@
+version: "2"
+authtoken: 395jpU48oJv6qFn392QADpQVp8r_81Fcdw2C6P5tUFcCdxNMS
+
+tunnels:
+  front:
+    proto: http
+    addr: 4200
+  back:
+    proto: http
+    addr: 3000

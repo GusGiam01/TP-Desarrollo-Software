@@ -28,6 +28,7 @@
     "express": "^4.19.2",
     "mercadopago": "^2.12.0",
     "mongoose": "^8.8.1",
+    "ngrok": "5.0.0-beta.2",
     "nodemailer": "^6.9.16",
     "reflect-metadata": "0.2.2"
   }

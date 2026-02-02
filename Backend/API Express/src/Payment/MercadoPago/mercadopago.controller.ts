@@ -3,8 +3,8 @@ import { MercadoPagoConfig, Preference } from "mercadopago";
 import { orm } from "../../shared/db/orm.js";
 import { Order } from "../../Order/order.entity.js";
 
-const FRONT_URL = process.env.FRONT_URL ?? "http://localhost:4200";
-const API_PUBLIC_URL = process.env.API_PUBLIC_URL ?? "http://localhost:3000"; 
+const FRONT_URL = process.env.FRONT_URL || "http://localhost:4200";
+const API_PUBLIC_URL = process.env.API_PUBLIC_URL || "http://localhost:3000";
 
 export const createPreference = async (req: Request, res: Response) => {
   const token = process.env.MP_ACCESS_TOKEN;
@@ -60,28 +60,33 @@ export const createPreference = async (req: Request, res: Response) => {
     const client = new MercadoPagoConfig({ accessToken: token });
     const preference = new Preference(client);
 
-    // payer email si está disponible
     const payerEmail = (order.user && (order.user as any).mail) ? String((order.user as any).mail) : undefined;
 
-    const result = await preference.create({
-      body: {
-        items,
-        external_reference: String(orderId),
+    console.log("FRONT_URL=", JSON.stringify(FRONT_URL));
+    console.log("SUCCESS_URL=", `${FRONT_URL}/order-status?orderId=${orderId}&mpResult=success`);
 
-        ...(payerEmail ? { payer: { email: payerEmail } } : {}),
+    const body = {
+      items,
+      external_reference: String(orderId),
 
-        /*back_urls: {
-          success: `${FRONT_URL}/pago-exitoso`,
-          failure: `${FRONT_URL}/pago-fallido`,
-          pending: `${FRONT_URL}/pago-pendiente`,
-        },*/
-        //auto_return: "approved",
+      ...(payerEmail ? { payer: { email: payerEmail } } : {}),
 
-        // webhook (recomendado para estado real)
-        // OJO: en local esto NO llega si no usás ngrok.
-        notification_url: `${API_PUBLIC_URL}/api/mercadopago/webhook`,
+      back_urls: {
+        success: `${FRONT_URL}/order-status?orderId=${orderId}&mpResult=success`,
+        failure: `${FRONT_URL}/order-status?orderId=${orderId}&mpResult=failure`,
+        pending: `${FRONT_URL}/order-status?orderId=${orderId}&mpResult=pending`,
       },
-    });
+
+      auto_return: "approved",
+
+      notification_url: `${API_PUBLIC_URL}/api/mercadopago/webhook`,
+    };
+
+    console.log("MP preference body JSON:", JSON.stringify(body, null, 2));
+    console.log("FRONT_URL:", JSON.stringify(FRONT_URL));
+    //console.log("MP back_urls:", body.back_urls);
+
+    const result = await preference.create({body});
 
     return res.json({
       preferenceId: result.id,
@@ -96,6 +101,52 @@ export const createPreference = async (req: Request, res: Response) => {
     return res.status(500).json({
       error: e?.message ?? "Error creando preferencia",
       details: e?.response?.data ?? e?.cause ?? null,
+    });
+  }
+};
+
+export const getOrderPaymentStatus = async (req: Request, res: Response) => {
+  const { orderId } = req.params as { orderId?: string };
+  if (!orderId) {
+    return res.status(400).json({ error: "orderId es requerido" });
+  }
+
+  try {
+    const em = orm.em.fork();
+
+    const order = await em.findOne(
+      Order,
+      { id: orderId },
+      { populate: ["linesOrder.product", "user"] } as any
+    );
+
+    if (!order) {
+      return res.status(404).json({ error: "Order no encontrada" });
+    }
+
+    // Estos campos deberían ser los mismos que seteás en el webhook
+    const status = (order as any).status ?? null;         // ej: "PAID" | "PENDING_PAYMENT" | ...
+    const mpPaymentId = (order as any).mpPaymentId ?? null;
+    const paidAt = (order as any).paidAt ?? null;
+
+    // Total (opcional, pero útil para mostrar en el front)
+    const total = ((order as any).linesOrder ?? []).reduce((acc: number, lo: any) => {
+      const qty = Number(lo?.quantity ?? 0) || 0;
+      const price = Number(lo?.product?.priceUni ?? 0) || 0;
+      return acc + qty * price;
+    }, 0);
+
+    return res.json({
+      orderId: String(orderId),
+      status,
+      mpPaymentId,
+      paidAt,
+      total,
+    });
+  } catch (e: any) {
+    console.error("getOrderPaymentStatus error:", e?.message ?? e);
+    return res.status(500).json({
+      error: e?.message ?? "Error obteniendo estado de pago",
     });
   }
 };

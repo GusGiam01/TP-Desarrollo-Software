@@ -1,0 +1,73 @@
+<div class="wrap">
+  <div class="card" [ngClass]="mpThemeClass()">
+    <div class="header">
+      <div class="title">Estado de la orden</div>
+
+      <div *ngIf="orderId" class="subtitle">
+        Orden: <span class="mono">{{ orderId }}</span>
+      </div>
+    </div>
+
+    <!-- Banner según mpResult -->
+    <div *ngIf="mpResult" class="mp-banner" [ngClass]="'mp-banner--' + mpResult">
+      <div class="mp-banner__title">{{ mpBannerTitle() }}</div>
+      <div class="mp-banner__msg">{{ mpBannerMessage() }}</div>
+    </div>
+
+    <!-- Loading -->
+    <div *ngIf="loading" class="state">
+      <div class="spinner" aria-label="Cargando"></div>
+      <div class="state-text">Consultando el estado del pago…</div>
+    </div>
+
+    <!-- Error -->
+    <div *ngIf="!loading && errorMsg" class="alert alert--error">
+      <div class="alert-title">No se pudo obtener el estado</div>
+      <div class="alert-msg">{{ errorMsg }}</div>
+
+      <div class="actions">
+        <button class="btn btn--primary" (click)="onRetry()">Reintentar</button>
+        <button class="btn btn--ghost" (click)="goHome()">Volver</button>
+      </div>
+    </div>
+
+    <!-- Data -->
+    <ng-container *ngIf="!loading && !errorMsg && data as d">
+      <div class="status-row">
+        <span [class]="statusBadgeClass(d.status)">
+          {{ statusTitle(d.status) }}
+        </span>
+      </div>
+
+      <div class="message">
+        {{ statusMessage(d.status) }}
+      </div>
+
+      <div class="grid">
+        <div class="kv">
+          <div class="k">Total</div>
+          <div class="v">{{ formatMoneyARS(d.total ?? null) }}</div>
+        </div>
+
+        <div class="kv">
+          <div class="k">Payment ID</div>
+          <div class="v mono">{{ d.mpPaymentId ?? '-' }}</div>
+        </div>
+
+        <div class="kv">
+          <div class="k">Pagado el</div>
+          <div class="v">{{ formatDate(d.paidAt ?? null) }}</div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn--primary" (click)="onRetry()">Actualizar</button>
+        <button class="btn btn--ghost" (click)="goHome()">Volver</button>
+      </div>
+
+      <div class="hint" *ngIf="isPendingLike(d.status)">
+        Actualizamos automáticamente por un minuto mientras el pago esté pendiente.
+      </div>
+    </ng-container>
+  </div>
+</div>
