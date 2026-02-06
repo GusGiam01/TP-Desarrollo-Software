@@ -10,23 +10,18 @@ import { userI } from '../../modelos/user.interface.js';
 import { signinI } from '../../modelos/signin.interface.js';
 
 @Component({
-  selector: 'app-log-in',
+  selector: 'app-create-account',
   standalone: true,
   imports: [
     ReactiveFormsModule,
     FormsModule
   ],
-  templateUrl: './log-in.component.html',
-  styleUrl: './log-in.component.scss'
+  templateUrl: './create-account.component.html',
+  styleUrl: './create-account.component.scss'
 })
-export class LogInComponent {
+export class CreateAccountComponent {
 
   dni = "";
-
-  loginForm = new FormGroup({
-    dni : new FormControl('', Validators.required),
-    password : new FormControl('', Validators.required)
-  })
 
   signinForm = new FormGroup({
     name : new FormControl('', Validators.required),
@@ -48,33 +43,6 @@ export class LogInComponent {
   }
 
   constructor(private api:ApiService, private router:Router){ }
-
-  onLogin(form:any){
-     const login:loginI= {
-     dni: form.dni,
-     password: form.password
-    }
-    this.api.searchUserByDni(form.dni).subscribe({
-      next: (data) => {
-        let dataResponse:responseI = data;
-        console.log(dataResponse.data)
-        if (dataResponse.data.dni == form.dni && dataResponse.data.password == form.password){
-
-          sessionStorage.setItem("token", dataResponse.data.id);
-          this.router.navigate(['home']).then(() => {
-            location.reload()
-          });
-        } 
-        else {
-          alert("La contraseña ingresada es incorrecta.")
-        }
-      },
-      error: (e) => {
-        alert("No exite usuario con ese número de documento.")
-        console.log(e);
-      }
-    });
-  }
 
   OnSignUp(form:any){
     let userType = "CLIENT";
@@ -107,9 +75,9 @@ export class LogInComponent {
               this.api.postUser(user).subscribe({
                 next: (data) => {
                   let dataResponse:responseI = data;
-                  sessionStorage.setItem("token", dataResponse.data.id);
-                  sessionStorage.setItem("dni", dataResponse.data.dni);
-                  sessionStorage.setItem("type", dataResponse.data.type);
+                  localStorage.setItem("token", dataResponse.data.id);
+                  localStorage.setItem("dni", dataResponse.data.dni);
+                  localStorage.setItem("type", dataResponse.data.type);
                   this.router.navigate(['home']).then(() => {
                     location.reload()
                   });
@@ -122,35 +90,4 @@ export class LogInComponent {
     })
   }
 
-  recoverPassword(dni:string){
-    if (dni != "") {
-      this.api.searchUserByDni(dni).subscribe({
-        next: (data) => {
-          const emailData = {
-            to: data.data.mail,
-            subject: "Recuperar contraseña",
-            text: "Su contraseña es " + data.data.password
-          }
-          this.api.sendEmail(emailData).subscribe({
-            next: (response) => {
-              alert('Hemos enviado un mail a su correo!');
-            },
-            error: (e) => {
-              alert('Hubo un error al enviar el correo de recuperacion');
-              console.error(e);
-            }
-          });
-        },
-        error: (e) => {
-          console.log(e)
-          alert('No existe ninguna cuenta con ese DNI.')
-        }
-      })
-    }
-    else {
-      alert('Por favor ingrese su DNI para poder recurperar su contraeña.')
-    }
-    
-  }
 }
-

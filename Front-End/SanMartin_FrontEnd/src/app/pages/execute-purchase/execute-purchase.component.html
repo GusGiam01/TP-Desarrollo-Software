@@ -1,74 +1,61 @@
 <div class="container">
-    <h1>Detalles de la Compra</h1>
+  <h1>Detalles de la Compra</h1>
 
-    <section class="order-summary">
-        <h2>Resumen de tu Pedido</h2>
-        <div class="order-summary-header">
-            <p>Producto</p>
-            <p>Precio</p>
-            <p>Cantidad</p>
-            <p>Subtotal</p>
-        </div>
+  <section class="order-summary">
+    <h2>Resumen de tu Pedido</h2>
+    <div class="order-summary-header">
+      <p>Producto</p>
+      <p>Precio</p>
+      <p>Cantidad</p>
+      <p>Subtotal</p>
+    </div>
 
-        <div *ngFor="let item of cartLinesOrder" class="order-summary-item">
-            <p>{{ item.product.name }}</p>
-            <p>{{ item.product.priceUni}}</p>
-            <p>{{ item.quantity }}</p>
-            <p>{{ item.product.priceUni * item.quantity}}</p>
-        </div>
+    <div *ngFor="let item of cartLinesOrder" class="order-summary-item">
+      <p>{{ item.product.name }}</p>
+      <p>{{ item.product.priceUni }}</p>
+      <p>{{ item.quantity }}</p>
+      <p>{{ item.product.priceUni * item.quantity }}</p>
+    </div>
 
-        <div class="order-total">
-            <p><strong>Total: </strong>{{ order.totalAmount}}</p>
-        </div>
-    </section>
+    <div class="order-total">
+      <p><strong>Total: </strong>{{ order.totalAmount }}</p>
+    </div>
+  </section>
 
-    <form class="form" [formGroup]="shippingForm" (ngSubmit)="submitPurchase(shippingForm.value)">
-        <div class="form-group">
-            <label for="address">Dirección</label>
-            <ng-container *ngIf="addresses && addresses.length > 0; else noAddresses">
-                <select id="address" formControlName="address">
-                    <option *ngFor="let address of addresses" [value]="address.id">
-                        {{ address.nickname }} - {{ address.address }}
-                    </option>
-                </select>
-            </ng-container>
-            <ng-template #noAddresses>
-                <p>Usted no ha cargado direcciones aún.</p>
-            </ng-template>
-        </div>
+  <!-- Solo dirección + botón MP -->
+  <form class="form" [formGroup]="shippingForm" (ngSubmit)="pagarConMercadoPago()">
+    <div class="form-group">
+      <label for="address">Dirección</label>
 
-        <section class="payment-details">
-            <h2>Datos de la Tarjeta</h2>
-            <div class="form-group">
-                <label for="cardNumber">Número de Tarjeta:</label>
-                <input type="text" id="cardNumber" name="cardNumber" formControlName="cardNumber" required />
-                <p *ngIf="validateCardNumber()" class="error-message">Ingrese un número de tarjeta válido (16 números). 
-                    Hágalo sin espacios, ni guiones.</p>
-            </div>
+      <ng-container *ngIf="addresses && addresses.length > 0; else noAddresses">
+        <select id="address" formControlName="address">
+          <option value="" disabled>Seleccioná una dirección</option>
+          <option *ngFor="let a of addresses" [value]="a.id">
+            {{ a.nickname }} - {{ a.address }}
+          </option>
+        </select>
+      </ng-container>
 
-            <div class="form-group">
-                <label for="expiryDate">Fecha de Vencimiento:</label>
-                <input type="month" id="expiryDate" name="expiryDate" formControlName="expiryDate" required />
-                <p *ngIf="validateExpiryDate()" class="error-message">Ingrese una fecha válida.</p>
-            </div>
+      <ng-template #noAddresses>
+        <p>Usted no ha cargado direcciones aún.</p>
+      </ng-template>
+    </div>
 
-            <div class="form-group">
-                <label for="cvv">CVV:</label>
-                <input type="text" id="cvv" name="cvv" formControlName="cvv" required />
-                <p *ngIf="validateCVV()" class="error-message">Ingrese el CVV (son 3 dígitos).</p>
-            </div>
+    <p class="hint">
+      Al continuar vas a ser redirigido a Mercado Pago. Cuando termine el proceso,
+      el estado real se confirma en nuestro sistema automáticamente.
+    </p>
 
-            <div class="form-group">
-                <label for="cardholderName">Nombre completo del titular:</label>
-                <input type="text" id="cardholderName" name="cardholderName" formControlName="cardholderName" required />
-                <p *ngIf="validateCardOwnerName()" class="error-message">Ingrese el nombre completo del titular.</p>
-            </div>
-        </section>
-        
-        <button type="submit" class="buy_btn" [disabled]="validateForm()">         
-            Efectuar Compra
-        </button>
+    <button
+      type="submit"
+      class="btn-mp"
+      [disabled]="shippingForm.invalid || addresses.length === 0"
+    >
+      Pagar con Mercado Pago
+    </button>
 
-        <button type="submit" class="cancel_btn" (click)="goBack()">Volver</button>
-    </form>
+    <button type="button" class="cancel_btn" (click)="goBack()">
+      Volver
+    </button>
+  </form>
 </div>

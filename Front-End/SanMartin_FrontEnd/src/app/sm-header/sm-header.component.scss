@@ -1,578 +1,392 @@
+/* =========================
+   HEADER (TOP)
+   ========================= */
+
 .div-control{
-    position: fixed;
-    top: 0;
-    width: 100%;
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
 
-.header {
-    background-color: #8F342F; 
-    display: block;
-    padding: 10px;
-    font-family: Arial, Helvetica, sans-serif;
-    z-index: 3;
-    position: relative;
-}
-
-.header_ul-grid{
-    justify-content: space-between;
-    align-items: center;
-    display: grid;
-    grid-template-columns: 0.5fr 0.5fr 1fr 0.5fr 0.5fr;
-    grid-template-rows: 1fr;
-    padding: 0;
+.header{
+  background-color: #8F342F;
+  display: block;
+  padding: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  z-index: 3;
+  position: relative;
 }
 
 .header_ul-menu{
-    list-style: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-/*EXIT*/
-.exit-li{
-    display: flex;
-    justify-content: space-between;
-    margin-right: 15%;
-    margin-left: 15%;
-    grid-column: 1;
-    grid-row: 1;
-    align-self: center;
-    padding-left: 15%;
-    padding-right: 15%;
+.header_layout{
+  display: grid;
+  grid-template-columns: 1fr auto 1fr; /* izquierda / logo centrado / derecha */
+  align-items: center;
+  column-gap: 14px;
 }
 
-.exit-img{
-    width: 30px;
-    height: 30px;
-    padding-left: 1px;
-    padding-right: 8px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+/* ZONAS */
+.header_left{
+  justify-self: start;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
 }
 
-.dot-exit{
-    height: 40px;
-    width: 40px;
-    background-color: #EDDBCD;
-    border-radius: 50%;
-    display: inline-block;
-    -webkit-text-stroke: 5px;
-    -webkit-text-stroke-color: #000000;
-    border: 2px solid black;
-}
-.exit-a{
-    display: grid;
-    grid-template-rows: 1.5fr 0.5fr;
-    justify-items: center;
-    text-decoration: none;
+.header_center{
+  justify-self: center;
+  display: flex;
+  align-items: center;
 }
 
-/*TITULO*/
-.li_titulo{
-    justify-self: center;
-    grid-column: 3;
-    grid-row: 1;
+.header_right{
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 14px;
+  min-width: 0;
 }
 
+/* LOGO */
 .a_logo{
-    font-family: "SanMartin";
-    color: transparent;
-    -webkit-text-stroke: 1.5px;
-    -webkit-text-stroke-color: black;
-    font-size: 3rem;
-    text-decoration: none;
-    background-clip: text;
-    background-image: url(../../../public/img/fondo-sanMartin.png);
-    background-size: cover;
+  font-family: "SanMartin";
+  color: transparent;
+  -webkit-text-stroke: 1.5px;
+  -webkit-text-stroke-color: black;
+  font-size: 3rem;
+  text-decoration: none;
+  background-clip: text;
+  background-image: url(../../../public/img/fondo-sanMartin.png);
+  background-size: cover;
 }
 
-/*ICONOS INGRESAR/CUENTA Y CARRITO*/
-.carrito-li{
-    display: flex;
-    justify-content: space-between;
-    margin-right: 15%;
-    margin-left: 15%;
-    grid-column: 5;
-    grid-row: 1;
-    align-items: end;
-    padding-left: 15%;
-    padding-right: 15%;
+/* ACCIONES (Cuenta / Ingresar / Crear Cuenta / Carrito / Exit) */
+.ingresar_carrito-a,
+.exit-a{
+  display: grid;
+  grid-template-rows: 1.5fr 0.5fr;
+  justify-items: center;
+  text-decoration: none;
 }
 
-.ingresar-li{
-    display: flex;
-    justify-content: space-between;
-    margin-right: 15%;
-    margin-left: 15%;
-    grid-column: 4;
-    grid-row: 1;
-    align-self: center;
-    padding-left: 15%;
-    padding-right: 15%;
-}
-
-.ingresar_carrito-a{
-    display: grid;
-    grid-template-rows: 1.5fr 0.5fr;
-    justify-items: center;
-    text-decoration: none;
-}
-
+/* Iconos */
 .carrito-img{
-    width: 30px;
-    height: 30px;
-    padding-left: 4.3px;
-    padding-right: 5.7px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-
+  width: 30px;
+  height: 30px;
+  padding-left: 4.3px;
+  padding-right: 5.7px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 .ingresar-img{
-    width: 30px;
-    height: 30px;
-    padding-left: 5px;
-    padding-right: 5px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+  width: 30px;
+  height: 30px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.exit-img{
+  width: 30px;
+  height: 30px;
+  padding-left: 1px;
+  padding-right: 8px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 .ingresar_carrito-span{
-    color: #000000;
-    grid-row: 2;
-    font-size: larger;
-    color: #EDDBCD; 
-    font-family: 'SecondarySMfont';
-    font-style: normal;
+  grid-row: 2;
+  font-size: larger;
+  color: #EDDBCD;
+  font-family: 'SecondarySMfont';
+  font-style: normal;
 }
 
+/* Círculos detrás de los íconos */
 .dot{
-    height: 40px;
-    width: 40px;
-    background-color: #EDDBCD;
-    border-radius: 50%;
-    display: inline-block;
-    -webkit-text-stroke: 5px;
-    -webkit-text-stroke-color: #000000;
-    border: 2px solid black;
+  height: 40px;
+  width: 40px;
+  background-color: #EDDBCD;
+  border-radius: 50%;
+  display: inline-block;
+  border: 2px solid black;
 }
 
+.dot-exit{
+  height: 40px;
+  width: 40px;
+  background-color: #EDDBCD;
+  border-radius: 50%;
+  display: inline-block;
+  -webkit-text-stroke: 5px;
+  -webkit-text-stroke-color: #000000;
+  border: 2px solid black;
+}
 
-//HEADER ESTILO BOMBAY
+/* DROPDOWN (botón hamburguesa) */
+#li_menu{
+  display: none; /* en desktop se usa el menú inferior */
+}
+
+.menu_icon{
+  display: none;
+}
+
+/* =========================
+   HEADER (BOTTOM - estilo "bombay")
+   ========================= */
+
 .div-bottom{
-    background-color: #aa524d;
-    padding-top: 16px;
-    padding-bottom: 16px;
-    transition: all 0.1s;
-    top: 0px;
-    position: relative;
-    z-index: 1;
+  background-color: #aa524d;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  transition: all 0.1s;
+  top: 0px;
+  position: relative;
+  z-index: 1;
 }
 
 .compressed_menu{
-    margin-right: 150px;
-    margin-left: 150px;
-    padding-left: 20px;
-    padding-right: 20px;
+  margin-right: 150px;
+  margin-left: 150px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .ul-bottom{
-    list-style: none;
-    list-style-position: inside;
-    justify-content: space-around;
-    display: flex;
-    grid-template-rows: 1fr;
-    margin-top: 0%;
-    margin-bottom: 0%;
+  list-style: none;
+  list-style-position: inside;
+  justify-content: space-around;
+  display: flex;
+  grid-template-rows: 1fr;
+  margin-top: 0%;
+  margin-bottom: 0%;
 }
 
 .li-bottom_menu{
-    display: flex;
-    grid-row: 1;
-    font-family: 'SecondarySMfont';
-    line-height: 1.5625;
+  display: flex;
+  grid-row: 1;
+  font-family: 'SecondarySMfont';
+  line-height: 1.5625;
 }
 
 .li-bottom_menu:hover > .a_li-bottom_menu{
-    text-decoration: underline;
-    color: #EDDBCD;
+  text-decoration: underline;
+  color: #EDDBCD;
 }
 
 .a_li-bottom_menu{
-    font-style: normal;
-    color: #000000;
-    text-decoration: none;
-    transition: all 0.3s;
+  font-style: normal;
+  color: #000000;
+  text-decoration: none;
+  transition: all 0.3s;
 }
 
-.admin-icon {
-    margin-left: 8px;
-    margin-top: 7px;
-    font-size: 24px;
-    color: #EDDBCD; 
+.admin-icon{
+  margin-left: 8px;
+  margin-top: 7px;
+  font-size: 24px;
+  color: #EDDBCD;
 }
 
-//DROPDOWN
-#li_menu{
-    display: none;
-}
+/* =========================
+   RESPONSIVE
+   ========================= */
 
-//SM - hasta: 650px
+/* SM - hasta: 650px */
 @media (max-width: 650px){
-    //Header estilo bombay
-    .div-bottom{
-        display: none;
-    }
-    
-    .compressed_menu{
-        display: none;
-    }
-    
-    .ul-bottom{
-        display: none;
-    }
-    
-    .li-bottom_menu{
-        display: none;
-    }
-    
-    .li-bottom_menu:hover > .a_li-bottom_menu{
-        display: none;
-    }
-    
-    .a_li-bottom_menu{
-        display: none;
-    }
-    
-    .admin-icon {
-        display: none; 
-    }
+  /* Ocultar menú inferior */
+  .div-bottom,
+  .compressed_menu,
+  .ul-bottom,
+  .li-bottom_menu,
+  .a_li-bottom_menu,
+  .admin-icon{
+    display: none;
+  }
 
-    //Header logo
-    .div-control{
-        position: fixed;
-        top: 0;
-        width: 100%;
-    }
-    
-    .header {
-        background-color: #8F342F; 
-        display: block;
-        padding: 10px;
-        font-family: Arial, Helvetica, sans-serif;
-        z-index: 3;
-        position: relative;
-    }
-    
-    .header_ul-grid{
-        justify-content: space-around;
-        align-items: center;
-        display: flex;
-        padding: 0;
-    }
-    
-    .header_ul-menu{
+  /* Solo logo + hamburguesa */
+  .header_right{
+    display: none;
+  }
+
+  .exit-a{
+    display: none;
+  }
+
+  /* DROPDOWN */
+  #li_menu{
+    display: block;
+    cursor: pointer;
+    padding-right: 10px;
+
+    .dropdown{
+      display: none;
+      position: absolute;
+      top: 0%;
+      left: 0%;
+      width: 180px;
+      min-height: fit-content;
+      overflow: auto;
+      background-color: #aa524d;
+      border-radius: 5px;
+      border-top-left-radius: 0%;
+
+      ul{
+        margin: 20px;
         list-style: none;
-    }
+        display: flex;
+        gap: 10px;
+        flex-direction: column;
+        padding: 0%;
+        margin-bottom: 0%;
+        margin-left: 0%;
 
-    //INGRESAR y CARRITO
-    .carrito-li{
-        display: none;
-    }
-    
-    .ingresar-li{
-        display: none;
-    }
-    
-    .ingresar_carrito-a{
-        display: none;
-    }
-    
-    .carrito-img{
-        display: none;
-    
-    }
-    
-    .ingresar-img{
-        display: none;
-    }
-    
-    .ingresar_carrito-span{
-        display: none;
-    }
-    
-    .dot{
-        display: none;
-    }
-
-    .li-span-prueba{
-        display: none;
-    }
-    
-    .ingresar_carrito-a-prueba{
-        display: none;
-    }
-
-    .exit-li{
-        display: none;
-    }
-
-    /*TITULO*/
-    .li_titulo{
-        justify-self: center;
-    }
-
-    .a_logo{
-        font-family: "SanMartin";
-        color: transparent;
-        -webkit-text-stroke: 1.5px;
-        -webkit-text-stroke-color: black;
-        font-size: 3rem;
-        text-decoration: none;
-        background-clip: text;
-        background-image: url(../../../public/img/fondo-sanMartin.png);
-        background-size: cover;
-    }
-
-    //DROPDOWN
-    #li_menu{
-        display: block;
-        cursor: pointer;
-        padding-right: 15%;
-        .dropdown{
-            display: none;
-            position:absolute ;
-            top: 0%;
-            left: 0%;
-            width: 180px;
-            min-height: fit-content;
-            overflow: auto;
-            background-color: #aa524d;
-            border-radius: 5px;
-            border-top-left-radius: 0%;
-            ul {
-                margin: 20px;
-                list-style: none;
-                display: flex;
-                gap: 10px;
-                flex-direction: column;
-                padding: 0%;
-                margin-bottom: 0%;
-                margin-left: 0%;
-                
-                a {
-                    text-decoration: none;
-                    color: #000000;
-                    padding: 15px 30px;
-                    display: block;
-        
-                    
-                }
-        
-                li:hover{
-                    background-color: #8F342F;
-                }
-            }
-    
-            #div_button{
-                display: flex;
-                justify-content: left;
-                align-items: center;
-    
-                #close_button {
-                    padding-left: 10%;
-                    padding-top: 10%;
-                }
-            }
+        a{
+          text-decoration: none;
+          color: #000000;
+          padding: 15px 30px;
+          display: block;
         }
-    
-        
-        .dropdown.active{
-            display: block;
+
+        li:hover{
+          background-color: #8F342F;
         }
-        
-        .menu_button{
-            display: block;
-            padding-left: 80%;
+      }
+
+      #div_button{
+        display: flex;
+        justify-content: left;
+        align-items: center;
+
+        #close_button{
+          padding-left: 10%;
+          padding-top: 10%;
         }
-    
-        .menu_button.active{
-            display: none;
-        }
-    
+      }
     }
-    
-    
-    .menu_icon{
-        display: block;
-        width: 25px;
+
+    .dropdown.active{
+      display: block;
     }
+
+    .menu_button{
+      display: block;
+    }
+
+    .menu_button.active{
+      display: none;
+    }
+  }
+
+  .menu_icon{
+    display: block;
+    width: 25px;
+  }
 }
 
-//MD - hasta: 750px
+/* MD - hasta: 1024px y desde 650px */
 @media (max-width: 1024px) and (min-width: 650px){
-    //Header estilo bombay
-    .div-bottom{
-        display: none;
-    }
-    
-    .compressed_menu{
-        display: none;
-    }
-    
-    .ul-bottom{
-        display: none;
-    }
-    
-    .li-bottom_menu{
-        display: none;
-    }
-    
-    .li-bottom_menu:hover > .a_li-bottom_menu{
-        display: none;
-    }
-    
-    .a_li-bottom_menu{
-        display: none;
-    }
-    
-    .admin-icon {
-        display: none; 
-    }
+  /* Ocultar menú inferior */
+  .div-bottom,
+  .compressed_menu,
+  .ul-bottom,
+  .li-bottom_menu,
+  .a_li-bottom_menu,
+  .admin-icon{
+    display: none;
+  }
 
-    //Header logo
-    .div-control{
-        position: fixed;
-        top: 0;
-        width: 100%;
-    }
-    
-    .header {
-        background-color: #8F342F; 
-        display: block;
-        padding: 10px;
-        font-family: Arial, Helvetica, sans-serif;
-        z-index: 3;
-        position: relative;
-        width: 100%;
-    }
-    
-    .header_ul-grid{
-        justify-content: space-around;
-        align-items: center;
-        display: flex;
-        padding: 0;
-    }
-    
-    .header_ul-menu{
+  /* Compactar un poco */
+  .header_layout{
+    column-gap: 10px;
+  }
+
+  .header_right{
+    gap: 10px;
+  }
+
+  .exit-a{
+    display: none;
+  }
+
+  /* DROPDOWN visible también en tablets */
+  #li_menu{
+    display: block;
+    cursor: pointer;
+    padding-right: 10px;
+
+    .dropdown{
+      display: none;
+      position: absolute;
+      top: 0%;
+      left: 0%;
+      width: 180px;
+      min-height: fit-content;
+      overflow: auto;
+      background-color: #aa524d;
+      border-radius: 5px;
+      border-top-left-radius: 0%;
+
+      ul{
+        margin: 20px;
         list-style: none;
-    }
-
-    //INGRESAR y CARRITO
-    
-    .ingresar-li{
-        padding-left: 0%;
-        padding-right: 0%;
-        margin-right: 0%;
+        display: flex;
+        gap: 10px;
+        flex-direction: column;
+        padding: 0%;
+        margin-bottom: 0%;
         margin-left: 0%;
-    }
 
-    .carrito-li{
-        padding-left: 0%;
-        padding-right: 0%;
-        margin-right: 0%;
-        margin-left: 0%;
-    }
-
-    .exit-li{
-        display: none;
-    }
-
-    /*TITULO*/
-    .li_titulo{
-        justify-self: center;
-    }
-
-    .a_logo{
-        font-family: "SanMartin";
-        color: transparent;
-        -webkit-text-stroke: 1.5px;
-        -webkit-text-stroke-color: black;
-        font-size: 3rem;
-        text-decoration: none;
-        background-clip: text;
-        background-image: url(../../../public/img/fondo-sanMartin.png);
-        background-size: cover;
-    }
-
-    //DROPDOWN
-    #li_menu{
-        display: block;
-        cursor: pointer;
-        padding-right: 15%;
-        .dropdown{
-            display: none;
-            position:absolute ;
-            top: 0%;
-            left: 0%;
-            width: 180px;
-            min-height: fit-content;
-            overflow: auto;
-            background-color: #aa524d;
-            border-radius: 5px;
-            border-top-left-radius: 0%;
-            ul {
-                margin: 20px;
-                list-style: none;
-                display: flex;
-                gap: 10px;
-                flex-direction: column;
-                padding: 0%;
-                margin-bottom: 0%;
-                margin-left: 0%;
-                
-                a {
-                    text-decoration: none;
-                    color: #000000;
-                    padding: 15px 30px;
-                    display: block;
-        
-                    
-                }
-        
-                li:hover{
-                    background-color: #8F342F;
-                }
-            }
-    
-            #div_button{
-                display: flex;
-                justify-content: left;
-                align-items: center;
-    
-                #close_button {
-                    padding-left: 10%;
-                    padding-top: 10%;
-                }
-            }
+        a{
+          text-decoration: none;
+          color: #000000;
+          padding: 15px 30px;
+          display: block;
         }
-    
-        
-        .dropdown.active{
-            display: block;
+
+        li:hover{
+          background-color: #8F342F;
         }
-        
-        .menu_button{
-            display: block;
-            padding-left: 80%;
+      }
+
+      #div_button{
+        display: flex;
+        justify-content: left;
+        align-items: center;
+
+        #close_button{
+          padding-left: 10%;
+          padding-top: 10%;
         }
-    
-        .menu_button.active{
-            display: none;
-        }
-    
+      }
     }
-    
-    .menu_icon{
-        display: block;
-        width: 25px;
+
+    .dropdown.active{
+      display: block;
     }
+
+    .menu_button{
+      display: block;
+    }
+
+    .menu_button.active{
+      display: none;
+    }
+  }
+
+  .menu_icon{
+    display: block;
+    width: 25px;
+  }
 }

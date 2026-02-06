@@ -1,9 +1,9 @@
 ### Obtener todos los productos
-GET http://localhost:3000/api/products
+GET http://localhost:3000/api/lineorders
 
 ### Crear un nuevo producto
 # @name createGin
-POST http://localhost:3000/api/products
+POST http://localhost:3000/api/lineorders
 Content-Type: application/json
 {
     "product": {
@@ -29,10 +29,10 @@ Content-Type: application/json
 @id = {{createGin.response.body.data.id}}
 
 ### Obtener uno en particular
-GET http://localhost:3000/api/products/{{id}}
+GET http://localhost:3000/api/lineorders/{{id}}
 
 ### Crear un nuevo producto
-POST http://localhost:3000/api/products
+POST http://localhost:3000/api/lineorders
 Content-Type: application/json
 {
     "product": {
@@ -55,7 +55,7 @@ Content-Type: application/json
 }
 
 ### Modificar un nuevo producto (PUT - recuro completo e idempotente)
-PUT http://localhost:3000/api/products/{{id}}
+PUT http://localhost:3000/api/lineorders/{{id}}
 Content-Type: application/json
 
 {
@@ -79,7 +79,7 @@ Content-Type: application/json
 }
 
 ### Modificar un nuevo producto (PATCH - recurso parcial)
-PATCH http://localhost:3000/api/products/{{id}}
+PATCH http://localhost:3000/api/lineorders/{{id}}
 Content-Type: application/json
 
 {
@@ -87,4 +87,4 @@ Content-Type: application/json
 }
 
 ### Borrar un elemento
-DELETE http://localhost:3000/api/products/{{id}}
+DELETE http://localhost:3000/api/lineorders/{{id}}

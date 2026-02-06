@@ -26,7 +26,7 @@ export class ViewOrdersComponent {
   odersOfUser: orderI[] = [];
 
   getOrders() {
-    let userId = "" + sessionStorage.getItem("token");
+    let userId = "" + localStorage.getItem("token");
     console.log("Usuario: ", userId);
     this.api.searchOrdersByUser(userId).subscribe({
       next: (data) => {
@@ -43,7 +43,7 @@ export class ViewOrdersComponent {
   }
 
   viewOrderDetails(orderId: any) {
-    sessionStorage.setItem("orderId", orderId);
+    localStorage.setItem("orderId", orderId);
     this.router.navigate(['/order-detail']);
   }
 

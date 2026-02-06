@@ -42,3 +42,16 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# ---- Backend/API Express env files ----
+Backend/API Express/.env
+Backend/API Express/.env.*
+!Backend/API Express/.env.example
+
+# Optional: local config files
+*.local

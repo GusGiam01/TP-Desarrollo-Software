@@ -1,23 +1,29 @@
-(function(){
-    const sliders = [...document.querySelectorAll('.slider_body')];
-    const arrowNext = document.querySelector('#next');
-    const arrowBefore = document.querySelector('#before');
-    let value;
-    
-    arrowNext.addEventListener('click', ()=>changePosition(1));
-    arrowBefore.addEventListener('click', ()=>changePosition(-1));
+(function () {
+  const sliders = Array.from(document.querySelectorAll('.slider_body'));
+  const arrowNext = document.querySelector('#next');
+  const arrowBefore = document.querySelector('#before');
 
-    function changePosition(change){
-        const currentElement = Number(document.querySelector('.slider_body-show').dataset.id);
-        value = currentElement;
-        value += change;
-        if( value === 0 || value == sliders.length+1){
-            if (value === 0) value = sliders.length;
-            if (value == sliders.length+1) value = 1;
-        }
+  if (!arrowNext || !arrowBefore || sliders.length === 0) return;
 
-        sliders[currentElement-1].classList.toggle('slider_body-show')
-        sliders[value-1].classList.toggle('slider_body-show')
-    }
+  arrowNext.addEventListener('click', () => changePosition(1));
+  arrowBefore.addEventListener('click', () => changePosition(-1));
 
-})()
+  function changePosition(change) {
+    const current = document.querySelector('.slider_body-show');
+    if (!current || !current.dataset) return;
+
+    const currentElement = Number(current.dataset.id);
+    if (!Number.isFinite(currentElement) || currentElement <= 0) return;
+
+    let value = currentElement + change;
+    if (value <= 0) value = sliders.length;
+    if (value > sliders.length) value = 1;
+
+    const prev = sliders[currentElement - 1];
+    const next = sliders[value - 1];
+    if (!prev || !next) return;
+
+    prev.classList.toggle('slider_body-show');
+    next.classList.toggle('slider_body-show');
+  }
+})();

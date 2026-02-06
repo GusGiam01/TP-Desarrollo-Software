@@ -1,6 +1,6 @@
 import { Component, EventEmitter, HostListener, Output } from '@angular/core';
 import { CommonModule, NgIf } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 
 @Component({
@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
   imports: [
     CommonModule,
     NgIf,
+    RouterModule,
   ],
   templateUrl: './sm-header.component.html',
   styleUrl: './sm-header.component.scss'
@@ -35,10 +36,10 @@ export class SMHeaderComponent {
     this.pageIdChange.emit(this.pageId)
   }
 
-  loggedUser:string | null = sessionStorage.getItem("token");
+  loggedUser:string | null = localStorage.getItem("token");
 
   ngOnInit():void{
-    this.loggedUser = sessionStorage.getItem("token");
+    this.loggedUser = localStorage.getItem("token");
     if (this.loggedUser != null && this.loggedUser != "") {
       this.options[0] = {
         name: "Cuenta",
@@ -48,26 +49,26 @@ export class SMHeaderComponent {
   }
 
   logOut(){
-    sessionStorage.removeItem("token");
-    sessionStorage.removeItem("orderId");
+    localStorage.removeItem("token");
+    localStorage.removeItem("orderId");
     this.loggedUser = null;
     location.reload();
   }
 
   showMenu:string = 'bot-2';
   prevScrollpos = window.scrollY;
-  @HostListener('window:scroll', ['$event']) onScroll(){
-    const currentScrollpos:number= window.scrollY;
+  @HostListener('window:scroll', ['$event']) 
+  //@HostListener('window:scroll') 
+  onScroll(event: Event){
+    const currentScrollpos:number = window.scrollY;
     const element = document.getElementById("bottom_menu");
     if (currentScrollpos < this.prevScrollpos) {
       if (element != null) {
         element.style.marginTop = "0px";
-
       }
     } else {
       if (element != null){
       element.style.marginTop = "-54px";
-
       }
     }
     this.prevScrollpos = currentScrollpos;

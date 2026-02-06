@@ -11,4 +11,5 @@ export const orm = await MikroORM.init({
   clientUrl: 'mongodb://admin:admin123@localhost:27017/tiendaSM?authSource=admin',
   highlighter: new MongoHighlighter(),
   debug: true,
+  ensureIndexes: true,
 })

@@ -23,7 +23,7 @@ userRouter.get('/:value', (req, res) => {
             console.log("entro")
         }
         else {
-            const dni = req.params.value
+            const dni = req.params.value.replace(/\D/g, '')
             findOneByDni(req, res, dni)
         }
     }

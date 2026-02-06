@@ -1,4 +1,5 @@
 import 'reflect-metadata'
+import "dotenv/config"
 import express from 'express'
 import { userRouter } from './User/user.routes.js'
 import { productRouter } from './Product/product.routes.js'
@@ -10,6 +11,7 @@ import { addressRouter } from './Address/address.routes.js'
 import nodemailer from 'nodemailer';
 import cors from 'cors';
 import { MikroORM } from '@mikro-orm/mongodb'
+import mercadoPagoRoutes from './Payment/MercadoPago/mercadopago.routes.js'
 
 
 const app = express()
@@ -25,18 +27,17 @@ app.use('/api/products', productRouter)
 app.use('/api/orders', orderRouter)
 app.use('/api/linesorder', lineOrderRouter)
 app.use('/api/addresses', addressRouter)
+app.use('/api/mercadopago', mercadoPagoRoutes);
 
 const transporter = nodemailer.createTransport({
-    host: 'in-v3.mailjet.com',   
-    port: 587,                
-    secure: false,             
-    auth: {
-      user: 'dc7638f382b6448c47d3d3afe7a75b16',
-      pass: 'c1416bd8b0347f80a32e4dce4b116aed',  
-    },
-    tls: {
-      rejectUnauthorized: false 
-    }
+  host: process.env.MAILJET_HOST,
+  port: Number(process.env.MAILJET_PORT ?? 587),
+  secure: false,
+  auth: {
+    user: process.env.MAILJET_USER,
+    pass: process.env.MAILJET_PASS,
+  },
+  tls: { rejectUnauthorized: false },
 });
 
 app.post('/api/send-email', async (req, res) => {
@@ -62,7 +63,6 @@ app.use((_, res) =>{
     return res.status(404).send({message: 'Resource not found.'})
 })
 
-
 app.listen(3000, () => {
-    console.log('Server running on mongodb+srv://usuario:usuario@cluster.k0o09.mongodb.net/')
+    //console.log('Server running on mongodb+srv://usuario:usuario@cluster.k0o09.mongodb.net/')
 }) 

@@ -1,111 +1,135 @@
-
 <div class="div-control">
-    <nav class="header">
-        <ul class="header_ul-menu header_ul-grid">
-            <li id="li_menu">
-                <a [class.active]="isActive" class="menu_button">
-                    <img src="svg/menu.svg" class="menu_icon" (click)="toggleActive()">
-                </a>
-                <div class="dropdown" [class.active]="isActive">
-                    <div>
-                        <div id="div_button">
-                            <a id="close_button">
-                                <img src="svg/close.svg" class="menu_icon" (click)="toggleActive()">
-                            </a>
-                        </div>
-                    </div>
-                    <ul>
-                        <li (click)="redirectToComponent(options[0].value)">
-                            <a>{{options[0].name}}</a>
-                        </li>
-                        <li (click)="redirectToComponent(options[1].value)">
-                            <a >{{options[1].name}}</a>
-                        </li>
-                        <li (click)="redirectToComponent(options[2].value)">
-                            <a >{{options[2].name}}</a>
-                        </li>
-                        <li (click)="redirectToComponent(options[3].value)">
-                            <a >{{options[3].name}}</a>
-                        </li>
-                        <li (click)="redirectToComponent(options[4].value)">
-                            <a >{{options[4].name}}</a>
-                        </li>
-                        <li (click)="redirectToComponent(options[5].value)">
-                            <a >{{options[5].name}}</a>
-                        </li>
-                    </ul>
-                </div>
-                
-            </li>
+  <nav class="header">
+    <ul class="header_ul-menu header_layout">
+      <!-- IZQUIERDA: menú (responsive) + exit (si hay usuario) -->
+      <li class="header_left">
+        <div id="li_menu">
+          <a [class.active]="isActive" class="menu_button">
+            <img src="svg/menu.svg" class="menu_icon" (click)="toggleActive()">
+          </a>
 
-            <li class="exit-li" *ngIf="loggedUser != null">
-                <a href="/" class="exit-a" (click)="logOut();pageId = 2; emitPageId();">
-                    <span class="dot-exit">
-                        <img class="exit-img" src="svg/exit.svg" alt="exit">
-                    </span>
-                    <span class="ingresar_carrito-span" >Exit</span>
-                </a>
-            </li>
-    
-            <li class="li_titulo">
-                <div>
-                    <a class="a_logo" href="#" (click)="pageId = 0; emitPageId();">SAN MARTIN</a>
-                </div>
-            </li>
-            
-            <li class="ingresar-li" *ngIf="loggedUser != null">
-                <a href="/admin-menu" class="ingresar_carrito-a" (click)="pageId = 2; emitPageId();">
-                    <span class="dot">
-                        <img class="ingresar-img" src="svg/account.svg" alt="ingresar">
-                    </span>
-                    <span class="ingresar_carrito-span" >Cuenta</span>
-                </a>
-            </li>
-
-            <li class="ingresar-li" *ngIf="loggedUser == null">
-                <a href="/login" class="ingresar_carrito-a" (click)="pageId = 2; emitPageId();">
-                    <span class="dot">
-                        <img class="ingresar-img" src="svg/account.svg" alt="ingresar">
-                    </span>
-                    <span class="ingresar_carrito-span" >Ingresar</span>
-                </a>
-            </li>
-            
-            <li class="carrito-li" (click)="pageId = 3; emitPageId();">
-                <a href="/cart" class="ingresar_carrito-a" >
-                    <span class="dot">
-                        <img class="carrito-img" src="svg/trolley.svg" alt="carrito">
-                    </span>
-                    <span class="ingresar_carrito-span">Carrito</span>
-                </a>
-            </li>
-        
-        </ul>
-    </nav>
-    <!-- HEADER ESTILO BOMBAY -->
-    <div class="div-bottom" id="bottom_menu" (scroll)="onScroll()" >
-        <div class="compressed_menu">
+          <div class="dropdown" [class.active]="isActive">
             <div>
-                <ul class="ul-bottom">
-                    <li class="li-bottom_menu" (click)="pageId = 6; emitPageId();">
-                        <a href="/about-us" class="a_li-bottom_menu">
-                            ¿QUIENES SOMOS?
-                        </a>
-                    </li>
-                    <li class="li-bottom_menu">|</li>
-                    <li class="li-bottom_menu" (click)="pageId = 5; emitPageId();">
-                        <a href="/products" class="a_li-bottom_menu">
-                            PRODUCTOS
-                        </a>
-                    </li>
-                    <li class="li-bottom_menu">|</li>
-                    <li class="li-bottom_menu" (click)="pageId = 1; emitPageId();">
-                        <a href="/puntosVenta" class="a_li-bottom_menu" >
-                            ¿DÓNDE ENCONTRARNOS?
-                        </a>
-                    </li>
-                </ul>
+              <div id="div_button">
+                <a id="close_button">
+                  <img src="svg/close.svg" class="menu_icon" (click)="toggleActive()">
+                </a>
+              </div>
             </div>
+
+            <ul>
+              <li (click)="redirectToComponent(options[0].value)">
+                <a>{{options[0].name}}</a>
+              </li>
+              <li (click)="redirectToComponent(options[1].value)">
+                <a>{{options[1].name}}</a>
+              </li>
+              <li (click)="redirectToComponent(options[2].value)">
+                <a>{{options[2].name}}</a>
+              </li>
+              <li (click)="redirectToComponent(options[3].value)">
+                <a>{{options[3].name}}</a>
+              </li>
+              <li (click)="redirectToComponent(options[4].value)">
+                <a>{{options[4].name}}</a>
+              </li>
+              <li (click)="redirectToComponent(options[5].value)">
+                <a>{{options[5].name}}</a>
+              </li>
+            </ul>
+          </div>
         </div>
+
+        <a
+          routerLink="/"
+          class="exit-a"
+          *ngIf="loggedUser != null"
+          (click)="logOut(); pageId = 2; emitPageId();"
+        >
+          <span class="dot-exit">
+            <img class="exit-img" src="svg/exit.svg" alt="exit">
+          </span>
+          <span class="ingresar_carrito-span">Exit</span>
+        </a>
+      </li>
+
+      <!-- CENTRO: logo siempre centrado -->
+      <li class="header_center">
+        <a class="a_logo" href="#" (click)="pageId = 0; emitPageId();">SAN MARTIN</a>
+      </li>
+
+      <!-- DERECHA: acciones -->
+      <li class="header_right">
+        <a
+          routerLink="/admin-menu"
+          class="ingresar_carrito-a"
+          *ngIf="loggedUser != null"
+          (click)="pageId = 2; emitPageId();"
+        >
+          <span class="dot">
+            <img class="ingresar-img" src="svg/account.svg" alt="cuenta">
+          </span>
+          <span class="ingresar_carrito-span">Cuenta</span>
+        </a>
+
+        <a
+          routerLink="/login"
+          class="ingresar_carrito-a"
+          *ngIf="loggedUser == null"
+          (click)="pageId = 2; emitPageId();"
+        >
+          <span class="dot">
+            <img class="ingresar-img" src="svg/account.svg" alt="ingresar">
+          </span>
+          <span class="ingresar_carrito-span">Ingresar</span>
+        </a>
+
+        <!--
+        <a
+          routerLink="/signin"
+          class="ingresar_carrito-a"
+          *ngIf="loggedUser == null"
+          (click)="pageId = 2; emitPageId();"
+        >
+          <span class="dot">
+            <img class="ingresar-img" src="svg/new_account.svg" alt="crear cuenta">
+          </span>
+          <span class="ingresar_carrito-span">Crear Cuenta</span>
+        </a>
+        -->
+
+        <a
+          routerLink="/cart"
+          class="ingresar_carrito-a"
+          (click)="pageId = 3; emitPageId();"
+        >
+          <span class="dot">
+            <img class="carrito-img" src="svg/trolley.svg" alt="carrito">
+          </span>
+          <span class="ingresar_carrito-span">Carrito</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- <div class="div-bottom" id="bottom_menu" (scroll)="onScroll()" > -->
+  <div class="div-bottom" id="bottom_menu">
+    <div class="compressed_menu">
+      <div>
+        <ul class="ul-bottom">
+          <li class="li-bottom_menu" (click)="pageId = 6; emitPageId();">
+            <a routerLink="/about-us" class="a_li-bottom_menu">¿QUIENES SOMOS?</a>
+          </li>
+          <li class="li-bottom_menu">|</li>
+          <li class="li-bottom_menu" (click)="pageId = 5; emitPageId();">
+            <a routerLink="/products" class="a_li-bottom_menu">PRODUCTOS</a>
+          </li>
+          <li class="li-bottom_menu">|</li>
+          <li class="li-bottom_menu" (click)="pageId = 1; emitPageId();">
+            <a routerLink="/puntosVenta" class="a_li-bottom_menu">¿DÓNDE ENCONTRARNOS?</a>
+          </li>
+        </ul>
+      </div>
     </div>
+  </div>
 </div>
