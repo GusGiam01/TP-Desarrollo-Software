@@ -1,0 +1,22 @@
+Abrir el BackEnd
+cd "Backend/API Express"
+pnpm run start:dev
+
+Abrir el FrontEnd
+cd "Front-End/SanMartin_FrontEnd"
+ng serve -o
+
+Comando para crear un nuevo componente en el FrontEnd
+ng g c pages/nombre-del-componente
+
+Levantar docker de MongoDB
+docker compose up -d
+docker compose -f "DockerCompose\docker-compose.yml" up -d
+
+Frenar docker de MongoDB
+docker compose down
+
+Comandos útiles
+docker ps
+docker logs -f mongo
+docker exec -it mongo mongosh -u admin -p admin123 --authenticationDatabase admin

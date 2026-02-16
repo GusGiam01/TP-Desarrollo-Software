@@ -1,0 +1,104 @@
+### Obtener todos los pedido
+GET http://localhost:3000/api/orders
+
+### Crear un nuevo pedido
+
+# @name createGin
+POST http://localhost:3000/api/orders
+Content-Type: application/json
+
+{
+    "confirmDate": "2024-10-17T10:30:00Z",
+    "user": "6736516fa9a89726bc47536a", 
+    "linesOrder": [
+        { 
+            "product": "6730e2716d02e8faf36c1617",
+            "quantity": 2
+        },
+        { 
+            "product": "6730e2496d02e8faf36c1616",
+            "quantity": 1
+        }
+    ],
+    "totalAmount": 18300,
+    "statusHistory": ["Order created"]
+}
+
+### ID
+@id = {{createGin.response.body.data.id}}
+
+### Obtener uno en particular
+GET http://localhost:3000/api/orders/
+### Crear un nuevo ordero
+POST http://localhost:3000/api/orders/
+Content-Type: application/json
+{
+    "confirmDate": "2024-10-17T11:00:00Z",
+    "user": {
+        "name": "Laura",
+        "surname": "Martinez",
+        "userName": "LauMart",
+        "password": "laura123",
+        "type": "User",
+        "mail": "laura.martinez@gmail.com",
+        "cellphone": "3358976541",
+        "age": 28,
+        "birthDate": "1995-02-14",
+        "dni": "40235891"
+    }, 
+    "linesOrder": [
+        { 
+            "product": {
+                "code": "P3456",
+                "name": "Product C",
+                "priceUni": 7000,
+                "stock": 5
+            },
+            "quantity": 3
+        }
+    ],
+    "totalAmount": 21000,
+    "statusHistory": ["Order created"]
+}
+
+### Modificar un nuevo ordero (PUT - recuro completo e idempotente)
+PUT http://localhost:3000/api/orders/{{id}}
+Content-Type: application/json
+{
+    "confirmDate": "2024-10-17T12:00:00Z",
+    "user": {
+        "name": "Carlos",
+        "surname": "Gomez",
+        "userName": "CarlG",
+        "password": "carlospass",
+        "type": "Admin",
+        "mail": "carlos.gomez@gmail.com",
+        "cellphone": "3498765412",
+        "age": 35,
+        "birthDate": "1989-06-23",
+        "dni": "38123456"
+    }, 
+    "linesOrder": [
+        { 
+            "product": {
+                "code": "P7890",
+                "name": "Product D",
+                "priceUni": 9000,
+                "stock": 8
+            },
+            "quantity": 3
+        }
+    ],
+    "totalAmount": 27000,
+    "statusHistory": ["Order updated"]
+}
+
+### Modificar un nuevo order (PATCH - recurso parcial)
+PATCH http://localhost:3000/api/orders/{{id}}
+Content-Type: application/json
+{
+    "statusHistory": ["Order shipped"]
+}
+
+### Borrar un elemento
+DELETE http://localhost:3000/api/orders/{{id}}

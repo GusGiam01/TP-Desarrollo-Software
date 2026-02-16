@@ -1,0 +1,31 @@
+<div class="order-container" *ngIf="order">
+    <h2>Detalles de la Orden #{{ order.id }}</h2>
+  
+    <div class="order-header">
+      <div class="order-info">
+        <p><strong>Fecha de confirmación:</strong> {{ order.confirmDate | date:'dd/MM/yyyy' }}</p>
+        <p><strong>Estado:</strong> {{ order.statusHistory }}</p>
+      </div>
+      <div class="order-address">
+        <p><strong>Dirección:</strong> {{ addressRecuperado.address }}</p>
+        <p><strong>Código Postal:</strong> {{ addressRecuperado.zipCode }}</p>
+        <p><strong>Provincia:</strong> {{ addressRecuperado.province }}</p>
+      </div>
+    </div>
+  
+    <div *ngIf="cartLinesOrder" class="order-lines">
+      <h3>Detalles de los productos</h3>
+      <div *ngFor="let line of cartLinesOrder" class="order-line">
+        <p><strong>Producto:</strong> {{line.product.name}}</p>
+        <p><strong>Cantidad:</strong> {{ line.quantity }}</p>
+        <p><strong>Precio:</strong> ${{line.product.priceUni}}</p>
+      </div>    
+    </div>
+  
+    <div class="order-total">
+      <h3>Total: ${{ order.totalAmount }}</h3>
+    </div>
+  
+    <button (click)="goBack()" class="back-btn">Volver a la lista de órdenes</button>
+  </div>
+  

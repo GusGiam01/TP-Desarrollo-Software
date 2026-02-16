@@ -1,0 +1,51 @@
+import {
+    Entity,
+    Property,
+    ManyToMany,
+    Cascade,
+    ManyToOne,
+    Rel,
+    Collection,
+    PrimaryKey,
+    SerializedPrimaryKey,
+    OneToMany,
+    Unique,
+  } from '@mikro-orm/core'
+
+  import { BaseEntity } from '../shared/db/baseEntity.entity.js'
+import { LineOrder } from '../LineOrder/lineOrder.entity.js'
+  
+  @Entity()
+  export class Product extends BaseEntity {
+
+    @Unique()
+    @Property({ type: 'string' })
+    code!: string
+  
+    @Property({ type: 'number', nullable: false })
+    priceUni!: number
+  
+    @Property({ type: 'string', nullable: false })
+    name!: string
+  
+    @Property({ type: 'number', nullable: false })
+    stock!: number
+  
+    @Property({ type: 'string', nullable: false })
+    state!: string
+
+    @Property({ type: 'number', nullable: true })
+    discount?: number
+
+    @Property({ type: 'string', nullable: false })
+    type!: string
+
+    @Property({ type: 'string', nullable: false })
+    brand!: string
+
+    @Property({ type: 'string', nullable: false })
+    img!: string
+
+    @OneToMany(() => LineOrder, lineOrder => lineOrder.product, {cascade: [Cascade.ALL]})
+    linesOrder = new Collection<LineOrder>(this)
+  }

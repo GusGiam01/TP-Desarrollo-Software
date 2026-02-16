@@ -1,0 +1,139 @@
+@font-face {
+    font-family: "SecondarySMfont";
+    src: url("../../../../public/font/puntosVenta/SaaSeriesCDOT.ttf")
+}
+
+.log-in{
+    margin-top: 180px;
+    padding: 20px;
+
+}
+
+.log-in_form{
+    background-color: #c0956d;
+}
+
+.form-line{
+    display: block;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.form{
+    display: flex;
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center;  
+    gap: 5px;    
+    height: 20rem;   
+}
+
+.div_input_button{
+    display: grid;
+    grid-template-rows: 5fr 1fr;
+}
+
+.div_inputs_right_left{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-row: 1;
+}
+
+.div_button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.div_input{
+    padding-left: 5px;
+    padding-right: 5px;
+    gap: 1.5px;
+}
+
+.a_recover-password{
+    cursor: pointer;
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 14px;
+    text-decoration: none;
+    color: #1f1a17;
+}
+
+.a_recover-password:hover{
+    color: rgb(80, 79, 79);
+    text-decoration: underline;
+}
+
+.btn_login{
+    width: 7rem;
+    height: 2rem;
+    background-color: #aa524d;
+    border: none;
+    border-radius: 2.5px;
+    font-family: "SecondarySMfont";
+    cursor: pointer;
+}
+
+/* Botón "Crear cuenta" */
+.btn-crear-cuenta{
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-top: 12px;
+  padding: 10px 26px;
+
+  font-family: 'SecondarySMfont', serif;
+  font-size: 13px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+
+  color: #8F342F;
+  background: transparent;
+  border: 2px solid #8F342F;
+  border-radius: 4px;
+
+  cursor: pointer;
+  text-decoration: none;
+
+  transition: transform 120ms ease, background-color 120ms ease, color 120ms ease;
+}
+
+.btn-crear-cuenta:hover{
+  background: #8F342F;
+  color: #EDDBCD;
+  transform: translateY(-1px);
+}
+
+.btn-crear-cuenta:active{
+  transform: translateY(0px);
+}
+
+.btn-crear-cuenta:focus-visible{
+  outline: 3px solid rgba(143, 52, 47, 0.35);
+  outline-offset: 2px;
+}
+
+//SM - hasta: 650px
+@media (max-width:650px) {
+    .container{
+        margin-top: 120px;
+    }
+
+    .div_log-in{
+        display: block;
+    }
+}
+
+//SM - hasta:1024px
+@media (min-width: 650px) and (max-width: 1024px) {
+    .container{
+        margin-top: 120px;
+    }
+
+    .div_log-in{
+        display: block;
+    }
+}

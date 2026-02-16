@@ -1,0 +1,31 @@
+
+.index_video{
+    height: 100vh;
+    padding: 40px 0;
+}
+
+//SM - hasta: 650px
+@media (max-width: 650px){
+    .index_video{
+        height: 400px;
+    }
+
+    .div_video{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+//SM - hasta: 1024px
+@media (min-width:650px) and (max-width: 1024px){
+    .index_video{
+        height: 400px;
+    }
+
+    .div_video{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
