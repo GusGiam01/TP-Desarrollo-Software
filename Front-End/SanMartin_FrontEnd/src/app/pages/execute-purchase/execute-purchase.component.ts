@@ -24,6 +24,10 @@ import { addressI } from '../../modelos/address.interface.js';
 export class ExecutePurchaseComponent implements OnInit {
   addresses: Array<addressI> = [];
 
+  errorMessage: string | null = null;
+  successMessage: string | null = null;
+  isLoading = false;
+
   shippingForm = new FormGroup({
     cardNumber: new FormControl('', Validators.required),
     expiryDate: new FormControl('', Validators.required),
@@ -39,14 +43,7 @@ export class ExecutePurchaseComponent implements OnInit {
     linesOrder: [],
     totalAmount: 0,
     statusHistory: '',
-    address: {
-      id: '',
-      zipCode: '',
-      province: '',
-      nickname: '',
-      address: '',
-      user: '',
-    },
+    address: '',
   };
 
   constructor(private api: ApiService, private router: Router) {}
@@ -58,34 +55,56 @@ export class ExecutePurchaseComponent implements OnInit {
   }
 
   getLinesOrder(): void {
-    let orderId = '' + sessionStorage.getItem('orderId');
+    const orderId = sessionStorage.getItem('orderId');
+
+    if (!orderId) {
+      this.errorMessage = "No hay una orden activa.";
+      return;
+    }
+
+    this.isLoading = true;
+    this.cartLinesOrder = [];
+    this.order.totalAmount = 0;
+
     this.api.searchLinesOrderByOrderId(orderId).subscribe({
       next: (data) => {
-        this.order.totalAmount = 0;
+
+        if (!data?.data) {
+          this.isLoading = false;
+          return;
+        }
+
         for (let i = 0; i < data.data.length; i++) {
           this.api.searchProductById(data.data[i].product).subscribe({
             next: (p) => {
-              let line: cartLineOrderI = {
+
+              const line: cartLineOrderI = {
                 id: data.data[i].id,
                 product: p.data,
                 quantity: data.data[i].quantity,
               };
+
               this.cartLinesOrder.push(line);
-              this.order.totalAmount =
-                this.order.totalAmount +
-                p.data.priceUni * data.data[i].quantity;
+              this.order.totalAmount += p.data.priceUni * data.data[i].quantity;
+
+              if (i === data.data.length - 1) {
+                this.isLoading = false;
+              }
             },
-            error: (e) => {
-              console.log(e);
+            error: () => {
+              this.errorMessage = "Error al cargar productos.";
+              this.isLoading = false;
             },
           });
         }
       },
-      error: (e) => {
-        console.log(e);
+      error: () => {
+        this.errorMessage = "No se pudieron cargar las líneas del pedido.";
+        this.isLoading = false;
       },
     });
   }
+
 
   loadUserAddresses(): void {
     this.api
@@ -108,47 +127,57 @@ export class ExecutePurchaseComponent implements OnInit {
   }
 
   submitPurchase(form: any): void {
-    if (this.addresses.length === 0) {
-      alert('Debe cargar al menos una dirección antes de efectuar la compra.');
+
+    if (this.shippingForm.invalid) {
+      this.errorMessage = "Complete correctamente los datos de pago.";
       return;
     }
 
-    let orderId = '' + sessionStorage.getItem('orderId');
+    if (this.addresses.length === 0) {
+      this.errorMessage = "Debe cargar al menos una dirección antes de efectuar la compra.";
+      return;
+    }
+
+    const orderId = sessionStorage.getItem('orderId');
+
+    if (!orderId) {
+      this.errorMessage = "No hay una orden activa.";
+      return;
+    }
+
+    this.isLoading = true;
+    this.errorMessage = null;
+
     this.api.searchOrderById(orderId).subscribe({
       next: (data) => {
-        let cardData = {
-          cardNumber: form.cardNumber,
-          expiryDate: form.expiryDate,
-          cvv: form.cvv,
-          cardholderName: form.cardholderName,
-        };
 
-        let completeOrder: orderI = {
-          id: data.data.id,
-          user: data.data.user,
-          linesOrder: data.data.linesOrder,
-          totalAmount: data.data.totalAmount,
+        const completeOrder: orderI = {
+          ...data.data,
           statusHistory: 'PAID',
           confirmDate: new Date(),
-          address: form.address,
+          address: form.address
         };
 
         this.api.updateOrder(completeOrder).subscribe({
           next: () => {
-            console.log('Actualizado.');
+            this.isLoading = false;
             sessionStorage.removeItem('orderId');
             this.router.navigate(['/thanks']);
           },
-          error: (r) => {
-            console.log(r);
-          },
+          error: () => {
+            this.isLoading = false;
+            this.errorMessage = "No se pudo actualizar la orden.";
+          }
         });
+
       },
-      error: (e) => {
-        console.log(e);
-      },
+      error: () => {
+        this.isLoading = false;
+        this.errorMessage = "No se pudo recuperar la orden.";
+      }
     });
   }
+
 
   validateCardNumber(): boolean {
     let cardNumber = '' + this.shippingForm.get('cardNumber')?.value;

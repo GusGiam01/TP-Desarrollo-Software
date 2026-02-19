@@ -10,6 +10,8 @@ import { addressRouter } from './Address/address.routes.js'
 import nodemailer from 'nodemailer';
 import cors from 'cors';
 import { MikroORM } from '@mikro-orm/mongodb'
+import { errorHandler } from './shared/db/errorHandler.js'
+import authRoutes from "./Auth/auth.routes.js"
 
 
 const app = express()
@@ -25,6 +27,9 @@ app.use('/api/products', productRouter)
 app.use('/api/orders', orderRouter)
 app.use('/api/linesorder', lineOrderRouter)
 app.use('/api/addresses', addressRouter)
+app.use("/api/auth", authRoutes)
+
+app.use(errorHandler);
 
 const transporter = nodemailer.createTransport({
     host: 'in-v3.mailjet.com',   

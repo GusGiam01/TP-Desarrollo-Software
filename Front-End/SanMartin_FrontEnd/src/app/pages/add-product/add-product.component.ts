@@ -23,6 +23,9 @@ export class AddProductComponent implements OnInit {
 
   ngOnInit(): void { }
 
+  errorMessage: string | null = null;
+  isLoading = false;
+
   addProductForm = new FormGroup({
     code: new FormControl('', Validators.required),
     priceUni: new FormControl<number | null>(null, Validators.required),
@@ -35,7 +38,11 @@ export class AddProductComponent implements OnInit {
   });
 
   addProduct() {
+    if (this.addProductForm.invalid) return;
+    this.errorMessage = null;
+    this.isLoading = true;
     const formValues = this.addProductForm.value;
+
     const newProduct: addProductI = {
       code: formValues.code ?? '',
       priceUni: formValues.priceUni ?? 0,
@@ -49,14 +56,25 @@ export class AddProductComponent implements OnInit {
 
     this.api.postProduct(newProduct).subscribe({
       next: () => {
-        this.router.navigate(['home']).then(() => location.reload());
+        this.isLoading = false;
+        this.router.navigate(['home']);
       },
       error: (e) => {
-        console.log({ newProduct });
-        console.log(e);
+        this.isLoading = false;
+
+        if (e.status === 400) {
+          this.errorMessage = e.error?.message || "Datos inválidos.";
+        } else if (e.status === 409) {
+          this.errorMessage = "Ya existe un producto con ese código.";
+        } else if (e.status === 500) {
+          this.errorMessage = "Error interno del servidor.";
+        } else {
+          this.errorMessage = "No se pudo agregar el producto.";
+        }
       }
     });
-  }
+}
+
 
   validateCode():boolean{
     let code = "" + this.addProductForm.get("code")?.value;

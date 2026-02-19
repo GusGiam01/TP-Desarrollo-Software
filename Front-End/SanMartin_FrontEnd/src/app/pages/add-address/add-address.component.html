@@ -1,6 +1,14 @@
 <div class="address-form-container">
     <h2>Agregar Dirección</h2>
     
+    <div *ngIf="errorMessageLoad" class="alert alert-danger">
+      {{ errorMessageLoad }}
+    </div>
+
+    <div *ngIf="errorMessageSubmit" class="alert alert-danger">
+      {{ errorMessageSubmit }}
+    </div>
+
     <form class="form" [formGroup]="addressForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="zipCode">Código Postal</label>
@@ -27,7 +35,10 @@
       </div>
   
       <div class="form-actions">
-        <button type="submit" [disabled]="validateForm()">Guardar</button>
+        <button type="submit" [disabled]="validateForm() || isLoading">
+          <span *ngIf="!isLoading">Guardar</span>
+          <span *ngIf="isLoading">Guardando...</span>
+        </button>
         <button type="button" class="cancel-btn" (click)="onCancel()">Cancelar</button>
       </div>
     </form>

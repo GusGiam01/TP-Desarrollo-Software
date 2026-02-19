@@ -37,6 +37,11 @@ export class ApiService {
 
     // Usuarios
 
+    login(credentials: loginI): Observable<responseI> {
+        const direction = this.url + "/auth/login";
+        return this.http.post<responseI>(direction, credentials);
+    }
+
     searchUserById(id:string):Observable<responseI>{
         const params = new HttpParams().set('type', "ID");
         let direction = this.url + "/users/" + id;

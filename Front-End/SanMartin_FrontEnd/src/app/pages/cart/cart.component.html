@@ -1,4 +1,12 @@
 <div class="container">
+    <div *ngIf="isLoading">
+        Cargando...
+    </div>
+
+    <div *ngIf="errorMessage" class="alert alert-danger">
+        {{ errorMessage }}
+    </div>
+    
     <tr >
         <div class="item-container item">
             <p style="grid-area: 'product';">Producto</p>

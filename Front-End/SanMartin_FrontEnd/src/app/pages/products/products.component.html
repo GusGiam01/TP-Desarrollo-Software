@@ -9,6 +9,17 @@
 </div>
 
 <div class="div_products">
+    <div *ngIf="errorMessage" class="alert alert-danger">
+        {{ errorMessage }}
+    </div>
+
+    <div *ngIf="successMessage" class="alert alert-success">
+        {{ successMessage }}
+    </div>
+
+    <div *ngIf="isLoading">
+        Cargando...
+    </div>
     <div class="div_product_container" *ngFor="let p of products">
         <div class="div_product_stock"> 
             <div class="div_product" [class.disabled]="p.stock === 0">

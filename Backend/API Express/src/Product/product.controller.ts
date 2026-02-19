@@ -26,7 +26,7 @@ function sanitizeProductInput(req: Request, res: Response, next: NextFunction) {
   next()
 }
 
-async function findAll(req: Request, res: Response) {
+async function findAll(req: Request, res: Response, next:NextFunction) {
   try {
     const products = await em.find(
       Product,
@@ -34,17 +34,17 @@ async function findAll(req: Request, res: Response) {
     )
     res.status(200).json({ message: 'found all products', data: products })
   } catch (error: any) {
-    res.status(503).json({ message: error.message })
+    next(error);
   }
 }
 
-async function findOne(req: Request, res: Response) {
+async function findOne(req: Request, res: Response, next: NextFunction) {
   try {
     const id = req.params.id
     const product = await em.findOneOrFail(Product, { id })
     res.status(200).json({ message: 'found product', data: product })
   } catch (error: any) {
-    res.status(500).json({ message: error.message })
+    next(error);
   }
 }
 

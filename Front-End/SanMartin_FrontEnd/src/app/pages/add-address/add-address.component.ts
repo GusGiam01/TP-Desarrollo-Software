@@ -30,6 +30,10 @@ export class AddAddressComponent implements OnInit {
     user: ''
   };
 
+  errorMessageLoad: string | null = null;
+  errorMessageSubmit: string | null = null;
+  isLoading = false; 
+
   ngOnInit(){
     let userId = "" + sessionStorage.getItem("token");
     this.api.searchAddressesByUserId(userId).subscribe({
@@ -38,7 +42,7 @@ export class AddAddressComponent implements OnInit {
         console.log("Se encontraron todas las direcciones del usuario: " + userId)
       },
       error: (e) => {
-        console.log(e);
+        this.errorMessageLoad = "No se pudieron cargar las direcciones.";
       }
     })
   }
@@ -68,6 +72,8 @@ export class AddAddressComponent implements OnInit {
 
   onSubmit() {
     if (this.addressForm.valid) {
+      this.errorMessageSubmit = null;
+      this.isLoading = true;  
       this.address = this.addressForm.value;
       this.address.user = ""+sessionStorage.getItem("token");
       let check = this.checkAddress(this.address, this.addresses)
@@ -86,34 +92,45 @@ export class AddAddressComponent implements OnInit {
                     this.api.updateUser(user).subscribe({
                       next: (updateuser) => {
                         console.log("Direccion con id: " + getAddress[0].id + " añadida al usuario: " + updateuser.data)
+                        this.isLoading = false;
+                        this.router.navigate(['/list-address']);
                       },
                       error: (e) => {
-                        console.log(e);
+                        this.isLoading = false;
+                        this.errorMessageSubmit = "La dirección se creó pero no pudo asociarse al usuario.";
                       }
                     })
                   },
                   error: (e) => {
-                    console.log(e)
+                    this.isLoading = false;
+                    this.errorMessageSubmit = "No se pudo recuperar el usuario.";
                   }
                 })
               },
               error: (e) => {
-
+                this.isLoading = false;
+                this.errorMessageSubmit = "No se pudieron recuperar las direcciones actualizadas.";
               }
             })
-            this.router.navigate(['/list-address']);
           },
           error: (error) => {
-            console.error('Error al guardar la dirección:', error)
+            this.isLoading = false;
+            if (error.status === 400) {
+              this.errorMessageSubmit = error.error?.message || "Datos inválidos.";
+            } else if (error.status === 500) {
+              this.errorMessageSubmit = "Error interno del servidor.";
+            } else {
+              this.errorMessageSubmit = "No se pudo guardar la dirección.";
+            }
           }
         });
       }
       else {
         if (check == "NICKNAME") {
-          alert("Ya existe una dirección registrada con el nickname: " + this.address.nickname)
+          this.errorMessageSubmit = "Ya existe una dirección con ese nickname.";
         }
         else {
-          alert("Ya existe una dirección registrada en "+this.address.address+", "+this.address.zipCode)
+          this.errorMessageSubmit = "Ya existe una dirección registrada en "+this.address.address+", "+this.address.zipCode;
         }
       }
     }

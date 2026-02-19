@@ -1,8 +1,16 @@
 <div class="orders-container">
   <h2>Mis pedidos</h2>
   
-  <div *ngIf="odersOfUser.length === 0" class="no-orders-message">
+  <div *ngIf="!isLoading && odersOfUser.length === 0" class="no-orders-message">
     <p>No tienes órdenes pendientes.</p>
+  </div>
+
+  <div *ngIf="isLoading" class="loading-message">
+    Cargando pedidos...
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
   </div>
 
   <div class="sort-container">

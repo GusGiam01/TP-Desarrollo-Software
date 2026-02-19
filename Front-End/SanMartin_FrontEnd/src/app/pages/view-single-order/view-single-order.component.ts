@@ -22,11 +22,22 @@ import { catchError, map, finalize } from 'rxjs/operators';
   styleUrl: './view-single-order.component.scss'
 })
 export class ViewSingleOrderComponent {
-    ngOnInit(): void {
-      this.getLinesOrder(() => {
-        this.showOrder();
-      });
+  
+  isLoading = false;
+  errorMessage: string | null = null;
+
+  ngOnInit(): void {
+    const orderId = sessionStorage.getItem("orderId");
+
+    if (!orderId) {
+      this.router.navigate(['/view-orders']);
+      return;
     }
+
+    this.loadOrder(orderId);
+  }
+
+  
 
   order: orderI = {} as orderI;
   addressRecuperado: addressI = {} as addressI;
@@ -34,94 +45,72 @@ export class ViewSingleOrderComponent {
 
   constructor(private api: ApiService, private router: Router) { }
 
-  showOrder(): void {
-    let orderId = "" + sessionStorage.getItem("orderId");
+  loadOrder(orderId: string): void {
+    this.isLoading = true;
+    this.errorMessage = null;
+    this.cartLinesOrder = [];
+
     this.api.searchOrderById(orderId).subscribe({
-      next: (data) => {
-        this.order.id = data.data.id;
-        this.order.confirmDate = data.data.confirmDate;
-        this.order.statusHistory = data.data.statusHistory;
-        this.order.totalAmount = data.data.totalAmount;
-        if (data.data.address) {
-          this.loadAddress(data.data.address);
-        } else {
-          console.log("No hay data sobre la dirección.");
+      next: (orderData) => {
+
+        this.order = orderData.data;
+
+        if (this.order.address) {
+          this.loadAddress(this.order.address);
         }
 
+        this.loadLines(orderId);
       },
-      error: (e) => {
-        console.log(e)
+      error: () => {
+        this.errorMessage = "No se pudo cargar la orden.";
+        this.isLoading = false;
       }
-    })
+    });
   }
-  loadAddress(address: addressI): void {
-    let addressId = "" + address;
-    if (address) {
+
+  loadAddress(addressId: string): void {
       this.api.searchAddressById(addressId).subscribe({
-        next: (data) => {
-          console.log(data);
-          this.addressRecuperado.id = data.data.id;
-          this.addressRecuperado.address = data.data.address;
-          this.addressRecuperado.nickname = data.data.nickname;
-          this.addressRecuperado.province = data.data.province;
-          this.addressRecuperado.zipCode = data.data.zipCode;
-        },
-        error: (e) => {
-          console.log(e)
-        }
-      })
-    } else {
-      console.error('Address ID is undefined');
-    }
+      next: (data) => {
+        this.addressRecuperado = data.data;
+      },
+      error: () => {
+        this.errorMessage = "No se pudo cargar la dirección.";
+      }
+    });
   }
-    getLinesOrder(callback: () => void): void {
-      let orderId = "" + sessionStorage.getItem("orderId");
-      this.api.searchLinesOrderByOrderId(orderId).subscribe({
-        next: (data) => {
-          this.order.totalAmount = 0;
-    
-          const productRequests = data.data.map((line: lineOrderI) =>
-            this.api.searchProductById(line.product).pipe(
-              map((productData) => ({
-                line,
-                product: productData.data
-              })),
-              catchError((error) => {
-                console.error(`Error fetching product ${line.product}:`, error);
-                return of(null);
-              })
-            )
-          );
-    
-          forkJoin(productRequests).pipe(
-            finalize(() => {
-              console.log('All product requests completed');
-            })
-          ).subscribe({
-            next: (results) => {
-              results.forEach((result) => {
-                if (result) {
-                  const line: cartLineOrderI = {
-                    id: result.line.id,
-                    product: result.product,
-                    quantity: result.line.quantity
-                  };
-                  this.cartLinesOrder.push(line);
-                  this.order.totalAmount += result.product.priceUni * result.line.quantity;
-                }
-              });
-              callback();
-            },
-            error: (q) => {
-              console.error("Error in product requests:", q);
-            }
-          });
-        },
-        error: (e) => {
-          console.error("Error fetching lines:", e);
-        }
-      });
-    }
+  loadLines(orderId: string): void {
+    this.api.searchLinesOrderByOrderId(orderId).subscribe({
+      next: (data) => {
+
+        const productRequests = data.data.map((line: lineOrderI) =>
+          this.api.searchProductById(line.product).pipe(
+            map(productData => ({
+              id: line.id,
+              product: productData.data,
+              quantity: line.quantity
+            }))
+          )
+        );
+
+        forkJoin(productRequests).subscribe({
+          next: (results) => {
+            this.cartLinesOrder = results;
+            this.isLoading = false;
+          },
+          error: () => {
+            this.errorMessage = "Error cargando los productos.";
+            this.isLoading = false;
+          }
+        });
+
+      },
+      error: () => {
+        this.errorMessage = "Error cargando las líneas.";
+        this.isLoading = false;
+      }
+    });
+  }
+
     
 
   goBack() {

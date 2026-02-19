@@ -1,6 +1,12 @@
-<div class="order-container" *ngIf="order">
+<div *ngIf="isLoading" class="loading-message">
+  Cargando orden...
+</div>
+
+<div *ngIf="errorMessage" class="error-message">
+  {{ errorMessage }}
+</div>
+<div class="order-container" *ngIf="!isLoading && order?.id">
     <h2>Detalles de la Orden #{{ order.id }}</h2>
-  
     <div class="order-header">
       <div class="order-info">
         <p><strong>Fecha de confirmación:</strong> {{ order.confirmDate | date:'dd/MM/yyyy' }}</p>

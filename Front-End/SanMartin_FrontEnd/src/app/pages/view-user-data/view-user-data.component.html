@@ -1,4 +1,11 @@
-<div class="user-card-container">
+<div *ngIf="isLoading" class="loading-message">
+  Cargando datos...
+</div>
+
+<div *ngIf="errorMessage" class="error-message">
+  {{ errorMessage }}
+</div>
+<div class="user-card-container" *ngIf="!isLoading && !errorMessage">
     <button class="modify-btn" (click)="goModify()">Modificar datos</button>
     <div class="user-card">
       <h2>Datos del Usuario</h2>

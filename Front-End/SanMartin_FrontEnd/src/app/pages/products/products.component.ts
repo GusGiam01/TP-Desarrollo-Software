@@ -23,6 +23,11 @@ import { addressI } from '../../modelos/address.interface.js';
   styleUrl: './products.component.scss'
 })
 export class ProductsComponent {
+
+  errorMessage: string | null = null;
+  successMessage: string | null = null;
+  isLoading = false;
+
   quantity: number = 1;
   maxQuantity: number = 0;
   productCode: string = "";
@@ -55,138 +60,154 @@ export class ProductsComponent {
   constructor(private api: ApiService, private router: Router) { }
 
   getProducts() {
+    this.errorMessage = null;
+    this.isLoading = true;
+
     this.api.searchProducts().subscribe({
       next: (data) => {
-        this.products = data.data;
+        this.products = data.data || [];
+        this.isLoading = false;
       },
-      error: (e) => {
-        console.log(e);
+      error: () => {
+        this.isLoading = false;
+        this.errorMessage = "No se pudieron cargar los productos.";
       }
     });
   }
 
-  createLineOrder(p: string, q: number, o: string): lineOrderI {
-    let line: lineOrderI = {
-      product: p,
-      quantity: q,
-      order: o
-    }
-    console.log(line)
-    this.api.postLineOrder(line).subscribe({
-      next: (data) => {
-        console.log("line order: " + data.data.id + " creada exitosamente.")
-      },
-      error: (e) => {
-        console.log(e)
-      }
-    })
-    return line
-  }
-
-  addToOrder(o:orderI, line:lineOrderI):orderI{
-    let order:orderI = {
-      id: o.id,
-      linesOrder: [],
-      totalAmount: o.totalAmount,
-      statusHistory: o.statusHistory,
-      user: o.user
+  createLineOrder(productId: string, quantity: number, orderId: string) {
+    const line: lineOrderI = {
+      product: productId,
+      quantity: quantity,
+      order: orderId
     };
-    this.api.searchLinesOrderByOrderId(order.id).subscribe({
-      next: (data) => {
-        for (let i = 0; i < data.data.length; i++){
-          order.linesOrder.push(data.data[i]);
-        }
-      },
-      error: (e) => {
-        console.log(e)
-      }
-    })
-    return order
+
+    return this.api.postLineOrder(line);
   }
 
-  addToCart(id:string, q:number){   
+  addToOrder(orderId: string, product: productI, quantity: number) {
+    return new Promise<void>((resolve, reject) => {
+
+      this.api.searchOrderById(orderId).subscribe({
+        next: (go) => {
+
+          const order = go.data;
+
+          this.createLineOrder(product.id, quantity, orderId).subscribe({
+            next: () => {
+
+              order.totalAmount += product.priceUni * quantity;
+
+              this.api.updateOrder(order).subscribe({
+                next: () => resolve(),
+                error: () => reject("No se pudo actualizar la orden.")
+              });
+
+            },
+            error: () => reject("No se pudo crear la línea de orden.")
+          });
+
+        },
+        error: () => reject("No se encontró la orden.")
+      });
+
+    });
+  }
+
+
+addToCart(id: string, quantity: number) {
+
+    this.errorMessage = null;
+    this.successMessage = null;
+    this.isLoading = true;
+
+    const userId = sessionStorage.getItem("token");
+
+    if (!userId) {
+      this.errorMessage = "Debe iniciar sesión para comprar.";
+      this.isLoading = false;
+      return;
+    }
+
     this.api.searchProductById(id).subscribe({
       next: (prod) => {
-        const selectedProduct = prod.data;
-        if (selectedProduct.stock >= q){
-          if (sessionStorage.getItem("orderId") == null || sessionStorage.getItem("orderId") == "") {
-            let userId = "" + sessionStorage.getItem("token");
-            let order:addOrderI = {
-              statusHistory: "UNPAID",
-              linesOrder: [],
-              totalAmount: 0,
-              user: userId
-            }
-            let line:lineOrderI = {
-              product:selectedProduct.id, 
-              quantity: q
-            }
-            order.linesOrder.push(line);
-            order.totalAmount = selectedProduct.priceUni * q;
-            this.api.postOrder(order).subscribe({
-              next: (co) => {
-                let dataResponseOrder:responseOrderI = co;
-                sessionStorage.setItem("orderId", dataResponseOrder.data.id);
-                console.log(dataResponseOrder.data.id);
-                console.log("Se creo la orden.")
-                selectedProduct.stock = selectedProduct.stock - q;
-                this.api.updateProduct(selectedProduct).subscribe({
-                  next: (pp) => {
-                    console.log("stock modificado.")
-                  },
-                  error: (e) => {
-                    console.log(e)
-                  }
-                }) 
-              },
-              error: (e) => {
-                console.log(e)
-              }
-            })
-          }
-          else {
-            let orderId = ""+sessionStorage.getItem("orderId")
-            console.log("orderId: ", orderId);
-            this.api.searchOrderById(orderId).subscribe({
-              next: (go) => {
-                let order = this.addToOrder(go.data, this.createLineOrder(selectedProduct.id, q, orderId));
-                order.totalAmount = order.totalAmount + (selectedProduct.priceUni * q)
-                this.api.updateOrder(order).subscribe({
-                  next: (uo) => {
-                    console.log("Se agrego el objeto al pedido.")
-                    selectedProduct.stock = selectedProduct.stock - q;
-                  this.api.updateProduct(selectedProduct).subscribe({
-                    next: (pp) => {
-                      console.log("stock modificado.")
-                    },
-                    error: (e) => {
-                      console.log(e)
-                    }
-                  })
-                  },
-                  error: (e) =>
-                    alert("Hubo un problema al agregar un articulo a su carrito.")
-                })
 
-              },
-              error: (e) => {
-                console.log(e);
-                alert("No se encontro la orden")
-              }
-            })
-          }
-        } 
-        else {
-          alert("No hay suficiente stock.")
+        const selectedProduct = prod.data;
+
+        if (selectedProduct.stock < quantity) {
+          this.errorMessage = "No hay suficiente stock disponible.";
+          this.isLoading = false;
+          return;
         }
+
+        let orderId = sessionStorage.getItem("orderId");
+
+
+        if (!orderId) {
+
+          const newOrder: addOrderI = {
+            statusHistory: "UNPAID",
+            linesOrder: [],
+            totalAmount: 0,
+            user: userId
+          };
+
+          this.api.postOrder(newOrder).subscribe({
+            next: (co) => {
+
+              orderId = co.data.id;
+              sessionStorage.setItem("orderId", orderId);
+
+              this.processAddToExistingOrder(orderId, selectedProduct, quantity);
+
+            },
+            error: () => {
+              this.errorMessage = "No se pudo crear la orden.";
+              this.isLoading = false;
+            }
+          });
+
+        } else {
+
+          this.processAddToExistingOrder(orderId, selectedProduct, quantity);
+
+        }
+
       },
-      error: (e) => {
-        console.log(e);
-        alert("No se encontro el objeto")
+      error: () => {
+        this.errorMessage = "No se encontró el producto.";
+        this.isLoading = false;
       }
-    })
-    this.productCode = "";
+    });
   }
+
+  processAddToExistingOrder(orderId: string, product: productI, quantity: number) {
+    this.addToOrder(orderId, product, quantity)
+      .then(() => {
+
+        product.stock -= quantity;
+
+        this.api.updateProduct(product).subscribe({
+          next: () => {
+
+            this.successMessage = "Producto agregado al carrito.";
+            this.productCode = "";
+            this.isLoading = false;
+
+          },
+          error: () => {
+            this.errorMessage = "No se pudo actualizar el stock.";
+            this.isLoading = false;
+          }
+        });
+
+      })
+      .catch((errorMsg) => {
+        this.errorMessage = errorMsg;
+        this.isLoading = false;
+      });
+  }
+
   
 
 
@@ -197,20 +218,16 @@ export class ProductsComponent {
   onSortChange(event: any): void {
     const sortBy = event.target.value;
 
-    this.api.searchProducts().subscribe({
-      next: (data) => {
-        this.products = data.data;
-
-        if (sortBy === 'alphabetical') {
-          this.products = [...this.products].sort((a, b) => a.name.localeCompare(b.name));
-        } else if (sortBy === 'priceAsc') {
-          this.products = [...this.products].sort((a, b) => a.priceUni - b.priceUni);
-        }
-      },
-      error: (e) => {
-        console.log(e);
-      }
-    });
+    if (sortBy === 'alphabetical') {
+      this.products = [...this.products].sort((a, b) =>
+        a.name.localeCompare(b.name)
+      );
+    } else if (sortBy === 'priceAsc') {
+      this.products = [...this.products].sort((a, b) =>
+        a.priceUni - b.priceUni
+      );
+    }
   }
+
 
 }

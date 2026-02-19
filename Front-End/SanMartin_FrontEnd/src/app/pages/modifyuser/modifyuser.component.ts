@@ -23,6 +23,9 @@ export class EditUserComponent implements OnInit {
   userDNI: string = '';
   user: userI | undefined;
 
+  errorMessage: string | null = null;
+  isLoading = false;
+
   constructor(
     private fb: FormBuilder,
     private api: ApiService,
@@ -32,8 +35,8 @@ export class EditUserComponent implements OnInit {
     this.userForm = this.fb.group({
       name: ['', Validators.required],
       surname: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      confirm_password: ['', [Validators.required, Validators.minLength(6)]],
+      password: [''],
+      confirm_password: [''],
       mail: ['', [Validators.required, Validators.email]],
       cellphone: ['', Validators.required],
       birthDate: ['', Validators.required],
@@ -54,8 +57,6 @@ export class EditUserComponent implements OnInit {
           this.userForm.patchValue({
             name: this.user.name,
             surname: this.user.surname,
-            password: this.user.password,
-            confirm_password: this.user.password,
             mail: this.user.mail,
             cellphone: this.user.cellphone,
             birthDate: this.user.birthDate,
@@ -70,27 +71,55 @@ export class EditUserComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.userForm.valid && this.userId) {
-      const updatedUser: userPatchI = {
-        id: this.userId,
-        name: this.userForm.get('name')?.value,
-        surname: this.userForm.get('surname')?.value,
-        password: this.userForm.get('password')?.value,
-        mail: this.userForm.get('mail')?.value,
-        cellphone: this.userForm.get('cellphone')?.value,
-        birthDate: this.userForm.get('birthDate')?.value,
-        age: this.calculateAge(this.userForm.get('birthDate')?.value),
-      };
-      this.api.patchUser(updatedUser).subscribe({
-        next: () => {
-          this.router.navigate(['/view-user-data']);
-        },
-        error: (e) => {
-          console.error(e);
-        }
-      });
+    if (!this.userId) return;
+
+    this.errorMessage = null;
+
+    const password = this.userForm.get('password')?.value;
+    const confirmPassword = this.userForm.get('confirm_password')?.value;
+
+    if (password && password.trim() !== "") {
+
+      if (!this.valPas(password)) {
+        this.errorMessage = "La contraseña debe tener al menos 8 caracteres, una mayúscula y un número.";
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        this.errorMessage = "Las contraseñas no coinciden.";
+        return;
+      }
     }
+
+    const updatedUser: userPatchI = {
+      id: this.userId,
+      name: this.userForm.get('name')?.value,
+      surname: this.userForm.get('surname')?.value,
+      mail: this.userForm.get('mail')?.value,
+      cellphone: this.userForm.get('cellphone')?.value,
+      birthDate: this.userForm.get('birthDate')?.value,
+      age: this.calculateAge(this.userForm.get('birthDate')?.value),
+    };
+
+    if (password && password.trim() !== "") {
+      updatedUser.password = password;
+    }
+
+    this.isLoading = true;
+
+    this.api.patchUser(updatedUser).subscribe({
+      next: () => {
+        this.isLoading = false;
+        this.router.navigate(['/view-user-data']);
+      },
+      error: () => {
+        this.isLoading = false;
+        this.errorMessage = "No se pudo actualizar el usuario.";
+      }
+    });
   }
+
+
 
   validateName(): boolean {
     let name = "" + this.userForm.get('name')?.value;
@@ -110,21 +139,44 @@ export class EditUserComponent implements OnInit {
     }
   }
 
+  valPas(password: string): boolean {
+  const tieneLongitudValida = password.length >= 8;
+  const tieneMayuscula = /[A-Z]/.test(password);
+  const tieneNumero = /[0-9]/.test(password);
+
+  return tieneLongitudValida && tieneMayuscula && tieneNumero;
+}
+
+
   validatePassword(): boolean {
-    let password = this.userForm.get('password')?.value;
-    if (password && password.length >= 6 && /[0-9]/.test(password) && /[A-Z]/.test(password)) {
+    const password = this.userForm.get('password')?.value;
+
+    if (!password || password.trim() === "") {
       return false;
-    } else {
-      return true;
     }
+
+    if (
+      password.length >= 8 &&
+      /[0-9]/.test(password) &&
+      /[A-Z]/.test(password)
+    ) {
+      return false;
+    }
+
+    return true;
   }
 
   validateConfirmPassword(): boolean {
     const password = this.userForm.get('password')?.value;
     const confirmPassword = this.userForm.get('confirm_password')?.value;
-    if (confirmPassword && password && confirmPassword === password) {
+    if (!password || password.trim() === "") {
       return false;
     }
+
+    if (confirmPassword === password) {
+      return false;
+    }
+
     return true;
   }
 

@@ -1,5 +1,12 @@
 <div class="addresses-container">
   <h2>Direcciones de Usuario</h2>
+  <div *ngIf="isLoading">
+    Procesando...
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
   <div class="sortcontainer-button_div">
     <div class="div_button">
       <button (click)="addAddress()" class="address_btn">Agregar Dirección</button>

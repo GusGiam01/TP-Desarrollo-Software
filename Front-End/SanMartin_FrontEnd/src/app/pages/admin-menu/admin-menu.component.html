@@ -1,4 +1,7 @@
 <div class="admin-menu">
+    <div *ngIf="errorMessage" class="alert alert-danger">
+        {{ errorMessage }}
+    </div>
     <div class="menu-header">
         <h2 class="menu-title">Panel de Administración</h2>
     </div>

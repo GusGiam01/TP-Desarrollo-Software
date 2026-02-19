@@ -1,5 +1,9 @@
 <div class="add-product-container">
     <h2 class="form-title">Dar de alta un producto</h2>
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
+
     <form [formGroup]="addProductForm" (ngSubmit)="addProduct()" class="add-product-form">
       <div class="form-group">
         <label for="productName">Nombre del Producto</label>
@@ -37,8 +41,15 @@
         <p *ngIf="validateBrand()" class="error-message">Ingrese una marca válida.</p>
       </div>
   
-      <button type="submit" class="submit-btn" [disabled]="validateForm()">Agregar Producto</button>
-      <button type="submit" class="cancel-btn" (click)="goBack()">Cancelar</button>
+      <button type="submit" class="submit-btn" 
+              [disabled]="validateForm() || isLoading">
+        <span *ngIf="!isLoading">Agregar Producto</span>
+        <span *ngIf="isLoading">Agregando...</span>
+      </button>
+
+      <button type="button" class="cancel-btn" (click)="goBack()">
+        Cancelar
+      </button>
     </form>
   
   </div>

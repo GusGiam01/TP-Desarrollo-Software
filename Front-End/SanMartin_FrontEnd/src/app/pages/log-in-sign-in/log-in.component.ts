@@ -8,18 +8,24 @@ import { responseI } from '../../modelos/response.interface.js';
 import { Subject, timer } from 'rxjs';
 import { userI } from '../../modelos/user.interface.js';
 import { signinI } from '../../modelos/signin.interface.js';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-log-in',
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    NgIf
   ],
   templateUrl: './log-in.component.html',
   styleUrl: './log-in.component.scss'
 })
 export class LogInComponent {
+
+  errorMessage: string | null = null;
+  successMessage: string | null = null;
+  isLoading = false;
 
   dni = "";
 
@@ -49,78 +55,86 @@ export class LogInComponent {
 
   constructor(private api:ApiService, private router:Router){ }
 
-  onLogin(form:any){
-     const login:loginI= {
-     dni: form.dni,
-     password: form.password
-    }
-    this.api.searchUserByDni(form.dni).subscribe({
-      next: (data) => {
-        let dataResponse:responseI = data;
-        console.log(dataResponse.data)
-        if (dataResponse.data.dni == form.dni && dataResponse.data.password == form.password){
+  onLogin(form: any) {
 
-          sessionStorage.setItem("token", dataResponse.data.id);
-          this.router.navigate(['home']).then(() => {
-            location.reload()
-          });
-        } 
-        else {
-          alert("La contraseña ingresada es incorrecta.")
-        }
+    if (this.loginForm.invalid) {
+      this.errorMessage = "Complete todos los campos.";
+      return;
+    }
+
+    this.errorMessage = null;
+    this.isLoading = true;
+
+    const login: loginI = {
+      dni: form.dni,
+      password: form.password
+    };
+
+    this.api.login(login).subscribe({
+      next: (data) => {
+
+        sessionStorage.setItem("token", data.data.id);
+        sessionStorage.setItem("type", data.data.type);
+
+        this.isLoading = false;
+        this.router.navigate(['home']);
       },
-      error: (e) => {
-        alert("No exite usuario con ese número de documento.")
-        console.log(e);
+      error: () => {
+        this.isLoading = false;
+        this.errorMessage = "DNI o contraseña incorrectos.";
       }
     });
   }
 
-  OnSignUp(form:any){
-    let userType = "CLIENT";
-    let formType = "" + form.type;
-    if (formType.toUpperCase() == "DSW2024SM"){
-      userType = "ADMIN";
+
+  OnSignUp(form: any) {
+    if (this.signinForm.invalid) {
+      this.errorMessage = "Complete todos los campos.";
+      return;
     }
-    const user:signinI = {
-      name: form.name,
-      surname: form.surname,
-      birthDate: form.birthDate,
-      mail: form.mail,
-      dni: form.dni,
-      cellphone: form.cellphone,
-      type: userType,
-      password: form.password
+
+    if (form.password !== form.confirmpassword) {
+      this.errorMessage = "Las contraseñas no coinciden.";
+      return;
     }
+
+    if (!this.valPass(form.password)) {
+      this.errorMessage = "La contraseña debe tener 8 caracteres, una mayúscula y un número.";
+      return;
+    }
+
     const today = new Date();
     const birthDate = new Date(form.birthDate);
-    let age = today.getFullYear() - birthDate.getFullYear();
-    user.age = age;
-    this.api.searchUserByDni(form.dni).subscribe({                  
-      next: () => {
-        alert("Ya existe un usuario con ese DNI.")
+    const age = today.getFullYear() - birthDate.getFullYear();
+
+    if (age < 18) {
+      this.errorMessage = "Debe ser mayor de edad.";
+      return;
+    }
+
+    this.isLoading = true;
+    this.errorMessage = null;
+
+    const user: signinI = {
+      ...form,
+      type: form.type.toUpperCase() === "DSW2024SM" ? "ADMIN" : "CLIENT",
+      age
+    };
+
+    this.api.postUser(user).subscribe({
+      next: (data) => {
+        sessionStorage.setItem("token", data.data.id);
+        sessionStorage.setItem("type", data.data.type);
+        this.isLoading = false;
+        this.router.navigate(['home']);
       },
-      error: (e) => {
-        if (age > 17){
-          if (this.valPass(form.password)){
-            if (form.password == form.confirmpassword ) {
-              this.api.postUser(user).subscribe({
-                next: (data) => {
-                  let dataResponse:responseI = data;
-                  sessionStorage.setItem("token", dataResponse.data.id);
-                  sessionStorage.setItem("dni", dataResponse.data.dni);
-                  sessionStorage.setItem("type", dataResponse.data.type);
-                  this.router.navigate(['home']).then(() => {
-                    location.reload()
-                  });
-                }
-              })
-            } else {alert("Las contraseñas no coinciden.")}
-          } else {alert("La contraseña no cumple los requisitos, esta debe tener al menos una letra mayúscula, 8 caracteres y al menos un número")}
-        } else {alert("Usted no es mayor de edad, no puede crear una cuenta.")}
+      error: () => {
+        this.isLoading = false;
+        this.errorMessage = "No se pudo registrar el usuario.";
       }
-    })
+    });
   }
+
 
   recoverPassword(dni:string){
     if (dni != "") {
@@ -129,7 +143,7 @@ export class LogInComponent {
           const emailData = {
             to: data.data.mail,
             subject: "Recuperar contraseña",
-            text: "Su contraseña es " + data.data.password
+            text: "Solicitamos el cambio de contraseña..."
           }
           this.api.sendEmail(emailData).subscribe({
             next: (response) => {

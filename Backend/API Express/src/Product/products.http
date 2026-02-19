@@ -21,7 +21,7 @@ Content-Type: application/json
 @id = {{createGin.response.body.data.id}}
 
 ### Obtener uno en particular
-GET http://localhost:3000/api/products/{{id}}
+GET http://localhost:3000/api/products/6730e2496d02e8faf36c1618
 
 ### Crear un nuevo producto
 POST http://localhost:3000/api/products

@@ -18,6 +18,9 @@ import { lastValueFrom } from 'rxjs';
 export class AddressesComponent implements OnInit {
   addresses: any[] = [];
 
+  errorMessage: string | null = null;
+  isLoading = false;
+
   constructor(private api: ApiService, private router: Router) {}
 
   ngOnInit(): void {
@@ -26,62 +29,84 @@ export class AddressesComponent implements OnInit {
 
  
   getAddresses(): void {
-    let userId = "" + sessionStorage.getItem("token");
+    const userId = sessionStorage.getItem("token");
+
+    if (!userId) {
+      this.errorMessage = "No hay sesión activa.";
+      return;
+    }
+
+    this.isLoading = true;
+    this.errorMessage = null;
+    this.addresses = [];
+
     this.api.searchAddressesByUserId(userId).subscribe({
       next: (data) => {
-        for (let i = 0; i < data.data.length; i++ ){
-          this.addresses.push(data.data[i]);
-        }
+        this.addresses = data.data || [];
+        this.isLoading = false;
       },
-      error: (error) => {
-        console.error('Error al obtener las direcciones:', error);
+      error: () => {
+        this.errorMessage = "No se pudieron cargar las direcciones.";
+        this.isLoading = false;
+      }
+    });
+  }
+
+  
+  deleteAddress(addressId: string) {
+    if (this.addresses.length <= 1) {
+      this.errorMessage = "No se puede borrar tu única dirección. Agrega otra antes.";
+      return;
+    }
+
+    const userId = sessionStorage.getItem("token");
+
+    if (!userId) {
+      this.errorMessage = "Sesión inválida.";
+      return;
+    }
+
+    this.isLoading = true;
+    this.errorMessage = null;
+
+    const updatedAddresses = this.addresses.filter(a => a.id !== addressId);
+    const addressesIds = updatedAddresses.map(a => a.id);
+
+    this.api.searchUserById(userId).subscribe({
+      next: (data1) => {
+
+        const updatedUser = data1.data;
+        updatedUser.addresses = addressesIds;
+
+        this.api.updateUser(updatedUser).subscribe({
+          next: () => {
+
+            this.api.removeAddress(addressId).subscribe({
+              next: () => {
+                this.addresses = updatedAddresses;
+                this.isLoading = false;
+              },
+              error: () => {
+                this.errorMessage = "No se pudo eliminar la dirección.";
+                this.isLoading = false;
+              }
+            });
+
+          },
+          error: () => {
+            this.errorMessage = "No se pudo actualizar el usuario.";
+            this.isLoading = false;
+          }
+        });
+
+      },
+      error: () => {
+        this.errorMessage = "No se pudo recuperar el usuario.";
+        this.isLoading = false;
       }
     });
   }
   
-  deleteAddress(addressId: string) {
-    if (this.addresses.length > 1){
-      console.log(addressId)
-      let userId = "" + sessionStorage.getItem("token");
-      const updatedAddresses = this.addresses.filter(address => address.id !== addressId);
-      const addressesIds:Array<string> = [];
-      for (let j = 0; j < updatedAddresses.length; j++){
-        addressesIds.push(updatedAddresses[j].id)
-      }
-      this.api.searchUserById(userId).subscribe({
-        next: (data1) => {
-          const updatedUser  = data1.data;
-          updatedUser.addresses = addressesIds
-          console.log(updatedUser);
-          this.api.updateUser(updatedUser).subscribe({
-            next: (uu) => {
-              console.log(uu.data);
-              console.log("Dirección eliminada correctamente.");
-              this.api.removeAddress(addressId).subscribe({
-                next: () => {
-                  console.log("Dirección eliminada de la base de datos.");
-                },
-                error: (t) => {
-                  console.error('Error al eliminar la dirección de la base de datos:', t);
-                }
-              });
-            },
-            error: (r) => {
-              console.error('Error al actualizar el usuario:', r);
-            }
-          });
-          
-          location.reload();
-        },
-        error: (s) => {
-          console.error('Error al eliminar la dirección de la base de datos:', s);
-        }
-      })
-    }
-    else {
-      alert("No se puede borrar tu unica dirección, debes agregar otra antes.")
-    }                    
-  }  
   
   addAddress(): void {
     this.router.navigate(['/add-address']);

@@ -18,22 +18,49 @@ export class AdminMenuComponent {
   constructor(private api: ApiService, private router: Router) { }
 
   userType = "";
+  errorMessage: string | null = null;
+  isLoading = false;
+  ngOnInit(): void {
+    const token = sessionStorage.getItem("token");
 
-  ngOnInit():void{
+    if (!token) {
+      this.router.navigate(['/login']);
+      return;
+    }
+
     this.getUser();
   }
 
-  getUser(){
-    let id = "" + sessionStorage.getItem("token");
+  getUser() {
+    const id = sessionStorage.getItem("token");
+
+    this.isLoading = true;
+    this.errorMessage = null;
+
+    if (!id) {
+      this.router.navigate(['/login']);
+      return;
+    }
+
     this.api.searchUserById(id).subscribe({
       next: (data) => {
+
+        if (!data?.data) {
+          this.errorMessage = "Usuario inválido.";
+          this.isLoading = false;
+          return;
+        }
+
         this.userType = data.data.type;
+        this.isLoading = false;
       },
       error: (e) => {
-        console.log(e)
+        this.isLoading = false;
+        this.errorMessage = "No se pudo cargar la información del usuario.";
       }
-    })
+    });
   }
+
 
   navigateTo() {
     this.router.navigate(['/add-product']);
@@ -47,12 +74,9 @@ export class AdminMenuComponent {
     this.router.navigate(['/view-user-data']);
   }
 
-  logout(){
-    sessionStorage.removeItem("token");
-    sessionStorage.removeItem("orderId");
-    this.router.navigate(['home']).then(() => {
-      location.reload()
-    });
+  logout() {
+    sessionStorage.clear();
+    this.router.navigate(['/home']);
   }
 
   navigateToAddAddress(){

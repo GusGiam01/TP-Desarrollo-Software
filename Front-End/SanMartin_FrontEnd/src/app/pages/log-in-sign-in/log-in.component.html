@@ -2,6 +2,15 @@
 
     <section class="log-in">
         <div class="log-in_form">
+            <div *ngIf="isLoading">Procesando...</div>
+
+            <div *ngIf="errorMessage" class="alert alert-danger">
+                {{ errorMessage }}
+            </div>
+            
+            <div *ngIf="successMessage" class="alert alert-success">
+                {{ successMessage }}
+            </div>
             <form action="" class="form" [formGroup]="loginForm" (ngSubmit)="onLogin(loginForm.value)">
                 <label for="dni" class="form-line">DNI:</label>
                 <input type="text" id="dni" required class="form-line" formControlName="dni" [(ngModel)]="dni">
@@ -16,6 +25,16 @@
 
     <section class="sign-in">
         <div class="sign-in_form">
+            <div *ngIf="isLoading">Procesando...</div>
+
+            <div *ngIf="errorMessage" class="alert alert-danger">
+                {{ errorMessage }}
+            </div>
+
+            <div *ngIf="successMessage" class="alert alert-success">
+                {{ successMessage }}
+            </div>
+
             <form action="" class="form" [formGroup]="signinForm" (ngSubmit)="OnSignUp(signinForm.value)">
                 <div class="div_input_button">
                     <div class="div_inputs_right_left">

@@ -11,6 +11,7 @@ import { routingComponents } from './app.routes.js';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { AddressesComponent } from './pages/list-address/list-address.component.js';
+import { DatabaseDownService } from './servicios/db-unavailable.service.js';
 
 @Component({
   selector: 'app-root',
@@ -34,4 +35,10 @@ import { AddressesComponent } from './pages/list-address/list-address.component.
 export class AppComponent {
   title = 'SanMartin_FrontEnd';
   idPagina:number = 0;
+
+  dbDown = false;
+
+  constructor(private dbService: DatabaseDownService) {
+    this.dbService.dbDown$.subscribe(value => this.dbDown = value);
+  }
 }

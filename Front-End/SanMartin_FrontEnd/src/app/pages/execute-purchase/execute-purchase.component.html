@@ -22,6 +22,16 @@
         </div>
     </section>
 
+    <div *ngIf="isLoading">Procesando compra...</div>
+
+    <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+    </div>
+
+    <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+    </div>
+
     <form class="form" [formGroup]="shippingForm" (ngSubmit)="submitPurchase(shippingForm.value)">
         <div class="form-group">
             <label for="address">Dirección</label>
@@ -69,6 +79,7 @@
             Efectuar Compra
         </button>
 
-        <button type="submit" class="cancel_btn" (click)="goBack()">Volver</button>
+        <button type="button" class="cancel_btn" (click)="goBack()">Volver</button>
+
     </form>
 </div>
