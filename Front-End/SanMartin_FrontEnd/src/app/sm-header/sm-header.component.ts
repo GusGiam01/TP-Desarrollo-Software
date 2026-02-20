@@ -1,6 +1,7 @@
 import { Component, EventEmitter, HostListener, Output } from '@angular/core';
 import { CommonModule, NgIf } from '@angular/common';
 import { Router } from '@angular/router';
+import { AuthService } from '../servicios/auth.service.js';
 
 
 @Component({
@@ -26,7 +27,9 @@ export class SMHeaderComponent {
     
   ]
 
-  constructor (private router:Router) {}
+  isLogged = false;
+
+  constructor (private router:Router, private authService:AuthService) {}
 
   pageId?: number;
   @Output() pageIdChange = new EventEmitter<number>();
@@ -38,13 +41,9 @@ export class SMHeaderComponent {
   loggedUser:string | null = sessionStorage.getItem("token");
 
   ngOnInit():void{
-    this.loggedUser = sessionStorage.getItem("token");
-    if (this.loggedUser != null && this.loggedUser != "") {
-      this.options[0] = {
-        name: "Cuenta",
-        value: "/admin-menu"
-      }
-    }
+    this.authService.isLogged$.subscribe(status => {
+      this.isLogged = status;
+    });
   }
 
   logOut(){

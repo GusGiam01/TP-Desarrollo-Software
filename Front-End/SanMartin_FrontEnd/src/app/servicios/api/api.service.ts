@@ -22,6 +22,8 @@ import { addAddressI } from "../../modelos/addAddress.interface.js";
 import { responseAddressesI } from "../../modelos/responseAddresses.interface.js";
 import { userPatchI } from '../../modelos/userPatch.interface';
 import { orderPatchI } from '../../modelos/orderPatch.interface';
+import { responseCartLinesOrderI } from "../../modelos/responseCartLinesOrders.interface.js";
+import { addLineOrderI } from "../../modelos/addLineOrder.interface.js";
 
 
 
@@ -133,14 +135,14 @@ export class ApiService {
         return this.http.get<responseLinesOrderI>(direction)
     }
 
-    postLineOrder(line: lineOrderI) {
+    postLineOrder(line: addLineOrderI) {
         let direction = this.url + "/linesorder";
         return this.http.post<responseLineOrderI>(direction, line)
     }
 
     removeLineOrder(lineId: string) {
         let direction = this.url + "/linesorder/" + lineId;
-        return this.http.delete<responseLineOrderI>(direction);
+        return this.http.delete<responseOrderI>(direction);
     }
 
     // Address

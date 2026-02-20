@@ -55,7 +55,7 @@ export class CartComponent {
             next: (p) => {
 
               const line: cartLineOrderI = {
-                id: data.data[i].id,
+                id: data.data[i].id!,
                 product: p.data,
                 quantity: data.data[i].quantity
               };
@@ -83,44 +83,18 @@ export class CartComponent {
 
 
   removeItem(line: cartLineOrderI) {
-
     this.isLoading = true;
     this.errorMessage = null;
 
-    const lineId = "" + line.id;
-
-    this.api.removeLineOrder(lineId).subscribe({
-      next: () => {
-
-        this.api.searchProductById(line.product.id).subscribe({
-          next: (sp) => {
-
-            const prod = sp.data;
-            prod.stock = prod.stock + line.quantity;
-
-            this.api.updateProduct(prod).subscribe({
-              next: () => {
-                this.cartLinesOrder = this.cartLinesOrder.filter(l => l.id !== line.id);
-                this.total -= (line.product.priceUni * line.quantity);
-
-                this.isLoading = false;
-              },
-              error: () => {
-                this.errorMessage = "No se pudo actualizar el stock.";
-                this.isLoading = false;
-              }
-            });
-
-          },
-          error: () => {
-            this.errorMessage = "No se pudo recuperar el producto.";
-            this.isLoading = false;
-          }
-        });
-
+    this.api.removeLineOrder(line.id).subscribe({
+      next: (response) => {
+        const updatedOrder = response.data;
+        this.total = updatedOrder.totalAmount;
+        this.cartLinesOrder = this.cartLinesOrder.filter(l => l.id !== line.id);
+        this.isLoading = false;
       },
       error: () => {
-        this.errorMessage = "No se pudo eliminar la línea del carrito.";
+        this.errorMessage = "No se pudo eliminar el producto del carrito.";
         this.isLoading = false;
       }
     });

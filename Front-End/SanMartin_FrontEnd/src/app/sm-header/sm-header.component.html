@@ -38,7 +38,7 @@
                 
             </li>
 
-            <li class="exit-li" *ngIf="loggedUser != null">
+            <li class="exit-li" *ngIf="isLogged">
                 <a href="/" class="exit-a" (click)="logOut();pageId = 2; emitPageId();">
                     <span class="dot-exit">
                         <img class="exit-img" src="svg/exit.svg" alt="exit">
@@ -53,7 +53,7 @@
                 </div>
             </li>
             
-            <li class="ingresar-li" *ngIf="loggedUser != null">
+            <li class="ingresar-li" *ngIf="isLogged">
                 <a href="/admin-menu" class="ingresar_carrito-a" (click)="pageId = 2; emitPageId();">
                     <span class="dot">
                         <img class="ingresar-img" src="svg/account.svg" alt="ingresar">
@@ -62,7 +62,7 @@
                 </a>
             </li>
 
-            <li class="ingresar-li" *ngIf="loggedUser == null">
+            <li class="ingresar-li" *ngIf="!isLogged">
                 <a href="/login" class="ingresar_carrito-a" (click)="pageId = 2; emitPageId();">
                     <span class="dot">
                         <img class="ingresar-img" src="svg/account.svg" alt="ingresar">

@@ -45,7 +45,7 @@ export class User extends BaseEntity {
   @OneToMany(() => Order, order => order.user, { cascade: [Cascade.ALL] })
   orders = new Collection<Order>(this)
 
-  @OneToMany(() => Address, address => address.user, { nullable: true, orphanRemoval:true, cascade: [Cascade.REMOVE] })
-  addresses?: Address[] = [];
+  @OneToMany(() => Address, address => address.user, { nullable: true, orphanRemoval:true, cascade: [Cascade.ALL]})
+  addresses = new Collection<Address>(this)
 
 }

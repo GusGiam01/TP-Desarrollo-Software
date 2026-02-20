@@ -54,12 +54,17 @@ export class EditUserComponent implements OnInit {
       this.api.searchUserById(userId).subscribe({
         next: (data) => {
           this.user = data.data;
+
+          const formattedDate = new Date(this.user.birthDate)
+            .toISOString()
+            .split('T')[0];
+
           this.userForm.patchValue({
             name: this.user.name,
             surname: this.user.surname,
             mail: this.user.mail,
             cellphone: this.user.cellphone,
-            birthDate: this.user.birthDate,
+            birthDate: formattedDate,
             dni: this.user.dni
           });
         },

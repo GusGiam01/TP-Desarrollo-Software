@@ -71,69 +71,54 @@ export class AddAddressComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.addressForm.valid) {
-      this.errorMessageSubmit = null;
-      this.isLoading = true;  
-      this.address = this.addressForm.value;
-      this.address.user = ""+sessionStorage.getItem("token");
-      let check = this.checkAddress(this.address, this.addresses)
-      if (check == ""){ 
-        this.api.postAddress(this.address).subscribe({
-          next: () => {
-            this.api.searchAddressesByUserId(this.address.user).subscribe({
-              next: (userAddresses) => {
-                const addresses = userAddresses.data;
-                const getAddress = addresses.filter(address => address.nickname === this.address.nickname);
-                this.api.searchUserById(getAddress[0].user).subscribe({
-                  next: (datauser) => {
-                    const user = datauser.data
-                    let transformo : string = getAddress[0].id ?? "";
-                    user.addresses?.push(transformo);
-                    this.api.updateUser(user).subscribe({
-                      next: (updateuser) => {
-                        console.log("Direccion con id: " + getAddress[0].id + " añadida al usuario: " + updateuser.data)
-                        this.isLoading = false;
-                        this.router.navigate(['/list-address']);
-                      },
-                      error: (e) => {
-                        this.isLoading = false;
-                        this.errorMessageSubmit = "La dirección se creó pero no pudo asociarse al usuario.";
-                      }
-                    })
-                  },
-                  error: (e) => {
-                    this.isLoading = false;
-                    this.errorMessageSubmit = "No se pudo recuperar el usuario.";
-                  }
-                })
-              },
-              error: (e) => {
-                this.isLoading = false;
-                this.errorMessageSubmit = "No se pudieron recuperar las direcciones actualizadas.";
-              }
-            })
-          },
-          error: (error) => {
-            this.isLoading = false;
-            if (error.status === 400) {
-              this.errorMessageSubmit = error.error?.message || "Datos inválidos.";
-            } else if (error.status === 500) {
-              this.errorMessageSubmit = "Error interno del servidor.";
-            } else {
-              this.errorMessageSubmit = "No se pudo guardar la dirección.";
-            }
-          }
-        });
-      }
-      else {
-        if (check == "NICKNAME") {
-          this.errorMessageSubmit = "Ya existe una dirección con ese nickname.";
-        }
-        else {
-          this.errorMessageSubmit = "Ya existe una dirección registrada en "+this.address.address+", "+this.address.zipCode;
-        }
-      }
+    if (!this.addressForm.valid) {
+      return;
     }
+
+    this.errorMessageSubmit = null;
+    this.isLoading = true;
+
+    this.address = this.addressForm.value;
+    this.address.user = "" + sessionStorage.getItem("token");
+
+    const check = this.checkAddress(this.address, this.addresses);
+
+    if (check !== "") {
+      this.isLoading = false;
+
+      if (check === "NICKNAME") {
+        this.errorMessageSubmit = "Ya existe una dirección con ese nickname.";
+      } else {
+        this.errorMessageSubmit =
+          "Ya existe una dirección registrada en " +
+          this.address.address +
+          ", " +
+          this.address.zipCode;
+      }
+
+      return;
+    }
+
+    this.api.postAddress(this.address).subscribe({
+      next: () => {
+        this.isLoading = false;
+        this.router.navigate(['/list-address']);
+      },
+      error: (error) => {
+        this.isLoading = false;
+
+        if (error.status === 400) {
+          this.errorMessageSubmit =
+            error.error?.message || "Datos inválidos.";
+        } else if (error.status === 404) {
+          this.errorMessageSubmit = "Usuario no encontrado.";
+        } else if (error.status === 500) {
+          this.errorMessageSubmit = "Error interno del servidor.";
+        } else {
+          this.errorMessageSubmit = "No se pudo guardar la dirección.";
+        }
+      }
+    });
   }
 
   validateZipCode():boolean{

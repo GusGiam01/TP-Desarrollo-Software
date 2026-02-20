@@ -9,6 +9,7 @@ import { Subject, timer } from 'rxjs';
 import { userI } from '../../modelos/user.interface.js';
 import { signinI } from '../../modelos/signin.interface.js';
 import { NgIf } from '@angular/common';
+import { AuthService } from '../../servicios/auth.service.js';
 
 @Component({
   selector: 'app-log-in',
@@ -53,7 +54,7 @@ export class LogInComponent {
     return tieneLongitudValida && tieneMayuscula && tieneNumero;
   }
 
-  constructor(private api:ApiService, private router:Router){ }
+  constructor(private api:ApiService, private router:Router, private authService: AuthService){ }
 
   onLogin(form: any) {
 
@@ -73,7 +74,7 @@ export class LogInComponent {
     this.api.login(login).subscribe({
       next: (data) => {
 
-        sessionStorage.setItem("token", data.data.id);
+        this.authService.login(data.data.id);
         sessionStorage.setItem("type", data.data.type);
 
         this.isLoading = false;
@@ -123,7 +124,7 @@ export class LogInComponent {
 
     this.api.postUser(user).subscribe({
       next: (data) => {
-        sessionStorage.setItem("token", data.data.id);
+        this.authService.login(data.data.id);
         sessionStorage.setItem("type", data.data.type);
         this.isLoading = false;
         this.router.navigate(['home']);

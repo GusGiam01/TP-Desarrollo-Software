@@ -92,6 +92,10 @@ Content-Type: application/json
 @idToDelete = {{createUserToDelete.response.body.data.id}}
 DELETE http://localhost:3000/api/users/{{idToDelete}}
 
+
+##borrar usuario especifico
+DELETE http://localhost:3000/api/users/"43399550"
+
 ### PATCH a user
 PATCH http://localhost:3000/api/users/{{idToDelete}}
 Content-Type: application/json

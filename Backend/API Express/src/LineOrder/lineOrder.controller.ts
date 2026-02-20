@@ -3,6 +3,7 @@ import { LineOrder } from "./lineOrder.entity.js"
 import { orm } from "../shared/db/orm.js" 
 import { Product } from "../Product/product.entity.js"
 import { MikroORM } from "@mikro-orm/mongodb"
+import { Order } from "../Order/order.entity.js"
 
 const em = orm.em
 
@@ -79,12 +80,36 @@ async function update(req: Request, res: Response) {
 }
 
 async function remove(req: Request, res: Response) {
+
+  const em = orm.em.fork();
+  const lineId = req.params.id;
+
   try {
-    const id = req.params.id
-    const lineOrder = em.getReference(LineOrder, id)
-    await em.removeAndFlush(lineOrder)
+
+    const line = await em.findOneOrFail(LineOrder, { id: lineId }, {
+      populate: ['product', 'order']
+    });
+
+    const product = line.product as Product;
+    const order = line.order as Order;
+
+    product.stock += line.quantity;
+
+    order.totalAmount -= (product.priceUni * line.quantity);
+
+    await em.remove(line);
+
+    await em.flush();
+
+    return res.status(200).json({
+      message: "Línea eliminada correctamente",
+      data: order
+    });
+
   } catch (error: any) {
-    res.status(500).json({ message: error.message })
+    return res.status(500).json({
+      message: error.message
+    });
   }
 }
 

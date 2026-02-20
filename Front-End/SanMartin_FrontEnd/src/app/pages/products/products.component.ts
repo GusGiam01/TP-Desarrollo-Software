@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { orderI } from '../../modelos/order.interface.js';
 import { responseOrderI } from '../../modelos/responseOrder.interface.js';
 import { addOrderI } from '../../modelos/addOrder.interface.js';
-import { lineOrderI } from '../../modelos/lineOrder.interface.js';
+import { addLineOrderI } from '../../modelos/addLineOrder.interface.js';
 import { Token } from '@angular/compiler';
 import { orderPatchI } from '../../modelos/orderPatch.interface';
 import { addressI } from '../../modelos/address.interface.js';
@@ -71,12 +71,13 @@ export class ProductsComponent {
       error: () => {
         this.isLoading = false;
         this.errorMessage = "No se pudieron cargar los productos.";
+        console.log("hola")
       }
     });
   }
 
   createLineOrder(productId: string, quantity: number, orderId: string) {
-    const line: lineOrderI = {
+    const line: addLineOrderI = {
       product: productId,
       quantity: quantity,
       order: orderId

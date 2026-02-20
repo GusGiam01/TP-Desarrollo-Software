@@ -47,12 +47,36 @@ async function findOne(req: Request, res: Response, id: string) {
 }
 
 async function add(req: Request, res: Response) {
+  const emFork = orm.em.fork();
+
   try {
-    const adress = em.create(Address, req.body.sanitizedAdressInput)
-    await em.flush()
-    res.status(201).json({ message: 'adress created', data: adress })
+
+    const user = await emFork.findOne(User, { id: req.body.sanitizedAdressInput.user });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const address = emFork.create(Address, {
+      zipCode: req.body.sanitizedAdressInput.zipCode,
+      nickname: req.body.sanitizedAdressInput.nickname,
+      address: req.body.sanitizedAdressInput.address,
+      province: req.body.sanitizedAdressInput.province,
+      user: user
+    });
+
+    user.addresses.add(address);
+
+    await emFork.flush();
+
+    res.status(201).json({
+      message: 'address created',
+      data: address
+    });
+
   } catch (error: any) {
-    res.status(500).json({ message: error.message })
+    console.error("ERROR ADD ADDRESS:", error);
+    res.status(500).json({ message: error.message });
   }
 }
 
@@ -71,12 +95,24 @@ async function update(req: Request, res: Response) {
 }
 
 async function remove(req: Request, res: Response) {
+  const emFork = orm.em.fork();
+
   try {
-    const id = req.params.id
-    const adress = em.getReference(Address, id)
-    await em.removeAndFlush(adress)
+    const id = req.params.id;
+
+    const address = await emFork.findOne(Address, { id });
+
+    if (!address) {
+      return res.status(404).json({ message: "Address not found" });
+    }
+
+    await emFork.removeAndFlush(address);
+
+    res.status(200).json({ message: "Address deleted" });
+
   } catch (error: any) {
-    res.status(500).json({ message: error.message })
+    console.error("ERROR DELETE ADDRESS:", error);
+    res.status(500).json({ message: error.message });
   }
 }
 

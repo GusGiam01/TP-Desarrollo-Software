@@ -59,49 +59,17 @@ export class AddressesComponent implements OnInit {
       return;
     }
 
-    const userId = sessionStorage.getItem("token");
-
-    if (!userId) {
-      this.errorMessage = "Sesión inválida.";
-      return;
-    }
-
     this.isLoading = true;
     this.errorMessage = null;
 
-    const updatedAddresses = this.addresses.filter(a => a.id !== addressId);
-    const addressesIds = updatedAddresses.map(a => a.id);
-
-    this.api.searchUserById(userId).subscribe({
-      next: (data1) => {
-
-        const updatedUser = data1.data;
-        updatedUser.addresses = addressesIds;
-
-        this.api.updateUser(updatedUser).subscribe({
-          next: () => {
-
-            this.api.removeAddress(addressId).subscribe({
-              next: () => {
-                this.addresses = updatedAddresses;
-                this.isLoading = false;
-              },
-              error: () => {
-                this.errorMessage = "No se pudo eliminar la dirección.";
-                this.isLoading = false;
-              }
-            });
-
-          },
-          error: () => {
-            this.errorMessage = "No se pudo actualizar el usuario.";
-            this.isLoading = false;
-          }
-        });
-
+    this.api.removeAddress(addressId).subscribe({
+      next: () => {
+        // Actualizamos lista local
+        this.addresses = this.addresses.filter(a => a.id !== addressId);
+        this.isLoading = false;
       },
       error: () => {
-        this.errorMessage = "No se pudo recuperar el usuario.";
+        this.errorMessage = "No se pudo eliminar la dirección.";
         this.isLoading = false;
       }
     });
