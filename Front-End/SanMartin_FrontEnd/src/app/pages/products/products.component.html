@@ -1,14 +1,7 @@
-<div class="div_filter-container">
-    <div class="order-selector">
-        <label for="sortBy">Ordenar por:</label>
-        <select id="sortBy" (change)="onSortChange($event)" class="sort-select">
-            <option value="alphabetical">Alfabéticamente</option>
-            <option value="priceAsc">Precio: Menor a mayor</option>
-        </select>
-    </div>
-</div>
 
-<div class="div_products">
+
+<div class="div_filter-container">
+    
     <div *ngIf="errorMessage" class="alert alert-danger">
         {{ errorMessage }}
     </div>
@@ -16,6 +9,19 @@
     <div *ngIf="successMessage" class="alert alert-success">
         {{ successMessage }}
     </div>
+
+    <div class="order-selector">
+        <label for="sortBy">Ordenar por:</label>
+        <select id="sortBy" (change)="onSortChange($event)" class="sort-select">
+            <option value="alphabetical">Alfabéticamente</option>
+            <option value="priceAsc">Precio: Menor a mayor</option>
+        </select>
+    </div>
+
+</div>
+
+<div class="div_products">
+    
 
     <div *ngIf="isLoading">
         Cargando...
@@ -27,16 +33,16 @@
                 <span class="name_span">{{p.name}}</span>
                 <h2 class="product_price">${{p.priceUni}}</h2>
                 <form action="" >
-                    <button type="button" class="product_btn" (click)=" selectProduct(p.code, p.stock)" *ngIf="p.code != productCode">
+                    <button type="button" class="product_btn fs-5" (click)=" selectProduct(p.code, p.stock)" *ngIf="p.code != productCode">
                         COMPRAR
                     </button>
-                    <div *ngIf="p.code == productCode" class="container">
+                    <div *ngIf="p.code == productCode" class="product-counter-container">
                         <div class="counter-container">
                             <button type="button" class="counter_btn" (click)="decrease()">-</button>
                             <span class="counter_span">{{quantity}}</span>
                             <button type="button" class="counter_btn" (click)="increase()">+</button>
                         </div>
-                        <button type="button" class="buy_btn" (click)="addToCart(p.id, quantity)">AÑADIR AL CARRITO</button>
+                        <button type="button" class="buy_btn btn fs-6" (click)="addToCart(p.id, quantity)">AÑADIR AL CARRITO</button>
                     </div>
                 </form>
             </div>
