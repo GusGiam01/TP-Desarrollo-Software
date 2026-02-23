@@ -1,0 +1,147 @@
+@font-face {
+    font-family: "SecondarySMfont";
+    src: url("../../../../public/font/puntosVenta/SaaSeriesCDOT.ttf");
+}
+
+/* Evitamos conflicto visual con Bootstrap */
+.container {
+    margin-top: 180px;
+    font-family: "SecondarySMfont";
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+/* Grid principal */
+.div_log-in_sign-in {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    width: 100%;
+    max-width: 1100px;
+    padding: 20px;
+}
+
+/* Columnas */
+.log-in,
+.sign-in {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Cards */
+.log-in_form,
+.sign-in_form {
+    background-color: #c0956d;
+    width: 100%;
+    max-width: 450px;
+    padding: 30px;
+    border-radius: 6px;
+}
+
+/* Form general */
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Cada línea del form */
+.form-line {
+    width: 100%;
+    display: block;
+}
+
+/* Inputs */
+.form input {
+    width: 100%;
+    padding: 6px 8px;
+    border-radius: 4px;
+    border: 1px solid #8F342F;
+}
+
+/* Grid interno del registro */
+.div_input_button {
+    display: grid;
+    grid-template-rows: auto auto;
+    gap: 15px;
+}
+
+.div_inputs_right_left {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.div_input {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+/* Botón registro */
+.div_button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Link recuperar */
+.a_recover-password {
+    cursor: pointer;
+    text-align: center;
+}
+
+.a_recover-password:hover {
+    color: rgb(80, 79, 79);
+}
+
+/* Botón */
+.btn_login-signin {
+    width: 7rem;
+    height: 2.2rem;
+    background-color: #aa524d;
+    border: none;
+    border-radius: 4px;
+    font-family: "SecondarySMfont";
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* RESPONSIVE */
+
+/* Mobile */
+@media (max-width: 650px) {
+    .container {
+        margin-top: 120px;
+    }
+
+    .div_log-in_sign-in {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .div_inputs_right_left {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Tablet */
+@media (min-width: 650px) and (max-width: 1024px) {
+    .container {
+        margin-top: 120px;
+    }
+
+    .div_log-in_sign-in {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .div_inputs_right_left {
+        grid-template-columns: 1fr;
+    }
+}

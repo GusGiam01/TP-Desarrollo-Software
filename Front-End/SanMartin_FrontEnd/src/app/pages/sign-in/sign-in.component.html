@@ -1,0 +1,110 @@
+<div class="w-100 d-flex justify-content-center align-items-center"
+     style="min-height: calc(100vh - 140px); font-family: 'SecondarySMfont'; margin-top: 100px;">
+
+  <div class="card shadow border-0 p-4"
+       style="background-color: #c0956d; width: 100%; max-width: 850px;">
+
+    <h4 class="text-center mb-4">REGISTRARSE</h4>
+
+    <div *ngIf="isLoading" class="text-center small mb-2">
+      Procesando...
+    </div>
+
+    <div *ngIf="errorMessage" class="alert alert-danger py-2">
+      {{ errorMessage }}
+    </div>
+
+    <div *ngIf="successMessage" class="alert alert-success py-2">
+      {{ successMessage }}
+    </div>
+
+    <form [formGroup]="signinForm"
+          (ngSubmit)="onSignUp(signinForm.value)">
+
+      <div class="row">
+
+        <div class="col-md-6">
+
+          <div class="mb-3">
+            <label class="form-label small">Nombre</label>
+            <input type="text"
+                   class="form-control form-control-sm"
+                   formControlName="name">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label small">Contraseña</label>
+            <input type="password"
+                   class="form-control form-control-sm"
+                   formControlName="password">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label small">Confirmar contraseña</label>
+            <input type="password"
+                   class="form-control form-control-sm"
+                   formControlName="confirmpassword">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label small">DNI</label>
+            <input type="text"
+                   class="form-control form-control-sm"
+                   formControlName="dni">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label small">Código admin</label>
+            <input type="text"
+                   class="form-control form-control-sm"
+                   formControlName="type">
+          </div>
+
+        </div>
+
+        <div class="col-md-6">
+
+          <div class="mb-3">
+            <label class="form-label small">Apellido</label>
+            <input type="text"
+                   class="form-control form-control-sm"
+                   formControlName="surname">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label small">Correo electrónico</label>
+            <input type="email"
+                   class="form-control form-control-sm"
+                   formControlName="mail">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label small">Fecha de nacimiento</label>
+            <input type="date"
+                   class="form-control form-control-sm"
+                   formControlName="birthDate">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label small">Celular</label>
+            <input type="text"
+                   class="form-control form-control-sm"
+                   formControlName="cellphone">
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="mt-3">
+        <button type="submit"
+                class="btn btn-sm w-100 text-white"
+                style="background-color: #aa524d; border: none;">
+          Registrarse
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+</div>

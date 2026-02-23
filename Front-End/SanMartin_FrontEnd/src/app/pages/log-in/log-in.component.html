@@ -1,0 +1,58 @@
+<div class="w-100 d-flex justify-content-center align-items-center"
+     style="min-height: calc(100vh - 140px); font-family: 'SecondarySMfont';">
+
+  <div class="card shadow p-4 border-0"
+       style="width: 100%; max-width: 360px; background-color: #c0956d;">
+
+    <h5 class="text-center mb-4">INICIAR SESIÓN</h5>
+
+    <div *ngIf="isLoading" class="text-center small mb-2">
+      Procesando...
+    </div>
+
+    <div *ngIf="errorMessage" class="alert alert-danger py-2">
+      {{ errorMessage }}
+    </div>
+
+    <form [formGroup]="loginForm"
+          (ngSubmit)="onLogin(loginForm.value)">
+
+      <div class="mb-3">
+        <label class="form-label small">DNI</label>
+        <input type="text"
+               class="form-control form-control-sm"
+               formControlName="dni">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label small">Contraseña</label>
+        <input type="password"
+               class="form-control form-control-sm"
+               formControlName="password">
+      </div>
+
+      <button type="submit"
+              class="btn btn-sm w-100 text-white"
+              style="background-color: #aa524d; border: none;">
+        Ingresar
+      </button>
+
+      <div class="text-center mt-3">
+        <a class="small text-decoration-none text-dark"
+           role="button"
+           (click)="recoverPassword(loginForm.value.dni)">
+          ¿Olvidaste tu contraseña?
+        </a>
+      </div>
+
+      <div class="text-center">
+        <a class="small text-decoration-none text-dark"
+           role="button"
+           (click)="signin()">
+          Registrarse
+        </a>
+      </div>
+
+    </form>
+  </div>
+</div>
