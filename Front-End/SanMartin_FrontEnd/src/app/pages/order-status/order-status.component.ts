@@ -17,7 +17,7 @@ type MpResult = 'success' | 'pending' | 'failure' | null;
 
 interface OrderPaymentStatusResponse {
   orderId: string;
-  status: OrderStatus;
+  statusHistory: string[];
   mpPaymentId?: string | null;
   paidAt?: string | null;
   total?: number | null;
@@ -52,6 +52,12 @@ export class OrderStatusComponent implements OnInit, OnDestroy {
     private http: HttpClient
   ) {}
 
+  get currentStatus(): OrderStatus {
+    const history = this.data?.statusHistory;
+    if (!Array.isArray(history) || history.length === 0) return null;
+    return history[history.length - 1];
+  }
+
   ngOnInit(): void {
     const qp = this.route.snapshot.queryParamMap.get('orderId');
     const rp = this.route.snapshot.paramMap.get('orderId');
@@ -59,6 +65,11 @@ export class OrderStatusComponent implements OnInit, OnDestroy {
 
     const mp = this.route.snapshot.queryParamMap.get('mpResult');
     this.mpResult = this.normalizeMpResult(mp);
+
+    // Limpiar carrito si el pago fue exitoso
+    if (this.mpResult === 'success') {
+      localStorage.removeItem('orderId');
+    }
 
     if (!this.orderId) {
       this.loading = false;
@@ -106,8 +117,8 @@ export class OrderStatusComponent implements OnInit, OnDestroy {
   }
 
   mpBannerMessage(): string {
-    const backendStatus = this.data?.status
-      ? String(this.data.status).toUpperCase()
+    const backendStatus = this.currentStatus
+      ? String(this.currentStatus).toUpperCase()
       : null;
 
     if (this.mpResult === 'success') {
@@ -160,7 +171,7 @@ export class OrderStatusComponent implements OnInit, OnDestroy {
         this.data = resp;
         this.loading = false;
 
-        if (startPollingIfPending && this.isPendingLike(resp.status)) {
+        if (startPollingIfPending && this.isPendingLike(this.currentStatus)) {
           this.startPolling();
         } else {
           this.stopPolling();
@@ -196,7 +207,7 @@ export class OrderStatusComponent implements OnInit, OnDestroy {
 
         this.data = resp;
 
-        if (!this.isPendingLike(resp.status)) {
+        if (!this.isPendingLike(this.currentStatus)) {
           this.stopPolling();
         }
       });

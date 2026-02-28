@@ -29,7 +29,7 @@ export class ExecutePurchaseComponent implements OnInit {
     user: '',
     linesOrder: [],
     totalAmount: 0,
-    statusHistory: '',
+    statusHistory: [],
     address: {
       id: '',
       zipCode: '',
@@ -48,13 +48,15 @@ export class ExecutePurchaseComponent implements OnInit {
   }
 
   getLinesOrder(): void {
-    const orderId = '' + localStorage.getItem('orderId');
+    const orderId = localStorage.getItem("orderId");
+
+    this.cartLinesOrder = [];
+    this.order.totalAmount = 0;
+
+    if (!orderId) return;
 
     this.api.searchLinesOrderByOrderId(orderId).subscribe({
       next: (data) => {
-        this.cartLinesOrder = [];
-        this.order.totalAmount = 0;
-
         for (let i = 0; i < data.data.length; i++) {
           this.api.searchProductById(data.data[i].product).subscribe({
             next: (p) => {
@@ -62,6 +64,7 @@ export class ExecutePurchaseComponent implements OnInit {
                 id: data.data[i].id,
                 product: p.data,
                 quantity: data.data[i].quantity,
+                orderId,
               };
 
               this.cartLinesOrder.push(line);
@@ -76,7 +79,12 @@ export class ExecutePurchaseComponent implements OnInit {
   }
 
   loadUserAddresses(): void {
-    this.api.searchAddressesByUserId('' + localStorage.getItem('token')).subscribe({
+    const userId = localStorage.getItem("token");
+    if (!userId) {
+      console.log("No se encontró el userId en localStorage.");
+      return;
+    }
+    this.api.searchAddressesByUserId(userId).subscribe({
       next: (data) => {
         this.addresses = data.data;
       },
@@ -90,7 +98,7 @@ export class ExecutePurchaseComponent implements OnInit {
       return;
     }
 
-    const orderId = '' + localStorage.getItem('orderId');
+    const orderId = localStorage.getItem('orderId');
     const selectedAddressId = this.shippingForm.get('address')?.value;
 
     if (!orderId || orderId === 'null') {
@@ -103,37 +111,27 @@ export class ExecutePurchaseComponent implements OnInit {
       return;
     }
 
-    // 1) Traigo la orden real
     this.api.searchOrderById(orderId).subscribe({
       next: (data) => {
-        // 2) La actualizo con dirección + estado pending (opcional, pero útil)
-        const updatedOrder: orderI = {
-          id: data.data.id,
-          user: data.data.user,
-          linesOrder: data.data.linesOrder,
-          totalAmount: data.data.totalAmount,
-          statusHistory: 'PENDING_PAYMENT',
+        const prev = Array.isArray(data.data.statusHistory) ? data.data.statusHistory : [];
+        this.api.patchOrder({
+          id: orderId,
           confirmDate: new Date(),
           address: selectedAddressId as any,
-        } as any;
-
-        this.api.updateOrder(updatedOrder).subscribe({
+          statusHistory: [...prev, "PENDING_PAYMENT"],
+        }).subscribe({
           next: () => {
-            // 3) Creo preference en el back y redirijo al checkout de MP
             this.api.createMercadoPagoPreference(orderId).subscribe({
-              next: (r) => {
-                window.location.href = r.initPoint;
-              },
+              next: (r) => window.location.href = r.initPoint,
               error: (err) => {
                 console.log(err);
-                alert('No se pudo iniciar el pago con Mercado Pago.');
-              },
+                alert("No se pudo iniciar el pago con Mercado Pago.");
+              }
             });
           },
           error: (err) => console.log(err),
         });
       },
-      error: (e) => console.log(e),
     });
   }
 

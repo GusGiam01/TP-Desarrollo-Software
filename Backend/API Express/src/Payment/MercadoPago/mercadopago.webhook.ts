@@ -110,43 +110,35 @@ export const mercadopagoWebhook = async (req: Request, res: Response) => {
 
       if (!order) return;
 
-      if ((order as any).status === "PAID") return;
+      if ((order as any).statusHistory?.includes("PAID")) return;
 
       if (status === "approved") {
         (order as any).mpPaymentId = String(paymentId);
-        (order as any).status = "PAID";
+        (order as any).statusHistory = [...(order as any).statusHistory, "PAID"];
         (order as any).paidAt = new Date();
 
-        // Descontar stock
         for (const lo of (order as any).linesOrder ?? []) {
           const product = lo.product;
           const qty = Number(lo.quantity) || 0;
-
           if (!product) continue;
-
           const currentStock = Number((product as any).stock ?? 0);
-
           if (qty <= 0) continue;
           if (currentStock < qty) {
             throw new Error(`Stock insuficiente para producto ${product.id}`);
           }
-
           (product as any).stock = currentStock - qty;
           tx.persist(product);
         }
 
         tx.persist(order);
-      } else {
-        if (status === "pending" || status === "in_process") {
-          (order as any).status = "PENDING_PAYMENT";
-          (order as any).mpPaymentId = String(paymentId);
-          tx.persist(order);
-        }
-        if (status === "rejected" || status === "cancelled") {
-          (order as any).status = "PAYMENT_FAILED";
-          (order as any).mpPaymentId = String(paymentId);
-          tx.persist(order);
-        }
+      } else if (status === "pending" || status === "in_process") {
+        (order as any).statusHistory = [...(order as any).statusHistory, "PENDING_PAYMENT1"];
+        (order as any).mpPaymentId = String(paymentId);
+        tx.persist(order);
+      } else if (status === "rejected" || status === "cancelled") {
+        (order as any).statusHistory = [...(order as any).statusHistory, "PAYMENT_FAILED"];
+        (order as any).mpPaymentId = String(paymentId);
+        tx.persist(order);
       }
     });
 

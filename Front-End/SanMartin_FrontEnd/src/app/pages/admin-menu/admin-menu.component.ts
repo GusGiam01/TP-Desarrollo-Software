@@ -23,20 +23,28 @@ export class AdminMenuComponent {
     this.getUser();
   }
 
-  getUser(){
-    let id = "" + localStorage.getItem("token");
+  getUser(): void {
+    const id = localStorage.getItem('token'); // string | null
+
+    if (!id) {
+      console.error('No hay "token" en localStorage (id inexistente).');
+      return;
+    }
+
     this.api.searchUserById(id).subscribe({
-      next: (data) => {
-        this.userType = data.data.type;
+      next: (res: any) => {
+        this.userType = res?.data?.type ?? null;
       },
-      error: (e) => {
-        console.log(e)
-      }
-    })
+      error: (e) => console.error(e),
+    });
   }
 
-  navigateTo() {
+  navigateTo_addProduct() {
     this.router.navigate(['/add-product']);
+  }
+
+  navigateTo_seePaudOrders() {
+    this.router.navigate(['/paid-orders']);
   }
 
   navigateToOrders(){

@@ -46,9 +46,11 @@ export class CreateAccountComponent {
 
   OnSignUp(form:any){
     let userType = "CLIENT";
-    let formType = "" + form.type;
-    if (formType.toUpperCase() == "DSW2024SM"){
+    let formType = form.type;
+    if (formType.toUpperCase() === "DSW2024SM"){
       userType = "ADMIN";
+    }else if (formType.toUpperCase() === "DSW2026SM"){
+      userType = "SUPERADMIN";
     }
     const user:signinI = {
       name: form.name,
@@ -89,5 +91,4 @@ export class CreateAccountComponent {
       }
     })
   }
-
 }

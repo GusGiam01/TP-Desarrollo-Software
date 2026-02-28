@@ -6,8 +6,8 @@ export interface orderPatchI{
     id:string;
     confirmDate?:Date;
     user?: string;
-    linesOrder:Array<lineOrderI>;
+    linesOrder?:Array<lineOrderI>;
     totalAmount?:number;
-    statusHistory?:string;
+    statusHistory?:Array<string>;
     address?:addressI;
 }

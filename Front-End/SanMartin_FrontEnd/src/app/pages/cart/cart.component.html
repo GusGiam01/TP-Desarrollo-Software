@@ -1,5 +1,5 @@
 <div class="container">
-    <tr >
+    <div>
         <div class="item-container item">
             <p style="grid-area: 'product';">Producto</p>
             <p style="grid-area: 'price';">Precio</p>
@@ -7,19 +7,18 @@
             <p style="grid-area: 'total';">Subtotal</p>
             <p style="grid-area: 'x';"> </p>
         </div>
-    </tr>
+    </div>
 
-    <tr *ngFor="let l of cartLinesOrder">
-        <div class="item-container item">
-            <p style="grid-area: 'product';">{{l.product.name}}</p>
-            <p style="grid-area: 'price';">{{l.product.priceUni}}</p>
-            <p style="grid-area: 'quantity';">{{l.quantity}}</p>
-            <p style="grid-area: 'total';">{{l.product.priceUni * l.quantity}}</p>
-            <div class="remove_btn_grid">
-                <button type="button" class="remove_btn" (click)="removeItem(l)"> X </button>
-            </div>
+    <div *ngFor="let l of cartLinesOrder" class="item-container item">
+        <p>{{ l.product.name }}</p>
+        <p>{{ l.product.priceUni }}</p>
+        <p>{{ l.quantity }}</p>
+        <p>{{ l.product.priceUni * l.quantity }}</p>
+
+        <div class="remove_btn_grid">
+            <button type="button" class="remove_btn" (click)="removeItem(l)">X</button>
         </div>
-    </tr>
+    </div>
 
    <div class="outline_div">
     <div >

@@ -8,6 +8,6 @@ export interface orderI{
     user: string;
     linesOrder:Array<lineOrderI>;
     totalAmount:number;
-    statusHistory:string;
+    statusHistory:Array<string>;
     address?:addressI;
 }

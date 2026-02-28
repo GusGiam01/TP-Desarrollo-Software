@@ -13,7 +13,10 @@
             <button class="menu-link" (click)="navigateToAddAddress()">Ver direcciones</button>
         </li>
         <li class="menu-item" *ngIf="(userType == 'Admin')">
-            <button class="menu-link" (click)="navigateTo()">Dar de alta un producto</button>
+            <button class="menu-link" (click)="navigateTo_addProduct()">Dar de alta un producto</button>
+        </li>
+        <li class="menu-item" *ngIf="(userType == 'Admin')">
+            <button class="menu-link" (click)="navigateTo_seePaudOrders()">Ver los pedidos pagos</button>
         </li>
         <li class="menu-item">
             <button class="menu-link" (click)="logout()">Cerrar sesión</button>

@@ -125,7 +125,7 @@ export const getOrderPaymentStatus = async (req: Request, res: Response) => {
     }
 
     // Estos campos deberían ser los mismos que seteás en el webhook
-    const status = (order as any).status ?? null;         // ej: "PAID" | "PENDING_PAYMENT" | ...
+    const history = Array.isArray((order as any).statusHistory) ? (order as any).statusHistory : ((order as any).statusHistory ? [(order as any).statusHistory] : []);       
     const mpPaymentId = (order as any).mpPaymentId ?? null;
     const paidAt = (order as any).paidAt ?? null;
 
@@ -138,7 +138,7 @@ export const getOrderPaymentStatus = async (req: Request, res: Response) => {
 
     return res.json({
       orderId: String(orderId),
-      status,
+      statusHistory: history,
       mpPaymentId,
       paidAt,
       total,

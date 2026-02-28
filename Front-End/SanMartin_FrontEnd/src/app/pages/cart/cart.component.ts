@@ -25,7 +25,10 @@ export class CartComponent {
   constructor(private api:ApiService, private router:Router){ }
 
   getLinesOrder(){
-    let orderId = "" + localStorage.getItem("orderId")
+    this.cartLinesOrder = [];
+    this.total = 0;
+    const orderId = localStorage.getItem("orderId");
+    if (!orderId) return;
     if(orderId != null && orderId != ""){
       this.api.searchLinesOrderByOrderId(orderId).subscribe({
         next: (data) => {
@@ -37,7 +40,8 @@ export class CartComponent {
                 let line:cartLineOrderI = {
                   id: data.data[i].id,
                   product: p.data,
-                  quantity: data.data[i].quantity
+                  quantity: data.data[i].quantity,
+                  orderId: orderId
                 }
                 this.cartLinesOrder.push(line)
                 this.total = this.total + (p.data.priceUni * data.data[i].quantity);
@@ -57,36 +61,40 @@ export class CartComponent {
     }
   }
 
-  removeItem(line:cartLineOrderI){
-    let lineId = "" + line.id;
+  removeItem(line: cartLineOrderI) {
+    const orderId = localStorage.getItem("orderId");
+    if (!orderId) return;
+
+    const lineId = String(line.id);
+
     this.api.removeLineOrder(lineId).subscribe({
-      next: (rl) => {
-        console.log("Linea borrada exitosamente.")
-      },
-      error: (e) => {
-        console.log(e)
-      }
-    })
-    this.api.searchProductById(line.product.id).subscribe({
-      next: (sp) => {
-        console.log("Producto encontrado.")
-        let prod = sp.data;
-        prod.stock = prod.stock + line.quantity;
-        this.api.updateProduct(prod).subscribe({
-          next: (up) => {
-            console.log("Stock actualizado.")
-            location.reload()
-          },
-          error: (e) => {
-            console.log(e)
+      next: () => {
+        this.cartLinesOrder = this.cartLinesOrder.filter(l => l.id !== line.id);
+        this.total = Math.max(0, this.total - (line.product.priceUni * line.quantity));
+
+        this.api.searchProductById(line.product.id).subscribe({
+          next: (sp) => {
+            const prod = sp.data;
+            prod.stock += line.quantity;
+            this.api.updateProduct(prod).subscribe();
           }
-        })
+        });
+
+        if (this.cartLinesOrder.length === 0) {
+          this.api.deleteOrder(orderId).subscribe({
+            next: () => {
+              localStorage.removeItem("orderId");
+              this.total = 0;
+              this.cartLinesOrder = [];
+            },
+          });
+          return;
+        }
+
+        this.api.patchOrder({ id: orderId, totalAmount: this.total }).subscribe();
       },
-      error: (e) => {
-        console.log(e)
-      }
-    })
-    
+      error: (e) => console.log(e),
+    });
   }
 
   redirectToComponent() {

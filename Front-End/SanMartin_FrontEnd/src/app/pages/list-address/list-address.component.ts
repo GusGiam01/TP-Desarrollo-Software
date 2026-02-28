@@ -26,7 +26,11 @@ export class AddressesComponent implements OnInit {
 
  
   getAddresses(): void {
-    let userId = "" + localStorage.getItem("token");
+    let userId = localStorage.getItem("token");
+    if (!userId) {
+      console.error('No hay "token" en localStorage (id inexistente).');
+      return;
+    }
     this.api.searchAddressesByUserId(userId).subscribe({
       next: (data) => {
         for (let i = 0; i < data.data.length; i++ ){
@@ -42,7 +46,11 @@ export class AddressesComponent implements OnInit {
   deleteAddress(addressId: string) {
     if (this.addresses.length > 1){
       console.log(addressId)
-      let userId = "" + localStorage.getItem("token");
+      let userId = localStorage.getItem("token");
+      if (!userId) {
+        console.error('No hay "token" en localStorage (id inexistente).');
+        return;
+      }
       const updatedAddresses = this.addresses.filter(address => address.id !== addressId);
       const addressesIds:Array<string> = [];
       for (let j = 0; j < updatedAddresses.length; j++){

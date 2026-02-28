@@ -26,21 +26,23 @@ export class ViewOrdersComponent {
   odersOfUser: orderI[] = [];
 
   getOrders() {
-    let userId = "" + localStorage.getItem("token");
-    console.log("Usuario: ", userId);
-    this.api.searchOrdersByUser(userId).subscribe({
-      next: (data) => {
-        for (let i = 0; i < data.data.length; i++) {
-          if (data.data[i].statusHistory != "UNPAID" && data.data[i].statusHistory != "CANCELLED") {
-            this.odersOfUser.push(data.data[i]);
-          }
+  const userId = String(localStorage.getItem("token"));
+  console.log("Usuario: ", userId);
+
+  this.api.searchOrdersByUser(userId).subscribe({
+    next: (res) => {
+      for (let i = 0; i < res.data.length; i++) {
+        const order = res.data[i];
+        const lastStatus = order.statusHistory?.[order.statusHistory.length - 1];
+
+        if (lastStatus !== "UNPAID" && lastStatus !== "CANCELLED") {
+          this.odersOfUser.push(order);
         }
-      },
-      error: (e) => {
-        console.log(e);
       }
-    });
-  }
+    },
+    error: (e) => console.log(e),
+  });
+}
 
   viewOrderDetails(orderId: any) {
     localStorage.setItem("orderId", orderId);

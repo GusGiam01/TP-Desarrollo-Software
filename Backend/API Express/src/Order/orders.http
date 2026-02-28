@@ -93,12 +93,17 @@ Content-Type: application/json
     "statusHistory": ["Order updated"]
 }
 
+
 ### Modificar un nuevo order (PATCH - recurso parcial)
-PATCH http://localhost:3000/api/orders/{{id}}
+PATCH http://localhost:3000/api/orders/699fd34a33a2d3aec999dee5
 Content-Type: application/json
+
 {
-    "statusHistory": ["Order shipped"]
+    "statusHistory": ["Order created", "PAID"]
 }
+
+### Obtener todos los pedido
+GET http://localhost:3000/api/orders
 
 ### Borrar un elemento
 DELETE http://localhost:3000/api/orders/{{id}}
