@@ -233,14 +233,14 @@ export class OrderStatusComponent implements OnInit, OnDestroy {
   isPendingLike(status: OrderStatus): boolean {
     if (!status) return true;
     const s = String(status).toUpperCase();
-    return s === 'PENDING_PAYMENT' || s === 'PENDING' || s === 'IN_PROCESS';
+    return s === 'PENDING_PAYMENT3' || s === 'PENDING' || s === 'IN_PROCESS';
   }
 
   statusTitle(status: OrderStatus): string {
     if (!status) return 'Procesando pago';
     const s = String(status).toUpperCase();
     if (s === 'PAID') return 'Pago aprobado';
-    if (s === 'PENDING_PAYMENT' || s === 'PENDING' || s === 'IN_PROCESS')
+    if (s === 'PENDING_PAYMENT3' || s === 'PENDING' || s === 'IN_PROCESS')
       return 'Pago pendiente';
     if (s === 'PAYMENT_FAILED' || s === 'REJECTED')
       return 'Pago rechazado';
@@ -252,7 +252,7 @@ export class OrderStatusComponent implements OnInit, OnDestroy {
     if (!status) return 'Estamos esperando confirmación de Mercado Pago.';
     const s = String(status).toUpperCase();
     if (s === 'PAID') return 'Tu orden fue confirmada. Ya podés continuar.';
-    if (s === 'PENDING_PAYMENT' || s === 'PENDING' || s === 'IN_PROCESS')
+    if (s === 'PENDING_PAYMENT3' || s === 'PENDING' || s === 'IN_PROCESS')
       return 'Aún no se confirmó el pago. Esto puede tardar unos segundos.';
     if (s === 'PAYMENT_FAILED' || s === 'REJECTED')
       return 'El pago no se pudo completar. Podés reintentar o elegir otro medio de pago.';
@@ -264,7 +264,7 @@ export class OrderStatusComponent implements OnInit, OnDestroy {
     if (!status) return 'badge badge--pending';
     const s = String(status).toUpperCase();
     if (s === 'PAID') return 'badge badge--ok';
-    if (s === 'PENDING_PAYMENT' || s === 'PENDING' || s === 'IN_PROCESS')
+    if (s === 'PENDING_PAYMENT3' || s === 'PENDING' || s === 'IN_PROCESS')
       return 'badge badge--pending';
     if (s === 'PAYMENT_FAILED' || s === 'REJECTED') return 'badge badge--fail';
     if (s === 'CANCELLED') return 'badge badge--fail';

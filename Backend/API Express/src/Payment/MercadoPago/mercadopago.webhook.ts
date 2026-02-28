@@ -79,12 +79,21 @@ async function getPayment(paymentId: string) {
 
 export const mercadopagoWebhook = async (req: Request, res: Response) => {
   try {
+    console.log("MP webhook received - headers:", JSON.stringify(req.headers));
+    console.log("MP webhook received - body:", JSON.stringify(req.body));
+
     const paymentId = extractPaymentId(req);
+    console.log("MP webhook extracted paymentId:", paymentId);
+
     if (!paymentId) {
+      console.warn("MP webhook: no paymentId found in payload - ignoring");
       return res.status(200).send("ok");
     }
 
-    if (!verifyWebhookSignature(req, paymentId)) {
+    const sigOk = verifyWebhookSignature(req, paymentId);
+    console.log("MP webhook signature verified:", sigOk);
+    if (!sigOk) {
+      console.warn("MP webhook: signature invalid (x-signature or x-request-id missing or mismatch)");
       return res.status(401).send("invalid signature");
     }
 
@@ -142,6 +151,7 @@ export const mercadopagoWebhook = async (req: Request, res: Response) => {
       }
     });
 
+    console.log("MP webhook processed OK for paymentId:", paymentId);
     return res.status(200).send("ok");
   } catch (err: any) {
     console.error("MP webhook error:", err?.message ?? err);
