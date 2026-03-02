@@ -122,7 +122,7 @@ export class ExecutePurchaseComponent implements OnInit {
         }).subscribe({
           next: () => {
             this.api.createMercadoPagoPreference(orderId).subscribe({
-              next: (r) => window.location.href = r.initPoint,
+              next: (r) => window.location.href = r.sandboxInitPoint ?? r.initPoint,
               error: (err) => {
                 console.log(err);
                 alert("No se pudo iniciar el pago con Mercado Pago.");

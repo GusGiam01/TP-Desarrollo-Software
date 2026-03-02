@@ -22,6 +22,7 @@ import { addAddressI } from "../../modelos/addAddress.interface.js";
 import { responseAddressesI } from "../../modelos/responseAddresses.interface.js";
 import { userPatchI } from '../../modelos/userPatch.interface';
 import { orderPatchI } from '../../modelos/orderPatch.interface';
+import { CreatePreferenceResponse } from "./mercadopago.service.js";
 
 
 
@@ -192,7 +193,7 @@ export class ApiService {
     
     createMercadoPagoPreference(orderId: string) {
         const token = localStorage.getItem("token") ?? "";
-        return this.http.post<{ preferenceId: string; initPoint: string }>(
+        return this.http.post<CreatePreferenceResponse>(
             "/api/mercadopago/preference",
             { orderId },
             {

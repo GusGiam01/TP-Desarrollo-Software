@@ -3,7 +3,7 @@ import crypto from "crypto";
 import { orm } from "../../shared/db/orm.js";
 import { Order } from "../../Order/order.entity.js";
 
-const WEBHOOK_SECRET = process.env.MP_WEBHOOK_SECRET || "";
+const WEBHOOK_SECRET = (process.env.MP_WEBHOOK_SECRET || "").trim();
 const MP_ACCESS_TOKEN = process.env.MP_ACCESS_TOKEN || "";
 
 function extractPaymentId(req: Request): string | null {
@@ -19,6 +19,7 @@ function extractPaymentId(req: Request): string | null {
 
   const resource: string | undefined = b?.resource;
   if (resource && typeof resource === "string") {
+    if (/^\d+$/.test(resource)) return resource;
     const m = resource.match(/\/payments\/(\d+)/);
     if (m?.[1]) return m[1];
   }

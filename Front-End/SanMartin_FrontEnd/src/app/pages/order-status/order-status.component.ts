@@ -31,8 +31,14 @@ interface OrderPaymentStatusResponse {
   styleUrls: ['./order-status.component.scss'],
 })
 export class OrderStatusComponent implements OnInit, OnDestroy {
-  //private readonly API_BASE = 'http://localhost:3000';
-  private readonly API_BASE = 'https://unfrictional-marisol-nongrounding.ngrok-free.dev';
+  // previous versions hard‑coded the backend URL here.  that caused
+  // confusion when the front and the back were on different ngrok tunnels.
+  // we can simply rely on `window.location.origin`: in dev the Angular
+  // dev server will proxy `/api` to localhost:3000, and in production the
+  // origin will be the backend host itself (when the app is served statically
+  // by Express).  only override this value if you really need a different
+  // base URL.
+  private readonly API_BASE = window.location.origin;
   private readonly POLL_INTERVAL_MS = 3000;
   private readonly POLL_MAX_MS = 60000;
 

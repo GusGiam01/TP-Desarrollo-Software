@@ -52,6 +52,43 @@ Nosotros utilizamos mongoDB Atlas, para su utilización debe:
    ```sh
    ng serve -o
    ```
+
+> **Nota sobre Mercado Pago y túneles públicos**
+>
+> Al usar Mercado Pago en desarrollo necesitas dos URLs HTTPS:
+> una para la redirección del usuario (front) y otra para el webhook
+> (backend). Hay dos maneras de conseguirlo con ngrok:
+>
+> * **Un solo túnel** – sirve el frontend estático desde el backend y
+>   usa la misma URL para `FRONT_URL` y `API_PUBLIC_URL`. Esta es la
+>   solución más sencilla porque necesitas únicamente una cuenta de
+>   ngrok y un solo túnel.
+> * **Túneles separados** – lanza dos túneles con cuentas distintas
+>   (o un proveedor alternativo para uno de los dos). Configura
+>   `FRONT_URL` con la URL del túnel del front y `API_PUBLIC_URL` con la
+>   URL del túnel del backend. Además, en el código de Angular debes
+>   asegurarte de que `API_BASE` (por ejemplo en
+>   `order-status.component.ts`) apunte al URL correcto del backend.
+>
+> Aquí tienes un ejemplo para túneles separados:
+>
+> ```sh
+> # túnel para el frontend (puerto 4200)
+> ngrok http 4200 --authtoken=<token-front>
+> # túnel para el backend (puerto 3000)
+> ngrok http 3000 --authtoken=<token-back>
+> ```
+>
+> y define las variables de entorno:
+>
+> ```env
+> FRONT_URL=https://frontabcdef.ngrok-free.dev
+> API_PUBLIC_URL=https://backuvwxyz.ngrok-free.dev
+> ```
+>
+> Si sigues el primer enfoque (un solo túnel), puedes compilar el
+> frontend y activar el middleware de `app.ts` que sirve la carpeta
+> `dist`. De otro modo, mantenlo separado; ambos métodos funcionan.
 ## Descripción del trabajo
 Nuestro proyecto se va a basar en la creación de una página web para la venta de una bebida alcoholica, implementando un sistema de control de stock y otro para la reserva. Dentro del control de stock nuestra idea era implementar el ABM de cada producto (resguardándonos contra posible expansión). Para el sistema de reserva habíamos pensado en agregar un “carrito” donde uno puede ir viendo el monto del mismo.
 Hay diferentes funcionalidades dependiendo de si el usuario creado es ADMIN o usuario normal, para registrarse como admin es necesario ingresar el siguiente código: DSW2024SM. Si se desea crear una cuenta como user no ingrese nada en ese campo.
