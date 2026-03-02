@@ -59,7 +59,7 @@ export class AddProductComponent implements OnInit {
   }
 
   validateCode():boolean{
-    let code = "" + this.addProductForm.get("code")?.value;
+    let code = this.addProductForm.get("code")?.value;
     if(code && /^[a-zA-Z]{2}[0-9]{4}$/.test(code)){
       return false;
     }else{
@@ -77,12 +77,9 @@ export class AddProductComponent implements OnInit {
   }
 
   validateName():boolean{
-    let name = "" + this.addProductForm.get("name")?.value;
-    if(/^[a-zA-Z0-9ñ\s]+$/.test(name)){
-      return false;
-    }else{
-      return true;
-    }
+    const name = String(this.addProductForm.get('name')?.value ?? '').trim();
+    const isValid = /^[\p{L}0-9\s]+$/u.test(name);
+    return isValid && name.length > 0;
   }
 
   validateStock():boolean{
@@ -95,7 +92,7 @@ export class AddProductComponent implements OnInit {
   }
 
   validateType():boolean{
-    let type = "" + this.addProductForm.get("type")?.value;
+    const type = String(this.addProductForm.get('type')?.value ?? '').trim();
     if(/^[a-zA-Zñ\s]+$/.test(type)){
       return false;
     }else{
@@ -104,7 +101,7 @@ export class AddProductComponent implements OnInit {
   }
 
   validateBrand():boolean{
-    let brand = "" + this.addProductForm.get("brand")?.value;
+    const brand = String(this.addProductForm.get('brand')?.value ?? '').trim();
     if(/^[a-zA-Z0-9ñ\s]+$/.test(brand)){
       return false;
     }else{

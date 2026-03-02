@@ -34,13 +34,13 @@
     <!-- Data -->
     <ng-container *ngIf="!loading && !errorMsg && data as d">
       <div class="status-row">
-        <span [class]="statusBadgeClass(d.status)">
-          {{ statusTitle(d.status) }}
+        <span [class]="statusBadgeClass(currentStatus)">
+          {{ statusTitle(currentStatus) }}
         </span>
       </div>
 
       <div class="message">
-        {{ statusMessage(d.status) }}
+        {{ statusMessage(currentStatus) }}
       </div>
 
       <div class="grid">
@@ -65,7 +65,7 @@
         <button class="btn btn--ghost" (click)="goHome()">Volver</button>
       </div>
 
-      <div class="hint" *ngIf="isPendingLike(d.status)">
+      <div class="hint" *ngIf="isPendingLike(currentStatus)">
         Actualizamos automáticamente por un minuto mientras el pago esté pendiente.
       </div>
     </ng-container>

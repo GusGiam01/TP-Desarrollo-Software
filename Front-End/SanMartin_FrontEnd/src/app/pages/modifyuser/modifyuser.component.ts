@@ -42,8 +42,15 @@ export class EditUserComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userId = "" + localStorage.getItem("token");
-    this.loadUserData(this.userId);
+    const id = localStorage.getItem('token'); 
+
+    if (!id) {
+      console.error('No hay "token" en localStorage.');
+      return;
+    }
+
+    this.userId = id;        
+    this.loadUserData(id);   
   }
 
   loadUserData(userId: string): void {
@@ -93,7 +100,7 @@ export class EditUserComponent implements OnInit {
   }
 
   validateName(): boolean {
-    let name = "" + this.userForm.get('name')?.value;
+    let name = this.userForm.get('name')?.value;
     if (name && /^[a-zA-Zñ\s]+$/.test(name)) {
       return false;
     } else {
@@ -102,7 +109,7 @@ export class EditUserComponent implements OnInit {
   }
 
   validateSurname(): boolean {
-    let surname = "" + this.userForm.get('surname')?.value;
+    let surname = this.userForm.get('surname')?.value;
     if (surname && /^[a-zA-Zñ\s]+$/.test(surname)) {
       return false;
     } else {

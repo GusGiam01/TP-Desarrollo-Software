@@ -20,3 +20,12 @@ Comandos útiles
 docker ps
 docker logs -f mongo
 docker exec -it mongo mongosh -u admin -p admin123 --authenticationDatabase admin
+
+Levantar el tunel de ngrok
+cd "Backend/API Express"
+en otra terminal para el front: & "C:\Users\Pc\AppData\Local\Microsoft\WinGet\Links\ngrok.exe" start --all --config "C:\Users\Pc\Desktop\Estudios_academicos\Estudios_academicos\UTN 2024\Desarrollo de software\TP-Desarrollo-Software\Backend\API Express\ngrok_front.yml"
+
+cd "Backend/API Express"
+en otra terminal para el back: & "C:\Users\Pc\AppData\Local\Microsoft\WinGet\Links\ngrok.exe" start --all --config "C:\Users\Pc\Desktop\Estudios_academicos\Estudios_academicos\UTN 2024\Desarrollo de software\TP-Desarrollo-Software\Backend\API Express\ngrok_back.yml"
+
+volver a levantar el back

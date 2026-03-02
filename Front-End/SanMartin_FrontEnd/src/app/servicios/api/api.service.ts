@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { loginI } from "../../modelos/login.interface.js";
 import { responseI } from "../../modelos/response.interface.js";
-import { HttpClient, HttpParams } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { userI } from "../../modelos/user.interface.js";
 import { signinI } from "../../modelos/signin.interface.js";
@@ -22,6 +22,7 @@ import { addAddressI } from "../../modelos/addAddress.interface.js";
 import { responseAddressesI } from "../../modelos/responseAddresses.interface.js";
 import { userPatchI } from '../../modelos/userPatch.interface';
 import { orderPatchI } from '../../modelos/orderPatch.interface';
+import { CreatePreferenceResponse } from "./mercadopago.service.js";
 
 
 
@@ -88,9 +89,10 @@ export class ApiService {
 
     // Orders
 
-    searchOrders() {
-        let direction = this.url + "/orders";
-        return this.http.get<responseOrdersI>(direction)
+    searchOrders(status?: string) {
+        const direction = this.url + "/orders";
+        const params = status ? new HttpParams().set("status", status) : undefined;
+        return this.http.get<responseOrdersI>(direction, { params });
     }
 
     postOrder(order: addOrderI) {
@@ -121,6 +123,11 @@ export class ApiService {
         return this.http.get<responseOrdersI>(direction, {params})
     }
 
+    deleteOrder(id: string) {
+        const direction = this.url + "/orders/" + id;
+        return this.http.delete<void>(direction);
+    }
+
     // Lines Order
 
     searchLinesOrderByOrderId(orderid: string) {
@@ -135,7 +142,7 @@ export class ApiService {
 
     removeLineOrder(lineId: string) {
         let direction = this.url + "/linesorder/" + lineId;
-        return this.http.delete<responseLineOrderI>(direction);
+        return this.http.delete<void>(direction);
     }
 
     // Address
@@ -186,7 +193,7 @@ export class ApiService {
     
     createMercadoPagoPreference(orderId: string) {
         const token = localStorage.getItem("token") ?? "";
-        return this.http.post<{ preferenceId: string; initPoint: string }>(
+        return this.http.post<CreatePreferenceResponse>(
             "/api/mercadopago/preference",
             { orderId },
             {

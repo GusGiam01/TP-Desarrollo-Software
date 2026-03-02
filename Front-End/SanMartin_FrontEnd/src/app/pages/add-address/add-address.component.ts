@@ -31,7 +31,8 @@ export class AddAddressComponent implements OnInit {
   };
 
   ngOnInit(){
-    let userId = "" + localStorage.getItem("token");
+    let userId = localStorage.getItem("token");
+    if (!userId) return;
     this.api.searchAddressesByUserId(userId).subscribe({
       next: (data) => {
         this.addresses = data.data
@@ -120,7 +121,7 @@ export class AddAddressComponent implements OnInit {
   }
 
   validateZipCode():boolean{
-    let zipCode = "" + this.addressForm.get("zipCode")?.value;
+    let zipCode = this.addressForm.get("zipCode")?.value;
     if(zipCode && /^[0-9]+$/.test(zipCode) && zipCode.length == 4){
       return false;
     }else{
@@ -129,7 +130,7 @@ export class AddAddressComponent implements OnInit {
   }
 
   validateNickname():boolean{
-    let nickname = "" + this.addressForm.get("nickname")?.value;
+    let nickname = this.addressForm.get("nickname")?.value;
     if(nickname && /^[a-zA-Z0-9ñ\s]+$/.test(nickname)){
       return false;
     }else{
@@ -138,7 +139,7 @@ export class AddAddressComponent implements OnInit {
   }
 
   validateAddress():boolean{
-    let address = "" + this.addressForm.get("address")?.value;
+    let address = this.addressForm.get("address")?.value;
     if(address && /^[a-zA-Z0-9ñ\s]+$/.test(address)){
       return false;
     }else{
@@ -147,7 +148,7 @@ export class AddAddressComponent implements OnInit {
   }
 
   validateProvince():boolean{
-    let province = "" + this.addressForm.get("province")?.value;
+    let province = this.addressForm.get("province")?.value;
     if(province && /^[a-zA-Zñ\s]+$/.test(province)){
       return false;
     }else{

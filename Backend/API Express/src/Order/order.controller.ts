@@ -5,36 +5,55 @@ import { orm } from "../shared/db/orm.js"
 
 const em = orm.em
 
+function normalizeStatusHistory(raw: any): string[] | undefined {
+  if (raw === undefined || raw === null) return undefined;
+
+  if (Array.isArray(raw)) {
+    return raw
+      .map((s) => String(s).trim().toUpperCase())
+      .filter((s) => s.length > 0);
+  }
+
+  const s = String(raw).trim().toUpperCase();
+  return s ? [s] : undefined;
+}
+
 function sanitizeOrderInput(req: Request, res: Response, next: NextFunction) {
+  const statusHistory = normalizeStatusHistory(req.body.statusHistory);
+
   req.body.sanitizedOrderInput = {
     confirmDate: req.body.confirmDate,
     user: req.body.user,
     linesOrder: req.body.linesOrder,
     totalAmount: req.body.totalAmount,
-    statusHistory: req.body.statusHistory,
+    statusHistory,              // 👈 ahora SIEMPRE string[]
     address: req.body.address,
   };
 
   Object.keys(req.body.sanitizedOrderInput).forEach((key) => {
     if (req.body.sanitizedOrderInput[key] === undefined) {
-      delete req.body.sanitizedOrderInput[key]
+      delete req.body.sanitizedOrderInput[key];
     }
-  })
+  });
 
-  next()
+  next();
 }
 
 async function findAll(req: Request, res: Response) {
-    try {
-      const orders = await em.find(
-        Order,
-        {}
-      )
-      res.status(200).json({ message: 'found all orders', data: orders })
-    } catch (error: any) {
-      res.status(500).json({ message: error.message })
-    }
+  try {
+    const status = String(req.query.status ?? '').trim().toUpperCase();
+
+    const where = status
+      ? { statusHistory: { $contains: [status] } }
+      : {};
+
+    const orders = await em.find(Order, where);
+    res.status(200).json({ message: 'found all orders', data: orders });
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
   }
+}
+
   
   async function findOne(req: Request, res: Response, id:string) {
     try {
@@ -75,7 +94,11 @@ async function findAll(req: Request, res: Response) {
     try {
       const id = req.params.id
       const order = em.getReference(Order, id)
+      if (!order) {
+        return res.status(404).json({ message: "order not found" });
+      }
       await em.removeAndFlush(order)
+      return res.status(200).json({ message: 'order removed' })
     } catch (error: any) {
       res.status(500).json({ message: error.message })
     }

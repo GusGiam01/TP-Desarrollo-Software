@@ -82,7 +82,11 @@ async function remove(req: Request, res: Response) {
   try {
     const id = req.params.id
     const lineOrder = em.getReference(LineOrder, id)
+    if (!lineOrder) {
+      return res.status(404).json({ message: "lineOrder not found" });
+    }
     await em.removeAndFlush(lineOrder)
+    return res.status(200).json({ message: 'lineOrder removed' })
   } catch (error: any) {
     res.status(500).json({ message: error.message })
   }

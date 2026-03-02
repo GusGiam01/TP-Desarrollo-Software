@@ -1,0 +1,214 @@
+<section class="paid_orders">
+  <header class="paid_orders_header">
+    <div class="header_left">
+      <h1 class="title">Órdenes pagas</h1>
+      <p class="subtitle">Deslizá para verlas y marcá las que ya salen a reparto.</p>
+    </div>
+
+    <div class="header_right">
+      <button class="nav_btn" type="button" (click)="scrollLeft()" aria-label="Anterior">‹</button>
+      <button class="nav_btn" type="button" (click)="scrollRight()" aria-label="Siguiente">›</button>
+    </div>
+  </header>
+
+  <div class="state_box" *ngIf="loading">Cargando órdenes...</div>
+
+  <div class="state_box error" *ngIf="!loading && errorMsg">
+    {{ errorMsg }}
+  </div>
+
+  <div class="state_box" *ngIf="!loading && !errorMsg && paidOrders.length === 0">
+    No hay órdenes pagas para despachar.
+  </div>
+
+  <div class="slider_wrap" *ngIf="!loading && !errorMsg && paidOrders.length > 0">
+    <div #slider class="orders_slider" tabindex="0" aria-label="Slider de órdenes pagas">
+      <article class="order_card" *ngFor="let order of paidOrders; trackBy: trackByOrderId">
+        <!-- TOP -->
+        <div class="card_top">
+          <div class="meta">
+            <!--<div class="meta_main">{{ orderMeta(order) }}</div>-->
+            <div class="meta_main" *ngIf="order?.confirmDate">
+              Confirmada: {{ order.confirmDate | date:'dd/MM/yyyy HH:mm' }}
+            </div>
+          </div>
+
+          <div class="top_right">
+            <div class="badge">PAID</div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- ADDRESS -->
+        <div class="card_section panel panel--address">
+          <div class="panel_head">
+            <h3 class="panel_title">Address</h3>
+          </div>
+
+          <!-- Si ya está poblada como objeto -->
+          <ng-container *ngIf="order?.address?.address; else addrFallback">
+            <div class="address_block">
+              <div class="addr_header">
+                <!-- 
+                <div class="addr_title">{{ order.address?.nickname || 'Domicilio' }}</div>
+                -->
+              </div>
+
+              <div class="addr_line">{{ order.address?.address }}</div>
+
+              <div class="addr_line">
+                <span *ngIf="order.address?.province">Provincia: {{ order.address.province }}</span>
+              </div>
+
+              <div class="addr_line">
+                <span *ngIf="order.address?.zipCode">Codigo postal: {{ order.address.zipCode }}</span>
+              </div>
+
+              <div class="addr_note" *ngIf="order.address?.reference || order.address?.details || order.address?.note">
+                {{ order.address?.reference || order.address?.details || order.address?.note }}
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-template #addrFallback>
+            <div class="muted" *ngIf="!order?.address">Sin dirección</div>
+
+            <div class="muted" *ngIf="order?.address && !order?.address?.address">
+              Cargando dirección...
+              <div class="mono">{{ order.address }}</div>
+            </div>
+          </ng-template>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- LINE ORDERS -->
+        <div class="card_section panel panel--lines">
+          <div class="panel_head">
+            <h3 class="panel_title">Line Orders</h3>
+            <span class="panel_hint" *ngIf="orderLines(order).length">{{ orderLines(order).length }} item(s)</span>
+          </div>
+
+          <ng-container *ngIf="order?.linesOrder === undefined; else linesLoaded">
+            <div class="muted">Cargando line orders...</div>
+          </ng-container>
+
+          <ng-template #linesLoaded>
+            <div class="line_items" *ngIf="orderLines(order).length > 0; else noLinesTpl">
+              <div class="line_item" *ngFor="let line of orderLines(order); let i = index">
+                <div class="line_item_bar">
+                  <span class="line_item_idx">#{{ i + 1 }}</span>
+                </div>
+
+                <div class="line_item_content">
+                  <!-- Producto -->
+                  <div class="prod_main">
+                    <img
+                      class="prod_thumb"
+                      *ngIf="line?.product?.images?.length || line?.product?.image || line?.product?.imgUrl"
+                      [src]="line?.product?.images?.length ? line.product.images[0] : (line?.product?.image || line?.product?.imgUrl)"
+                      alt=""
+                      loading="lazy"
+                    />
+
+                    <div class="prod_info">
+                      <div class="prod_name">
+                        {{ line?.product?.name ?? line?.product?.title ?? (line?.product ?? 'Producto') }}
+                      </div>
+
+                      <div class="prod_chips" *ngIf="line?.product && (line?.product?.brand || line?.product?.category || line?.product?.sku || line?.product?.code || line?.product?.id || line?.product?._id)">
+                        <span class="chip chip--brand" *ngIf="line?.product?.brand">{{ line.product.brand }}</span>
+
+                        <span class="chip chip--cat" *ngIf="line?.product?.category?.name || line?.product?.category">
+                          {{ line?.product?.category?.name ?? line?.product?.category }}
+                        </span>
+
+                        <span class="chip chip--sku mono_chip" *ngIf="line?.product?.sku || line?.product?.code">
+                          {{ line?.product?.sku ?? line?.product?.code }}
+                        </span>
+                      </div>
+                      <!-- 
+                      <div class="prod_desc" *ngIf="line?.product?.description">
+                        {{ line.product.description | slice:0:90 }}<span *ngIf="line.product.description?.length > 90">…</span>
+                      </div>
+                      -->
+                    </div>
+                  </div>
+
+                  <!-- Precios - Esto capaz se agregue en un futuro. -->
+                  <div class="price_box">
+                    <div class="price_row">
+                      <span>Cant</span>
+                      <strong class="mono_num">{{ line?.quantity ?? 0 }}</strong>
+                    </div>
+                    <!--
+                    <div class="price_row">
+                      <span>Unit.</span>
+                      <strong class="mono_num">
+                        {{ (line?.unitPrice ?? line?.price ?? line?.amount ?? 0) | currency:'ARS':'symbol':'1.0-0' }}
+                      </strong>
+                    </div>
+
+                    <div class="price_row total">
+                      <span>Subt.</span>
+                      <strong class="mono_num">
+                        {{
+                          ((+(line?.quantity ?? 0)) * (+(line?.unitPrice ?? line?.price ?? line?.amount ?? 0)))
+                            | currency:'ARS':'symbol':'1.0-0'
+                        }}
+                      </strong>
+                    </div>
+                    -->
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <ng-template #noLinesTpl>
+              <div class="muted">Sin line orders</div>
+            </ng-template>
+          </ng-template>
+        </div>
+
+        <!-- KPIs -->
+        <!--
+        <div class="kpis">
+          <div class="kpi">
+            <div class="kpi_label">Total</div>
+            <div class="kpi_value">{{ (order?.totalAmount ?? 0) | currency:'ARS':'symbol':'1.0-0' }}</div>
+          </div>
+          <div class="kpi" *ngIf="order?.id || order?._id">
+            <div class="kpi_label">ID</div>
+            <div class="kpi_value mono_small">
+              {{ (order?.id ?? order?._id) | slice:-6 }}
+            </div>
+          </div>
+        </div>
+        -->
+        <div class="kpi">
+            <div class="kpi_label">Total</div>
+            <div class="kpi_value">{{ (order?.totalAmount ?? 0) | currency:'ARS':'$':'1.0-0' }}</div>
+          </div>
+
+        <div class="divider soft"></div>
+
+        <div class="card_actions">
+          <button
+            class="primary_btn"
+            type="button"
+            (click)="markOnItsWay(order)"
+            [disabled]="patchingById[order?.id ?? order?._id]"
+          >
+            <span *ngIf="!patchingById[order?.id ?? order?._id]">Marcar como "On it's way"</span>
+            <span *ngIf="patchingById[order?.id ?? order?._id]">Actualizando...</span>
+          </button>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <div class="footer_actions">
+    <button class="secondary_btn" type="button" (click)="goBack()">Volver</button>
+  </div>
+</section>

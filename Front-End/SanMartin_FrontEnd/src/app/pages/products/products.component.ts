@@ -110,9 +110,13 @@ export class ProductsComponent {
         const selectedProduct = prod.data;
         if (selectedProduct.stock >= q){
           if (localStorage.getItem("orderId") == null || localStorage.getItem("orderId") == "") {
-            let userId = "" + localStorage.getItem("token");
+            let userId = localStorage.getItem("token");
+            if (!userId) {
+              console.error('No hay "token" en localStorage (id inexistente).');
+              return;
+            }
             let order:addOrderI = {
-              statusHistory: "UNPAID",
+              statusHistory: ["CREATED", "UNPAID"],
               linesOrder: [],
               totalAmount: 0,
               user: userId
@@ -145,35 +149,30 @@ export class ProductsComponent {
             })
           }
           else {
-            let orderId = ""+localStorage.getItem("orderId")
-            console.log("orderId: ", orderId);
+            const orderId = localStorage.getItem("orderId");
+            if (!orderId) return;
+
             this.api.searchOrderById(orderId).subscribe({
               next: (go) => {
-                let order = this.addToOrder(go.data, this.createLineOrder(selectedProduct.id, q, orderId));
-                order.totalAmount = order.totalAmount + (selectedProduct.priceUni * q)
-                this.api.updateOrder(order).subscribe({
-                  next: (uo) => {
-                    console.log("Se agrego el objeto al pedido.")
-                    selectedProduct.stock = selectedProduct.stock - q;
-                  this.api.updateProduct(selectedProduct).subscribe({
-                    next: (pp) => {
-                      console.log("stock modificado.")
-                    },
-                    error: (e) => {
-                      console.log(e)
-                    }
-                  })
-                  },
-                  error: (e) =>
-                    alert("Hubo un problema al agregar un articulo a su carrito.")
-                })
+                const line: lineOrderI = { product: selectedProduct.id, quantity: q, order: orderId };
 
+                this.api.postLineOrder(line).subscribe({
+                  next: () => {
+                    const newTotal = go.data.totalAmount + (selectedProduct.priceUni * q);
+
+                    this.api.patchOrder({ id: orderId, totalAmount: newTotal }).subscribe({
+                      next: () => {
+                        selectedProduct.stock -= q;
+                        this.api.updateProduct(selectedProduct).subscribe();
+                      },
+                      error: () => alert("No se pudo actualizar el total de la orden"),
+                    });
+                  },
+                  error: () => alert("No se pudo crear la línea de orden"),
+                });
               },
-              error: (e) => {
-                console.log(e);
-                alert("No se encontro la orden")
-              }
-            })
+              error: () => alert("No se encontró la orden"),
+            });
           }
         } 
         else {

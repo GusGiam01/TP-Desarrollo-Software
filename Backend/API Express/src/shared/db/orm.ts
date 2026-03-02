@@ -8,7 +8,7 @@ export const orm = await MikroORM.init({
   type: "mongo",
   //clientUrl: 'mongodb+srv://usuario:usuario@cluster.k0o09.mongodb.net/',
   //clientUrl: 'mongodb://localhost:27017/tiendaSM',
-  clientUrl: 'mongodb://admin:admin123@localhost:27017/tiendaSM?authSource=admin',
+  clientUrl: 'mongodb://admin:admin123@localhost:27017/tiendaSM?authSource=admin&replicaSet=rs0',
   highlighter: new MongoHighlighter(),
   debug: true,
   ensureIndexes: true,

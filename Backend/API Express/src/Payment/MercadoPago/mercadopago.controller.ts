@@ -60,7 +60,11 @@ export const createPreference = async (req: Request, res: Response) => {
     const client = new MercadoPagoConfig({ accessToken: token });
     const preference = new Preference(client);
 
-    const payerEmail = (order.user && (order.user as any).mail) ? String((order.user as any).mail) : undefined;
+    const isTest = token.startsWith("TEST-");
+    const payerEmail =
+      !isTest && order.user && (order.user as any).mail
+        ? String((order.user as any).mail)
+        : undefined;
 
     console.log("FRONT_URL=", JSON.stringify(FRONT_URL));
     console.log("SUCCESS_URL=", `${FRONT_URL}/order-status?orderId=${orderId}&mpResult=success`);
@@ -79,7 +83,7 @@ export const createPreference = async (req: Request, res: Response) => {
 
       auto_return: "approved",
 
-      notification_url: `${API_PUBLIC_URL}/api/mercadopago/webhook`,
+      notification_url: `${API_PUBLIC_URL}/api/mercadopago/webhook?source_news=webhooks`,
     };
 
     console.log("MP preference body JSON:", JSON.stringify(body, null, 2));
@@ -90,7 +94,8 @@ export const createPreference = async (req: Request, res: Response) => {
 
     return res.json({
       preferenceId: result.id,
-      initPoint: result.init_point,
+      initPoint: token.startsWith("TEST-") ? result.sandbox_init_point : result.init_point,
+      //sandboxInitPoint: result.sandbox_init_point,
     });
   } catch (e: any) {
     console.error("MP error raw:", e);
@@ -125,7 +130,7 @@ export const getOrderPaymentStatus = async (req: Request, res: Response) => {
     }
 
     // Estos campos deberían ser los mismos que seteás en el webhook
-    const status = (order as any).status ?? null;         // ej: "PAID" | "PENDING_PAYMENT" | ...
+    const history = Array.isArray((order as any).statusHistory) ? (order as any).statusHistory : ((order as any).statusHistory ? [(order as any).statusHistory] : []);       
     const mpPaymentId = (order as any).mpPaymentId ?? null;
     const paidAt = (order as any).paidAt ?? null;
 
@@ -138,7 +143,7 @@ export const getOrderPaymentStatus = async (req: Request, res: Response) => {
 
     return res.json({
       orderId: String(orderId),
-      status,
+      statusHistory: history,
       mpPaymentId,
       paidAt,
       total,

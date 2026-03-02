@@ -9,6 +9,15 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: admin123
     volumes:
       - mongo_data:/data/db
+      - ./mongo-key/mongo-keyfile:/tmp/mongo-keyfile:ro
+    command: >
+      bash -lc "
+        mkdir -p /etc/mongo-keyfile &&
+        cp /tmp/mongo-keyfile /etc/mongo-keyfile/mongo-keyfile &&
+        chmod 400 /etc/mongo-keyfile/mongo-keyfile &&
+        chown 999:999 /etc/mongo-keyfile/mongo-keyfile &&
+        exec mongod --replSet rs0 --bind_ip_all --keyFile /etc/mongo-keyfile/mongo-keyfile
+      "
 
 volumes:
   mongo_data:

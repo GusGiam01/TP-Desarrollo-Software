@@ -17,7 +17,7 @@ type MpResult = 'success' | 'pending' | 'failure' | null;
 
 interface OrderPaymentStatusResponse {
   orderId: string;
-  status: OrderStatus;
+  statusHistory: string[];
   mpPaymentId?: string | null;
   paidAt?: string | null;
   total?: number | null;
@@ -31,8 +31,14 @@ interface OrderPaymentStatusResponse {
   styleUrls: ['./order-status.component.scss'],
 })
 export class OrderStatusComponent implements OnInit, OnDestroy {
-  //private readonly API_BASE = 'http://localhost:3000';
-  private readonly API_BASE = 'https://unfrictional-marisol-nongrounding.ngrok-free.dev';
+  // previous versions hard‑coded the backend URL here.  that caused
+  // confusion when the front and the back were on different ngrok tunnels.
+  // we can simply rely on `window.location.origin`: in dev the Angular
+  // dev server will proxy `/api` to localhost:3000, and in production the
+  // origin will be the backend host itself (when the app is served statically
+  // by Express).  only override this value if you really need a different
+  // base URL.
+  private readonly API_BASE = window.location.origin;
   private readonly POLL_INTERVAL_MS = 3000;
   private readonly POLL_MAX_MS = 60000;
 
@@ -52,6 +58,12 @@ export class OrderStatusComponent implements OnInit, OnDestroy {
     private http: HttpClient
   ) {}
 
+  get currentStatus(): OrderStatus {
+    const history = this.data?.statusHistory;
+    if (!Array.isArray(history) || history.length === 0) return null;
+    return history[history.length - 1];
+  }
+
   ngOnInit(): void {
     const qp = this.route.snapshot.queryParamMap.get('orderId');
     const rp = this.route.snapshot.paramMap.get('orderId');
@@ -59,6 +71,11 @@ export class OrderStatusComponent implements OnInit, OnDestroy {
 
     const mp = this.route.snapshot.queryParamMap.get('mpResult');
     this.mpResult = this.normalizeMpResult(mp);
+
+    // Limpiar carrito si el pago fue exitoso
+    if (this.mpResult === 'success') {
+      localStorage.removeItem('orderId');
+    }
 
     if (!this.orderId) {
       this.loading = false;
@@ -106,8 +123,8 @@ export class OrderStatusComponent implements OnInit, OnDestroy {
   }
 
   mpBannerMessage(): string {
-    const backendStatus = this.data?.status
-      ? String(this.data.status).toUpperCase()
+    const backendStatus = this.currentStatus
+      ? String(this.currentStatus).toUpperCase()
       : null;
 
     if (this.mpResult === 'success') {
@@ -160,7 +177,7 @@ export class OrderStatusComponent implements OnInit, OnDestroy {
         this.data = resp;
         this.loading = false;
 
-        if (startPollingIfPending && this.isPendingLike(resp.status)) {
+        if (startPollingIfPending && this.isPendingLike(this.currentStatus)) {
           this.startPolling();
         } else {
           this.stopPolling();
@@ -196,7 +213,7 @@ export class OrderStatusComponent implements OnInit, OnDestroy {
 
         this.data = resp;
 
-        if (!this.isPendingLike(resp.status)) {
+        if (!this.isPendingLike(this.currentStatus)) {
           this.stopPolling();
         }
       });

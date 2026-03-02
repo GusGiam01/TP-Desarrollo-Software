@@ -35,7 +35,8 @@ export class ViewSingleOrderComponent {
   constructor(private api: ApiService, private router: Router) { }
 
   showOrder(): void {
-    let orderId = "" + localStorage.getItem("orderId");
+    const orderId = localStorage.getItem("orderId");
+    if (!orderId || orderId === "null") return;
     this.api.searchOrderById(orderId).subscribe({
       next: (data) => {
         this.order.id = data.data.id;
@@ -55,7 +56,11 @@ export class ViewSingleOrderComponent {
     })
   }
   loadAddress(address: addressI): void {
-    let addressId = "" + address;
+    let addressId = address.id;
+    if (!addressId) {
+      console.error('Address ID is undefined');
+      return;
+    }    
     if (address) {
       this.api.searchAddressById(addressId).subscribe({
         next: (data) => {
@@ -74,54 +79,57 @@ export class ViewSingleOrderComponent {
       console.error('Address ID is undefined');
     }
   }
-    getLinesOrder(callback: () => void): void {
-      let orderId = "" + localStorage.getItem("orderId");
-      this.api.searchLinesOrderByOrderId(orderId).subscribe({
-        next: (data) => {
-          this.order.totalAmount = 0;
-    
-          const productRequests = data.data.map((line: lineOrderI) =>
-            this.api.searchProductById(line.product).pipe(
-              map((productData) => ({
-                line,
-                product: productData.data
-              })),
-              catchError((error) => {
-                console.error(`Error fetching product ${line.product}:`, error);
-                return of(null);
-              })
-            )
-          );
-    
-          forkJoin(productRequests).pipe(
-            finalize(() => {
-              console.log('All product requests completed');
+
+  getLinesOrder(callback: () => void): void {
+    const orderId = localStorage.getItem("orderId");
+    if (!orderId || orderId === "null") return;
+    this.api.searchLinesOrderByOrderId(orderId).subscribe({
+      next: (data) => {
+        this.order.totalAmount = 0;
+  
+        const productRequests = data.data.map((line: lineOrderI) =>
+          this.api.searchProductById(line.product).pipe(
+            map((productData) => ({
+              line,
+              product: productData.data
+            })),
+            catchError((error) => {
+              console.error(`Error fetching product ${line.product}:`, error);
+              return of(null);
             })
-          ).subscribe({
-            next: (results) => {
-              results.forEach((result) => {
-                if (result) {
-                  const line: cartLineOrderI = {
-                    id: result.line.id,
-                    product: result.product,
-                    quantity: result.line.quantity
-                  };
-                  this.cartLinesOrder.push(line);
-                  this.order.totalAmount += result.product.priceUni * result.line.quantity;
-                }
-              });
-              callback();
-            },
-            error: (q) => {
-              console.error("Error in product requests:", q);
-            }
-          });
-        },
-        error: (e) => {
-          console.error("Error fetching lines:", e);
-        }
-      });
-    }
+          )
+        );
+  
+        forkJoin(productRequests).pipe(
+          finalize(() => {
+            console.log('All product requests completed');
+          })
+        ).subscribe({
+          next: (results) => {
+            results.forEach((result) => {
+              if (result) {
+                const line: cartLineOrderI = {
+                  id: result.line.id,
+                  product: result.product,
+                  quantity: result.line.quantity,
+                  orderId: orderId,
+                };
+                this.cartLinesOrder.push(line);
+                this.order.totalAmount += result.product.priceUni * result.line.quantity;
+              }
+            });
+            callback();
+          },
+          error: (q) => {
+            console.error("Error in product requests:", q);
+          }
+        });
+      },
+      error: (e) => {
+        console.error("Error fetching lines:", e);
+      }
+    });
+  }
     
 
   goBack() {

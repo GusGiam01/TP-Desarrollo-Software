@@ -26,7 +26,7 @@ export class SendUsMailComponent {
     if (emailForm.from != "" && emailForm.text != "" && emailForm.subject != ""){
       let email = {
           to: "gustgiam2001@gmail.com",
-          subject: ("" + emailForm.subject).toUpperCase(),
+          subject: (emailForm.subject).toUpperCase(),
           text: ("De: " + emailForm.from + "\n" + emailForm.text).toUpperCase()
       }
       this.api.sendEmail(email).subscribe({

@@ -55,3 +55,6 @@ Backend/API Express/.env.*
 
 # Optional: local config files
 *.local
+
+C:\Users\Pc\Desktop\Estudios_academicos\Estudios_academicos\UTN 2024\Desarrollo de software\TP-Desarrollo-Software\Backend\API Express\ngrok_back.yml
+C:\Users\Pc\Desktop\Estudios_academicos\Estudios_academicos\UTN 2024\Desarrollo de software\TP-Desarrollo-Software\Backend\API Express\ngrok_front.yml
