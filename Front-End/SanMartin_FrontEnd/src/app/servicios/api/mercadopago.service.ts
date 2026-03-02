@@ -5,7 +5,7 @@ import { Observable } from "rxjs";
 export interface CreatePreferenceResponse {
   preferenceId: string;
   initPoint: string;
-  sandboxInitPoint?: string;
+  //sandboxInitPoint?: string;
 }
 
 @Injectable({ providedIn: "root" })

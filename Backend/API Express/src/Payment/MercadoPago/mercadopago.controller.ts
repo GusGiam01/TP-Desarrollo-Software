@@ -95,7 +95,7 @@ export const createPreference = async (req: Request, res: Response) => {
     return res.json({
       preferenceId: result.id,
       initPoint: token.startsWith("TEST-") ? result.sandbox_init_point : result.init_point,
-      sandboxInitPoint: result.sandbox_init_point,
+      //sandboxInitPoint: result.sandbox_init_point,
     });
   } catch (e: any) {
     console.error("MP error raw:", e);
