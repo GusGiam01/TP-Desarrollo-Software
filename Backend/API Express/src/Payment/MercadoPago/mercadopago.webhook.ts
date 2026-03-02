@@ -142,7 +142,7 @@ export const mercadopagoWebhook = async (req: Request, res: Response) => {
 
         tx.persist(order);
       } else if (status === "pending" || status === "in_process") {
-        (order as any).statusHistory = [...(order as any).statusHistory, "PENDING_PAYMENT1"];
+        (order as any).statusHistory = [...(order as any).statusHistory, "PENDING_PAYMENT"];
         (order as any).mpPaymentId = String(paymentId);
         tx.persist(order);
       } else if (status === "rejected" || status === "cancelled") {

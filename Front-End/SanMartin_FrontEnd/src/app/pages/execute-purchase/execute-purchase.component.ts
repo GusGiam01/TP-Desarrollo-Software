@@ -118,7 +118,7 @@ export class ExecutePurchaseComponent implements OnInit {
           id: orderId,
           confirmDate: new Date(),
           address: selectedAddressId as any,
-          statusHistory: [...prev, "PENDING_PAYMENT2"],
+          statusHistory: [...prev],//, "PENDING_PAYMENT"],
         }).subscribe({
           next: () => {
             this.api.createMercadoPagoPreference(orderId).subscribe({
