@@ -1,0 +1,268 @@
+.wrap {
+  min-height: 70vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.card {
+  margin-top: 150px;
+  width: min(720px, 92vw);
+  background: #ffffff;
+  border: 1px solid #e8e8ef;
+  border-radius: 14px;
+  padding: 18px 18px 16px;
+  box-shadow: 0 6px 18px rgba(18, 18, 28, 0.06);
+}
+
+.header {
+  margin-bottom: 14px;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: #12121c;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #55556a;
+}
+
+.mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+}
+
+.state {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 6px;
+}
+
+.state-text {
+  color: #33334a;
+  font-size: 14px;
+}
+
+.spinner {
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  border: 2px solid #d8d8e6;
+  border-top-color: #11112a;
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.status-row {
+  display: flex;
+  align-items: center;
+  margin: 6px 0 10px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  border: 1px solid transparent;
+}
+
+.badge--ok {
+  background: #ecfdf3;
+  color: #067647;
+  border-color: #b7f0cf;
+}
+
+.badge--pending {
+  background: #fff7ed;
+  color: #9a3412;
+  border-color: #fed7aa;
+}
+
+.badge--fail {
+  background: #fef2f2;
+  color: #b91c1c;
+  border-color: #fecaca;
+}
+
+.badge--neutral {
+  background: #f4f4f7;
+  color: #2f2f3d;
+  border-color: #e2e2ea;
+}
+
+.message {
+  color: #2f2f3d;
+  line-height: 1.5;
+  font-size: 14px;
+  margin-bottom: 14px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin: 10px 0 14px;
+}
+
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.kv {
+  border: 1px solid #ededf5;
+  background: #fbfbfe;
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+
+.k {
+  font-size: 12px;
+  color: #6b6b80;
+  margin-bottom: 6px;
+}
+
+.v {
+  font-size: 14px;
+  color: #141426;
+  font-weight: 700;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+.btn {
+  appearance: none;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn--primary {
+  background: #11112a;
+  color: #ffffff;
+}
+
+.btn--primary:hover {
+  background: #0b0b1e;
+}
+
+.btn--ghost {
+  background: transparent;
+  border-color: #d8d8e6;
+  color: #141426;
+}
+
+.btn--ghost:hover {
+  background: #f6f6fb;
+}
+
+.alert {
+  border-radius: 12px;
+  border: 1px solid transparent;
+  padding: 12px;
+  margin-top: 8px;
+}
+
+.alert--error {
+  background: #fef2f2;
+  border-color: #fecaca;
+}
+
+.alert-title {
+  font-weight: 800;
+  color: #991b1b;
+  margin-bottom: 6px;
+}
+
+.alert-msg {
+  color: #7f1d1d;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+.hint {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #6b6b80;
+}
+
+/* ===== Tema general según mpResult ===== */
+.card.theme--success {
+  border-color: #b7f0cf;
+}
+.card.theme--pending {
+  border-color: #fed7aa;
+}
+.card.theme--failure {
+  border-color: #fecaca;
+}
+
+.card.theme--success .title {
+  color: #067647;
+}
+.card.theme--pending .title {
+  color: #9a3412;
+}
+.card.theme--failure .title {
+  color: #b91c1c;
+}
+
+/* ===== Banner MP ===== */
+.mp-banner {
+  border-radius: 12px;
+  border: 1px solid transparent;
+  padding: 10px 12px;
+  margin: 8px 0 12px;
+}
+
+.mp-banner__title {
+  font-weight: 800;
+  margin-bottom: 4px;
+  font-size: 13px;
+}
+
+.mp-banner__msg {
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.mp-banner--success {
+  background: #ecfdf3;
+  border-color: #b7f0cf;
+  color: #067647;
+}
+
+.mp-banner--pending {
+  background: #fff7ed;
+  border-color: #fed7aa;
+  color: #9a3412;
+}
+
+.mp-banner--failure {
+  background: #fef2f2;
+  border-color: #fecaca;
+  color: #b91c1c;
+}

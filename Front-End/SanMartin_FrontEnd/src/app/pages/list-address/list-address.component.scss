@@ -1,0 +1,115 @@
+@font-face {
+  font-family: "SecondarySMfont";
+  src: url("../../../../public/font/puntosVenta/SaaSeriesCDOT.ttf");
+}
+
+.addresses-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 140px auto 0;
+  font-family: 'SecondarySMfont';
+}
+
+.addresses-container h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.addresses-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.address-item {
+  background-color: #c0956d;
+  margin-bottom: 15px;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.address-item h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.address-item p {
+  margin: 5px 0;
+}
+
+.address-item strong {
+  color: black;
+}
+
+ng-template {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #999;
+}
+
+.sortcontainer-button_div{
+  display: flex;
+  justify-content: space-between;
+}
+
+.sort-container {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+}
+
+.sort-container label {
+  font-size: 1rem;
+  margin-right: 10px;
+  font-family: 'SecondarySMfont';
+}
+
+.sort-container select {
+  padding: 5px 10px;
+  font-family: 'SecondarySMfont';
+  font-size: 1rem;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s ease;
+}
+
+.sort-container select:focus {
+  border-color: #8F342F;
+  outline: none;
+}
+
+.div_button {
+  margin-bottom: 10px;
+}
+
+.address_btn {
+  font-family: 'SecondarySMfont';
+  margin-right: 10px;
+  background-color: #8F342F;
+  border: none;
+  border-radius: 2px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.go-back_btn {
+  font-size: 16px;
+}
+
+//SM - hasta:650px
+@media (max-width: 650px){
+  .addresses-container{
+    padding-top: 0%;
+  }
+}
+
+//SM - hasta:1024px
+@media (min-width: 650px) and (max-width: 1024px) {
+  .addresses-container{
+    padding-top: 0%;
+  }
+}

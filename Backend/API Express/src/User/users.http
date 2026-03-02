@@ -1,0 +1,115 @@
+### Obtener todos los usuarios
+GET http://localhost:3000/api/users
+
+### Crear un usuario en particular
+# @name createGustavo
+POST http://localhost:3000/api/users
+Content-Type: application/json
+
+{
+    "name":"Gustavo", 
+    "surname":"Giampietro", 
+    "userName":"GusGiam",
+    "password":"ggg",
+    "type":"Admin",
+    "mail":"gusgiam@gmail.com",
+    "cellphone":"3364987633",
+    "age":22,
+    "birthDate": "2001-11-01",
+    "dni": "43355660"
+}
+
+### ID
+@id = {{createGustavo.response.body.data.dni}}
+
+### Obtener uno en particular
+GET http://localhost:3000/api/users/{{id}}
+
+### Crear un nuevo usuario
+POST http://localhost:3000/api/users
+Content-Type: application/json
+
+{
+    "name":"Sebastian", 
+    "surname":"Ondarcuhu", 
+    "userName":"Sebas",
+    "password":"214365",
+    "type":"Cliente",
+    "mail":"sondar@gmail.com",
+    "cellphone":"3364845962",
+    "age":53,
+    "birthDate": "1972-04-29",
+    "dni": "22457894"
+}
+
+### Modificar un nuevo usuario (PUT - recurso completo e idempotente)
+PUT http://localhost:3000/api/users/{{id}}
+Content-Type: application/json
+
+{
+    "name":"Gabriel", 
+    "surname":"Dequelli", 
+    "userName":"GDequelli",
+    "password":"123452354",
+    "type":"Admin",
+    "mail":"dequelliG@gmail.com",
+    "cellphone":"3364456871",
+    "age":25,
+    "birthDate": "1998-05-31",
+    "dni": "40564842"
+}
+
+### Modificar un nuevo usuario (PATCH - recurso parcial)
+PATCH http://localhost:3000/api/users/{{id}}
+Content-Type: application/json
+
+{
+    "name":"Marcos", 
+    "surname":"Galperin", 
+    "cellphone":"3364651748",
+    "age":40
+}
+
+@id1 = 697932e646593e4019def5cf
+
+### Modificar tipo de usuario (PATCH - recurso parcial)
+PATCH http://localhost:3000/api/users/{{id1}}
+Content-Type: application/json
+
+{
+    "type":"Admin"
+}
+
+
+### POST a user para borrar
+# @name createUserToDelete
+POST http://localhost:3000/api/users
+Content-Type: application/json
+{
+    "name":"Natalia", 
+    "surname":"Peruchena", 
+    "userName":"NatiP",
+    "password":"0137036542",
+    "type":"Client",
+    "mail":"natiPM@gmail.com",
+    "cellphone":"3364534664",
+    "age":52,
+    "birthDate": "1973-05-12",
+    "dni": "23512478"
+}
+
+### DELETE a user
+@idToDelete = {{createUserToDelete.response.body.data.id}}
+DELETE http://localhost:3000/api/users/{{idToDelete}}
+
+### PATCH a user
+PATCH http://localhost:3000/api/users/{{idToDelete}}
+Content-Type: application/json
+{
+    "userName":"NPeru",
+    "password":"5485",
+    "type":"Admin"
+}
+
+### Borrar un elemento
+DELETE http://localhost:3000/api/users/{{id}}

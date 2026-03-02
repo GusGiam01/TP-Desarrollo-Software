@@ -1,0 +1,392 @@
+/* =========================
+   HEADER (TOP)
+   ========================= */
+
+.div-control{
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.header{
+  background-color: #8F342F;
+  display: block;
+  padding: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  z-index: 3;
+  position: relative;
+}
+
+.header_ul-menu{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.header_layout{
+  display: grid;
+  grid-template-columns: 1fr auto 1fr; /* izquierda / logo centrado / derecha */
+  align-items: center;
+  column-gap: 14px;
+}
+
+/* ZONAS */
+.header_left{
+  justify-self: start;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.header_center{
+  justify-self: center;
+  display: flex;
+  align-items: center;
+}
+
+.header_right{
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 14px;
+  min-width: 0;
+}
+
+/* LOGO */
+.a_logo{
+  font-family: "SanMartin";
+  color: transparent;
+  -webkit-text-stroke: 1.5px;
+  -webkit-text-stroke-color: black;
+  font-size: 3rem;
+  text-decoration: none;
+  background-clip: text;
+  background-image: url(../../../public/img/fondo-sanMartin.png);
+  background-size: cover;
+}
+
+/* ACCIONES (Cuenta / Ingresar / Crear Cuenta / Carrito / Exit) */
+.ingresar_carrito-a,
+.exit-a{
+  display: grid;
+  grid-template-rows: 1.5fr 0.5fr;
+  justify-items: center;
+  text-decoration: none;
+}
+
+/* Iconos */
+.carrito-img{
+  width: 30px;
+  height: 30px;
+  padding-left: 4.3px;
+  padding-right: 5.7px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.ingresar-img{
+  width: 30px;
+  height: 30px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.exit-img{
+  width: 30px;
+  height: 30px;
+  padding-left: 1px;
+  padding-right: 8px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.ingresar_carrito-span{
+  grid-row: 2;
+  font-size: larger;
+  color: #EDDBCD;
+  font-family: 'SecondarySMfont';
+  font-style: normal;
+}
+
+/* Círculos detrás de los íconos */
+.dot{
+  height: 40px;
+  width: 40px;
+  background-color: #EDDBCD;
+  border-radius: 50%;
+  display: inline-block;
+  border: 2px solid black;
+}
+
+.dot-exit{
+  height: 40px;
+  width: 40px;
+  background-color: #EDDBCD;
+  border-radius: 50%;
+  display: inline-block;
+  -webkit-text-stroke: 5px;
+  -webkit-text-stroke-color: #000000;
+  border: 2px solid black;
+}
+
+/* DROPDOWN (botón hamburguesa) */
+#li_menu{
+  display: none; /* en desktop se usa el menú inferior */
+}
+
+.menu_icon{
+  display: none;
+}
+
+/* =========================
+   HEADER (BOTTOM - estilo "bombay")
+   ========================= */
+
+.div-bottom{
+  background-color: #aa524d;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  transition: all 0.1s;
+  top: 0px;
+  position: relative;
+  z-index: 1;
+}
+
+.compressed_menu{
+  margin-right: 150px;
+  margin-left: 150px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.ul-bottom{
+  list-style: none;
+  list-style-position: inside;
+  justify-content: space-around;
+  display: flex;
+  grid-template-rows: 1fr;
+  margin-top: 0%;
+  margin-bottom: 0%;
+}
+
+.li-bottom_menu{
+  display: flex;
+  grid-row: 1;
+  font-family: 'SecondarySMfont';
+  line-height: 1.5625;
+}
+
+.li-bottom_menu:hover > .a_li-bottom_menu{
+  text-decoration: underline;
+  color: #EDDBCD;
+}
+
+.a_li-bottom_menu{
+  font-style: normal;
+  color: #000000;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.admin-icon{
+  margin-left: 8px;
+  margin-top: 7px;
+  font-size: 24px;
+  color: #EDDBCD;
+}
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+/* SM - hasta: 650px */
+@media (max-width: 650px){
+  /* Ocultar menú inferior */
+  .div-bottom,
+  .compressed_menu,
+  .ul-bottom,
+  .li-bottom_menu,
+  .a_li-bottom_menu,
+  .admin-icon{
+    display: none;
+  }
+
+  /* Solo logo + hamburguesa */
+  .header_right{
+    display: none;
+  }
+
+  .exit-a{
+    display: none;
+  }
+
+  /* DROPDOWN */
+  #li_menu{
+    display: block;
+    cursor: pointer;
+    padding-right: 10px;
+
+    .dropdown{
+      display: none;
+      position: absolute;
+      top: 0%;
+      left: 0%;
+      width: 180px;
+      min-height: fit-content;
+      overflow: auto;
+      background-color: #aa524d;
+      border-radius: 5px;
+      border-top-left-radius: 0%;
+
+      ul{
+        margin: 20px;
+        list-style: none;
+        display: flex;
+        gap: 10px;
+        flex-direction: column;
+        padding: 0%;
+        margin-bottom: 0%;
+        margin-left: 0%;
+
+        a{
+          text-decoration: none;
+          color: #000000;
+          padding: 15px 30px;
+          display: block;
+        }
+
+        li:hover{
+          background-color: #8F342F;
+        }
+      }
+
+      #div_button{
+        display: flex;
+        justify-content: left;
+        align-items: center;
+
+        #close_button{
+          padding-left: 10%;
+          padding-top: 10%;
+        }
+      }
+    }
+
+    .dropdown.active{
+      display: block;
+    }
+
+    .menu_button{
+      display: block;
+    }
+
+    .menu_button.active{
+      display: none;
+    }
+  }
+
+  .menu_icon{
+    display: block;
+    width: 25px;
+  }
+}
+
+/* MD - hasta: 1024px y desde 650px */
+@media (max-width: 1024px) and (min-width: 650px){
+  /* Ocultar menú inferior */
+  .div-bottom,
+  .compressed_menu,
+  .ul-bottom,
+  .li-bottom_menu,
+  .a_li-bottom_menu,
+  .admin-icon{
+    display: none;
+  }
+
+  /* Compactar un poco */
+  .header_layout{
+    column-gap: 10px;
+  }
+
+  .header_right{
+    gap: 10px;
+  }
+
+  .exit-a{
+    display: none;
+  }
+
+  /* DROPDOWN visible también en tablets */
+  #li_menu{
+    display: block;
+    cursor: pointer;
+    padding-right: 10px;
+
+    .dropdown{
+      display: none;
+      position: absolute;
+      top: 0%;
+      left: 0%;
+      width: 180px;
+      min-height: fit-content;
+      overflow: auto;
+      background-color: #aa524d;
+      border-radius: 5px;
+      border-top-left-radius: 0%;
+
+      ul{
+        margin: 20px;
+        list-style: none;
+        display: flex;
+        gap: 10px;
+        flex-direction: column;
+        padding: 0%;
+        margin-bottom: 0%;
+        margin-left: 0%;
+
+        a{
+          text-decoration: none;
+          color: #000000;
+          padding: 15px 30px;
+          display: block;
+        }
+
+        li:hover{
+          background-color: #8F342F;
+        }
+      }
+
+      #div_button{
+        display: flex;
+        justify-content: left;
+        align-items: center;
+
+        #close_button{
+          padding-left: 10%;
+          padding-top: 10%;
+        }
+      }
+    }
+
+    .dropdown.active{
+      display: block;
+    }
+
+    .menu_button{
+      display: block;
+    }
+
+    .menu_button.active{
+      display: none;
+    }
+  }
+
+  .menu_icon{
+    display: block;
+    width: 25px;
+  }
+}

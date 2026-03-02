@@ -1,0 +1,30 @@
+<div class="container">
+    <div>
+        <div class="item-container item">
+            <p style="grid-area: 'product';">Producto</p>
+            <p style="grid-area: 'price';">Precio</p>
+            <p style="grid-area: 'quantity';">Cant.</p>
+            <p style="grid-area: 'total';">Subtotal</p>
+            <p style="grid-area: 'x';"> </p>
+        </div>
+    </div>
+
+    <div *ngFor="let l of cartLinesOrder" class="item-container item">
+        <p>{{ l.product.name }}</p>
+        <p>{{ l.product.priceUni }}</p>
+        <p>{{ l.quantity }}</p>
+        <p>{{ l.product.priceUni * l.quantity }}</p>
+
+        <div class="remove_btn_grid">
+            <button type="button" class="remove_btn" (click)="removeItem(l)">X</button>
+        </div>
+    </div>
+
+   <div class="outline_div">
+    <div >
+        <span>TOTAL: $</span>
+        <span>{{total}}</span>
+    </div>
+    <button type="button" class="buy_btn" (click)="redirectToComponent()" *ngIf="total != 0">CONTINUAR A LA COMPRA</button>
+   </div>
+</div>
