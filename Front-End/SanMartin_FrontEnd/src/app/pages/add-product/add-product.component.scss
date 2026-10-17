@@ -1,0 +1,132 @@
+@font-face {
+  font-family: "SecondarySMfont";
+  src: url("../../../../public/font/puntosVenta/SaaSeriesCDOT.ttf")
+}
+
+.add-product-container {
+    margin-top: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    display: list-item ;
+    justify-content: center;
+    align-items: center;
+    height: 200vh;
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+    font-family: "SecondarySMfont";
+  
+    .form-title {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2rem;
+      color: #000000;
+    }
+  
+    .form-group {
+      margin-bottom: 15px;
+  
+      label {
+        font-size: 1rem;
+        color: #000000;
+        display: block;
+        margin-bottom: 5px;
+      }
+  
+      input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 1rem;
+        color: #000000;
+        box-sizing: border-box;
+  
+        &:focus {
+          border-color: #007BFF;
+          outline: none;
+        }
+      }
+    }
+  
+    .submit-btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background-color: #007BFF;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+  
+      &:hover {
+        background-color: #0056b3;
+      }
+  
+      &:disabled {
+        background-color: #cccccc;
+        cursor: not-allowed;
+      }
+    }
+    .cancel-btn {
+      background-color: #dc3545;
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      font-size: 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    
+      &:hover {
+        background-color: #c82333;
+      }
+    
+      &:active {
+        background-color: #bd2130;
+      }
+    
+      &:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.5);
+      }
+    }
+
+    .error-message {
+      color: red;
+      font-weight: bold;
+    }
+    
+  }
+  
+  @media (max-width: 1024px) {
+    .form-group {
+      input {
+        font-size: 0.9rem;
+      }
+    }
+  
+    .submit-btn {
+      font-size: 1rem;
+    }
+  }
+
+//SM - hasta:391px
+@media (max-width:391px) {
+  .add-product-container{
+    margin-top: 100px;
+    max-width: 330px;
+    height: fit-content;
+  }
+}
+
+//SM - hasta:1024px
+@media (min-width: 650px) and (max-width: 1024px) {
+  .add-product-container{
+    margin-top: 100px;
+    max-width: 330px;
+    height: fit-content;
+  }
+}

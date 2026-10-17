@@ -1,0 +1,17 @@
+<div class="user-card-container">
+    <button class="modify-btn" (click)="goModify()">Modificar datos</button>
+    <div class="user-card">
+      <h2>Datos del Usuario</h2>
+      <p><strong>ID:</strong> {{ user.id }}</p>
+      <p><strong>Tipo:</strong> {{ user.type }}</p>
+      <p><strong>Nombre:</strong> {{ user.name }}</p>
+      <p><strong>Apellido:</strong> {{ user.surname }}</p>
+      <p><strong>DNI:</strong> {{ user.dni }}</p>
+      <p><strong>Edad:</strong> {{ user.age }}</p>
+      <p><strong>Fecha de Nacimiento:</strong> {{ getFormattedDate(user.birthDate)}}</p>
+      <p><strong>Email:</strong> {{ user.mail }}</p>
+      <p><strong>Teléfono:</strong> {{ user.cellphone }}</p>
+    </div>
+    <button class="back-btn" (click)="goBack()">Volver</button>
+  </div>
+  

@@ -1,0 +1,64 @@
+@font-face {
+  font-family: "SecondarySMfont";
+  src: url("../../../../public/font/puntosVenta/SaaSeriesCDOT.ttf")
+}
+$background-color: #c0956d;
+$text-color: #8B1D1E;
+$button-color: #007bff;
+
+.thank-you-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: $background-color;
+  color: $text-color;
+
+  .thank-you-message {
+    font-size: 3rem;
+    font-weight: bold;
+    text-align: center;
+    transform-origin: center;
+    font-family: 'SecondarySMfont';
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+  }
+}
+
+@keyframes fadeInZoom {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+
+//SM - hasta:650px
+@media (max-width: 650px){
+  .thank-you-container{
+    height: 50vh;
+    margin-top: 150px;
+    .thank-you-message{
+      font-size: 2rem;
+    }
+  }
+}
+
+//SM - hasta:1024px
+@media (min-width: 650px) and (max-width: 1024px) {
+  .thank-you-container{
+    margin-top: 150px;
+  }
+}

@@ -1,0 +1,73 @@
+### Obtener todos los productos
+GET http://localhost:3000/api/products
+
+### Crear un nuevo producto
+# @name createGin
+POST http://localhost:3000/api/products
+Content-Type: application/json
+
+{
+    "code":"G2340", 
+    "priceUni":8000, 
+    "name":"Gordon",
+    "stock":4,
+    "type":"Gin",
+    "state":"Disponible",
+    "discount":0,
+    "brand":"Aconcagua"
+}
+
+### ID
+@id = {{createGin.response.body.data.id}}
+
+### Obtener uno en particular
+GET http://localhost:3000/api/products/{{id}}
+
+### Crear un nuevo producto
+POST http://localhost:3000/api/products
+Content-Type: application/json
+
+{
+    "code":"SM2900", 
+    "priceUni":2300, 
+    "name":"San Martin",
+    "stock":7,
+    "type":"Vermuoth",
+    "state":"Disponible",
+    "discount":15,
+    "brand":"San Martin"
+}
+
+### Modificar un nuevo producto (PUT - recuro completo e idempotente)
+POST http://localhost:3000/api/products
+Content-Type: application/json
+
+{
+    "code":"VC234", 
+    "priceUni":500, 
+    "name":"Vokda",
+    "stock":9,
+    "type":"Botanico",
+    "state":"Encargado",
+    "discount":0,
+    "brand":" "
+}
+
+### Modificar un nuevo producto (PATCH - recurso parcial)
+PATCH http://localhost:3000/api/products/{{id}}
+Content-Type: application/json
+
+{
+    "name":"Fernet", 
+    "priceUni":1000, 
+    "discount":0,
+    "brand":"Branca"
+}
+
+
+### Borrar un elemento
+DELETE http://localhost:3000/api/products/{{id}}
+
+### Borrar un elemento
+
+DELETE http://localhost:3000/api/products/6740a5e18057f76cd48ddb5e

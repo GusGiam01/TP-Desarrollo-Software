@@ -1,0 +1,29 @@
+<div class="div_email">
+    <div>
+        <h2 class="h2_titulo">Envianos un Correo</h2>
+    </div>
+
+    <div class="div_email-container">
+            <form action="mailto:tu-email@dominio.com" method="post" enctype="text/plain" class="form_send-email" 
+            [formGroup]="sendEmail" (ngSubmit)="onSending(sendEmail.value)" >
+                <div class="form-group">
+                    <label for="from">DE:</label>
+                    <input type="email" id="from" name="from" placeholder="Tu correo electrónico" formControlName="from" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">ASUNTO:</label>
+                    <input type="text" id="subject" name="subject" placeholder="Asunto del correo" formControlName="subject" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">TEXTO:</label>
+                    <textarea id="message" name="message" placeholder="Escribe tu mensaje aquí" formControlName="text" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit">Enviar</button>
+                </div>
+            </form>
+    </div>
+</div>
